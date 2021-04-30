@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">HorseRiding</string>
+    <string name="title_activity_splashscreen">FullscreenActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="title_activity_fullscreen_splash">FullscreenActivity</string>
+    <string name="welcome_to_our_club">Welcome To Our Club</string>
+    <string name="emplois_du_temps">EMPLOIS DU TEMPS</string>
+    <string name="utilisateurs">UTILISATEURS</string>
 </resources>

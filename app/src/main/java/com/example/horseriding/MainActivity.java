@@ -12,6 +12,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+
 public class MainActivity extends AppCompatActivity {
      @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,11 +25,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         final TextView textView = (TextView) findViewById(R.id.text);
-// ...
-
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url ="http://192.168.43.169:45459/users";
+        String url ="http://192.168.1.4:45455/users";
 
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
