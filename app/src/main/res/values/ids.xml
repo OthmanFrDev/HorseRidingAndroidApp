@@ -3,4 +3,8 @@
     <item name="parentLinear" type="id" />
     <item name="btnConnect" type="id" />
     <item name="title_view" type="id" />
+    <item name="picuserlist" type="id" />
+    <item name="nameuserlist" type="id" />
+    <item name="userrolelist" type="id" />
+    <item name="listUser" type="id" />
 </resources>
