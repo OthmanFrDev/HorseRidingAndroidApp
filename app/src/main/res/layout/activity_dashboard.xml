@@ -12,7 +12,8 @@
         android:layout_below="@id/title_view"
         android:layout_margin="20dp"
         android:columnCount="2"
-        android:rowCount="3">
+        android:rowCount="3"
+        tools:ignore="UnknownId">
 
 
         <androidx.cardview.widget.CardView
@@ -49,6 +50,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
+            android:id="@id/cardviewuser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_row="0"
@@ -58,7 +60,9 @@
             android:layout_gravity="fill"
             app:cardCornerRadius="8dp"
             app:cardElevation="8dp"
-            app:cardUseCompatPadding="true">
+            app:cardUseCompatPadding="true"
+            android:onClick="afficherUtilisateur"
+            >
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -148,4 +152,12 @@
         </androidx.cardview.widget.CardView>
 
     </GridLayout>
+
+    <TextView
+        android:id="@+id/welcomeuser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        tools:layout_editor_absoluteX="22dp"
+        tools:ignore="MissingConstraints" />
 </androidx.constraintlayout.widget.ConstraintLayout>

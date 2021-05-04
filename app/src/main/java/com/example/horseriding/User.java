@@ -1,5 +1,6 @@
 package com.example.horseriding;
 
+
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -102,4 +103,5 @@ private String userEmail,userPasswd,userFname,userLname,description,userType,use
     public void setUserPhone(String userPhone) {
         this.userPhone = userPhone;
     }
+
 }

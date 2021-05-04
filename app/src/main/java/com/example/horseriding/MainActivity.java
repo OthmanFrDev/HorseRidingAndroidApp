@@ -24,11 +24,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
 
 public class MainActivity extends AppCompatActivity {
+    public static List<User> users=new ArrayList<>();
 
     String url = "http://192.168.111.1:45455/";
     private SharedPreferences sharedpreferences;
@@ -38,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dashboard);
+        setContentView(R.layout.activity_main);
 
         DatabaseHandler db = new DatabaseHandler(this);
 
@@ -65,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-
+users=getAllUsers();
         //login();
         //Log.d("shared", sharedpreferences.getString("nomUtilisateur", null));
        // getAllUsers();
@@ -347,37 +349,32 @@ public class MainActivity extends AppCompatActivity {
         MySingleton.getInstance(this.getApplicationContext()).addToRequestQueue(req);
     }
 
-    void getAllUsers() {
+    public List<User> getAllUsers() {
+         List<User>users=new ArrayList<>() ;
+
         JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, url+"users", null, new Response.Listener<JSONArray>() {
+
             @Override
             public void onResponse(JSONArray response) {
                 Log.d("getallusers", "success");
-                TextView txtNom = findViewById(R.id.txtNom);
-                TextView txtPrenom = findViewById(R.id.txtprenom);
-                TextView txtMail = findViewById(R.id.userEmail);
-                TextView txtPasswd = findViewById(R.id.userPasswd);
-                TextView textView = (TextView) findViewById(R.id.text);
-                try {
-                    JSONObject j = null;
-                    for (int i = 0; i < response.length(); i++) {
-                        try {
-                            j = response.getJSONObject(i);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
 
+                JSONObject j = null;
+                for (int i = 0; i < response.length(); i++) {
+                    try {
+                          j = response.getJSONObject(i);
 
+                        users.add(new User(j.getInt("userId"), j.getString("userEmail"),
+                                j.getString("userPasswd"), j.getString("userFname"),
+                                j.getString("userLname"), j.getString("description"),
+                                j.getString("userType"), j.getString("userphoto"), j.getString("userPhone")));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-                    Integer i = j.getInt("userId");
-                    txtNom.setText(j.getString("userFname"));
-                    txtPrenom.setText(j.getString("userLname"));
-                    txtMail.setText(j.getString("userEmail"));
-                    txtPasswd.setText(j.getString("userPasswd"));
-                    textView.setText(i.toString());
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
+
                 }
+
+
             }
         }, new Response.ErrorListener() {
             @Override
@@ -390,6 +387,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         MySingleton.getInstance(this.getApplicationContext()).addToRequestQueue(req);
+        return users;
     }
     void getAllClients() {
         JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, url+"clients", null, new Response.Listener<JSONArray>() {

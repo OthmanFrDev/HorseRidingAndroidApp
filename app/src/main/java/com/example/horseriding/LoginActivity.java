@@ -68,7 +68,14 @@ Log.d("response","okeeey");
 
                                 if (mailTxt.getText().toString().equals(j.getString("userEmail")) && pswdTxt.getText().toString().equals(j.getString("userPasswd"))&&j.getString("userType").equals("ADMIN")) {
                                     Log.d("login", "success");
-                                    Intent splashIntent = new Intent(LoginActivity.this, MainActivity.class);
+                                    SessionManager sessionManager=new SessionManager(LoginActivity.this);
+                                    User user = new User(j.getInt("userId"), j.getString("userEmail"),
+                                            j.getString("userPasswd"), j.getString("userFname"),
+                                            j.getString("userLname"), j.getString("description"),
+                                            j.getString("userType"), j.getString("userphoto"), j.getString("userPhone"));
+                                    sessionManager.createLoginSession(user);
+
+                                    Intent splashIntent = new Intent(LoginActivity.this, DashboardActivity.class);
                                     LoginActivity.this.startActivity(splashIntent);
                                     LoginActivity.this.finish();
                                     break;
