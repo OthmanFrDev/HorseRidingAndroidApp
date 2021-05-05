@@ -7,4 +7,5 @@
     <item name="nameuserlist" type="id" />
     <item name="userrolelist" type="id" />
     <item name="listUser" type="id" />
+    <item name="searchinput" type="id" />
 </resources>
