@@ -25,8 +25,8 @@ public class UserAdapter extends ArrayAdapter<User> {
         v=li.inflate(R.layout.activity_ligne__list__user_,parent,false);
         TextView txtName=v.findViewById(R.id.nameuserlist);
         TextView txtRole=v.findViewById(R.id.userrolelist);
-        txtName.setText(this.getItem(position).toString());
-        txtRole.setText(this.getItem(position).toString());
+        txtName.setText(this.getItem(position).getUserFname()+" "+this.getItem(position).getUserLname());
+        txtRole.setText(this.getItem(position).getUserType());
         return v;
     }
 }

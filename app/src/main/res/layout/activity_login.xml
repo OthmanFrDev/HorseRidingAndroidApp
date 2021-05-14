@@ -27,6 +27,7 @@
             android:textSize="20dp"
             android:textColor="@color/orange"/>
         <EditText
+            android:id="@+id/mailtxt"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
@@ -39,6 +40,7 @@
             android:background="@drawable/edit"
             android:padding="10dp"/>
         <EditText
+            android:id="@+id/pswdtxt"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
@@ -68,7 +70,8 @@
             android:textColor="@color/black"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:background="@drawable/button"/>
+            android:background="@drawable/button"
+            android:onClick="clickhandler"/>
     </LinearLayout>
 
 </LinearLayout>
