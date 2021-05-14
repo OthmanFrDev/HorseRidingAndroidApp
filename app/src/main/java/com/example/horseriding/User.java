@@ -3,11 +3,12 @@ package com.example.horseriding;
 
 import android.widget.ListView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class User {
-private int userId;
+public class User implements Serializable {
+private int userId,adminLevel,isActive;
 private String userEmail,userPasswd,userFname,userLname,description,userType,userphoto,userPhone;
     private List<Seance> seances;
 

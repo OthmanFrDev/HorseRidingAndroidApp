@@ -2,7 +2,8 @@ package com.example.horseriding;
 
 public class Task {
     private int taskId,durationMinut,userFk;
-    private String title,detail;
+    private String title,detail,startDate,isDone;
+
 
     public Task(int taskId, int durationMinut, int userFk, String title, String detail) {
         this.taskId = taskId;
@@ -10,6 +11,26 @@ public class Task {
         this.userFk = userFk;
         this.title = title;
         this.detail = detail;
+    }
+
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    public String getIsDone() {
+        return isDone;
+    }
+
+    public void setIsDone(String isDone) {
+        this.isDone = isDone;
+    }
+
+    public Task() {
+
     }
 
     public int getTaskId() {

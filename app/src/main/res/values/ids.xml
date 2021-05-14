@@ -8,4 +8,7 @@
     <item name="userrolelist" type="id" />
     <item name="listUser" type="id" />
     <item name="cardviewuser" type="id" />
+    <item name="cardviewseance" type="id" />
+    <item name="cardviewtask" type="id" />
+    <item name="cardviewemploi" type="id" />
 </resources>

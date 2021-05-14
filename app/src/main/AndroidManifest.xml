@@ -2,10 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.horseriding">
 
-<uses-permission android:name="android.permission.INTERNET"/>
-<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-
 
     <application
         android:allowBackup="true"
@@ -15,7 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HorseRiding"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ListActivity"></activity>
+        <activity android:name=".test"></activity>
+        <activity android:name=".ListActivity" />
+        <activity android:name=".SeanceController"></activity>
         <activity android:name=".ligne_List_User_Activity" />
         <activity android:name=".DashboardActivity" />
         <activity android:name=".LoginActivity" />

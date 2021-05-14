@@ -41,14 +41,40 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     public void afficherUtilisateur(View view) {
-        MainActivity main=new MainActivity();
 
+        MainActivity main = new MainActivity();
         Intent splashIntent = new Intent(DashboardActivity.this, ListActivity.class);
+        switch (view.getId()) {
+            case R.id.cardviewuser:
 
+  splashIntent.putExtra("user","0");
+                DashboardActivity.this.startActivity(splashIntent);
+                DashboardActivity.this.finish();
+
+            break;
+            case R.id.cardviewtask:
+
+splashIntent.putExtra("task","1");
+                DashboardActivity.this.startActivity(splashIntent);
+                DashboardActivity.this.finish();
+
+            break;
+            case R.id.cardviewseance:
+
+                splashIntent.putExtra("seance","2");
+                DashboardActivity.this.startActivity(splashIntent);
+                DashboardActivity.this.finish();
+
+            break;
+        }
+
+    }
+
+    public void logout(View view) {
+        SessionManager sessionManager=new SessionManager(this);
+        sessionManager.logout();
+        Intent splashIntent = new Intent(DashboardActivity.this, LoginActivity.class);
         DashboardActivity.this.startActivity(splashIntent);
         DashboardActivity.this.finish();
     }
-
-
-
 }
