@@ -1,12 +1,9 @@
 package com.example.horseriding;
 
 import android.content.Context;
-import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
@@ -15,11 +12,9 @@ import androidx.annotation.Nullable;
 
 import java.util.List;
 
-public class UserAdapter extends ArrayAdapter<User> {
-    private Context context ;
-    public UserAdapter(@NonNull Context context,@NonNull List<User> objects) {
+public class SeanceAdapter extends ArrayAdapter<Seance> {
+    public SeanceAdapter(@NonNull Context context, @NonNull List<Seance> objects) {
         super(context, 0, objects);
-        this.context =context;
     }
 
     @NonNull
@@ -30,10 +25,9 @@ public class UserAdapter extends ArrayAdapter<User> {
         v=li.inflate(R.layout.activity_ligne__list__user_,parent,false);
         TextView txtName=v.findViewById(R.id.nameuserlist);
         TextView txtRole=v.findViewById(R.id.userrolelist);
-        txtName.setText(this.getItem(position).getUserFname()+" "+this.getItem(position).getUserLname());
-        txtRole.setText(this.getItem(position).getUserType());
-        User item=this.getItem(position);
+        txtName.setText("comment : "+ this.getItem(position).getComments());
+        txtRole.setText("id " +String.valueOf(this.getItem(position).getSeanceId()) );
         return v;
     }
-
 }
+

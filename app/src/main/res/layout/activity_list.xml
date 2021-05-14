@@ -5,20 +5,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ListActivity">
-    <SearchView
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@id/toolBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/purple_700"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:layout_constraintTop_toTopOf="parent"/>
+        <SearchView
         android:id="@id/searchinput"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/listUser"
+        android:layout_width="match_parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolBar"
+        android:layout_height="wrap_content"
         />
     <ListView
-
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/searchinput"
-        android:id="@id/listUser"/>
+        android:id="@id/listUser">
+    </ListView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

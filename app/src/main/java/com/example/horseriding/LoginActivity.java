@@ -28,11 +28,16 @@ public class LoginActivity extends AppCompatActivity {
     private SharedPreferences sharedpreferences;
     String url = "http://192.168.1.7:45455/users";
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         Button btnConnect= findViewById(R.id.btnConnect);
+        SessionManager sessionManager=new SessionManager(LoginActivity.this);
+     if(sessionManager.chekingLogin()){ Intent splashIntent = new Intent(LoginActivity.this, DashboardActivity.class);
+         LoginActivity.this.startActivity(splashIntent);
+         LoginActivity.this.finish();}
 
 
     }

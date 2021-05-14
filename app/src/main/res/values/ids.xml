@@ -129,4 +129,7 @@
     <item name="Ven_10" type="id" />
     <item name="Ven_09" type="id" />
     <item name="Ven_08" type="id" />
+    <item name="cardviewseance" type="id" />
+    <item name="cardviewtask" type="id" />
+    <item name="cardviewemploi" type="id" />
 </resources>

@@ -54,7 +54,7 @@ public class SessionManager {
     }
     public boolean chekingLogin()
     {
-        return usersSession.getBoolean(IS_LOGIN,true)?true:false;
+        return usersSession.getBoolean(IS_LOGIN,false)?true:false;
         /*if(usersSession.getBoolean(IS_LOGIN,true))
         {
             return true;
