@@ -1,16 +1,36 @@
 package com.example.horseriding;
 
-public class Seance {
-    private int seanceId,seanceGrpId,clientId,monitorId,durationMinut;
-    private String comments;
+import java.io.Serializable;
 
-    public Seance(int seanceId, int seanceGrpId, int clientId, int monitorId, int durationMinut, String comments) {
+public class Seance implements Serializable {
+    private int seanceId,seanceGrpId,clientId,monitorId,durationMinut;
+    private String comments,startDate;
+
+    public Seance(int seanceId, String comments, int clientId, int monitorId, int durationMinut, String startDate) {
+        this.seanceId = seanceId;
+        this.clientId = clientId;
+        this.monitorId = monitorId;
+        this.durationMinut = durationMinut;
+        this.comments = comments;
+        this.startDate=startDate;
+    }
+
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    public Seance(int seanceId, int seanceGrpId, int clientId, int monitorId, int durationMinut, String comments,String startDate) {
         this.seanceId = seanceId;
         this.seanceGrpId = seanceGrpId;
         this.clientId = clientId;
         this.monitorId = monitorId;
         this.durationMinut = durationMinut;
         this.comments = comments;
+        this.startDate=startDate;
     }
 
     public int getSeanceId() {

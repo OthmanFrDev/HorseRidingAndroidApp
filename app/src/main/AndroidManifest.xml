@@ -14,22 +14,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HorseRiding"
         android:usesCleartextTraffic="true">
-        <activity android:name=".WeekView_Calendar"></activity>
-        <activity android:name=".RecycleCalendar"></activity>
+        <activity android:name=".DateTimePicker">
 
-        <activity android:name=".ListActivity" />
-        <activity android:name=".SeanceController"></activity>
-        <activity android:name=".ligne_List_User_Activity" />
-        <activity android:name=".DashboardActivity" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".SplashScreen">
+        </activity>
+        <activity android:name=".WeekView_Calendar" />
+        <activity android:name=".RecycleCalendar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".calendarDayActivity" />
+        <activity android:name=".ListActivity" />
+        <activity android:name=".SeanceController" />
+        <activity android:name=".ligne_List_User_Activity" />
+        <activity android:name=".DashboardActivity" />
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".UserController" />
+        <activity android:name=".SplashScreen"></activity>
         <activity android:name=".MainActivity" />
     </application>
 

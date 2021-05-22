@@ -26,7 +26,7 @@ import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity {
     private SharedPreferences sharedpreferences;
-    String url = "http://192.168.1.7:45455/users";
+    String url = "http://192.168.111.1:45455/users";
 
 
     @Override

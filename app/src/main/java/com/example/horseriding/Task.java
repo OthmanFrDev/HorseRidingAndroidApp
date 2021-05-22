@@ -4,6 +4,15 @@ public class Task {
     private int taskId,durationMinut,userFk;
     private String title,detail,startDate,isDone;
 
+    public Task(int taskId,String startDate, int durationMinut,  String title, String detail,  String isDone,int userFk) {
+        this.taskId = taskId;
+        this.durationMinut = durationMinut;
+        this.userFk = userFk;
+        this.title = title;
+        this.detail = detail;
+        this.startDate = startDate;
+        this.isDone = isDone;
+    }
 
     public Task(int taskId, int durationMinut, int userFk, String title, String detail) {
         this.taskId = taskId;

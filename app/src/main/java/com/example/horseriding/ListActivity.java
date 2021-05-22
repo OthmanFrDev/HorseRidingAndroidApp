@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -198,7 +199,7 @@ public class ListActivity extends AppCompatActivity {
                             j = response.getJSONObject(i);
                             seances.add(new Seance(j.getInt("seanceId"),j.getInt("seanceGrpId"),
                                     j.getInt("clientId"),j.getInt("monitorId"),
-                                    j.getInt("durationMinut"),j.getString("comments"))) ;
+                                    j.getInt("durationMinut"),j.getString("comments"),j.getString("startDate"))) ;
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -230,5 +231,11 @@ public class ListActivity extends AppCompatActivity {
 
         MySingleton.getInstance(this.getApplicationContext()).addToRequestQueue(req);
         return seances;
+    }
+
+    public void PostUser(View view) {
+        Intent postUserIntent = new Intent(ListActivity.this,UserController.class);
+        ListActivity.this.startActivity(postUserIntent);
+        ListActivity.this.finish();
     }
 }

@@ -132,4 +132,5 @@
     <item name="cardviewseance" type="id" />
     <item name="cardviewtask" type="id" />
     <item name="cardviewemploi" type="id" />
+    <item name="btnnext" type="id" />
 </resources>

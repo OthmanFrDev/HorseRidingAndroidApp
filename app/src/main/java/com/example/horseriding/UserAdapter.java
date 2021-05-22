@@ -33,6 +33,17 @@ public class UserAdapter extends ArrayAdapter<User> {
         txtName.setText(this.getItem(position).getUserFname()+" "+this.getItem(position).getUserLname());
         txtRole.setText(this.getItem(position).getUserType());
         User item=this.getItem(position);
+        v.setOnClickListener(new View.OnClickListener() {
+                                 @Override
+                                 public void onClick(View v) {
+                                     Log.d("click",item.getUserFname().toString());
+                                     Intent splashIntent = new Intent(context,test.class);
+                                     splashIntent.putExtra("user",item);
+                                     context.startActivity(splashIntent);
+
+                                 }
+                             }
+        );
         return v;
     }
 
