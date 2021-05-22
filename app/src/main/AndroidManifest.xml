@@ -14,7 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HorseRiding"
         android:usesCleartextTraffic="true">
-        <activity android:name=".WeekView_Calendar"></activity>
+        <activity android:name=".WeekView_Calendar">
+
+        </activity>
         <activity android:name=".RecycleCalendar"></activity>
 
         <activity android:name=".ListActivity" />

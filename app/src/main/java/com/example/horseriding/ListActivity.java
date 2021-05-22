@@ -2,6 +2,8 @@ package com.example.horseriding;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,8 +25,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ListActivity extends AppCompatActivity {
-    ListView listClient;
-    String url = "http://192.168.111.1:45455/";
+    RecyclerView listClient;
+    String url = "http://192.168.1.7:45455/";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,14 +47,7 @@ public class ListActivity extends AppCompatActivity {
         super.onResume();
         listClient=findViewById(R.id.listUser);
         if(listClient!=null){
-
                getAllUsers();
-
-
-
-
-
-
         }
 
     }
@@ -69,7 +64,6 @@ public class ListActivity extends AppCompatActivity {
                 for (int i = 0; i < response.length(); i++) {
                     try {
                         j = response.getJSONObject(i);
-
                         users.add(new User(j.getInt("userId"), j.getString("userEmail"),
                                 j.getString("userPasswd"), j.getString("userFname"),
                                 j.getString("userLname"), j.getString("description"),
@@ -80,7 +74,8 @@ public class ListActivity extends AppCompatActivity {
 
 
                 }
-                UserAdapter ua=new UserAdapter(ListActivity.this,users);
+                UserAdapterRecycle ua=new UserAdapterRecycle(ListActivity.this,users);
+                listClient.setLayoutManager(new LinearLayoutManager(ListActivity.this));
                 listClient.setAdapter(ua);
 
             }
@@ -164,7 +159,7 @@ public class ListActivity extends AppCompatActivity {
 
 
                 }
-                TaskAdapter ua=new TaskAdapter(ListActivity.this,tasks);
+                TaskAdapterRecycle ua=new TaskAdapterRecycle(ListActivity.this,tasks);
                 listClient.setAdapter(ua);
 
             }
@@ -205,7 +200,7 @@ public class ListActivity extends AppCompatActivity {
 
 
                     }
-                    SeanceAdapter ua=new SeanceAdapter(ListActivity.this,seances);
+                    SeanceAdapterRecycle ua=new SeanceAdapterRecycle(ListActivity.this,seances);
                     listClient.setAdapter(ua);
                     Integer i = j.getInt("clientId");
                     txtNom.setText(j.getString("fName"));

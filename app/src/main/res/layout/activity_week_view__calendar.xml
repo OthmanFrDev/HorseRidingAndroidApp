@@ -216,13 +216,15 @@
                 android:layout_height="match_parent"
                 android:rowCount="11"
                 android:columnCount="1">
+
                 <TextView
                     android:id="@id/Lun_08"
                     android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
-                    android:textAlignment="center"
-                    android:text="" />
+                    android:text=""
+                    android:textAlignment="center" />
 
                 <TextView
                     android:id="@id/Lun_09"
