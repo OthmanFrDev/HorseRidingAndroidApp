@@ -47,21 +47,28 @@ public class DashboardActivity extends AppCompatActivity {
         switch (view.getId()) {
             case R.id.cardviewuser:
 
-  splashIntent.putExtra("user","0");
+  splashIntent.putExtra("click","0");
+
                 DashboardActivity.this.startActivity(splashIntent);
                 DashboardActivity.this.finish();
 
             break;
             case R.id.cardviewtask:
 
-splashIntent.putExtra("task","1");
+splashIntent.putExtra("click","1");
                 DashboardActivity.this.startActivity(splashIntent);
                 DashboardActivity.this.finish();
 
             break;
             case R.id.cardviewseance:
 
-                splashIntent.putExtra("seance","2");
+                splashIntent.putExtra("click","2");
+                DashboardActivity.this.startActivity(splashIntent);
+                DashboardActivity.this.finish();
+
+            break;   case R.id.emplois:
+
+                splashIntent.putExtra("click","3");
                 DashboardActivity.this.startActivity(splashIntent);
                 DashboardActivity.this.finish();
 

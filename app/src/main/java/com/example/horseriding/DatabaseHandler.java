@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -149,29 +150,43 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 new String[] { String.valueOf(id) }, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
-    
+
         Task task = new Task(Integer.parseInt(cursor.getString(0)),
                 cursor.getString(1), Integer.parseInt(cursor.getString(2)), cursor.getString(3),
                cursor.getString(4), cursor.getString(5),Integer.parseInt(cursor.getString(6)));
         // return contact
         return task;
     }
-    public Seance readSeance(int id)
+
+    public List<Seance> readSeance()
     {
 
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.query(TABLE_SEANCES, new String[] { KEY_SID,
-                        KEY_COMMENTS, KEY_CLIENTID,KEY_MONITOR,KEY_DURATION,KEY_START }, KEY_SID + "=?",
-                new String[] { String.valueOf(id) }, null, null, null, null);
-        if (cursor != null)
-            cursor.moveToFirst();
 
-        Seance seance = new Seance(Integer.parseInt(cursor.getString(0)),
-                cursor.getString(1), Integer.parseInt(cursor.getString(2)), Integer.parseInt(cursor.getString(3)),
-                Integer.parseInt(cursor.getString(4)), cursor.getString(5));
-        // return contact
-        return seance;
+            List<Seance> seanceList=new ArrayList<>();
+
+        Cursor cursor = db.query(TABLE_SEANCES, new String[] { KEY_SID,
+                        KEY_COMMENTS, KEY_CLIENTID,KEY_MONITOR,KEY_DURATION,KEY_START }, null,
+                null, null, null, null);
+            if (!(cursor.moveToFirst()) || cursor.getCount() ==0){
+                //cursor is empty
+                Log.d("ppp","Utilisateur not found");
+                return null;
+            }
+            else
+            {
+                if (cursor.moveToFirst()) {
+                    while (!cursor.isAfterLast()) {
+                        seanceList.add(new Seance(Integer.parseInt(cursor.getString(0)),
+                                cursor.getString(1), Integer.parseInt(cursor.getString(2)), Integer.parseInt(cursor.getString(3)),
+                                Integer.parseInt(cursor.getString(4)), cursor.getString(5)));
+                        cursor.moveToNext();
+                    }
+                }
+                return seanceList;
+
+        }
     }
 
     // code to add the new client

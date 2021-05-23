@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.NumberPicker;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -27,6 +28,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 
 import org.json.JSONObject;
 
+import java.time.LocalDateTime;
 import java.util.Calendar;
 
 public class DateTimePicker extends AppCompatActivity implements
@@ -37,6 +39,7 @@ public class DateTimePicker extends AppCompatActivity implements
     private int mYear, mMonth, mDay, mHour, mMinute;
     Seance seance;
     private String url="http://192.168.111.1:45455/seances";
+    private int rep;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +57,21 @@ public class DateTimePicker extends AppCompatActivity implements
         seance= (Seance) intent.getSerializableExtra("seance");
         txtDate.setText(seance.getStartDate());
         txtTime.setText(intent.getStringExtra("time"));
+        NumberPicker np = findViewById(R.id.numberPicker);
+
+        np.setMinValue(1);
+        np.setMaxValue(8);
+
+        np.setOnValueChangedListener(onValueChangeListener);
+
     }
+    NumberPicker.OnValueChangeListener onValueChangeListener =
+            new 	NumberPicker.OnValueChangeListener(){
+                @Override
+                public void onValueChange(NumberPicker numberPicker, int i, int i1) {
+                    rep=numberPicker.getValue();
+                }
+            };
 
     @Override
     public void onClick(View v) {
@@ -135,20 +152,25 @@ else  txtTime.setText(hourOfDay + ":" + minute+":00");
 
         try {
             JSONObject jsonBody = new JSONObject();
+            LocalDateTime localDateTime = LocalDateTime.parse(txtDate.getText().toString() + "T" + txtTime.getText().toString());
+            for (int i = 0; i < rep; i++){
+
+
+
             //    jsonBody.put("userId", Integer.valueOf(userId.getText().toString()));
             jsonBody.put("seanceGrpId", 1);
             jsonBody.put("clientId", Integer.valueOf(clientid.getText().toString()));
             jsonBody.put("monitorId", Integer.valueOf(monitor.getText().toString()));
-            jsonBody.put("startDate", txtDate.getText().toString()+"T"+txtTime.getText().toString());
+            jsonBody.put("startDate", localDateTime);
             jsonBody.put("durationMinut", Integer.valueOf(duration.getText().toString()));
-            jsonBody.put("isDone",1);
-            jsonBody.put("paymentId",1);
+            jsonBody.put("isDone", 1);
+            jsonBody.put("paymentId", 1);
             jsonBody.put("comments", comment.getText().toString());
-
+                localDateTime = localDateTime.plusDays(7);
             Log.d("jsonbody", jsonBody.toString());
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                     Request.Method.POST,
-                    url ,
+                    url,
                     jsonBody,
                     new Response.Listener<JSONObject>() {
                         @Override
@@ -181,6 +203,9 @@ else  txtTime.setText(hourOfDay + ":" + minute+":00");
                     }
             );
             MySingleton.getInstance(DateTimePicker.this).addToRequestQueue(jsonObjectRequest);
+
+        }
+
         } catch (Exception e) {
             Toast.makeText(DateTimePicker.this, e.getMessage(), Toast.LENGTH_LONG).show();
             Log.d("wsrong", e.getMessage());

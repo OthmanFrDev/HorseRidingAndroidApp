@@ -2,13 +2,14 @@ package com.example.horseriding;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -24,12 +25,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ListActivity extends AppCompatActivity {
-    ListView listClient;
+    RecyclerView listClient;
     String url = "http://192.168.111.1:45455/";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list);
+        setContentView(R.layout.user_activity_list);
         //Setting ToolBar Back Button
         Toolbar toolbar=findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
@@ -37,7 +38,7 @@ public class ListActivity extends AppCompatActivity {
     }
     public boolean onOptionsItemSelected(MenuItem item){
 
-        Intent myIntent = new Intent(getApplicationContext(),MainActivity.class);
+        Intent myIntent = new Intent(getApplicationContext(),DashboardActivity.class);
         startActivity(myIntent);
         return true;
     }
@@ -46,13 +47,12 @@ public class ListActivity extends AppCompatActivity {
         super.onResume();
         listClient=findViewById(R.id.listUser);
         if(listClient!=null){
-
-               getAllUsers();
-
-
-
-
-
+            Intent intent=getIntent();
+            if(intent.getStringExtra("click")!=null){
+            if(intent.getStringExtra("click").equals("0")){getAllUsers();}
+            if(intent.getStringExtra("click").equals("1")){getAllTasks();}
+            if(intent.getStringExtra("click").equals("2")){getAllSeances();}
+            if(intent.getStringExtra("click").equals("3")){getAllClients();}}
 
         }
 
@@ -70,7 +70,6 @@ public class ListActivity extends AppCompatActivity {
                 for (int i = 0; i < response.length(); i++) {
                     try {
                         j = response.getJSONObject(i);
-
                         users.add(new User(j.getInt("userId"), j.getString("userEmail"),
                                 j.getString("userPasswd"), j.getString("userFname"),
                                 j.getString("userLname"), j.getString("description"),
@@ -81,7 +80,8 @@ public class ListActivity extends AppCompatActivity {
 
 
                 }
-                UserAdapter ua=new UserAdapter(ListActivity.this,users);
+                UserAdapterRecycle ua=new UserAdapterRecycle(ListActivity.this,users);
+                listClient.setLayoutManager(new LinearLayoutManager(ListActivity.this));
                 listClient.setAdapter(ua);
 
             }
@@ -99,36 +99,42 @@ public class ListActivity extends AppCompatActivity {
         return users;
     }
     void getAllClients() {
+        List<Client>clients=new ArrayList<>() ;
         JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, url+"clients", null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-
-                TextView txtNom = findViewById(R.id.txtNom);
-                TextView txtPrenom = findViewById(R.id.txtprenom);
-                TextView txtMail = findViewById(R.id.userEmail);
-                TextView txtPasswd = findViewById(R.id.userPasswd);
-                TextView textView = (TextView) findViewById(R.id.text);
-                try {
+//
+//                TextView txtNom = findViewById(R.id.txtNom);
+//                TextView txtPrenom = findViewById(R.id.txtprenom);
+//                TextView txtMail = findViewById(R.id.userEmail);
+//                TextView txtPasswd = findViewById(R.id.userPasswd);
+//                TextView textView = (TextView) findViewById(R.id.text);
+               // try {
                     JSONObject j = null;
                     for (int i = 0; i < response.length(); i++) {
                         try {
                             j = response.getJSONObject(i);
+                            clients.add(new Client(j.getInt("clientId"), j.getString("fName"), j.getString("lName"), j.getString("photo"), j.getString("identityDoc"), j.getString("clientEmail"),  j.getString("passwd"), j.getString("clientPhone"), j.getString("notes")) );
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
 
 
                     }
-                    Integer i = j.getInt("clientId");
-                    txtNom.setText(j.getString("fName"));
-                    txtPrenom.setText(j.getString("lName"));
-                    txtMail.setText(j.getString("clientEmail"));
-                    txtPasswd.setText(j.getString("passwd"));
-                    textView.setText(i.toString());
+//                    Integer i = j.getInt("clientId");
+//                    txtNom.setText(j.getString("fName"));
+//                    txtPrenom.setText(j.getString("lName"));
+//                    txtMail.setText(j.getString("clientEmail"));
+//                    txtPasswd.setText(j.getString("passwd"));
+//                    textView.setText(i.toString());
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+                ClientAdapterRecycle ua=new ClientAdapterRecycle(ListActivity.this,clients);
+                listClient.setLayoutManager(new LinearLayoutManager(ListActivity.this));
+                listClient.setAdapter(ua);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -165,7 +171,8 @@ public class ListActivity extends AppCompatActivity {
 
 
                 }
-                TaskAdapter ua=new TaskAdapter(ListActivity.this,tasks);
+                TaskAdapterRecycle ua=new TaskAdapterRecycle(ListActivity.this,tasks);
+                listClient.setLayoutManager(new LinearLayoutManager(ListActivity.this));
                 listClient.setAdapter(ua);
 
             }
@@ -187,12 +194,12 @@ public class ListActivity extends AppCompatActivity {
             @Override
             public void onResponse(JSONArray response) {
 
-                TextView txtNom = findViewById(R.id.txtNom);
-                TextView txtPrenom = findViewById(R.id.txtprenom);
-                TextView txtMail = findViewById(R.id.userEmail);
-                TextView txtPasswd = findViewById(R.id.userPasswd);
-                TextView textView = (TextView) findViewById(R.id.text);
-                try {
+//                TextView txtNom = findViewById(R.id.txtNom);
+//                TextView txtPrenom = findViewById(R.id.txtprenom);
+//                TextView txtMail = findViewById(R.id.userEmail);
+//                TextView txtPasswd = findViewById(R.id.userPasswd);
+//                TextView textView = (TextView) findViewById(R.id.text);
+//                try {
                     JSONObject j = null;
                     for (int i = 0; i < response.length(); i++) {
                         try {
@@ -206,18 +213,19 @@ public class ListActivity extends AppCompatActivity {
 
 
                     }
-                    SeanceAdapter ua=new SeanceAdapter(ListActivity.this,seances);
-                    listClient.setAdapter(ua);
-                    Integer i = j.getInt("clientId");
-                    txtNom.setText(j.getString("fName"));
-                    txtPrenom.setText(j.getString("lName"));
-                    txtMail.setText(j.getString("clientEmail"));
-                    txtPasswd.setText(j.getString("passwd"));
-                    textView.setText(i.toString());
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                SeanceAdapterRecycle ua=new SeanceAdapterRecycle(ListActivity.this,seances);
+                listClient.setLayoutManager(new LinearLayoutManager(ListActivity.this));
+                listClient.setAdapter(ua);
+//                    Integer i = j.getInt("clientId");
+//                    txtNom.setText(j.getString("fName"));
+//                    txtPrenom.setText(j.getString("lName"));
+//                    txtMail.setText(j.getString("clientEmail"));
+//                    txtPasswd.setText(j.getString("passwd"));
+//                    textView.setText(i.toString());
+//
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
             }
         }, new Response.ErrorListener() {
             @Override
@@ -234,8 +242,24 @@ public class ListActivity extends AppCompatActivity {
     }
 
     public void PostUser(View view) {
-        Intent postUserIntent = new Intent(ListActivity.this,UserController.class);
-        ListActivity.this.startActivity(postUserIntent);
+        Intent intent=getIntent();
+        Intent addIntent = null;
+
+        if(intent.getStringExtra("click").equals("0")){addIntent = new Intent(ListActivity.this,UserController.class); }
+        if(intent.getStringExtra("click").equals("1")){addIntent = new Intent(ListActivity.this,UserController.class);/*task*/}
+        if(intent.getStringExtra("click").equals("2")){addIntent = new Intent(ListActivity.this,RecycleCalendar.class);/*seance*/}
+        if(intent.getStringExtra("click").equals("3")){addIntent = new Intent(ListActivity.this,UserController.class);/*client*/}
+
+        ListActivity.this.startActivity(addIntent);
         ListActivity.this.finish();
+    }
+    public void getemplois(View view) {
+
+        TextView id= view.findViewById(R.id.userrolelist);
+        Intent emlpoisIntent = new Intent(ListActivity.this,WeekView_Calendar.class);
+        emlpoisIntent.putExtra("id",id.getText().toString());
+        ListActivity.this.startActivity(emlpoisIntent);
+        ListActivity.this.finish();
+
     }
 }

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RecycleCalendar">
+    tools:context=".WeekView_Calendar">
     <GridLayout
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -15,12 +15,13 @@
         android:layout_height="30dp"
         android:rowCount="1"
         android:columnCount="3">
+
         <ImageButton
             android:id="@id/btnprevious"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_previous"
-            />
+            android:layout_height="24dp"
+            android:onClick="weekchanger"
+            android:src="@drawable/ic_previous" />
         <TextView
             android:layout_gravity="center"
             android:layout_columnWeight="1"
@@ -29,12 +30,13 @@
             android:background="@drawable/textview_border"
             android:layout_rowWeight="1"
             android:id="@id/day" />
+
         <ImageButton
-            android:id="@id/btnprevious"
+            android:id="@id/btnnext"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_baseline_navigate_next_24"
-            />
+            android:layout_height="24dp"
+            android:onClick="weekchanger"
+            android:src="@drawable/ic_baseline_navigate_next_24" />
 
     </GridLayout>
     <GridLayout
@@ -216,13 +218,18 @@
                 android:layout_height="match_parent"
                 android:rowCount="11"
                 android:columnCount="1">
+
                 <TextView
                     android:id="@id/Lun_08"
                     android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
+                    android:text=""
                     android:textAlignment="center"
-                    android:text="" />
+                    android:onClick="seancedetails"
+
+                    />
 
                 <TextView
                     android:id="@id/Lun_09"
@@ -230,6 +237,7 @@
                     android:layout_columnWeight="1"
                     android:textAlignment="center"
                     android:layout_width="match_parent"
+                    android:onClick="seancedetails"
                     android:text="" />
 
                 <TextView
@@ -237,6 +245,7 @@
                     android:layout_width="match_parent"
                     android:layout_rowWeight="1"
                     android:textAlignment="center"
+                    android:onClick="seancedetails"
                     android:layout_columnWeight="1"
                     android:text="" />
 
@@ -246,7 +255,9 @@
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:textAlignment="center"
-                    android:text="" />
+                    android:text=""
+                    android:onClick="seancedetails"
+                    />
 
                 <TextView
                     android:id="@id/Lun_12"
@@ -254,7 +265,7 @@
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:textAlignment="center"
-
+                    android:onClick="seancedetails"
                     android:text="" />
 
                 <TextView
@@ -263,7 +274,7 @@
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:textAlignment="center"
-
+                    android:onClick="seancedetails"
                     android:text="" />
 
                 <TextView
@@ -272,7 +283,7 @@
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:textAlignment="center"
-
+                    android:onClick="seancedetails"
                     android:text="" />
 
                 <TextView
@@ -281,7 +292,7 @@
                     android:layout_rowWeight="1"
                     android:textAlignment="center"
                     android:layout_columnWeight="1"
-
+                    android:onClick="seancedetails"
                     android:text="" />
 
                 <TextView
@@ -290,7 +301,7 @@
                     android:layout_rowWeight="1"
                     android:textAlignment="center"
                     android:layout_columnWeight="1"
-
+                    android:onClick="seancedetails"
                     android:text="" />
 
                 <TextView
@@ -299,7 +310,7 @@
                     android:layout_rowWeight="1"
                     android:textAlignment="center"
                     android:layout_columnWeight="1"
-
+                    android:onClick="seancedetails"
                     android:text="" />
 
                 <TextView
@@ -308,7 +319,7 @@
                     android:textAlignment="center"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
-
+                    android:onClick="seancedetails"
                     android:text="" />
             </GridLayout>
             <GridLayout
@@ -323,14 +334,14 @@
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:textAlignment="center"
-
+                    android:onClick="seancedetails"
                     android:text="" />
 
                 <TextView
                     android:id="@id/Mar_09"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
-
+                    android:onClick="seancedetails"
                     android:textAlignment="center"
                     android:layout_width="match_parent"
                     android:text="" />
@@ -341,7 +352,7 @@
                     android:layout_rowWeight="1"
                     android:textAlignment="center"
                     android:layout_columnWeight="1"
-
+                    android:onClick="seancedetails"
                     android:text="" />
 
                 <TextView
@@ -350,7 +361,7 @@
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:textAlignment="center"
-
+                    android:onClick="seancedetails"
                     android:text="" />
 
                 <TextView
@@ -359,7 +370,7 @@
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:textAlignment="center"
-
+                    android:onClick="seancedetails"
                     android:text="" />
 
                 <TextView
@@ -368,7 +379,7 @@
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:textAlignment="center"
-
+                    android:onClick="seancedetails"
                     android:text="" />
 
                 <TextView
@@ -377,7 +388,7 @@
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:textAlignment="center"
-
+                    android:onClick="seancedetails"
                     android:text="" />
 
                 <TextView
@@ -386,7 +397,7 @@
                     android:layout_rowWeight="1"
                     android:textAlignment="center"
                     android:layout_columnWeight="1"
-
+                    android:onClick="seancedetails"
                     android:text="" />
 
                 <TextView
@@ -395,7 +406,7 @@
                     android:layout_rowWeight="1"
                     android:textAlignment="center"
                     android:layout_columnWeight="1"
-
+                    android:onClick="seancedetails"
                     android:text="" />
 
                 <TextView
@@ -404,7 +415,7 @@
                     android:layout_rowWeight="1"
                     android:textAlignment="center"
                     android:layout_columnWeight="1"
-
+                    android:onClick="seancedetails"
                     android:text="" />
 
                 <TextView
@@ -413,7 +424,7 @@
                     android:textAlignment="center"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
-
+                    android:onClick="seancedetails"
                     android:text="" />
             </GridLayout>
             <GridLayout
@@ -428,14 +439,14 @@
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:textAlignment="center"
-
+                    android:onClick="seancedetails"
                     android:text="" />
 
                 <TextView
                     android:id="@id/Mer_09"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
-
+                    android:onClick="seancedetails"
                     android:textAlignment="center"
                     android:layout_width="match_parent"
                     android:text="" />
@@ -446,7 +457,7 @@
                     android:layout_rowWeight="1"
                     android:textAlignment="center"
                     android:layout_columnWeight="1"
-
+                    android:onClick="seancedetails"
                     android:text="" />
 
                 <TextView
@@ -455,7 +466,7 @@
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:textAlignment="center"
-
+                    android:onClick="seancedetails"
                     android:text="" />
 
                 <TextView
@@ -464,7 +475,7 @@
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:textAlignment="center"
-
+                    android:onClick="seancedetails"
                     android:text="" />
 
                 <TextView
@@ -473,7 +484,7 @@
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:textAlignment="center"
-
+                    android:onClick="seancedetails"
                     android:text="" />
 
                 <TextView
@@ -482,7 +493,7 @@
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:textAlignment="center"
-
+                    android:onClick="seancedetails"
                     android:text="" />
 
                 <TextView
@@ -491,7 +502,7 @@
                     android:layout_rowWeight="1"
                     android:textAlignment="center"
                     android:layout_columnWeight="1"
-
+                    android:onClick="seancedetails"
                     android:text="" />
 
                 <TextView
@@ -500,7 +511,7 @@
                     android:layout_rowWeight="1"
                     android:textAlignment="center"
                     android:layout_columnWeight="1"
-
+                    android:onClick="seancedetails"
                     android:text="" />
 
                 <TextView
@@ -509,7 +520,7 @@
                     android:layout_rowWeight="1"
                     android:textAlignment="center"
                     android:layout_columnWeight="1"
-
+                    android:onClick="seancedetails"
                     android:text="" />
 
                 <TextView
@@ -518,7 +529,7 @@
                     android:textAlignment="center"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
-
+                    android:onClick="seancedetails"
                     android:text="" />
             </GridLayout>
             <GridLayout
@@ -533,14 +544,14 @@
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:textAlignment="center"
-
+                    android:onClick="seancedetails"
                     android:text="" />
 
                 <TextView
                     android:id="@id/Jeu_09"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
-
+                    android:onClick="seancedetails"
                     android:textAlignment="center"
                     android:layout_width="match_parent"
                     android:text="" />
@@ -551,7 +562,7 @@
                     android:layout_rowWeight="1"
                     android:textAlignment="center"
                     android:layout_columnWeight="1"
-
+                    android:onClick="seancedetails"
                     android:text="" />
 
                 <TextView
@@ -560,7 +571,7 @@
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:textAlignment="center"
-
+                    android:onClick="seancedetails"
                     android:text="" />
 
                 <TextView
@@ -569,7 +580,7 @@
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:textAlignment="center"
-
+                    android:onClick="seancedetails"
                     android:text="" />
 
                 <TextView
@@ -578,7 +589,7 @@
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:textAlignment="center"
-
+                    android:onClick="seancedetails"
                     android:text="" />
 
                 <TextView
@@ -587,7 +598,7 @@
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:textAlignment="center"
-
+                    android:onClick="seancedetails"
                     android:text="" />
 
                 <TextView
@@ -596,7 +607,7 @@
                     android:layout_rowWeight="1"
                     android:textAlignment="center"
                     android:layout_columnWeight="1"
-
+                    android:onClick="seancedetails"
                     android:text="" />
 
                 <TextView
@@ -605,7 +616,7 @@
                     android:layout_rowWeight="1"
                     android:textAlignment="center"
                     android:layout_columnWeight="1"
-
+                    android:onClick="seancedetails"
                     android:text="" />
 
                 <TextView
@@ -614,7 +625,7 @@
                     android:layout_rowWeight="1"
                     android:textAlignment="center"
                     android:layout_columnWeight="1"
-
+                    android:onClick="seancedetails"
                     android:text="" />
 
                 <TextView
@@ -623,7 +634,7 @@
                     android:textAlignment="center"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
-
+                    android:onClick="seancedetails"
                     android:text="" />
             </GridLayout>
             <GridLayout
@@ -638,14 +649,14 @@
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:textAlignment="center"
-
+                    android:onClick="seancedetails"
                     android:text="" />
 
                 <TextView
                     android:id="@id/Ven_09"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
-
+                    android:onClick="seancedetails"
                     android:textAlignment="center"
                     android:layout_width="match_parent"
                     android:text="" />
@@ -656,7 +667,7 @@
                     android:layout_rowWeight="1"
                     android:textAlignment="center"
                     android:layout_columnWeight="1"
-
+                    android:onClick="seancedetails"
                     android:text="" />
 
                 <TextView
@@ -665,7 +676,7 @@
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:textAlignment="center"
-
+                    android:onClick="seancedetails"
                     android:text="" />
 
                 <TextView
@@ -674,7 +685,7 @@
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:textAlignment="center"
-
+                    android:onClick="seancedetails"
                     android:text="" />
 
                 <TextView
@@ -683,7 +694,7 @@
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:textAlignment="center"
-
+                    android:onClick="seancedetails"
                     android:text="" />
 
                 <TextView
@@ -692,7 +703,7 @@
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:textAlignment="center"
-
+                    android:onClick="seancedetails"
                     android:text="" />
 
                 <TextView
@@ -701,7 +712,7 @@
                     android:layout_rowWeight="1"
                     android:textAlignment="center"
                     android:layout_columnWeight="1"
-
+                    android:onClick="seancedetails"
                     android:text="" />
 
                 <TextView
@@ -710,7 +721,7 @@
                     android:layout_rowWeight="1"
                     android:textAlignment="center"
                     android:layout_columnWeight="1"
-
+                    android:onClick="seancedetails"
                     android:text="" />
 
                 <TextView
@@ -719,7 +730,7 @@
                     android:layout_rowWeight="1"
                     android:textAlignment="center"
                     android:layout_columnWeight="1"
-
+                    android:onClick="seancedetails"
                     android:text="" />
 
                 <TextView
@@ -728,7 +739,7 @@
                     android:textAlignment="center"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
-
+                    android:onClick="seancedetails"
                     android:text="" />
             </GridLayout>
             <GridLayout
@@ -743,14 +754,14 @@
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:textAlignment="center"
-
+                    android:onClick="seancedetails"
                     android:text="" />
 
                 <TextView
                     android:id="@id/Sam_09"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
-
+                    android:onClick="seancedetails"
                     android:textAlignment="center"
                     android:layout_width="match_parent"
                     android:text="" />
@@ -761,7 +772,7 @@
                     android:layout_rowWeight="1"
                     android:textAlignment="center"
                     android:layout_columnWeight="1"
-
+                    android:onClick="seancedetails"
                     android:text="" />
 
                 <TextView
@@ -770,7 +781,7 @@
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:textAlignment="center"
-
+                    android:onClick="seancedetails"
                     android:text="" />
 
                 <TextView
@@ -779,7 +790,7 @@
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:textAlignment="center"
-
+                    android:onClick="seancedetails"
                     android:text="" />
 
                 <TextView
@@ -788,7 +799,7 @@
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:textAlignment="center"
-
+                    android:onClick="seancedetails"
                     android:text="" />
 
                 <TextView
@@ -797,7 +808,7 @@
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:textAlignment="center"
-
+                    android:onClick="seancedetails"
                     android:text="" />
 
                 <TextView
@@ -806,7 +817,7 @@
                     android:layout_rowWeight="1"
                     android:textAlignment="center"
                     android:layout_columnWeight="1"
-
+                    android:onClick="seancedetails"
                     android:text="" />
 
                 <TextView
@@ -815,7 +826,7 @@
                     android:layout_rowWeight="1"
                     android:textAlignment="center"
                     android:layout_columnWeight="1"
-
+                    android:onClick="seancedetails"
                     android:text="" />
 
                 <TextView
@@ -824,7 +835,7 @@
                     android:layout_rowWeight="1"
                     android:textAlignment="center"
                     android:layout_columnWeight="1"
-
+                    android:onClick="seancedetails"
                     android:text="" />
 
                 <TextView
@@ -833,7 +844,7 @@
                     android:textAlignment="center"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
-
+                    android:onClick="seancedetails"
                     android:text="" />
             </GridLayout>
             <GridLayout
@@ -848,14 +859,14 @@
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:textAlignment="center"
-
+                    android:onClick="seancedetails"
                     android:text="" />
 
                 <TextView
                     android:id="@id/Dim_09"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
-
+                    android:onClick="seancedetails"
                     android:textAlignment="center"
                     android:layout_width="match_parent"
                     android:text="" />
@@ -866,7 +877,7 @@
                     android:layout_rowWeight="1"
                     android:textAlignment="center"
                     android:layout_columnWeight="1"
-
+                    android:onClick="seancedetails"
                     android:text="" />
 
                 <TextView
@@ -875,7 +886,7 @@
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:textAlignment="center"
-
+                    android:onClick="seancedetails"
                     android:text="" />
 
                 <TextView
@@ -884,7 +895,7 @@
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:textAlignment="center"
-
+                    android:onClick="seancedetails"
                     android:text="" />
 
                 <TextView
@@ -893,7 +904,7 @@
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:textAlignment="center"
-
+                    android:onClick="seancedetails"
                     android:text="" />
 
                 <TextView
@@ -902,7 +913,7 @@
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:textAlignment="center"
-
+                    android:onClick="seancedetails"
                     android:text="" />
 
                 <TextView
@@ -911,7 +922,7 @@
                     android:layout_rowWeight="1"
                     android:textAlignment="center"
                     android:layout_columnWeight="1"
-
+                    android:onClick="seancedetails"
                     android:text="" />
 
                 <TextView
@@ -920,7 +931,7 @@
                     android:layout_rowWeight="1"
                     android:textAlignment="center"
                     android:layout_columnWeight="1"
-
+                    android:onClick="seancedetails"
                     android:text="" />
 
                 <TextView
@@ -929,7 +940,7 @@
                     android:layout_rowWeight="1"
                     android:textAlignment="center"
                     android:layout_columnWeight="1"
-
+                    android:onClick="seancedetails"
                     android:text="" />
 
                 <TextView
@@ -938,7 +949,7 @@
                     android:textAlignment="center"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
-
+                    android:onClick="seancedetails"
                     android:text="" />
             </GridLayout>
         </GridLayout>

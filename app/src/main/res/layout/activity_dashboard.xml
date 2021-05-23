@@ -31,10 +31,12 @@
             android:onClick="afficherUtilisateur">
 
             <LinearLayout
+                android:id="@+id/emplois"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical|center_horizontal"
                 android:gravity="center"
+                android:onClick="afficherUtilisateur"
                 android:orientation="vertical">
 
                 <ImageView

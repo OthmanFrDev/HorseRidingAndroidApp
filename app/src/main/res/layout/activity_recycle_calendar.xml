@@ -56,7 +56,6 @@
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
 
-
             android:text="08:00" />
         <TextView
             android:text="09:00"

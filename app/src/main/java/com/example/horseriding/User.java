@@ -10,7 +10,11 @@ import java.util.List;
 public class User implements Serializable {
 private int userId,adminLevel,isActive;
 private String userEmail,userPasswd,userFname,userLname,description,userType,userphoto,userPhone;
+
     private List<Seance> seances;
+    private  List<Task> tasks;
+
+
 
     public User(int userId, String userEmail, String userPasswd, String userFname, String userLname, String description, String userType, String userphoto, String userPhone) {
         this.userId = userId;
@@ -23,8 +27,8 @@ private String userEmail,userPasswd,userFname,userLname,description,userType,use
         this.userphoto = userphoto;
         this.userPhone = userPhone;
     }
-    public void setSeances(List<Seance> seances) {
-        this.seances = seances;
+    public void setSeances(Seance seance) {
+        seances.add(seance); 
     }
     public   void addSeance(Seance seance)
     {
@@ -103,6 +107,34 @@ private String userEmail,userPasswd,userFname,userLname,description,userType,use
 
     public void setUserPhone(String userPhone) {
         this.userPhone = userPhone;
+    }
+
+    public int getAdminLevel() {
+        return adminLevel;
+    }
+
+    public void setAdminLevel(int adminLevel) {
+        this.adminLevel = adminLevel;
+    }
+
+    public int getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(int isActive) {
+        this.isActive = isActive;
+    }
+
+    public List<Seance> getSeances() {
+        return seances;
+    }
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
     }
 
 }

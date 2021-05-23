@@ -63,7 +63,8 @@ public class UserController extends AppCompatActivity {
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
-        Intent myIntent = new Intent(getApplicationContext(), DashboardActivity.class);
+        Intent myIntent = new Intent(getApplicationContext(), ListActivity.class);
+        myIntent.putExtra("click","0");
         startActivity(myIntent);
         return true;
     }

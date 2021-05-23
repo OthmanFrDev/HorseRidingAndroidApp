@@ -3,12 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="center_vertical">
+    android:gravity="center_vertical"
+    android:layout_marginBottom="20dp"
+    android:onClick="getemplois"
+    >
 
     <ImageView
         android:id="@id/picuserlist"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:src="@drawable/user_icon_list" />
     <TextView
         android:id="@id/nameuserlist"
@@ -22,11 +25,5 @@
         android:layout_height="wrap_content"
         android:text="role"/>
 
-    <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:onClick="PostUser"
-        app:srcCompat="@android:drawable/ic_input_add" />
+
 </LinearLayout>
