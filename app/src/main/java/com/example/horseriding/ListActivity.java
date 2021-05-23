@@ -1,14 +1,18 @@
 package com.example.horseriding;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -27,6 +31,17 @@ import java.util.List;
 public class ListActivity extends AppCompatActivity {
     RecyclerView listClient;
     String url = "http://192.168.1.7:45455/";
+    EditText sInput;
+    List<User>users=new ArrayList<>() ;
+    List<Task>tasks=new ArrayList<>() ;
+    List<Seance>seances=new ArrayList<>() ;
+
+    UserAdapterRecycle ua=new UserAdapterRecycle(ListActivity.this,users);
+    TaskAdapterRecycle ta=new TaskAdapterRecycle(ListActivity.this,tasks);
+    SeanceAdapterRecycle sa=new SeanceAdapterRecycle(ListActivity.this,seances);
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,14 +61,31 @@ public class ListActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         listClient=findViewById(R.id.listUser);
+        sInput=findViewById(R.id.searchinput);
         if(listClient!=null){
                getAllUsers();
         }
+        sInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                ua.getFilter().filter(s);
+                sa.getFilter().filter(s);
+                ta.getFilter().filter(s);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
-    public List<User> getAllUsers() {
-        List<User>users=new ArrayList<>() ;
 
+    public List<User> getAllUsers() {
         JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, url+"users", null, new Response.Listener<JSONArray>() {
 
             @Override
@@ -74,7 +106,6 @@ public class ListActivity extends AppCompatActivity {
 
 
                 }
-                UserAdapterRecycle ua=new UserAdapterRecycle(ListActivity.this,users);
                 listClient.setLayoutManager(new LinearLayoutManager(ListActivity.this));
                 listClient.setAdapter(ua);
 
@@ -137,7 +168,7 @@ public class ListActivity extends AppCompatActivity {
         MySingleton.getInstance(this.getApplicationContext()).addToRequestQueue(req);
     }
     void getAllTasks() {
-        List<Task>tasks=new ArrayList<>() ;
+
         JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, url+"tasks", null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
@@ -159,8 +190,7 @@ public class ListActivity extends AppCompatActivity {
 
 
                 }
-                TaskAdapterRecycle ua=new TaskAdapterRecycle(ListActivity.this,tasks);
-                listClient.setAdapter(ua);
+                listClient.setAdapter(ta);
 
             }
         }, new Response.ErrorListener() {
@@ -176,7 +206,6 @@ public class ListActivity extends AppCompatActivity {
         MySingleton.getInstance(this.getApplicationContext()).addToRequestQueue(req);
     }
     public List<Seance> getAllSeances() {
-        List<Seance>seances=new ArrayList<>() ;
         JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, url+"seances", null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
@@ -200,8 +229,7 @@ public class ListActivity extends AppCompatActivity {
 
 
                     }
-                    SeanceAdapterRecycle ua=new SeanceAdapterRecycle(ListActivity.this,seances);
-                    listClient.setAdapter(ua);
+                    listClient.setAdapter(sa);
                     Integer i = j.getInt("clientId");
                     txtNom.setText(j.getString("fName"));
                     txtPrenom.setText(j.getString("lName"));

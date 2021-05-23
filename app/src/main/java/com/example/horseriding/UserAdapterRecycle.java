@@ -4,16 +4,50 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class UserAdapterRecycle extends RecyclerView.Adapter<UserAdapterRecycle.ViewHolder> {
+public class UserAdapterRecycle extends RecyclerView.Adapter<UserAdapterRecycle.ViewHolder> implements Filterable {
     private Context context;
     private List<User> list;
+    private List<User> listFiltred;
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                String key=constraint.toString();
+                if(key.isEmpty())listFiltred=list;
+                else{
+                    List<User> lFiltred=new ArrayList<>();
+                    for(User u:list){
+                        if(u.getUserFname().toLowerCase().contains(key.toLowerCase())||
+                                u.getUserLname().toLowerCase().contains(key.toLowerCase())){
+                            lFiltred.add(u);
+                        }
+                    }
+                    listFiltred=lFiltred;
+                }
+                FilterResults filterResults=new FilterResults();
+                filterResults.values=listFiltred;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                listFiltred= (List<User>) results.values;
+                notifyDataSetChanged();
+            }
+        };
+    }
+
     public static class ViewHolder extends  RecyclerView.ViewHolder{
         TextView txtName,txtRole;
         public ViewHolder(@NonNull View itemView) {
@@ -26,6 +60,7 @@ public class UserAdapterRecycle extends RecyclerView.Adapter<UserAdapterRecycle.
     public UserAdapterRecycle(Context c, List<User> list){
         this.context=c;
         this.list=list;
+        this.listFiltred=list;
     }
 
 
@@ -38,13 +73,17 @@ public class UserAdapterRecycle extends RecyclerView.Adapter<UserAdapterRecycle.
 
     @Override
     public void onBindViewHolder(@NonNull UserAdapterRecycle.ViewHolder holder, int position) {
-        User u=list.get(position);
+        User u=listFiltred.get(position);
         holder.txtName.setText(u.getUserLname()+" "+u.getUserFname());
         holder.txtRole.setText(u.getUserType());
     }
 
     @Override
     public int getItemCount() {
-        return list.size();
+        return listFiltred.size();
+    }
+    public void filterList(List<User> l){
+        this.list=l;
+        notifyDataSetChanged();
     }
 }

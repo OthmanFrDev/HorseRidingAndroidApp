@@ -7,4 +7,6 @@
     <string name="welcome_to_our_club">Welcome To Our Club</string>
     <string name="emplois_du_temps">EMPLOIS DU TEMPS</string>
     <string name="utilisateurs">UTILISATEURS</string>
+    <string name="e_mail">E-MAIL</string>
+    <string name="supprimer">Supprimer</string>
 </resources>

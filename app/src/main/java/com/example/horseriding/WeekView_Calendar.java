@@ -29,10 +29,6 @@ public class WeekView_Calendar extends AppCompatActivity {
             Ven_08,Ven_09,Ven_10,Ven_11,Ven_12,Ven_13,Ven_14,Ven_15,Ven_16,Ven_17,Ven_18,
             Sam_08,Sam_09,Sam_10,Sam_11,Sam_12,Sam_13,Sam_14,Sam_15,Sam_16,Sam_17,Sam_18,
             Dim_08,Dim_09,Dim_10,Dim_11,Dim_12,Dim_13,Dim_14,Dim_15,Dim_16,Dim_17,Dim_18;
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

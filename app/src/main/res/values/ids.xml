@@ -132,4 +132,53 @@
     <item name="cardviewseance" type="id" />
     <item name="cardviewtask" type="id" />
     <item name="cardviewemploi" type="id" />
+    <item name="searchbtn" type="id" />
+    <item name="shapeuser" type="id" />
+    <item name="nameuser" type="id" />
+    <item name="line2" type="id" />
+    <item name="actionuser" type="id" />
+    <item name="callbtn" type="id" />
+    <item name="emailinput" type="id" />
+    <item name="emaillabel" type="id" />
+    <item name="telephonelabel" type="id" />
+    <item name="telphoneinput" type="id" />
+    <item name="telephoneinput" type="id" />
+    <item name="gridMonth" type="id" />
+    <item name="gridDay" type="id" />
+    <item name="Lun_1" type="id" />
+    <item name="Mar_1" type="id" />
+    <item name="Mer_1" type="id" />
+    <item name="Jeu_1" type="id" />
+    <item name="Ven_1" type="id" />
+    <item name="Sam_1" type="id" />
+    <item name="Dim_1" type="id" />
+    <item name="Dim_5" type="id" />
+    <item name="Sam_5" type="id" />
+    <item name="Ven_5" type="id" />
+    <item name="Jeu_5" type="id" />
+    <item name="Mer_5" type="id" />
+    <item name="Mar_5" type="id" />
+    <item name="Lun_5" type="id" />
+    <item name="Dim_4" type="id" />
+    <item name="Sam_4" type="id" />
+    <item name="Ven_4" type="id" />
+    <item name="Jeu_4" type="id" />
+    <item name="Mer_4" type="id" />
+    <item name="Mar_4" type="id" />
+    <item name="Lun_4" type="id" />
+    <item name="Dim_3" type="id" />
+    <item name="Sam_3" type="id" />
+    <item name="Ven_3" type="id" />
+    <item name="Jeu_3" type="id" />
+    <item name="Mer_3" type="id" />
+    <item name="Mar_3" type="id" />
+    <item name="Lun_3" type="id" />
+    <item name="Dim_2" type="id" />
+    <item name="Sam_2" type="id" />
+    <item name="Ven_2" type="id" />
+    <item name="Jeu_2" type="id" />
+    <item name="Mer_2" type="id" />
+    <item name="Mar_2" type="id" />
+    <item name="Lun_2" type="id" />
+    <item name="btnnext" type="id" />
 </resources>

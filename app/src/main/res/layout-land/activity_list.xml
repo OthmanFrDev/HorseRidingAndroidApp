@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal">
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -10,14 +13,16 @@
         android:layout_weight="1"
         android:layout_height="match_parent"
         tools:context=".ListActivity">
-        <SearchView
-            android:layout_width="match_parent"
+        <EditText
+            android:drawableStart="@drawable/ic_baseline_search_24"
+            android:layout_width="0dp"
+            android:autofillHints="search"
+            android:inputType="text"
             android:layout_height="wrap_content"
             android:id="@id/searchinput"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/listUser"
-            />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -27,11 +32,146 @@
         </androidx.recyclerview.widget.RecyclerView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-    <LinearLayout
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1">
 
-    </LinearLayout>
+        <TextView
+
+            android:id="@id/shapeuser"
+            android:layout_width="89dp"
+            android:layout_height="80dp"
+            android:background="@drawable/rounded_shape_user"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="16dp"
+            tools:ignore="MissingConstraints" />
+        <TextView
+            android:id="@id/nameuser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="tessssssssssssssssss"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toStartOf="@id/shapeuser"
+            app:layout_constraintEnd_toEndOf="@id/shapeuser"
+            app:layout_constraintTop_toBottomOf="@id/shapeuser"
+             />
+        <View
+            android:layout_marginRight="10dp"
+            android:id="@id/line1"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            app:layout_constraintTop_toBottomOf="@id/nameuser"
+            android:background="#D77E2C" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:id="@id/actionuser"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@id/line1"
+            app:layout_constraintBottom_toTopOf="@id/line2">
+            <ImageButton
+                android:id="@id/callbtn"
+                android:layout_marginRight="20dp"
+                android:layout_width="wrap_content"
+                android:background="@color/white"
+                android:src="@drawable/ic_baseline_phone_50"
+                android:layout_height="wrap_content"
+                />
+            <ImageButton
+                android:id="@id/callbtn"
+                android:layout_width="wrap_content"
+                android:layout_marginRight="20dp"
+                android:background="@color/white"
+                android:src="@drawable/ic_baseline_edit_50"
+                android:layout_height="wrap_content"
+                />
+            <ImageButton
+                android:id="@id/callbtn"
+                android:layout_width="wrap_content"
+                android:background="@color/white"
+                android:src="@drawable/ic_baseline_calendar_today_50"
+                android:layout_height="wrap_content"
+                />
+
+        </LinearLayout>
+
+        <View
+            android:layout_marginRight="10dp"
+            android:id="@id/line2"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            app:layout_constraintTop_toBottomOf="@id/actionuser"
+            android:background="#D77E2C" />
+        <TextView
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/e_mail"
+            android:labelFor="@id/emailinput"
+            app:layout_constraintBaseline_toBaselineOf="@id/emailinput"
+            android:id="@id/emaillabel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/line2"/>
+        <EditText
+            app:layout_constraintStart_toEndOf="@id/emaillabel"
+            android:layout_width="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text=""
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@id/line2"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:id="@id/emailinput"/>
+        <TextView
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TEL"
+            android:labelFor="@id/emailinput"
+            app:layout_constraintBaseline_toBaselineOf="@id/telephoneinput"
+            android:id="@id/telephonelabel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/emaillabel"
+            />
+        <EditText
+            android:id="@id/telephoneinput"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/emailinput"
+            app:layout_constraintTop_toBottomOf="@id/emailinput"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            />
+        <LinearLayout
+            android:layout_marginTop="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            app:layout_constraintTop_toBottomOf="@id/telephoneinput"
+            app:layout_constraintStart_toStartOf="parent">
+            <androidx.appcompat.widget.AppCompatButton
+                android:padding="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button"
+                android:text="@string/supprimer"/>
+        </LinearLayout>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </LinearLayout>

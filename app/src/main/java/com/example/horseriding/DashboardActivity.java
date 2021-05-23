@@ -35,9 +35,6 @@ public class DashboardActivity extends AppCompatActivity {
         SessionManager sessionManager=new SessionManager(this);
         HashMap<String,String> userdetail=sessionManager.getUserDetailFromSession();
         textView.setText(userdetail.get(SessionManager.KEY_FULLNAME));
-
-
-
     }
 
     public void afficherUtilisateur(View view) {
@@ -46,21 +43,17 @@ public class DashboardActivity extends AppCompatActivity {
         Intent splashIntent = new Intent(DashboardActivity.this, ListActivity.class);
         switch (view.getId()) {
             case R.id.cardviewuser:
-
-  splashIntent.putExtra("user","0");
+                splashIntent.putExtra("user","0");
                 DashboardActivity.this.startActivity(splashIntent);
                 DashboardActivity.this.finish();
-
             break;
             case R.id.cardviewtask:
-
-splashIntent.putExtra("task","1");
+                splashIntent.putExtra("task","1");
                 DashboardActivity.this.startActivity(splashIntent);
                 DashboardActivity.this.finish();
 
             break;
             case R.id.cardviewseance:
-
                 splashIntent.putExtra("seance","2");
                 DashboardActivity.this.startActivity(splashIntent);
                 DashboardActivity.this.finish();
