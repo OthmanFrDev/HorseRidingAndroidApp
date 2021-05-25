@@ -48,8 +48,6 @@ public class LoginActivity extends AppCompatActivity {
         editor.putString("emailUtilisateur", user.getUserEmail());
         editor.putString("prenomUtilisateur", user.getUserLname());
         editor.commit();
-
-
     }
 
     public void clickhandler(View view) {

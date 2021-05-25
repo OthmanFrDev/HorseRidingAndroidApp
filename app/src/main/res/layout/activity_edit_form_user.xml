@@ -101,7 +101,8 @@
             android:layout_height="wrap_content"
             android:hint="Mot de passe"
             android:drawableLeft="@drawable/ic_baseline_lock_24"
-            android:inputType="textPassword"/>
+            android:inputType="textPassword"
+            />
     </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.textfield.TextInputLayout
         app:layout_constraintStart_toStartOf="parent"
@@ -150,5 +151,38 @@
         android:layout_marginTop="20dp"
         android:background="@drawable/button"
         />
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:elevation="2dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="100dp"
+        app:menu="@menu/item_menu"
+        android:background="@drawable/rounded_selector"
+        app:itemIconSize="30dp"
+        app:itemIconTint="@drawable/item_selector"
+        android:id="@id/bottom_navigation"
+        />
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@id/floatingActionButtonweek"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="invisible"
+        android:layout_gravity="end|bottom"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="100dp"
+        android:onClick="onclickbtn"
+        android:src="@drawable/ic_baseline_dehaze_50"
+        android:clickable="true"
+        tools:layout_editor_absoluteX="349dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

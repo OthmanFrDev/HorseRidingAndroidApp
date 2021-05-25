@@ -9,4 +9,11 @@
     <string name="utilisateurs">UTILISATEURS</string>
     <string name="e_mail">E-MAIL</string>
     <string name="supprimer">Supprimer</string>
+    <string name="lun">LUN</string>
+    <string name="mar">MAR</string>
+    <string name="mer">MER</string>
+    <string name="jeu">JEU</string>
+    <string name="ven">VEN</string>
+    <string name="sam">SAM</string>
+    <string name="dim">DIM</string>
 </resources>

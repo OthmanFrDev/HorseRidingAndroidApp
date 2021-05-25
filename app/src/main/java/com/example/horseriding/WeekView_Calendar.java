@@ -1,8 +1,10 @@
 package com.example.horseriding;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -10,6 +12,8 @@ import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +23,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
@@ -47,14 +52,14 @@ public class WeekView_Calendar extends AppCompatActivity {
     DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     LocalDateTime starDate=dateInit,endDate=dateInit;
-
+    BottomNavigationView bnv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_week_view__calendar);
+        setContentView(R.layout.activity_week_view_calendar);
         Intent emploiIntent=getIntent();
         id=emploiIntent.getStringExtra("id");
-
+        bnv=findViewById(R.id.bottom_navigation);
         switch(dateInit.getDayOfWeek().getValue()) {
             case 1:starDate=dateInit;endDate=starDate.plusDays(6);break;
             case 2:starDate=dateInit.minusDays(1);endDate=starDate.plusDays(6);break;
@@ -64,6 +69,23 @@ public class WeekView_Calendar extends AppCompatActivity {
             case 6:starDate=dateInit.minusDays(5);endDate=starDate.plusDays(6);break;
             case 7:starDate=dateInit.minusDays(6);endDate=starDate.plusDays(6);break;
         }
+        bnv.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Intent i=null;
+                switch(item.getItemId()){
+                    case R.id.hide_nav:findViewById(R.id.floatingActionButtonweek).setVisibility(View.VISIBLE );findViewById(R.id.bottom_navigation).setVisibility(View.INVISIBLE);break;
+                    case R.id.home_nav:i=new Intent(WeekView_Calendar.this,DashboardActivity.class);startActivity(i);finish();
+                    case R.id.setting_nav:findViewById(R.id.floatingActionButtonweek).setVisibility(View.VISIBLE );findViewById(R.id.bottom_navigation).setVisibility(View.INVISIBLE);break;
+                    case R.id.logout_nav:SessionManager sessionManager=new SessionManager(WeekView_Calendar.this);
+                                        sessionManager.logout();
+                        Intent splashIntent = new Intent(WeekView_Calendar.this, LoginActivity.class);
+                        WeekView_Calendar.this.startActivity(splashIntent);
+                        WeekView_Calendar.this.finish();break;
+                }
+                return true;
+            }
+        });
         startDateString=dateFormatter.format(starDate);
         endDateString=dateFormatter.format(endDate);
         Lun_08=findViewById(R.id.Lun_08);
@@ -400,27 +422,27 @@ server=false;
                 String dateTime=j.getString("startDate").substring(11,16);
                 switch (dateFromResponse.getDayOfWeek().getValue()){
                     case 1: switch(dateTime){
-                        case "08:00":Lun_08.setText(j.getInt("seanceId")+""+""+"");Lun_08.setBackgroundColor(Color.parseColor("#EC7C32"));
+                        case "08:00":Lun_08.setText(j.getInt("seanceId")+""+""+j.getInt("seanceId"));Lun_08.setBackgroundColor(Color.parseColor("#EC7C32"));
                             break;
-                        case "09:00":Lun_09.setText(j.getInt("seanceId")+""+""+"");Lun_09.setBackgroundColor(Color.parseColor("#EC7C32"));
+                        case "09:00":Lun_09.setText(j.getInt("seanceId")+""+""+j.getInt("seanceId"));Lun_09.setBackgroundColor(Color.parseColor("#EC7C32"));
                             break;
-                        case "10:00":Lun_10.setText(j.getInt("seanceId")+""+""+"");Lun_10.setBackgroundColor(Color.parseColor("#EC7C32"));
+                        case "10:00":Lun_10.setText(j.getInt("seanceId")+""+""+j.getInt("seanceId")+j.getInt("seanceId")+""+""+j.getInt("seanceId")+j.getInt("seanceId")+""+""+j.getInt("seanceId"));Lun_10.setBackgroundColor(Color.parseColor("#EC7C32"));
                             break;
-                        case "11:00":Lun_11.setText(j.getInt("seanceId")+""+""+"");Lun_11.setBackgroundColor(Color.parseColor("#EC7C32"));
+                        case "11:00":Lun_11.setText(j.getInt("seanceId")+""+""+j.getInt("seanceId"));Lun_11.setBackgroundColor(Color.parseColor("#EC7C32"));
                             break;
-                        case "12:00":Lun_12.setText(j.getInt("seanceId")+""+""+"");Lun_12.setBackgroundColor(Color.parseColor("#EC7C32"));
+                        case "12:00":Lun_12.setText(j.getInt("seanceId")+""+""+j.getInt("seanceId"));Lun_12.setBackgroundColor(Color.parseColor("#EC7C32"));
                             break;
-                        case "13:00":Lun_13.setText(j.getInt("seanceId")+""+""+"");Lun_13.setBackgroundColor(Color.parseColor("#EC7C32"));
+                        case "13:00":Lun_13.setText(j.getInt("seanceId")+""+""+j.getInt("seanceId"));Lun_13.setBackgroundColor(Color.parseColor("#EC7C32"));
                             break;
-                        case "14:00":Lun_14.setText(j.getInt("seanceId")+""+""+"");Lun_14.setBackgroundColor(Color.parseColor("#EC7C32"));
+                        case "14:00":Lun_14.setText(j.getInt("seanceId")+""+""+j.getInt("seanceId"));Lun_14.setBackgroundColor(Color.parseColor("#EC7C32"));
                             break;
-                        case "15:00":Lun_15.setText(j.getInt("seanceId")+""+""+"");Lun_15.setBackgroundColor(Color.parseColor("#EC7C32"));
+                        case "15:00":Lun_15.setText(j.getInt("seanceId")+""+""+j.getInt("seanceId"));Lun_15.setBackgroundColor(Color.parseColor("#EC7C32"));
                             break;
-                        case "16:00":Lun_16.setText(j.getInt("seanceId")+""+""+"");Lun_16.setBackgroundColor(Color.parseColor("#EC7C32"));
+                        case "16:00":Lun_16.setText(j.getInt("seanceId")+""+""+j.getInt("seanceId"));Lun_16.setBackgroundColor(Color.parseColor("#EC7C32"));
                             break;
-                        case "17:00":Lun_17.setText(j.getInt("seanceId")+""+""+"");Lun_17.setBackgroundColor(Color.parseColor("#EC7C32"));
+                        case "17:00":Lun_17.setText(j.getInt("seanceId")+""+""+j.getInt("seanceId"));Lun_17.setBackgroundColor(Color.parseColor("#EC7C32"));
                             break;
-                        case "18:00":Lun_18.setText(j.getInt("seanceId")+""+""+"");Lun_18.setBackgroundColor(Color.parseColor("#EC7C32"));
+                        case "18:00":Lun_18.setText(j.getInt("seanceId")+""+""+j.getInt("seanceId"));Lun_18.setBackgroundColor(Color.parseColor("#EC7C32"));
                             break;
                     }
                         break;
@@ -846,5 +868,10 @@ server=false;
 
     }
 
+
+
+    public void onclickbtn(View view) {
+         findViewById(R.id.floatingActionButtonweek).setVisibility(View.INVISIBLE);findViewById(R.id.bottom_navigation).setVisibility(View.VISIBLE);
+    }
 
 }

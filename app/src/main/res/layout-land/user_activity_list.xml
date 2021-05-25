@@ -85,7 +85,7 @@
                 android:layout_height="wrap_content"
                 />
             <ImageButton
-                android:id="@id/callbtn"
+                android:id="@id/editbtn"
                 android:layout_width="wrap_content"
                 android:layout_marginRight="20dp"
                 android:background="@color/white"
@@ -93,7 +93,7 @@
                 android:layout_height="wrap_content"
                 />
             <ImageButton
-                android:id="@id/callbtn"
+                android:id="@id/calendarbtn"
                 android:layout_width="wrap_content"
                 android:background="@color/white"
                 android:src="@drawable/ic_baseline_calendar_today_50"

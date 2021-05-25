@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.horseriding">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -15,8 +16,15 @@
         android:theme="@style/Theme.HorseRiding"
         android:usesCleartextTraffic="true">
         <activity android:name=".EditFormUser"></activity>
-        <activity android:name=".dialog_user_details" />
-        <activity android:name=".Month_view" />
+        <activity android:name=".dialog_user_details"
+            tools:ignore="Instantiatable" />
+        <activity android:name=".Month_view">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".DateTimePicker" />
         <activity android:name=".WeekView_Calendar" />
         <activity android:name=".RecycleCalendar" />
@@ -27,11 +35,7 @@
         <activity android:name=".LoginActivity" />
         <activity android:name=".UserController" />
         <activity android:name=".SplashScreen">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
     </application>
