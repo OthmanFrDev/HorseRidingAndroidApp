@@ -18,6 +18,7 @@ public class UserAdapterRecycle extends RecyclerView.Adapter<UserAdapterRecycle.
     private Context context;
     private List<User> list;
     private List<User> listFiltred;
+    private RecycleViewClickListner listner;
     @Override
     public Filter getFilter() {
         return new Filter() {
@@ -48,19 +49,24 @@ public class UserAdapterRecycle extends RecyclerView.Adapter<UserAdapterRecycle.
         };
     }
 
-    public static class ViewHolder extends  RecyclerView.ViewHolder{
+    public class ViewHolder extends  RecyclerView.ViewHolder implements View.OnClickListener{
         TextView txtName,txtRole;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             txtName=itemView.findViewById(R.id.nameuserlist);
             txtRole=itemView.findViewById(R.id.userrolelist);
+            itemView.setOnClickListener((View.OnClickListener) this);
         }
-
+        @Override
+        public void onClick(View v) {
+            listner.onClickItem(v,getAdapterPosition());
+        }
     }
-    public UserAdapterRecycle(Context c, List<User> list){
+    public UserAdapterRecycle(Context c, List<User> list,RecycleViewClickListner l){
         this.context=c;
         this.list=list;
         this.listFiltred=list;
+        this.listner=l;
     }
 
 
@@ -85,5 +91,8 @@ public class UserAdapterRecycle extends RecyclerView.Adapter<UserAdapterRecycle.
     public void filterList(List<User> l){
         this.list=l;
         notifyDataSetChanged();
+    }
+    public interface RecycleViewClickListner{
+        void onClickItem(View v,int position);
     }
 }

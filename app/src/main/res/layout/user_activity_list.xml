@@ -33,4 +33,16 @@
 
     </androidx.recyclerview.widget.RecyclerView>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_gravity="end|bottom"
+        android:clickable="true"
+        app:srcCompat="@android:drawable/ic_input_add"
+        android:onClick="PostUser"
+        tools:layout_editor_absoluteX="349dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

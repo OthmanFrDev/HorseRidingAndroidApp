@@ -181,4 +181,18 @@
     <item name="Mar_2" type="id" />
     <item name="Lun_2" type="id" />
     <item name="btnnext" type="id" />
+    <item name="editbtn" type="id" />
+    <item name="calendarbtn" type="id" />
+    <item name="labelnom" type="id" />
+    <item name="inputnameedit" type="id" />
+    <item name="labelprenom" type="id" />
+    <item name="inputprenomedit" type="id" />
+    <item name="inputprenom" type="id" />
+    <item name="inputnom" type="id" />
+    <item name="inputemail" type="id" />
+    <item name="inputtel" type="id" />
+    <item name="inputlastpass" type="id" />
+    <item name="inputnewpass1" type="id" />
+    <item name="inputnewpass2" type="id" />
+    <item name="labeledit" type="id" />
 </resources>

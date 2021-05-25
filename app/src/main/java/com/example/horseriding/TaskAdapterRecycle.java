@@ -74,7 +74,7 @@ public class TaskAdapterRecycle extends RecyclerView.Adapter<TaskAdapterRecycle.
     public void onBindViewHolder(@NonNull TaskAdapterRecycle.ViewHolder holder, int position) {
         Task t=list.get(position);
         holder.txtName.setText(t.getTitle());
-        holder.txtRole.setText(t.getTaskId());
+        holder.txtRole.setText(String.valueOf(t.getTaskId()));
     }
 
     @Override

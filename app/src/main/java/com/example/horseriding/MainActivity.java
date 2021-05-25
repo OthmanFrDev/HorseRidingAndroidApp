@@ -303,7 +303,7 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     Seance seance = new Seance(response.getInt("seanceId"),response.getInt("seanceGrpId"),
                             response.getInt("clientId"),response.getInt("monitorId"),
-                            response.getInt("durationMinut"),response.getString("comments"));
+                            response.getInt("durationMinut"),response.getString("comments"),response.getString("startDate"));
                   /*  if(response.has("seances"))
                     {
                         JSONArray ja= response.getJSONArray("seances");

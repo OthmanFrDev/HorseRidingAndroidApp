@@ -22,4 +22,7 @@ public class SeanceController extends AppCompatActivity {
         i.putExtra("title", "Calendar Event");
         startActivity(i);
     }
+
+    public void PostSeance(View view) {
+    }
 }
