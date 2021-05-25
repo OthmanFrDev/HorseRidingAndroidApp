@@ -26,9 +26,7 @@ import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity {
     private SharedPreferences sharedpreferences;
-    String url = "http://192.168.111.1:45455/users";
-
-
+    String url = "http://192.168.1.7:45455/users";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,17 +40,17 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    void login() {
-        User user = new User(1, "dd", "00", "ayab", "dhada", "dsada", "admin", "ds", "299595");
-        sharedpreferences = getSharedPreferences("UserInfos", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedpreferences.edit();
-        editor.putString("nomUtilisateur", user.getUserFname());
-        editor.putString("emailUtilisateur", user.getUserEmail());
-        editor.putString("prenomUtilisateur", user.getUserLname());
-        editor.commit();
-
-
-    }
+//    void login() {
+//        User user = new User(1, "dd", "00", "ayab", "dhada", "dsada", "admin", "ds", "299595");
+//        sharedpreferences = getSharedPreferences("UserInfos", Context.MODE_PRIVATE);
+//        SharedPreferences.Editor editor = sharedpreferences.edit();
+//        editor.putString("nomUtilisateur", user.getUserFname());
+//        editor.putString("emailUtilisateur", user.getUserEmail());
+//        editor.putString("prenomUtilisateur", user.getUserLname());
+//        editor.commit();
+//
+//
+//    }
 
     public void clickhandler(View view) {
         EditText mailTxt,pswdTxt;
@@ -77,7 +75,7 @@ public class LoginActivity extends AppCompatActivity {
                                     User user = new User(j.getInt("userId"), j.getString("userEmail"),
                                             j.getString("userPasswd"), j.getString("userFname"),
                                             j.getString("userLname"), j.getString("description"),
-                                            j.getString("userType"), j.getString("userphoto"), j.getString("userPhone"));
+                                            j.getString("userType"), j.getString("userphoto"), j.getString("userPhone"),j.getString("lastLoginTime"),j.getString("displayColor"));
                                     sessionManager.createLoginSession(user);
 
                                     Intent splashIntent = new Intent(LoginActivity.this, DashboardActivity.class);

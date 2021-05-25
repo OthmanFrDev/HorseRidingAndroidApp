@@ -48,7 +48,6 @@ public class WeekView_Calendar extends AppCompatActivity {
             Sam_08,Sam_09,Sam_10,Sam_11,Sam_12,Sam_13,Sam_14,Sam_15,Sam_16,Sam_17,Sam_18,
             Dim_08,Dim_09,Dim_10,Dim_11,Dim_12,Dim_13,Dim_14,Dim_15,Dim_16,Dim_17,Dim_18;
 
-
     LocalDateTime dateInit=LocalDateTime.of(2020, 9, 14, 15, 56);
     DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
@@ -167,11 +166,13 @@ switch (getIntent().getStringExtra("emploitype"))
         case "1":url="http://192.168.111.1:45455/seances/monitor/"+startDateString+"/"+endDateString+"/"+id;
         getTache();
 
+
          break;
         case "2":url="http://192.168.111.1:45455/seances/"+startDateString+"/"+endDateString+"/"+id;
          break;
 }
         JsonArrayRequest jArray=new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+
             @Override
             public void onResponse(JSONArray response) {
                 TextView day=findViewById(R.id.day);
@@ -204,8 +205,6 @@ switch (getIntent().getStringExtra("emploitype"))
         });
         MySingleton.getInstance(this.getApplicationContext()).addToRequestQueue(jArray);
 
-//      if(!sessionManager.getserver())
-//     {getSeance(databaseHandler.readSeance());}
     }
     public void initId(String jour){
 
@@ -250,7 +249,9 @@ switch (getIntent().getStringExtra("emploitype"))
         day.setText(startDateString+" -> "+endDateString);
 
 
+
             JsonArrayRequest jArray=new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+
             @Override
             public void onResponse(JSONArray response) {
                 sessionManager.server(true);
@@ -268,9 +269,11 @@ switch (getIntent().getStringExtra("emploitype"))
         });
 
         MySingleton.getInstance(this.getApplicationContext()).addToRequestQueue(jArray);
-       if(!sessionManager.getserver()&&firstDate.equals(starDate))
-      {
-          getSeance(databaseHandler.readSeance());}
+
+//       if(!sessionManager.getserver()&&firstDate.equals(starDate))
+//      {
+//          getSeance(databaseHandler.readSeance());}
+
 
     }
     void init()
@@ -1094,7 +1097,7 @@ switch (getIntent().getStringExtra("emploitype"))
     public void seancedetails(View view) {
         TextView textView=findViewById(view.getId());
         if(textView.getText().toString().compareTo("")!=0){
-            JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET,  "http://192.168.111.1:45455/seances/"+ textView.getText().toString(), null, new Response.Listener<JSONObject>() {
+            JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET,  "http://192.168.1.7:45455/seances/"+ textView.getText().toString(), null, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
 

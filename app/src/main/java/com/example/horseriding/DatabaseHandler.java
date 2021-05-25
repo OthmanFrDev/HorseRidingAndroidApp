@@ -97,11 +97,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 KEY_TDETAIL+" TEXT , "+
                 KEY_TISDone+" TEXT , "+
                 KEY_TUSERFK+" INTEGER )";
-                ;
+                String CREATE_NOTES_TABLE="CREATE TABLE NOTES ( id INTEGER PRIMARY KEY AUTOINCREMENT , notes TEXT , date TEXT )";
 
         db.execSQL(CREATE_CLIENT_TABLE);
         db.execSQL(CREATE_USER_TABLE);
         db.execSQL(CREATE_SEANCE_TABLE);
+        db.execSQL(CREATE_NOTES_TABLE);
         db.execSQL(CREATE_TASK_TABLE);
     }
 
@@ -126,6 +127,125 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ligne.put(KEY_DURATION,seance.getDurationMinut());
         ligne.put(KEY_START,seance.getStartDate());
         getWritableDatabase().insertWithOnConflict(TABLE_SEANCES,null,ligne,SQLiteDatabase.CONFLICT_REPLACE);
+    }
+    public void saveNote(Note note)
+    {
+
+        ContentValues ligne =new ContentValues();
+        ligne.put("id",note.getId());
+        ligne.put("notes",note.getNotes());
+
+        ligne.put("date",note.getDate());
+
+        getWritableDatabase().insertWithOnConflict("NOTES",null,ligne,SQLiteDatabase.CONFLICT_REPLACE);
+    }
+    public List<Note> readNote()
+    {
+
+        List<Note> NoteList=new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query("NOTES", new String[] { "id","date","notes"}, null,
+                 null, null, null, null);
+        if (!(cursor.moveToFirst()) || cursor.getCount() ==0){
+            //cursor is empty
+            Log.d("ppp","note not found");
+            return null;
+        }
+
+        else
+        {
+            if (cursor.moveToFirst()) {
+                while (!cursor.isAfterLast()) {
+                    NoteList.add(new Note(Integer.parseInt(cursor.getString(0)),cursor.getString(1),cursor.getString(2)));
+                    cursor.moveToNext();
+                }
+            }
+            return NoteList;
+
+        }
+    }
+
+    // code to add the new remarque
+    void addRemarque(Note note) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        try {
+            ContentValues values = new ContentValues();
+            values.put("notes", String.valueOf(note.getNotes()));
+            values.put("date", String.valueOf(note.getDate()));
+            // Inserting Row
+            db.insert("NOTES", null, values);
+            //2nd argument is String containing nullColumnHack
+            db.close(); // Closing database connection
+        }catch (Exception ex)
+        {
+            //cursor is empty
+            db.close();
+            Log.d("ppp","remarque exist");
+        }
+    }
+    // code to update the new remarque
+    void updateRemarque(int id,String note) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("UPDATE NOTES SET contenue ='"+note+"' WHERE id = "+id);
+        db.close();
+    }
+    // code to delete the new remarque
+    void deleteRemarque(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM NOTES WHERE id = "+id);
+        db.close();
+    }
+    //code to get all remarques
+
+//    List<Note> getRemarques()
+//    {
+//        List<Note> remarqueList=new ArrayList<>();
+//        SQLiteDatabase db = this.getReadableDatabase();
+//        Cursor  cursor = db.rawQuery("select * from NOTES",null);
+//        if (!(cursor.moveToFirst()) || cursor.getCount() ==0){
+//            //cursor is empty
+//            Log.d("ppp","remarque not found");
+//            db.close();
+//            return null;
+//        }
+//        else
+//        {
+//            if (cursor.moveToFirst()) {
+//                while (!cursor.isAfterLast()) {
+//                    Remarque r=new Remarque();
+//                    r.setId(cursor.getInt(0));
+//                    r.setContenue(String.valueOf(cursor.getString(1)));
+//                    r.setDate_changement(LocalDateTime.parse(cursor.getString(2)));
+//                    remarqueList.add(r);
+//                    cursor.moveToNext();
+//                }
+//            }
+//            db.close();
+//            return remarqueList;
+//        }
+//    }
+    //code to get remarque by id
+
+    Note getRemarque(int id)
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from NOTES WHERE id=?",new String[]{String.valueOf(id)});
+        if (!(cursor.moveToFirst()) || cursor.getCount() ==0){
+            //cursor is empty
+            Log.d("ppp","remarque not found");
+            db.close();
+            return null;
+        }
+        else
+        {
+            Note r=new Note();
+            r.setId(cursor.getInt(0));
+            r.setNotes(cursor.getString(1));
+            r.setDate(cursor.getString(2));
+            db.close();
+            return r;
+        }
     }
     public void saveTask(Task task)
     {

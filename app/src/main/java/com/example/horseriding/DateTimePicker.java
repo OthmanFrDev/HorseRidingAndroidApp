@@ -140,9 +140,6 @@ else  txtTime.setText(hourOfDay + ":" + minute+":00");
                                 Toast.makeText(DateTimePicker.this, "work hours be between 00:08 to 18:00", Toast.LENGTH_LONG).show();
                                 txtTime.setText(null);
                             }
-
-
-
                         }
                     }, mHour, mMinute, false);
             timePickerDialog.show();
@@ -247,7 +244,7 @@ else  txtTime.setText(hourOfDay + ":" + minute+":00");
                             users.add(new User(j.getInt("userId"), j.getString("userEmail"),
                                     j.getString("userPasswd"), j.getString("userFname"),
                                     j.getString("userLname"), j.getString("description"),
-                                    j.getString("userType"), j.getString("userphoto"), j.getString("userPhone")));
+                                    j.getString("userType"), j.getString("userphoto"), j.getString("userPhone"),j.getString("lastLoginTime"),j.getString("displayColor")));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

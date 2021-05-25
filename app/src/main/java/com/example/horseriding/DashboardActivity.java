@@ -40,7 +40,9 @@ Dialog dialog;
         HashMap<String,String> userdetail=sessionManager.getUserDetailFromSession();
         textView.setText(userdetail.get(SessionManager.KEY_FULLNAME));
 
+
 dialog=new Dialog(this);
+
 
     }
 
@@ -50,21 +52,19 @@ dialog=new Dialog(this);
         Intent splashIntent = new Intent(DashboardActivity.this, ListActivity.class);
         switch (view.getId()) {
             case R.id.cardviewuser:
-
-  splashIntent.putExtra("click","0");
-
+                splashIntent.putExtra("click","0");
                 DashboardActivity.this.startActivity(splashIntent);
                 DashboardActivity.this.finish();
-
             break;
             case R.id.cardviewtask:
 
-                 splashIntent.putExtra("click","1");
+                splashIntent.putExtra("click","1");
+
                 DashboardActivity.this.startActivity(splashIntent);
                 DashboardActivity.this.finish();
-
-            break;
+                    break;
             case R.id.cardviewseance:
+
 
                 splashIntent.putExtra("click","2");
                 DashboardActivity.this.startActivity(splashIntent);
@@ -77,6 +77,7 @@ dialog=new Dialog(this);
 
 
             break;
+
         }
 
     }
@@ -91,7 +92,7 @@ dialog=new Dialog(this);
 
     public void getemploi(View view) {
         Intent calenderIntent=new Intent(this,WeekView_Calendar.class);
-        Intent splashIntent = new Intent(DashboardActivity.this, ListActivity.class);
+        Intent ListActivityIntent = new Intent(DashboardActivity.this, ListActivity.class);
         switch (view.getId())
     {
         case R.id.globalemploi:
@@ -104,9 +105,9 @@ dialog=new Dialog(this);
 //            splashIntent.putExtra("emploitype","1");
 //            DashboardActivity.this.startActivity(splashIntent);
 //            DashboardActivity.this.finish();
-        splashIntent.putExtra("click","0");
+        ListActivityIntent.putExtra("click","0");
 
-        DashboardActivity.this.startActivity(splashIntent);
+        DashboardActivity.this.startActivity(ListActivityIntent);
         DashboardActivity.this.finish();
 
         break;case R.id.clientemploi:
@@ -114,8 +115,8 @@ dialog=new Dialog(this);
 //            splashIntent.putExtra("emploitype","2");
 //            DashboardActivity.this.startActivity(splashIntent);
 //            DashboardActivity.this.finish();
-        splashIntent.putExtra("click","3");
-        DashboardActivity.this.startActivity(splashIntent);
+        ListActivityIntent.putExtra("click","3");
+        DashboardActivity.this.startActivity(ListActivityIntent);
         DashboardActivity.this.finish();
         break;
     }

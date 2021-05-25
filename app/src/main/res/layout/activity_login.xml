@@ -62,7 +62,7 @@
             android:textSize="15dp"
             android:fontFamily="sans-serif-black"
             android:textColor="@color/orange"/>
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@id/btnConnect"
             android:layout_width="300dp"
             android:layout_height="wrap_content"

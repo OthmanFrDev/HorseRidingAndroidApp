@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
                     User user = new User(response.getInt("userId"), response.getString("userEmail"),
                             response.getString("userPasswd"), response.getString("userFname"),
                             response.getString("userLname"), response.getString("description"),
-                            response.getString("userType"), response.getString("userphoto"), response.getString("userPhone"));
+                            response.getString("userType"), response.getString("userphoto"), response.getString("userPhone"),response.getString("lastLoginTime"),response.getString("displayColor"));
                   /*  if(response.has("seances"))
                     {
                         JSONArray ja= response.getJSONArray("seances");
@@ -366,7 +366,7 @@ public class MainActivity extends AppCompatActivity {
                         users.add(new User(j.getInt("userId"), j.getString("userEmail"),
                                 j.getString("userPasswd"), j.getString("userFname"),
                                 j.getString("userLname"), j.getString("description"),
-                                j.getString("userType"), j.getString("userphoto"), j.getString("userPhone")));
+                                j.getString("userType"), j.getString("userphoto"), j.getString("userPhone"),j.getString("lastLoginTime"),j.getString("displayColor")));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -522,18 +522,6 @@ public class MainActivity extends AppCompatActivity {
         MySingleton.getInstance(this.getApplicationContext()).addToRequestQueue(req);
     }
 
-    void login() {
-        User user = new User(1, "dd", "00", "ayab", "dhada", "dsada", "admin", "ds", "299595");
 
-
-        sharedpreferences = getSharedPreferences("UserInfos", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedpreferences.edit();
-        editor.putString("nomUtilisateur", user.getUserFname());
-        editor.putString("emailUtilisateur", user.getUserEmail());
-        editor.putString("prenomUtilisateur", user.getUserLname());
-        editor.commit();
-
-
-    }
 
 }
