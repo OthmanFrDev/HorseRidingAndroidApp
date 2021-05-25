@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,19 +17,28 @@ import androidx.appcompat.widget.Toolbar;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserController extends AppCompatActivity {
     String url = "http://192.168.111.1:45455/users";
+    Spinner userType ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.adduser);
+        userType = findViewById(R.id.editTextTextPersonName10);
         //Setting ToolBar Back Button
+        getType();
         Toolbar toolbar = findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -81,7 +92,7 @@ public class UserController extends AppCompatActivity {
         EditText userFname = findViewById(R.id.editTextTextPersonName7);
         EditText userLname = findViewById(R.id.editTextTextPersonName8);
         EditText description = findViewById(R.id.editTextTextPersonName9);
-        EditText userType = findViewById(R.id.editTextTextPersonName10);
+
         EditText userphoto = findViewById(R.id.editTextTextPersonName11);
         EditText contractDate = findViewById(R.id.editTextTextPersonName12);
         EditText userPhone = findViewById(R.id.editTextTextPersonName13);
@@ -119,7 +130,8 @@ public class UserController extends AppCompatActivity {
             jsonBody.put("userFname", userFname.getText().toString());
             jsonBody.put("userLname", userLname.getText().toString());
             jsonBody.put("description", description.getText().toString());
-            jsonBody.put("userType", userType.getText().toString());
+            String type= (String) userType.getSelectedItem();
+            jsonBody.put("userType", type);
             jsonBody.put("userphoto", userphoto.getText().toString());
             jsonBody.put("contractDate", contractDate.getText().toString());
             jsonBody.put("userPhone", userPhone.getText().toString());
@@ -162,4 +174,16 @@ public class UserController extends AppCompatActivity {
         }
 
     }
+    void getType() {
+      List<String> types=new ArrayList<>();
+      types.add("ADMIN");
+      types.add("MONITOR");
+
+        ArrayAdapter<String> adapter=new ArrayAdapter<String>(UserController.this,
+                R.layout.support_simple_spinner_dropdown_item,types);
+        adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        userType.setAdapter(adapter);
+
+    }
+
 }

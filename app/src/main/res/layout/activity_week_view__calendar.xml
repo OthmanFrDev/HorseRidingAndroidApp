@@ -226,6 +226,7 @@
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:text=""
+                    android:tag=""
                     android:textAlignment="center"
                     android:onClick="seancedetails"
 

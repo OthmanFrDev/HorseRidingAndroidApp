@@ -14,7 +14,10 @@ private String userEmail,userPasswd,userFname,userLname,description,userType,use
     private List<Seance> seances;
     private  List<Task> tasks;
 
-
+    @Override
+    public String toString() {
+        return userFname+" " +userLname;
+    }
 
     public User(int userId, String userEmail, String userPasswd, String userFname, String userLname, String description, String userType, String userphoto, String userPhone) {
         this.userId = userId;
@@ -28,7 +31,7 @@ private String userEmail,userPasswd,userFname,userLname,description,userType,use
         this.userPhone = userPhone;
     }
     public void setSeances(Seance seance) {
-        seances.add(seance); 
+        seances.add(seance);
     }
     public   void addSeance(Seance seance)
     {

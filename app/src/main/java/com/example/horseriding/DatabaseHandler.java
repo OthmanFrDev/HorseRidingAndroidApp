@@ -50,7 +50,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_CLIENTID = "clientId";
 
     //tasks
-    private static final String TABLE_TASKS = "seancestsak";
+    private static final String TABLE_TASKS = "seancetable      ";
     private static final String KEY_TID = "taskId";
     private static final String KEY_TSTART = "startDate";
     private static final String KEY_TDURATION = "durationMinut";

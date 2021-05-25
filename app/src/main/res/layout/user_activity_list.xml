@@ -41,6 +41,6 @@
         android:clickable="true"
         app:srcCompat="@android:drawable/ic_input_add"
         android:onClick="PostUser"
-        tools:layout_editor_absoluteX="349dp" />
+      />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

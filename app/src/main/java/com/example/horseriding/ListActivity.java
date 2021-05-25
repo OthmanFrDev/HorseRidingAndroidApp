@@ -254,12 +254,28 @@ public class ListActivity extends AppCompatActivity {
         ListActivity.this.finish();
     }
     public void getemplois(View view) {
+        Intent intent=getIntent();
+        TextView idclient= view.findViewById(R.id.userrolelist);
+        TextView idMonitor= view.findViewById(R.id.nameuserlist);
 
-        TextView id= view.findViewById(R.id.userrolelist);
         Intent emlpoisIntent = new Intent(ListActivity.this,WeekView_Calendar.class);
-        emlpoisIntent.putExtra("id",id.getText().toString());
-        ListActivity.this.startActivity(emlpoisIntent);
-        ListActivity.this.finish();
+        switch (intent.getStringExtra("click"))
+        {
+            case "0":
+                emlpoisIntent.putExtra("emploitype","1");
+                emlpoisIntent.putExtra("id",idMonitor.getText().toString().split(" ")[0]);
+                ListActivity.this.startActivity(emlpoisIntent);
+                ListActivity.this.finish();
+                break;
+            case "3":
+
+                emlpoisIntent.putExtra("emploitype","2");
+                emlpoisIntent.putExtra("id",idclient.getText().toString());
+                ListActivity.this.startActivity(emlpoisIntent);
+                ListActivity.this.finish();
+                break;
+        }
+
 
     }
 }

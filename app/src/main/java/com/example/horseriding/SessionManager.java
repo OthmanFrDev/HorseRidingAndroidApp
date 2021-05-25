@@ -6,8 +6,8 @@ import android.content.SharedPreferences;
 import java.util.HashMap;
 
 public class SessionManager {
-    SharedPreferences usersSession;
-    SharedPreferences.Editor editor;
+    SharedPreferences usersSession,server;
+    SharedPreferences.Editor editor,seditor;
     Context context;
     private  static final  String IS_LOGIN="IsLoggedIn";
     public static final String KEY_FULLNAME="fullName";
@@ -22,7 +22,9 @@ public class SessionManager {
     public SessionManager(Context context) {
         this.context = context;
         usersSession=this.context.getSharedPreferences("userSession",Context.MODE_PRIVATE);
+        server=this.context.getSharedPreferences("server",Context.MODE_PRIVATE);
         editor=usersSession.edit();
+        seditor=server.edit();
 
     }
     public void createLoginSession(User user)
@@ -36,8 +38,13 @@ public class SessionManager {
         editor.putString(KEY_TYPE, user.getUserType());
         editor.putString(KEY_PHOTO, user.getUserphoto());
         editor.putString(KEY_DESCRIPTION, user.getDescription());
+
         editor.commit();
 
+    }
+    public  void server(boolean server)
+    {
+        seditor.putBoolean("server",server);
     }
     public HashMap<String,String> getUserDetailFromSession()
     {
@@ -52,6 +59,7 @@ public class SessionManager {
         userData.put(KEY_DESCRIPTION,usersSession.getString(KEY_DESCRIPTION,null));
         return userData;
     }
+
     public boolean chekingLogin()
     {
         return usersSession.getBoolean(IS_LOGIN,false)?true:false;
@@ -60,6 +68,10 @@ public class SessionManager {
             return true;
         }
         return false;*/
+    }
+    public  boolean getserver()
+    {
+        return server.getBoolean("server",false)?true:false;
     }
     public void logout()
     {

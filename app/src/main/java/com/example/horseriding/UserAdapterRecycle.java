@@ -39,7 +39,8 @@ public class UserAdapterRecycle extends RecyclerView.Adapter<UserAdapterRecycle.
     @Override
     public void onBindViewHolder(@NonNull UserAdapterRecycle.ViewHolder holder, int position) {
         User u=list.get(position);
-        holder.txtName.setText(u.getUserLname()+" "+u.getUserFname());
+        holder.txtName.setText(u.getUserId() +" "+
+                u.getUserLname()+" "+u.getUserFname());
         holder.txtRole.setText(u.getUserType());
     }
 
