@@ -32,7 +32,6 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     public static List<User> users=new ArrayList<>();
 
-    String url = "http://192.168.111.1:45455/";
     private SharedPreferences sharedpreferences;
 
 
@@ -105,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void getUser(String id) {
-        JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET, url + "users"+"/" + id, null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET, WS.URL + "users"+"/" + id, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Log.d(MainActivity.class.getSimpleName(), response.toString());
@@ -169,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
         MySingleton.getInstance(this.getApplicationContext()).addToRequestQueue(req);
     }
     void getClient(String id) {
-        JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET, url + "clients"+"/" + id, null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET, WS.URL + "clients"+"/" + id, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Log.d(MainActivity.class.getSimpleName(), response.toString());
@@ -233,7 +232,7 @@ public class MainActivity extends AppCompatActivity {
         MySingleton.getInstance(this.getApplicationContext()).addToRequestQueue(req);
     }
     void getTask(String id) {
-        JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET, url + "tasks"+"/" + id, null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET, WS.URL + "tasks"+"/" + id, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Log.d(MainActivity.class.getSimpleName(), response.toString());
@@ -291,7 +290,7 @@ public class MainActivity extends AppCompatActivity {
         MySingleton.getInstance(this.getApplicationContext()).addToRequestQueue(req);
     }
     void getSeance(String id) {
-        JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET, url + "seances"+"/" + id, null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET, WS.URL + "seances"+"/" + id, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Log.d(MainActivity.class.getSimpleName(), response.toString());
@@ -352,7 +351,7 @@ public class MainActivity extends AppCompatActivity {
     public List<User> getAllUsers() {
          List<User>users=new ArrayList<>() ;
 
-        JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, url+"users", null, new Response.Listener<JSONArray>() {
+        JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, WS.URL+"users", null, new Response.Listener<JSONArray>() {
 
             @Override
             public void onResponse(JSONArray response) {
@@ -390,7 +389,7 @@ public class MainActivity extends AppCompatActivity {
         return users;
     }
     void getAllClients() {
-        JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, url+"clients", null, new Response.Listener<JSONArray>() {
+        JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, WS.URL+"clients", null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
 
@@ -434,7 +433,7 @@ public class MainActivity extends AppCompatActivity {
         MySingleton.getInstance(this.getApplicationContext()).addToRequestQueue(req);
     }
     void getAllTasks() {
-        JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, url+"tasks", null, new Response.Listener<JSONArray>() {
+        JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, WS.URL+"tasks", null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
 
@@ -478,7 +477,7 @@ public class MainActivity extends AppCompatActivity {
         MySingleton.getInstance(this.getApplicationContext()).addToRequestQueue(req);
     }
     void getAllSeances() {
-        JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, url+"seances", null, new Response.Listener<JSONArray>() {
+        JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, WS.URL+"seances", null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
 

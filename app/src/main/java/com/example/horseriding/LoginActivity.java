@@ -26,7 +26,7 @@ import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity {
     private SharedPreferences sharedpreferences;
-    String url = "http://192.168.1.7:45455/users";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +54,7 @@ public class LoginActivity extends AppCompatActivity {
         EditText mailTxt,pswdTxt;
         mailTxt=findViewById(R.id.mailtxt);
         pswdTxt=findViewById(R.id.pswdtxt);
-        JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+        JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, WS.URL+"users", null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
 

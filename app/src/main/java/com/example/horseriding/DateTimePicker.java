@@ -38,7 +38,6 @@ public class DateTimePicker extends AppCompatActivity implements
     EditText txtDate, txtTime;
     private int mYear, mMonth, mDay, mHour, mMinute;
     Seance seance;
-    private String url="http://192.168.111.1:45455/seances";
     private int rep;
 
     @Override
@@ -167,7 +166,7 @@ else  txtTime.setText(hourOfDay + ":" + minute+":00");
             Log.d("jsonbody", jsonBody.toString());
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                     Request.Method.POST,
-                    url,
+                    WS.URL+"seances",
                     jsonBody,
                     new Response.Listener<JSONObject>() {
                         @Override

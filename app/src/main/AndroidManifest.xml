@@ -18,20 +18,22 @@
         <activity android:name=".EditFormUser"></activity>
         <activity android:name=".dialog_user_details"
             tools:ignore="Instantiatable" />
-        <activity android:name=".Month_view">
+        <activity android:name=".Month_view" android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+
+        </activity>
+        <activity android:name=".DateTimePicker" />
+        <activity android:name=".WeekView_Calendar" android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
+        <activity android:name=".RecycleCalendar" android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DateTimePicker" />
-        <activity android:name=".WeekView_Calendar" />
-        <activity android:name=".RecycleCalendar" />
         <activity android:name=".ListActivity" />
         <activity android:name=".SeanceController" />
         <activity android:name=".ligne_List_User_Activity" />
-        <activity android:name=".DashboardActivity" />
+        <activity android:name=".DashboardActivity"/>
         <activity android:name=".LoginActivity" />
         <activity android:name=".UserController" />
         <activity android:name=".SplashScreen">

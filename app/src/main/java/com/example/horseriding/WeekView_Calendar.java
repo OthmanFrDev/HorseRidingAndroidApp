@@ -3,6 +3,7 @@ package com.example.horseriding;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
@@ -12,6 +13,8 @@ import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -170,13 +173,27 @@ public class WeekView_Calendar extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater mI=getMenuInflater();
+        mI.inflate(R.menu.menu_calendar,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        Intent i=null;
+        switch (item.getItemId()){
+            case R.id.month_view:i=new Intent(WeekView_Calendar.this,Month_view.class);startActivity(i);finish();break;
+            case R.id.week_view:findViewById(R.id.week_view).setVisibility(View.INVISIBLE);break;
+            case R.id.day_view:i=new Intent(WeekView_Calendar.this, RecyclerView.class);startActivity(i);finish();break;
+        }
+        return true;
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
-
-
-
-
-        JsonArrayRequest jArray=new JsonArrayRequest(Request.Method.GET, "http://192.168.1.7:45455/seances/"+startDateString+"/"+endDateString+"/"+id, null, new Response.Listener<JSONArray>() {
+        JsonArrayRequest jArray=new JsonArrayRequest(Request.Method.GET, WS.URL+"seances/"+startDateString+"/"+endDateString+"/"+id, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 TextView day=findViewById(R.id.day);
@@ -238,7 +255,7 @@ server=false;
         day.setText(startDateString+" -> "+endDateString);
 
 
-            JsonArrayRequest jArray=new JsonArrayRequest(Request.Method.GET, "http://192.168.1.7:45455/seances/"+startDateString+"/"+endDateString+"/"+id, null, new Response.Listener<JSONArray>() {
+            JsonArrayRequest jArray=new JsonArrayRequest(Request.Method.GET, WS.URL+"seances/"+startDateString+"/"+endDateString+"/"+id, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 server=true;
@@ -829,7 +846,7 @@ server=false;
     public void seancedetails(View view) {
         TextView textView=findViewById(view.getId());
         if(textView.getText().toString().compareTo("")!=0){
-            JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET,  "http://192.168.1.7:45455/seances/"+ textView.getText().toString(), null, new Response.Listener<JSONObject>() {
+            JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET,  WS.URL+"seances/"+ textView.getText().toString(), null, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
 

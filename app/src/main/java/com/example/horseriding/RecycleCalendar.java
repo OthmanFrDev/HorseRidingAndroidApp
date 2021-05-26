@@ -1,22 +1,24 @@
 package com.example.horseriding;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.NumberPicker;
-import android.widget.Switch;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,7 +28,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
-import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,10 +38,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Formatter;
 import java.util.List;
 import java.util.Locale;
 
@@ -57,8 +54,24 @@ public class RecycleCalendar extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recycle_calendar);
+        setContentView(R.layout.activity_day_view);
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater mI=getMenuInflater();
+        mI.inflate(R.menu.menu_calendar,menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        Intent i=null;
+        switch (item.getItemId()){
+            case R.id.month_view:i=new Intent(RecycleCalendar.this, Month_view.class);startActivity(i);finish();break;
+            case R.id.week_view:i=new Intent(RecycleCalendar.this, WeekView_Calendar.class);startActivity(i);finish();break;
+            case R.id.day_view:findViewById(R.id.week_view).setVisibility(View.INVISIBLE);
+        }
+        return true;
     }
     @Override
     protected void onResume() {
@@ -78,14 +91,14 @@ public class RecycleCalendar extends AppCompatActivity {
         Locale local=new Locale("fr","Fr");
 
 //DateInit=LocalDateTime.of();
-        if(DateInit==null){DateInit=LocalDateTime.now();}
+        if(DateInit==null){DateInit=LocalDateTime.of(2020,9,14,15,48);}
 
         //DateTimeFormatter dt= ;
         day=findViewById(R.id.day);
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         //day.setText(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.FULL, FormatStyle.SHORT).withLocale(local).format(DateInit));
         day.setText(dateFormatter.format(DateInit));
-        JsonArrayRequest jArray=new JsonArrayRequest(Request.Method.GET, "http://192.168.111.1:45455/seances/getwithdate/"+day.getText().toString(), null, new Response.Listener<JSONArray>() {
+        JsonArrayRequest jArray=new JsonArrayRequest(Request.Method.GET, WS.URL+"+seances/getwithdate/"+day.getText().toString(), null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 JSONObject j = null;
@@ -174,7 +187,7 @@ public class RecycleCalendar extends AppCompatActivity {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         //day.setText(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.FULL, FormatStyle.SHORT).withLocale(local).format(DateInit));
         day.setText(dateFormatter.format(DateInit));
-        JsonArrayRequest jArray=new JsonArrayRequest(Request.Method.GET, "http://192.168.111.1:45455/seances/getwithdate/"+day.getText().toString(), null, new Response.Listener<JSONArray>() {
+        JsonArrayRequest jArray=new JsonArrayRequest(Request.Method.GET, WS.URL+"seances/getwithdate/"+day.getText().toString(), null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 JSONObject j = null;
@@ -243,7 +256,7 @@ public class RecycleCalendar extends AppCompatActivity {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         //day.setText(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.FULL, FormatStyle.SHORT).withLocale(local).format(DateInit));
         day.setText(dateFormatter.format(DateInit));
-        JsonArrayRequest jArray=new JsonArrayRequest(Request.Method.GET, "http://192.168.111.1:45455/seances/getwithdate/"+day.getText().toString(), null, new Response.Listener<JSONArray>() {
+        JsonArrayRequest jArray=new JsonArrayRequest(Request.Method.GET, WS.URL+"seances/getwithdate/"+day.getText().toString(), null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 JSONObject j = null;
@@ -320,7 +333,7 @@ public class RecycleCalendar extends AppCompatActivity {
         TextView textView=findViewById(view.getId());
         if(textView.getText().toString().compareTo("VIDE")!=0){
            String[] list= textView.getText().toString().split(" ");
-            JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET,  "http://192.168.111.1:45455/seances/"+ list[0], null, new Response.Listener<JSONObject>() {
+            JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET,  WS.URL+"seances/"+ list[0], null, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
 
@@ -343,7 +356,7 @@ public class RecycleCalendar extends AppCompatActivity {
                                     String dateTime=response.getString("startDate").substring(11,16);
 
                                     DateInit=LocalDateTime.of(LocalDate.parse(dateDay),LocalTime.parse(dateTime));
-                                    StringRequest dr = new StringRequest(Request.Method.DELETE, "http://192.168.111.1:45455/seances/"+response.getInt("seanceId"),
+                                    StringRequest dr = new StringRequest(Request.Method.DELETE, WS.URL+"seances/"+response.getInt("seanceId"),
                                             new Response.Listener<String>()
                                             {
                                                 @Override

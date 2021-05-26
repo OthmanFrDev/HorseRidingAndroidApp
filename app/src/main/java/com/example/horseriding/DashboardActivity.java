@@ -6,9 +6,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -27,6 +30,8 @@ public class DashboardActivity extends AppCompatActivity {
     CardView cardView ;
 
     BottomNavigationView bnv;
+    TextView userShape;
+    TextView textView;
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,10 +40,14 @@ public class DashboardActivity extends AppCompatActivity {
         Log.d("Debug",LocalDateTime.now().getMonth().toString()) ;
         bnv=findViewById(R.id.bottom_navigation);
         cardView=findViewById(R.id.cardviewuser);
-        TextView textView=findViewById(R.id.welcomeuser);
+        textView=findViewById(R.id.welcomeuser);
         SessionManager sessionManager=new SessionManager(this);
         HashMap<String,String> userdetail=sessionManager.getUserDetailFromSession();
         textView.setText(userdetail.get(SessionManager.KEY_FULLNAME));
+        userShape=findViewById(R.id.shapeuser);
+        userShape.setText(userdetail.get(SessionManager.KEY_FULLNAME).split(" ")[0].toUpperCase().substring(0,1)+""+userdetail.get(SessionManager.KEY_FULLNAME).split(" ")[1].toUpperCase().substring(0,1));
+        userShape.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 70);
+        userShape.setTextColor(Color.parseColor("#ffffff"));
         bnv.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -57,6 +66,18 @@ public class DashboardActivity extends AppCompatActivity {
                 return true;
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        int orientation = getResources().getConfiguration().orientation;
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+
+            userShape.setVisibility(View.INVISIBLE);
+            textView.setVisibility(View.INVISIBLE);
+        }
+
     }
 
     public void afficherUtilisateur(View view) {

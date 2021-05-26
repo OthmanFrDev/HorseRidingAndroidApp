@@ -39,7 +39,7 @@ import java.util.List;
 
 public class ListActivity extends AppCompatActivity {
     RecyclerView listClient;
-    String url = "http://192.168.1.7:45455/";
+    String url = "http://192.168.100.86:45455/";
     EditText sInput;
     List<User>users=new ArrayList<>() ;
     List<Task>tasks=new ArrayList<>() ;
@@ -104,7 +104,7 @@ public class ListActivity extends AppCompatActivity {
     }
 
     public List<User> getAllUsers() {
-        JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, url+"users", null, new Response.Listener<JSONArray>() {
+        JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, WS.URL+"users", null, new Response.Listener<JSONArray>() {
 
             @Override
             public void onResponse(JSONArray response) {
@@ -217,7 +217,7 @@ public class ListActivity extends AppCompatActivity {
 
     void getAllClients() {
         List<Client>clients=new ArrayList<>() ;
-        JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, url+"clients", null, new Response.Listener<JSONArray>() {
+        JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, WS.URL+"clients", null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
 //
@@ -249,6 +249,7 @@ public class ListActivity extends AppCompatActivity {
 //                } catch (JSONException e) {
 //                    e.printStackTrace();
 //                }
+                Log.w("hhhhhhhhhhhhhhhhhhhhhhh",clients.toString());
                 ClientAdapterRecycle ua=new ClientAdapterRecycle(ListActivity.this,clients);
                 listClient.setLayoutManager(new LinearLayoutManager(ListActivity.this));
                 listClient.setAdapter(ua);
@@ -267,7 +268,7 @@ public class ListActivity extends AppCompatActivity {
     }
     void getAllTasks() {
 
-        JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, url+"tasks", null, new Response.Listener<JSONArray>() {
+        JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, WS.URL+"tasks", null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
 
@@ -306,7 +307,7 @@ public class ListActivity extends AppCompatActivity {
         MySingleton.getInstance(this.getApplicationContext()).addToRequestQueue(req);
     }
     public List<Seance> getAllSeances() {
-        JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, url+"seances", null, new Response.Listener<JSONArray>() {
+        JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, WS.URL+"seances", null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
 
