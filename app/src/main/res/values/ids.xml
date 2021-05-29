@@ -195,4 +195,18 @@
     <item name="inputnewpass1" type="id" />
     <item name="inputnewpass2" type="id" />
     <item name="labeledit" type="id" />
+    <item name="framelyout" type="id" />
+    <item name="home_nav" type="id" />
+    <item name="setting_nav" type="id" />
+    <item name="logout_nav" type="id" />
+    <item name="bottom_navigation" type="id" />
+    <item name="floatingActionButtonweek" type="id" />
+    <item name="hide_nav" type="id" />
+    <item name="Lun_6" type="id" />
+    <item name="Mar_6" type="id" />
+    <item name="Mer_6" type="id" />
+    <item name="Jeu_6" type="id" />
+    <item name="Ven_6" type="id" />
+    <item name="Sam_6" type="id" />
+    <item name="Dim_6" type="id" />
 </resources>

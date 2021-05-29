@@ -1,8 +1,10 @@
 package com.example.horseriding;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -10,6 +12,8 @@ import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +24,8 @@ import com.android.volley.ServerError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
@@ -27,7 +33,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
@@ -52,14 +60,14 @@ public class WeekView_Calendar extends AppCompatActivity {
     DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     LocalDateTime starDate=dateInit,endDate=dateInit;
-
+    BottomNavigationView bnv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_week_view__calendar);
+        setContentView(R.layout.activity_week_view_calendar);
         Intent emploiIntent=getIntent();
         id=emploiIntent.getStringExtra("id");
-
+        bnv=findViewById(R.id.bottom_navigation);
         switch(dateInit.getDayOfWeek().getValue()) {
             case 1:starDate=dateInit;endDate=starDate.plusDays(6);break;
             case 2:starDate=dateInit.minusDays(1);endDate=starDate.plusDays(6);break;
@@ -69,6 +77,23 @@ public class WeekView_Calendar extends AppCompatActivity {
             case 6:starDate=dateInit.minusDays(5);endDate=starDate.plusDays(6);break;
             case 7:starDate=dateInit.minusDays(6);endDate=starDate.plusDays(6);break;
         }
+        bnv.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Intent i=null;
+                switch(item.getItemId()){
+                    case R.id.hide_nav:findViewById(R.id.floatingActionButtonweek).setVisibility(View.VISIBLE );findViewById(R.id.bottom_navigation).setVisibility(View.INVISIBLE);break;
+                    case R.id.home_nav:i=new Intent(WeekView_Calendar.this,DashboardActivity.class);startActivity(i);finish();
+                    case R.id.setting_nav:findViewById(R.id.floatingActionButtonweek).setVisibility(View.VISIBLE );findViewById(R.id.bottom_navigation).setVisibility(View.INVISIBLE);break;
+                    case R.id.logout_nav:SessionManager sessionManager=new SessionManager(WeekView_Calendar.this);
+                                        sessionManager.logout();
+                        Intent splashIntent = new Intent(WeekView_Calendar.this, LoginActivity.class);
+                        WeekView_Calendar.this.startActivity(splashIntent);
+                        WeekView_Calendar.this.finish();break;
+                }
+                return true;
+            }
+        });
         startDateString=dateFormatter.format(starDate);
         endDateString=dateFormatter.format(endDate);
         Lun_08=findViewById(R.id.Lun_08);
@@ -440,15 +465,23 @@ switch (getIntent().getStringExtra("emploitype"))
                 j = response.getJSONObject(i);
                 dateFromResponse=LocalDateTime.parse(j.getString("startDate"));
                 String dateTime=j.getString("startDate").substring(11,16);
+//                if(LocalDateTime.now().compareTo(dateFromResponse)<=0)
+//                {
+//                    color="#EC7C32";
+//                }else
+//                {
+//                    color="#ff6347";
+//                }
                 if(LocalDateTime.now().compareTo(dateFromResponse)<=0)
                 {
-                    color="#EC7C32";
+                    color="#059CE5";
                 }else
                 {
-                    color="#ff6347";
+                    color="#CC0000";
                 }
                 switch (dateFromResponse.getDayOfWeek().getValue()){
                     case 1: switch(dateTime){
+
                         case "08:00":Lun_08.setText(j.getInt("seanceId")+""+""+"");Lun_08.setBackgroundColor(Color.parseColor(color));
                             break;
                         case "09:00":Lun_09.setText(j.getInt("seanceId")+""+""+"");Lun_09.setBackgroundColor(Color.parseColor(color));
@@ -470,6 +503,7 @@ switch (getIntent().getStringExtra("emploitype"))
                         case "17:00":Lun_17.setText(j.getInt("seanceId")+""+""+"");Lun_17.setBackgroundColor(Color.parseColor(color));
                             break;
                         case "18:00":Lun_18.setText(j.getInt("seanceId")+""+""+"");Lun_18.setBackgroundColor(Color.parseColor(color));
+
                             break;
                     }
                         break;
@@ -651,7 +685,7 @@ switch (getIntent().getStringExtra("emploitype"))
                         String dateTime=j.getString("startDate").substring(11,16);
                         if(LocalDateTime.now().compareTo(dateFromResponse)<=0)
                         {
-                            color="#059CE5";
+                            color="#00DAC5";
                         }else
                             {
                                  color="#ff6347";
@@ -1097,7 +1131,7 @@ switch (getIntent().getStringExtra("emploitype"))
     public void seancedetails(View view) {
         TextView textView=findViewById(view.getId());
         if(textView.getText().toString().compareTo("")!=0){
-            JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET,  "http://192.168.1.7:45455/seances/"+ textView.getText().toString(), null, new Response.Listener<JSONObject>() {
+            JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET,  "http://192.168.111.1:45455/seances/"+ textView.getText().toString(), null, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
 
@@ -1110,6 +1144,41 @@ switch (getIntent().getStringExtra("emploitype"))
                                "Comment = "+ response.getString("comments")
                                 );
                         builder.setNegativeButton("Close", null);
+                        builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which)
+                            {
+                                try {
+                                    LocalDateTime date=LocalDateTime.parse(response.getString("startDate"));
+                                    String dateDay=response.getString("startDate").substring(0,10);
+                                    String dateTime=response.getString("startDate").substring(11,16);
+
+                                   LocalDateTime  DateInit=LocalDateTime.of(LocalDate.parse(dateDay), LocalTime.parse(dateTime));
+                                    StringRequest dr = new StringRequest(Request.Method.DELETE, "http://192.168.111.1:45455/seances/"+response.getInt("seanceId"),
+                                            new Response.Listener<String>()
+                                            {
+                                                @Override
+                                                public void onResponse(String res) {
+                                                    // response
+
+                                                    startActivity(getIntent());
+                                                    Toast.makeText(WeekView_Calendar.this, "Deleted", Toast.LENGTH_LONG).show();
+                                                }
+                                            },
+                                            new Response.ErrorListener()
+                                            {
+                                                @Override
+                                                public void onErrorResponse(VolleyError error) {
+                                                    // error.
+
+                                                }
+                                            }
+                                    ); MySingleton.getInstance(WeekView_Calendar.this).addToRequestQueue(dr);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }});
+
 
                         AlertDialog dialog = builder.create();
                         dialog.show();
@@ -1524,6 +1593,11 @@ switch (getIntent().getStringExtra("emploitype"))
 
     }
 
+
+
+    public void onclickbtn(View view) {
+         findViewById(R.id.floatingActionButtonweek).setVisibility(View.INVISIBLE);findViewById(R.id.bottom_navigation).setVisibility(View.VISIBLE);
+    }
 
 
 }

@@ -186,6 +186,7 @@ public class ListActivity extends AppCompatActivity {
                             User u=users.get(position);
                             Intent iDial=new Intent(Intent.ACTION_DIAL, Uri.parse("tel:0"+u.getUserPhone().substring(4,13)));
                             startActivity(iDial);
+                            dialog.dismiss();
                         }
                     });
                     calendarbtn.setOnClickListener(new View.OnClickListener() {
@@ -196,8 +197,8 @@ public class ListActivity extends AppCompatActivity {
                             i.putExtra("id",u.getUserId()+"");
                             i.putExtra("emploitype","1");
                             startActivity(i);
-                            dialog.dismiss();
                             finish();
+                            dialog.dismiss();
                         }
                     });
                     editbtn.setOnClickListener(new View.OnClickListener() {
@@ -207,8 +208,8 @@ public class ListActivity extends AppCompatActivity {
                             Intent i=new Intent(ListActivity.this,EditFormUser.class);
                             i.putExtra("user",u);
                             startActivity(i);
-                            dialog.dismiss();
                             finish();
+                            dialog.dismiss();
                         }
                     });
                     dialog.show();

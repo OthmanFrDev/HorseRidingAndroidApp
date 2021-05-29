@@ -26,7 +26,7 @@ import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity {
     private SharedPreferences sharedpreferences;
-    String url = "http://192.168.1.7:45455/users";
+    String url = "http://192.168.111.1:45455/users";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +40,7 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+
 //    void login() {
 //        User user = new User(1, "dd", "00", "ayab", "dhada", "dsada", "admin", "ds", "299595");
 //        sharedpreferences = getSharedPreferences("UserInfos", Context.MODE_PRIVATE);
@@ -51,6 +52,7 @@ public class LoginActivity extends AppCompatActivity {
 //
 //
 //    }
+
 
     public void clickhandler(View view) {
         EditText mailTxt,pswdTxt;

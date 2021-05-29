@@ -50,7 +50,7 @@ public class RecycleCalendar extends AppCompatActivity {
    static LocalDateTime DateInit;
    static LocalDateTime NextDate;
   static String DateInitString="";
-
+    String fullName ;
     List<Seance> lSeance;
     TextView time_08,time_09,time_10,time_11,time_12,time_13,time_14,time_15,time_16,time_17,time_18;
     TextView day;
@@ -111,37 +111,61 @@ public class RecycleCalendar extends AppCompatActivity {
                         String dateDay=j.getString("startDate").substring(0,10);
                         String dateTime=j.getString("startDate").substring(11,16);
                         ConnectivityManager cm=(ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
-                        if(cm.getActiveNetworkInfo()==null||!cm.getActiveNetworkInfo().isConnected())
+                        String color;
+                        if(LocalDateTime.now().compareTo(LocalDateTime.parse(j.getString("startDate")) )<=0)
                         {
-
-
+                            color="#00DAC5";
+                        }else
+                        {
+                            color="#ff6347";
                         }
-                        else
-                        {
-                        switch(dateTime){
-                            case "08:00":time_08.setText(j.getInt("seanceId")+" "+j.getInt("monitorId")+" Durée "+j.getInt("durationMinut")+"min");time_08.setBackgroundColor(Color.parseColor("#EC7C32"));
-                                        break;
-                            case "09:00":time_09.setText(j.getInt("seanceId")+" "+j.getInt("monitorId")+" Durée "+j.getInt("durationMinut")+"min");time_09.setBackgroundColor(Color.parseColor("#EC7C32"));
-                                        break;
-                            case "10:00":time_10.setText(j.getInt("seanceId")+" "+j.getInt("monitorId")+" Durée "+j.getInt("durationMinut")+"min");time_10.setBackgroundColor(Color.parseColor("#EC7C32"));
-                                        break;
-                            case "11:00":time_11.setText(j.getInt("seanceId")+" "+j.getInt("monitorId")+" Durée "+j.getInt("durationMinut")+"min");time_11.setBackgroundColor(Color.parseColor("#EC7C32"));
-                                        break;
-                            case "12:00":time_12.setText(j.getInt("seanceId")+" "+j.getInt("monitorId")+" Durée "+j.getInt("durationMinut")+"min");time_12.setBackgroundColor(Color.parseColor("#EC7C32"));
-                                        break;
-                            case "13:00":time_13.setText(j.getInt("seanceId")+" "+j.getInt("monitorId")+" Durée "+j.getInt("durationMinut")+"min");time_13.setBackgroundColor(Color.parseColor("#EC7C32"));
-                                        break;
-                            case "14:00":time_14.setText(j.getInt("seanceId")+" "+j.getInt("monitorId")+" Durée "+j.getInt("durationMinut")+"min");time_14.setBackgroundColor(Color.parseColor("#EC7C32"));
-                                        break;
-                            case "15:00":time_15.setText(j.getInt("seanceId")+" "+j.getInt("monitorId")+" Durée "+j.getInt("durationMinut")+"min");time_15.setBackgroundColor(Color.parseColor("#EC7C32"));
-                                        break;
-                            case "16:00":time_16.setText(j.getInt("seanceId")+" "+j.getInt("monitorId")+" Durée "+j.getInt("durationMinut")+"min");time_16.setBackgroundColor(Color.parseColor("#EC7C32"));
-                                        break;
-                            case "17:00":time_17.setText(j.getInt("seanceId")+" "+j.getInt("monitorId")+" Durée "+j.getInt("durationMinut")+"min");time_17.setBackgroundColor(Color.parseColor("#EC7C32"));
-                                        break;
-                            case "18:00":time_18.setText(j.getInt("seanceId")+" "+j.getInt("monitorId")+" Durée "+j.getInt("durationMinut")+"min");time_18.setBackgroundColor(Color.parseColor("#EC7C32"));
-                                        break;
-                        }}
+
+                        switch(dateTime) {
+                            case "08:00":
+                                time_08.setText(j.getInt("seanceId") + " " + j.getString("comments"));
+                                time_08.setBackgroundColor(Color.parseColor(color));
+                                break;
+                            case "09:00":
+                                time_09.setText(j.getInt("seanceId") + " " + j.getString("comments"));
+                                time_09.setBackgroundColor(Color.parseColor(color));
+                                break;
+                            case "10:00":
+                                time_10.setText(j.getInt("seanceId") + " " + j.getString("comments"));
+                                time_10.setBackgroundColor(Color.parseColor(color));
+                                break;
+                            case "11:00":
+                                time_11.setText(j.getInt("seanceId") + " " + j.getString("comments"));
+                                time_11.setBackgroundColor(Color.parseColor(color));
+                                break;
+                            case "12:00":
+                                time_12.setText(j.getInt("seanceId") + " " + j.getString("comments"));
+                                time_12.setBackgroundColor(Color.parseColor(color));
+                                break;
+                            case "13:00":
+                                time_13.setText(j.getInt("seanceId") + " " + j.getString("comments"));
+                                time_13.setBackgroundColor(Color.parseColor(color));
+                                break;
+                            case "14:00":
+                                time_14.setText(j.getInt("seanceId") + " " + j.getString("comments"));
+                                time_14.setBackgroundColor(Color.parseColor(color));
+                                break;
+                            case "15:00":
+                                time_15.setText(j.getInt("seanceId") + " " + j.getString("comments"));
+                                time_15.setBackgroundColor(Color.parseColor(color));
+                                break;
+                            case "16:00":
+                                time_16.setText(j.getInt("seanceId") + " " + j.getString("comments"));
+                                time_16.setBackgroundColor(Color.parseColor(color));
+                                break;
+                            case "17:00":
+                                time_17.setText(j.getInt("seanceId") + " " + j.getString("comments"));
+                                time_17.setBackgroundColor(Color.parseColor(color));
+                                break;
+                            case "18:00":
+                                time_18.setText(j.getInt("seanceId") + " " + j.getString("comments"));
+                                time_18.setBackgroundColor(Color.parseColor(color));
+                                break;
+                        }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -196,29 +220,39 @@ public class RecycleCalendar extends AppCompatActivity {
                         j = response.getJSONObject(i);
                         String dateDay=j.getString("startDate").substring(0,10);
                         String dateTime=j.getString("startDate").substring(11,16);
+                        String color;
+                        if(LocalDateTime.now().compareTo(LocalDateTime.parse(j.getString("startDate")) )<=0)
+                        {
+                            color="#00DAC5";
+                        }else
+                        {
+                            color="#ff6347";
+                        }
                         switch(dateTime){
-                            case "08:00":time_08.setText(j.getInt("seanceId")+" "+j.getInt("monitorId")+" Durée "+j.getInt("durationMinut")+"min");time_08.setBackgroundColor(Color.parseColor("#EC7C32"));
+                            case "08:00":time_08.setText(j.getInt("seanceId")+" "+j.getString("comments"));time_08.setBackgroundColor(Color.parseColor(color));
                                 break;
-                            case "09:00":time_09.setText(j.getInt("seanceId")+" "+j.getInt("monitorId")+" Durée "+j.getInt("durationMinut")+"min");time_09.setBackgroundColor(Color.parseColor("#EC7C32"));
+                            case "09:00":time_09.setText(j.getInt("seanceId")+" "+j.getString("comments"));time_09.setBackgroundColor(Color.parseColor(color));
                                 break;
-                            case "10:00":time_10.setText(j.getInt("seanceId")+" "+j.getInt("monitorId")+" Durée "+j.getInt("durationMinut")+"min");time_10.setBackgroundColor(Color.parseColor("#EC7C32"));
+                            case "10:00":time_10.setText(j.getInt("seanceId")+" "+j.getString("comments"));time_10.setBackgroundColor(Color.parseColor(color));
                                 break;
-                            case "11:00":time_11.setText(j.getInt("seanceId")+" "+j.getInt("monitorId")+" Durée "+j.getInt("durationMinut")+"min");time_11.setBackgroundColor(Color.parseColor("#EC7C32"));
+                            case "11:00":time_11.setText(j.getInt("seanceId")+" "+j.getString("comments"));time_11.setBackgroundColor(Color.parseColor(color));
                                 break;
-                            case "12:00":time_12.setText(j.getInt("seanceId")+" "+j.getInt("monitorId")+" Durée "+j.getInt("durationMinut")+"min");time_12.setBackgroundColor(Color.parseColor("#EC7C32"));
+                            case "12:00":time_12.setText(j.getInt("seanceId")+" "+j.getString("comments"));time_12.setBackgroundColor(Color.parseColor(color));
                                 break;
-                            case "13:00":time_13.setText(j.getInt("seanceId")+" "+j.getInt("monitorId")+" Durée "+j.getInt("durationMinut")+"min");time_13.setBackgroundColor(Color.parseColor("#EC7C32"));
+                            case "13:00":time_13.setText(j.getInt("seanceId")+" "+j.getString("comments"));time_13.setBackgroundColor(Color.parseColor(color));
                                 break;
-                            case "14:00":time_14.setText(j.getInt("seanceId")+" "+j.getInt("monitorId")+" Durée "+j.getInt("durationMinut")+"min");time_14.setBackgroundColor(Color.parseColor("#EC7C32"));
+                            case "14:00":time_14.setText(j.getInt("seanceId")+" "+j.getString("comments"));time_14.setBackgroundColor(Color.parseColor(color));
                                 break;
-                            case "15:00":time_15.setText(j.getInt("seanceId")+" "+j.getInt("monitorId")+" Durée "+j.getInt("durationMinut")+"min");time_15.setBackgroundColor(Color.parseColor("#EC7C32"));
+                            case "15:00":time_15.setText(j.getInt("seanceId")+" "+j.getString("comments"));time_15.setBackgroundColor(Color.parseColor(color));
                                 break;
-                            case "16:00":time_16.setText(j.getInt("seanceId")+" "+j.getInt("monitorId")+" Durée "+j.getInt("durationMinut")+"min");time_16.setBackgroundColor(Color.parseColor("#EC7C32"));
+                            case "16:00":time_16.setText(j.getInt("seanceId")+" "+j.getString("comments"));time_16.setBackgroundColor(Color.parseColor(color));
                                 break;
-                            case "17:00":time_17.setText(j.getInt("seanceId")+" "+j.getInt("monitorId")+" Durée "+j.getInt("durationMinut")+"min");time_17.setBackgroundColor(Color.parseColor("#EC7C32"));
+                            case "17:00":time_17.setText(j.getInt("seanceId")+" "+j.getString("comments"));time_17.setBackgroundColor(Color.parseColor(color));
                                 break;
-                            case "18:00":time_18.setText(j.getInt("seanceId")+" "+j.getInt("monitorId")+" Durée "+j.getInt("durationMinut")+"min");time_18.setBackgroundColor(Color.parseColor("#EC7C32"));
+                            case "18:00":time_18.setText(j.getInt("seanceId")+" "+j.getString("comments"));time_18.setBackgroundColor(Color.parseColor(color));
                                 break;
+
+
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -233,75 +267,7 @@ public class RecycleCalendar extends AppCompatActivity {
         });
         MySingleton.getInstance(this.getApplicationContext()).addToRequestQueue(jArray);
     }
-    public void previousDay(View view) {
-        init();
-        time_08=findViewById(R.id.time_08);
-        time_09=findViewById(R.id.time_09);
-        time_10=findViewById(R.id.time_10);
-        time_11=findViewById(R.id.time_11);
-        time_12=findViewById(R.id.time_12);
-        time_13=findViewById(R.id.time_13);
-        time_14=findViewById(R.id.time_14);
-        time_15=findViewById(R.id.time_15);
-        time_16=findViewById(R.id.time_16);
-        time_17=findViewById(R.id.time_17);
-        time_18=findViewById(R.id.time_18);
-
-        Locale local=new Locale("fr","Fr");
-        DateInit= DateInit.plusDays(1);
-
-        //DateTimeFormatter dt= ;
-        day=findViewById(R.id.day);
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        //day.setText(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.FULL, FormatStyle.SHORT).withLocale(local).format(DateInit));
-        day.setText(dateFormatter.format(DateInit));
-        JsonArrayRequest jArray=new JsonArrayRequest(Request.Method.GET, "http://192.168.111.1:45455/seances/getwithdate/"+day.getText().toString(), null, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-                JSONObject j = null;
-                for (int i = 0; i < response.length(); i++) {
-                    Log.w("debuuuuuuuuuuuuuuuuuuuuuuuuuuuugggg","raniiii fl boucle "+response);
-                    try {
-                        j = response.getJSONObject(i);
-                        String dateDay=j.getString("startDate").substring(0,10);
-                        String dateTime=j.getString("startDate").substring(11,16);
-                        switch(dateTime){
-                            case "08:00":time_08.setText(j.getInt("seanceId")+" "+j.getInt("monitorId")+" Durée "+j.getInt("durationMinut")+"min");time_08.setBackgroundColor(Color.parseColor("#EC7C32"));
-                                break;
-                            case "09:00":time_09.setText(j.getInt("seanceId")+" "+j.getInt("monitorId")+" Durée "+j.getInt("durationMinut")+"min");time_09.setBackgroundColor(Color.parseColor("#EC7C32"));
-                                break;
-                            case "10:00":time_10.setText(j.getInt("seanceId")+" "+j.getInt("monitorId")+" Durée "+j.getInt("durationMinut")+"min");time_10.setBackgroundColor(Color.parseColor("#EC7C32"));
-                                break;
-                            case "11:00":time_11.setText(j.getInt("seanceId")+" "+j.getInt("monitorId")+" Durée "+j.getInt("durationMinut")+"min");time_11.setBackgroundColor(Color.parseColor("#EC7C32"));
-                                break;
-                            case "12:00":time_12.setText(j.getInt("seanceId")+" "+j.getInt("monitorId")+" Durée "+j.getInt("durationMinut")+"min");time_12.setBackgroundColor(Color.parseColor("#EC7C32"));
-                                break;
-                            case "13:00":time_13.setText(j.getInt("seanceId")+" "+j.getInt("monitorId")+" Durée "+j.getInt("durationMinut")+"min");time_13.setBackgroundColor(Color.parseColor("#EC7C32"));
-                                break;
-                            case "14:00":time_14.setText(j.getInt("seanceId")+" "+j.getInt("monitorId")+" Durée "+j.getInt("durationMinut")+"min");time_14.setBackgroundColor(Color.parseColor("#EC7C32"));
-                                break;
-                            case "15:00":time_15.setText(j.getInt("seanceId")+" "+j.getInt("monitorId")+" Durée "+j.getInt("durationMinut")+"min");time_15.setBackgroundColor(Color.parseColor("#EC7C32"));
-                                break;
-                            case "16:00":time_16.setText(j.getInt("seanceId")+" "+j.getInt("monitorId")+" Durée "+j.getInt("durationMinut")+"min");time_16.setBackgroundColor(Color.parseColor("#EC7C32"));
-                                break;
-                            case "17:00":time_17.setText(j.getInt("seanceId")+" "+j.getInt("monitorId")+" Durée "+j.getInt("durationMinut")+"min");time_17.setBackgroundColor(Color.parseColor("#EC7C32"));
-                                break;
-                            case "18:00":time_18.setText(j.getInt("seanceId")+" "+j.getInt("monitorId")+" Durée "+j.getInt("durationMinut")+"min");time_18.setBackgroundColor(Color.parseColor("#EC7C32"));
-                                break;
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.w("ONERRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRROOOOOR"," "+error);
-            }
-        });
-        MySingleton.getInstance(this.getApplicationContext()).addToRequestQueue(jArray);
-    }
+    
     void init()
     {
         time_08.setText("VIDE");
@@ -340,7 +306,7 @@ public class RecycleCalendar extends AppCompatActivity {
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(RecycleCalendar.this);
                         builder.setTitle("Seance Detail:");
-                        builder.setMessage("ID = "+ response.getInt("seanceId")+"\n\n" +"Sart Date = "+ response.getString("startDate")+"\n\n"+
+                        builder.setMessage("ID = "+ response.getInt("seanceId")+"\n\n" +"Sart Date = "+ response.getString("startDate")+"\n\n"+"Monitor = "+getMonitorName(response.getInt("monitorId"))+"\n\n"+
                                 "Duration = "+response.getInt("durationMinut")+"\n\n"+
                                 "Comment = "+ response.getString("comments")
                         );
@@ -495,6 +461,34 @@ public class RecycleCalendar extends AppCompatActivity {
 
 
     }
+String getMonitorName(int id)
+{
+
+    JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET,  "http://192.168.111.1:45455/users/by/"+ id, null, new Response.Listener<JSONObject>() {
+        @Override
+        public void onResponse(JSONObject response) {
+
+            try {
+
+             fullName =  response.getString("userFname")+ " "+ response.getString("userLname");
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    },
+            new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.e(RecycleCalendar.class.getSimpleName(), error.getMessage());
+                }
+            }
+
+    );
+    MySingleton.getInstance(this.getApplicationContext()).addToRequestQueue(req);
+    return fullName;
+}
+
 
 
 }

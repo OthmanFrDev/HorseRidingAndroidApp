@@ -15,6 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HorseRiding"
         android:usesCleartextTraffic="true">
+
         <activity android:name=".EditNote"></activity>
         <activity android:name=".NoteController" >
 
@@ -24,6 +25,7 @@
             android:name=".dialog_user_details"
             tools:ignore="Instantiatable" />
         <activity android:name=".Month_view" />
+
         <activity android:name=".DateTimePicker" />
         <activity android:name=".WeekView_Calendar" />
         <activity android:name=".RecycleCalendar" />
