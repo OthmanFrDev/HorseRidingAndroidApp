@@ -13,11 +13,14 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.GridLayout;
+import android.widget.LinearLayout;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,7 +50,8 @@ public class RecycleCalendar extends AppCompatActivity {
   static String DateInitString="";
 
     List<Seance> lSeance;
-    TextView time_08,time_09,time_10,time_11,time_12,time_13,time_14,time_15,time_16,time_17,time_18;
+    LinearLayout time_08,time_09,time_10,time_11,time_12,time_13,time_14,time_15,time_16,time_17,time_18;
+    GridLayout contentDay;
     TextView day;
     DateTimeFormatter dateFormatter;
     Intent splashIntent;
@@ -55,6 +59,19 @@ public class RecycleCalendar extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_day_view);
+        contentDay=findViewById(R.id.contentofday);
+        day=findViewById(R.id.day);
+        time_08=findViewById(R.id.time_08);
+        time_09=findViewById(R.id.time_09);
+        time_10=findViewById(R.id.time_10);
+        time_11=findViewById(R.id.time_11);
+        time_12=findViewById(R.id.time_12);
+        time_13=findViewById(R.id.time_13);
+        time_14=findViewById(R.id.time_14);
+        time_15=findViewById(R.id.time_15);
+        time_16=findViewById(R.id.time_16);
+        time_17=findViewById(R.id.time_17);
+        time_18=findViewById(R.id.time_18);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -76,29 +93,26 @@ public class RecycleCalendar extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        time_08=findViewById(R.id.time_08);
-        time_09=findViewById(R.id.time_09);
-        time_10=findViewById(R.id.time_10);
-        time_11=findViewById(R.id.time_11);
-        time_12=findViewById(R.id.time_12);
-        time_13=findViewById(R.id.time_13);
-        time_14=findViewById(R.id.time_14);
-        time_15=findViewById(R.id.time_15);
-        time_16=findViewById(R.id.time_16);
-        time_17=findViewById(R.id.time_17);
-        time_18=findViewById(R.id.time_18);
-
         Locale local=new Locale("fr","Fr");
 
-//DateInit=LocalDateTime.of();
+        //DateInit=LocalDateTime.of();
         if(DateInit==null){DateInit=LocalDateTime.of(2020,9,14,15,48);}
 
         //DateTimeFormatter dt= ;
-        day=findViewById(R.id.day);
+
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         //day.setText(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.FULL, FormatStyle.SHORT).withLocale(local).format(DateInit));
         day.setText(dateFormatter.format(DateInit));
-        JsonArrayRequest jArray=new JsonArrayRequest(Request.Method.GET, WS.URL+"+seances/getwithdate/"+day.getText().toString(), null, new Response.Listener<JSONArray>() {
+
+        //Creation du TextView qui va être insérer
+        TextView v=new TextView(RecycleCalendar.this);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        params.setMargins(10,10,10,10);
+        v.setLayoutParams(params);
+        v.setBackgroundResource(R.drawable.textview_border);
+        v.setTextSize(19);
+
+        JsonArrayRequest jArray=new JsonArrayRequest(Request.Method.GET, WS.URL+"seances/getwithdate/"+day.getText().toString(), null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 JSONObject j = null;
@@ -120,30 +134,21 @@ public class RecycleCalendar extends AppCompatActivity {
                         }
                         else
                         {
-                        switch(dateTime){
-                            case "08:00":time_08.setText(j.getInt("seanceId")+" "+j.getInt("monitorId")+" Durée "+j.getInt("durationMinut")+"min");time_08.setBackgroundColor(Color.parseColor("#EC7C32"));
-                                        break;
-                            case "09:00":time_09.setText(j.getInt("seanceId")+" "+j.getInt("monitorId")+" Durée "+j.getInt("durationMinut")+"min");time_09.setBackgroundColor(Color.parseColor("#EC7C32"));
-                                        break;
-                            case "10:00":time_10.setText(j.getInt("seanceId")+" "+j.getInt("monitorId")+" Durée "+j.getInt("durationMinut")+"min");time_10.setBackgroundColor(Color.parseColor("#EC7C32"));
-                                        break;
-                            case "11:00":time_11.setText(j.getInt("seanceId")+" "+j.getInt("monitorId")+" Durée "+j.getInt("durationMinut")+"min");time_11.setBackgroundColor(Color.parseColor("#EC7C32"));
-                                        break;
-                            case "12:00":time_12.setText(j.getInt("seanceId")+" "+j.getInt("monitorId")+" Durée "+j.getInt("durationMinut")+"min");time_12.setBackgroundColor(Color.parseColor("#EC7C32"));
-                                        break;
-                            case "13:00":time_13.setText(j.getInt("seanceId")+" "+j.getInt("monitorId")+" Durée "+j.getInt("durationMinut")+"min");time_13.setBackgroundColor(Color.parseColor("#EC7C32"));
-                                        break;
-                            case "14:00":time_14.setText(j.getInt("seanceId")+" "+j.getInt("monitorId")+" Durée "+j.getInt("durationMinut")+"min");time_14.setBackgroundColor(Color.parseColor("#EC7C32"));
-                                        break;
-                            case "15:00":time_15.setText(j.getInt("seanceId")+" "+j.getInt("monitorId")+" Durée "+j.getInt("durationMinut")+"min");time_15.setBackgroundColor(Color.parseColor("#EC7C32"));
-                                        break;
-                            case "16:00":time_16.setText(j.getInt("seanceId")+" "+j.getInt("monitorId")+" Durée "+j.getInt("durationMinut")+"min");time_16.setBackgroundColor(Color.parseColor("#EC7C32"));
-                                        break;
-                            case "17:00":time_17.setText(j.getInt("seanceId")+" "+j.getInt("monitorId")+" Durée "+j.getInt("durationMinut")+"min");time_17.setBackgroundColor(Color.parseColor("#EC7C32"));
-                                        break;
-                            case "18:00":time_18.setText(j.getInt("seanceId")+" "+j.getInt("monitorId")+" Durée "+j.getInt("durationMinut")+"min");time_18.setBackgroundColor(Color.parseColor("#EC7C32"));
-                                        break;
-                        }}
+                            v.setText(j.getInt("seanceId")+" "+j.getInt("monitorId")+" Durée "+j.getInt("durationMinut")+"min");
+                            switch(dateTime){
+                                case "08:00":time_08.addView(v);break;
+                                case "09:00":time_09.addView(v);break;
+                                case "10:00":time_10.addView(v);break;
+                                case "11:00":time_11.addView(v);break;
+                                case "12:00":time_12.addView(v);break;
+                                case "13:00":time_13.addView(v);break;
+                                case "14:00":time_14.addView(v);break;
+                                case "15:00":time_15.addView(v);break;
+                                case "16:00":time_16.addView(v);break;
+                                case "17:00":time_17.addView(v);break;
+                                case "18:00":time_18.addView(v);break;
+                            }
+                        }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -160,7 +165,7 @@ public class RecycleCalendar extends AppCompatActivity {
     }
 
     public void nextday(View view) {
-        init();
+     /*   init();
         time_08=findViewById(R.id.time_08);
         time_09=findViewById(R.id.time_09);
         time_10=findViewById(R.id.time_10);
@@ -232,101 +237,15 @@ public class RecycleCalendar extends AppCompatActivity {
                 Log.w("ONERRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRROOOOOR"," "+error);
             }
         });
-        MySingleton.getInstance(this.getApplicationContext()).addToRequestQueue(jArray);
-    }
-    public void previousDay(View view) {
-        init();
-        time_08=findViewById(R.id.time_08);
-        time_09=findViewById(R.id.time_09);
-        time_10=findViewById(R.id.time_10);
-        time_11=findViewById(R.id.time_11);
-        time_12=findViewById(R.id.time_12);
-        time_13=findViewById(R.id.time_13);
-        time_14=findViewById(R.id.time_14);
-        time_15=findViewById(R.id.time_15);
-        time_16=findViewById(R.id.time_16);
-        time_17=findViewById(R.id.time_17);
-        time_18=findViewById(R.id.time_18);
-
-        Locale local=new Locale("fr","Fr");
-        DateInit= DateInit.plusDays(1);
-
-        //DateTimeFormatter dt= ;
-        day=findViewById(R.id.day);
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        //day.setText(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.FULL, FormatStyle.SHORT).withLocale(local).format(DateInit));
-        day.setText(dateFormatter.format(DateInit));
-        JsonArrayRequest jArray=new JsonArrayRequest(Request.Method.GET, WS.URL+"seances/getwithdate/"+day.getText().toString(), null, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-                JSONObject j = null;
-                for (int i = 0; i < response.length(); i++) {
-                    Log.w("debuuuuuuuuuuuuuuuuuuuuuuuuuuuugggg","raniiii fl boucle "+response);
-                    try {
-                        j = response.getJSONObject(i);
-                        String dateDay=j.getString("startDate").substring(0,10);
-                        String dateTime=j.getString("startDate").substring(11,16);
-                        switch(dateTime){
-                            case "08:00":time_08.setText(j.getInt("seanceId")+" "+j.getInt("monitorId")+" Durée "+j.getInt("durationMinut")+"min");time_08.setBackgroundColor(Color.parseColor("#EC7C32"));
-                                break;
-                            case "09:00":time_09.setText(j.getInt("seanceId")+" "+j.getInt("monitorId")+" Durée "+j.getInt("durationMinut")+"min");time_09.setBackgroundColor(Color.parseColor("#EC7C32"));
-                                break;
-                            case "10:00":time_10.setText(j.getInt("seanceId")+" "+j.getInt("monitorId")+" Durée "+j.getInt("durationMinut")+"min");time_10.setBackgroundColor(Color.parseColor("#EC7C32"));
-                                break;
-                            case "11:00":time_11.setText(j.getInt("seanceId")+" "+j.getInt("monitorId")+" Durée "+j.getInt("durationMinut")+"min");time_11.setBackgroundColor(Color.parseColor("#EC7C32"));
-                                break;
-                            case "12:00":time_12.setText(j.getInt("seanceId")+" "+j.getInt("monitorId")+" Durée "+j.getInt("durationMinut")+"min");time_12.setBackgroundColor(Color.parseColor("#EC7C32"));
-                                break;
-                            case "13:00":time_13.setText(j.getInt("seanceId")+" "+j.getInt("monitorId")+" Durée "+j.getInt("durationMinut")+"min");time_13.setBackgroundColor(Color.parseColor("#EC7C32"));
-                                break;
-                            case "14:00":time_14.setText(j.getInt("seanceId")+" "+j.getInt("monitorId")+" Durée "+j.getInt("durationMinut")+"min");time_14.setBackgroundColor(Color.parseColor("#EC7C32"));
-                                break;
-                            case "15:00":time_15.setText(j.getInt("seanceId")+" "+j.getInt("monitorId")+" Durée "+j.getInt("durationMinut")+"min");time_15.setBackgroundColor(Color.parseColor("#EC7C32"));
-                                break;
-                            case "16:00":time_16.setText(j.getInt("seanceId")+" "+j.getInt("monitorId")+" Durée "+j.getInt("durationMinut")+"min");time_16.setBackgroundColor(Color.parseColor("#EC7C32"));
-                                break;
-                            case "17:00":time_17.setText(j.getInt("seanceId")+" "+j.getInt("monitorId")+" Durée "+j.getInt("durationMinut")+"min");time_17.setBackgroundColor(Color.parseColor("#EC7C32"));
-                                break;
-                            case "18:00":time_18.setText(j.getInt("seanceId")+" "+j.getInt("monitorId")+" Durée "+j.getInt("durationMinut")+"min");time_18.setBackgroundColor(Color.parseColor("#EC7C32"));
-                                break;
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.w("ONERRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRROOOOOR"," "+error);
-            }
-        });
-        MySingleton.getInstance(this.getApplicationContext()).addToRequestQueue(jArray);
+        MySingleton.getInstance(this.getApplicationContext()).addToRequestQueue(jArray);*/
     }
     void init()
     {
-        time_08.setText("VIDE");
-        time_09.setText("VIDE");
-        time_10.setText("VIDE");
-        time_11.setText("VIDE");
-        time_12.setText("VIDE");
-        time_13.setText("VIDE");
-        time_14.setText("VIDE");
-        time_15.setText("VIDE");
-        time_16.setText("VIDE");
-        time_17.setText("VIDE");
-        time_18.setBackgroundColor(Color.parseColor("#ffffff"));
-        time_08.setBackgroundColor(Color.parseColor("#ffffff"));
-        time_09.setBackgroundColor(Color.parseColor("#ffffff"));
-        time_10.setBackgroundColor(Color.parseColor("#ffffff"));
-        time_11.setBackgroundColor(Color.parseColor("#ffffff"));
-        time_12.setBackgroundColor(Color.parseColor("#ffffff"));
-        time_13.setBackgroundColor(Color.parseColor("#ffffff"));
-        time_14.setBackgroundColor(Color.parseColor("#ffffff"));
-        time_15.setBackgroundColor(Color.parseColor("#ffffff"));
-        time_16.setBackgroundColor(Color.parseColor("#ffffff"));
-        time_17.setBackgroundColor(Color.parseColor("#ffffff"));
-        time_18.setBackgroundColor(Color.parseColor("#ffffff"));
+        LinearLayout l=null;
+        for(int i=0;i<contentDay.getChildCount();i++){
+            l=(LinearLayout) contentDay.getChildAt(i);
+            l.removeAllViews();
+        }
     }
 
     public void addSeance(View view) {

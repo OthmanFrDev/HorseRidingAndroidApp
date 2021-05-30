@@ -27,7 +27,6 @@
             android:layout_columnWeight="1"
             android:text="LUN"
             android:gravity="center"
-            android:background="@drawable/textview_border"
             android:layout_rowWeight="1"
             android:id="@id/day" />
 
@@ -39,216 +38,229 @@
             android:onClick="nextday" />
 
     </GridLayout>
-    
-   <ScrollView
-       android:layout_width="match_parent"
-       android:layout_height="0dp"
-       app:layout_constraintStart_toStartOf="parent"
-       app:layout_constraintTop_toBottomOf="@id/gridWeek"
-       app:layout_constraintEnd_toEndOf="parent">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_vertical"
-        android:orientation="vertical">
-        <GridLayout
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/gridWeek"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:rowCount="1"
-            android:columnCount="2">
+            android:gravity="center_vertical"
+            android:orientation="vertical" android:background="@drawable/border">
             <GridLayout
-                android:id="@id/gridTime"
-                android:layout_width="42dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:rowCount="11"
-                android:columnCount="1">
+                android:rowCount="1"
+                android:columnCount="2">
+                <GridLayout
+                    android:id="@id/gridTime"
+                    android:layout_width="42dp"
+                    android:layout_height="match_parent"
+                    android:rowCount="11"
+                    android:columnCount="1">
 
-                <TextView
-                    android:id="@id/pm8"
-                    android:layout_height="80dp"
-                    android:layout_rowWeight="1"
-                    android:layout_columnWeight="1"
-                    android:text="08:00" />
+                    <TextView
+                        android:id="@id/pm8"
+                        android:layout_height="80dp"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="1"
+                        android:text="08:00" />
 
-                <TextView
-                    android:id="@id/pm9"
-                    android:layout_height="80dp"
-                    android:layout_rowWeight="1"
+                    <TextView
+                        android:id="@id/pm9"
+                        android:layout_height="80dp"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="1"
+                        android:text="09:00" />
+                    <TextView
+                        android:text="10:00"
+                        android:layout_columnWeight="1"
+                        android:layout_height="80dp"
+                        android:layout_rowWeight="1"
+                        android:id="@id/pm10"/>
+                    <TextView
+                        android:text="11:00"
+                        android:layout_columnWeight="1"
+                        android:layout_rowWeight="1"
+                        android:layout_height="80dp"
+                        android:id="@id/pm11"/>
+                    <TextView
+                        android:text="12:00"
+                        android:layout_columnWeight="1"
+                        android:layout_rowWeight="1"
+                        android:layout_height="80dp"
+                        android:id="@id/pm12"/>
+                    <TextView
+                        android:text="13:00"
+                        android:layout_columnWeight="1"
+                        android:layout_rowWeight="1"
+                        android:layout_height="80dp"
+                        android:id="@id/pm13"/>
+                    <TextView
+                        android:text="14:00"
+                        android:layout_columnWeight="1"
+                        android:layout_rowWeight="1"
+                        android:layout_height="80dp"
+                        android:id="@id/pm14"/>
+                    <TextView
+                        android:text="15:00"
+                        android:layout_columnWeight="1"
+                        android:layout_rowWeight="1"
+                        android:layout_height="80dp"
+                        android:id="@id/pm15"/>
+                    <TextView
+                        android:text="16:00"
+                        android:layout_columnWeight="1"
+                        android:layout_rowWeight="1"
+                        android:layout_height="80dp"
+                        android:id="@id/pm16"/>
+                    <TextView
+                        android:text="17:00"
+                        android:layout_columnWeight="1"
+                        android:layout_rowWeight="1"
+                        android:layout_height="80dp"
+                        android:id="@id/pm17"/>
+                    <TextView
+                        android:text="18:00"
+                        android:layout_columnWeight="1"
+                        android:layout_rowWeight="1"
+                        android:layout_height="80dp"
+                        android:id="@id/pm18"/>
+                </GridLayout>
+                <GridLayout
+                    android:id="@id/contentofday"
+                    android:layout_width="match_parent"
+                    android:rowCount="11"
+                    android:layout_height="match_parent"
                     android:layout_columnWeight="1"
-                    android:text="09:00" />
-                <TextView
-                    android:text="10:00"
-                    android:layout_columnWeight="1"
-                    android:layout_height="80dp"
                     android:layout_rowWeight="1"
-                    android:id="@id/pm10"/>
-                <TextView
-                    android:text="11:00"
-                    android:layout_columnWeight="1"
-                    android:layout_rowWeight="1"
-                    android:layout_height="80dp"
-                    android:id="@id/pm11"/>
-                <TextView
-                    android:text="12:00"
-                    android:layout_columnWeight="1"
-                    android:layout_rowWeight="1"
-                    android:layout_height="80dp"
-                    android:id="@id/pm12"/>
-                <TextView
-                    android:text="13:00"
-                    android:layout_columnWeight="1"
-                    android:layout_rowWeight="1"
-                    android:layout_height="80dp"
-                    android:id="@id/pm13"/>
-                <TextView
-                    android:text="14:00"
-                    android:layout_columnWeight="1"
-                    android:layout_rowWeight="1"
-                    android:layout_height="80dp"
-                    android:id="@id/pm14"/>
-                <TextView
-                    android:text="15:00"
-                    android:layout_columnWeight="1"
-                    android:layout_rowWeight="1"
-                    android:layout_height="80dp"
-                    android:id="@id/pm15"/>
-                <TextView
-                    android:text="16:00"
-                    android:layout_columnWeight="1"
-                    android:layout_rowWeight="1"
-                    android:layout_height="80dp"
-                    android:id="@id/pm16"/>
-                <TextView
-                    android:text="17:00"
-                    android:layout_columnWeight="1"
-                    android:layout_rowWeight="1"
-                    android:layout_height="80dp"
-                    android:id="@id/pm17"/>
-                <TextView
-                    android:text="18:00"
-                    android:layout_columnWeight="1"
-                    android:layout_rowWeight="1"
-                    android:layout_height="80dp"
-                    android:id="@id/pm18"/>
+                    android:columnCount="1">
+                    <LinearLayout
+                        android:orientation="vertical" android:background="@drawable/border"
+                        android:id="@id/time_08"
+                        android:layout_width="match_parent"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="1"
+                        android:textAlignment="center"
+                        android:clickable="true"
+                        android:layout_height="80dp"
+                        android:onClick="addSeance"
+                        android:text="VIDE"> </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical" android:background="@drawable/border"
+                        android:id="@id/time_09"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="1"
+                        android:layout_height="80dp"
+                        android:textAlignment="center"
+                        android:layout_width="match_parent"
+                        android:onClick="addSeance"
+                        android:text="VIDE"> </LinearLayout>
+                    <LinearLayout
+                        android:orientation="vertical" android:background="@drawable/border"
+                        android:id="@id/time_10"
+                        android:layout_width="match_parent"
+                        android:layout_rowWeight="1"
+                        android:textAlignment="center"
+                        android:layout_columnWeight="1"
+                        android:onClick="addSeance"
+                        android:layout_height="80dp"
+                        android:text="VIDE"> </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical" android:background="@drawable/border"
+                        android:id="@id/time_11"
+                        android:layout_width="match_parent"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="1"
+                        android:textAlignment="center"
+                        android:layout_height="80dp"
+                        android:onClick="addSeance"
+                        android:text="VIDE"> </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical" android:background="@drawable/border"
+                        android:id="@id/time_12"
+                        android:layout_width="match_parent"
+                        android:layout_rowWeight="1"
+                        android:layout_height="80dp"
+                        android:layout_columnWeight="1"
+                        android:textAlignment="center"
+                        android:onClick="addSeance"
+                        android:text="VIDE"> </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical" android:background="@drawable/border"
+                        android:id="@id/time_13"
+                        android:layout_width="match_parent"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="1"
+                        android:textAlignment="center"
+                        android:onClick="addSeance"
+                        android:layout_height="80dp"
+                        android:text="VIDE"> </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical" android:background="@drawable/border"
+                        android:id="@id/time_14"
+                        android:layout_width="match_parent"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="1"
+                        android:textAlignment="center"
+                        android:onClick="addSeance"
+                        android:layout_height="80dp"
+                        android:text="VIDE"> </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical" android:background="@drawable/border"
+                        android:id="@id/time_15"
+                        android:layout_width="match_parent"
+                        android:layout_rowWeight="1"
+                        android:textAlignment="center"
+                        android:layout_columnWeight="1"
+                        android:onClick="addSeance"
+                        android:layout_height="80dp"
+                        android:text="VIDE"> </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical" android:background="@drawable/border"
+                        android:id="@id/time_16"
+                        android:layout_width="match_parent"
+                        android:layout_rowWeight="1"
+                        android:textAlignment="center"
+                        android:layout_columnWeight="1"
+                        android:onClick="addSeance"
+                        android:layout_height="80dp"
+                        android:text="VIDE"> </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical" android:background="@drawable/border"
+                        android:id="@id/time_17"
+                        android:layout_width="match_parent"
+                        android:layout_rowWeight="1"
+                        android:textAlignment="center"
+                        android:layout_columnWeight="1"
+                        android:onClick="addSeance"
+                        android:layout_height="80dp"
+                        android:text="VIDE"> </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical" android:background="@drawable/border"
+                        android:id="@id/time_18"
+                        android:layout_width="match_parent"
+                        android:textAlignment="center"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="1"
+                        android:onClick="addSeance"
+                        android:layout_height="80dp"
+                        android:text="VIDE"> </LinearLayout>
+                </GridLayout>
             </GridLayout>
-        <GridLayout
-            android:layout_width="match_parent"
-            android:rowCount="11"
-            android:layout_height="match_parent"
-            android:columnCount="1">
-            <TextView
-                android:id="@id/time_08"
-                android:layout_width="match_parent"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:textAlignment="center"
-                android:clickable="true"
-                android:layout_height="80dp"
-                android:onClick="addSeance"
-                android:text="VIDE" />
-
-            <TextView
-                android:id="@id/time_09"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_height="80dp"
-                android:textAlignment="center"
-                android:layout_width="match_parent"
-                android:onClick="addSeance"
-                android:text="VIDE" />
-
-            <TextView
-                android:id="@id/time_10"
-                android:layout_width="match_parent"
-                android:layout_rowWeight="1"
-                android:textAlignment="center"
-                android:layout_columnWeight="1"
-                android:onClick="addSeance"
-                android:layout_height="80dp"
-                android:text="VIDE" />
-
-            <TextView
-                android:id="@id/time_11"
-                android:layout_width="match_parent"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:textAlignment="center"
-                android:layout_height="80dp"
-                android:onClick="addSeance"
-                android:text="VIDE" />
-
-            <TextView
-                android:id="@id/time_12"
-                android:layout_width="match_parent"
-                android:layout_rowWeight="1"
-                android:layout_height="80dp"
-                android:layout_columnWeight="1"
-                android:textAlignment="center"
-                android:onClick="addSeance"
-                android:text="VIDE" />
-
-            <TextView
-                android:id="@id/time_13"
-                android:layout_width="match_parent"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:textAlignment="center"
-                android:onClick="addSeance"
-                android:layout_height="80dp"
-                android:text="VIDE" />
-
-            <TextView
-                android:id="@id/time_14"
-                android:layout_width="match_parent"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:textAlignment="center"
-                android:onClick="addSeance"
-                android:layout_height="80dp"
-                android:text="VIDE" />
-
-            <TextView
-                android:id="@id/time_15"
-                android:layout_width="match_parent"
-                android:layout_rowWeight="1"
-                android:textAlignment="center"
-                android:layout_columnWeight="1"
-                android:onClick="addSeance"
-                android:layout_height="80dp"
-                android:text="VIDE" />
-
-            <TextView
-                android:id="@id/time_16"
-                android:layout_width="match_parent"
-                android:layout_rowWeight="1"
-                android:textAlignment="center"
-                android:layout_columnWeight="1"
-                android:onClick="addSeance"
-                android:layout_height="80dp"
-                android:text="VIDE" />
-
-            <TextView
-                android:id="@id/time_17"
-                android:layout_width="match_parent"
-                android:layout_rowWeight="1"
-                android:textAlignment="center"
-                android:layout_columnWeight="1"
-                android:onClick="addSeance"
-                android:layout_height="80dp"
-                android:text="VIDE" />
-
-            <TextView
-                android:id="@id/time_18"
-                android:layout_width="match_parent"
-                android:textAlignment="center"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:onClick="addSeance"
-                android:layout_height="80dp"
-                android:text="VIDE" />
-        </GridLayout>
-        </GridLayout>
-    </LinearLayout>
-   </ScrollView>
+        </LinearLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

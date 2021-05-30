@@ -22,13 +22,15 @@
 
         </activity>
         <activity android:name=".DateTimePicker" />
-        <activity android:name=".WeekView_Calendar" android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
-        <activity android:name=".RecycleCalendar" android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+        <activity android:name=".WeekView_Calendar" android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".RecycleCalendar" android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+
         </activity>
         <activity android:name=".ListActivity" />
         <activity android:name=".SeanceController" />

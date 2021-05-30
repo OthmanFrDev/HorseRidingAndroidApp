@@ -18,6 +18,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,14 +44,14 @@ public class WeekView_Calendar extends AppCompatActivity {
     String startDateString,endDateString;
     String id;
     boolean server=false;
-    TextView Lun_08,Lun_09,Lun_10,Lun_11,Lun_12,Lun_13,Lun_14,Lun_15,Lun_16,Lun_17,Lun_18,
+    LinearLayout Lun_08,Lun_09,Lun_10,Lun_11,Lun_12,Lun_13,Lun_14,Lun_15,Lun_16,Lun_17,Lun_18,
             Mar_08,Mar_09,Mar_10,Mar_11,Mar_12,Mar_13,Mar_14,Mar_15,Mar_16,Mar_17,Mar_18,
             Mer_08,Mer_09,Mer_10,Mer_11,Mer_12,Mer_13,Mer_14,Mer_15,Mer_16,Mer_17,Mer_18,
             Jeu_08,Jeu_09,Jeu_10,Jeu_11,Jeu_12,Jeu_13,Jeu_14,Jeu_15,Jeu_16,Jeu_17,Jeu_18,
             Ven_08,Ven_09,Ven_10,Ven_11,Ven_12,Ven_13,Ven_14,Ven_15,Ven_16,Ven_17,Ven_18,
             Sam_08,Sam_09,Sam_10,Sam_11,Sam_12,Sam_13,Sam_14,Sam_15,Sam_16,Sam_17,Sam_18,
             Dim_08,Dim_09,Dim_10,Dim_11,Dim_12,Dim_13,Dim_14,Dim_15,Dim_16,Dim_17,Dim_18;
-
+    LinearLayout linearIntersection;
     LocalDateTime dateInit=LocalDateTime.of(2020, 9, 14, 15, 56);
     DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
@@ -169,7 +170,6 @@ public class WeekView_Calendar extends AppCompatActivity {
         Dim_17=findViewById(R.id.Dim_17);
         Dim_18=findViewById(R.id.Dim_18);
 
-
     }
 
     @Override
@@ -198,7 +198,7 @@ public class WeekView_Calendar extends AppCompatActivity {
             public void onResponse(JSONArray response) {
                 TextView day=findViewById(R.id.day);
                 day.setText(startDateString+" -> "+endDateString);
-                getSeance(response);
+                //getSeance(response);
                 JSONObject j = null;
                  server=true;
                 for(int i=0;i<response.length();i++) {
@@ -228,8 +228,8 @@ public class WeekView_Calendar extends AppCompatActivity {
 
     }
     public void weekchanger(View view) {
-        init();
-server=false;
+        //init();
+        server=false;
         switch(view.getId())
         {
 
@@ -259,7 +259,7 @@ server=false;
             @Override
             public void onResponse(JSONArray response) {
                 server=true;
-                getSeance(response);
+                //getSeance(response);
 
                 }
 
@@ -275,7 +275,7 @@ server=false;
         {getSeance(databaseHandler.readSeance());}*/
     }
     void init()
-    {
+    {/*
         Lun_08.setText("");Lun_08.setBackgroundColor(Color.parseColor("#ffffff"));
 
         Lun_09.setText("");Lun_09.setBackgroundColor(Color.parseColor("#ffffff"));
@@ -423,7 +423,7 @@ server=false;
 
         Dim_17.setText("");Dim_17.setBackgroundColor(Color.parseColor("#ffffff"));
 
-        Dim_18.setText("");Dim_18.setBackgroundColor(Color.parseColor("#ffffff"));
+        Dim_18.setText("");Dim_18.setBackgroundColor(Color.parseColor("#ffffff"));*/
 
 
     }
@@ -437,7 +437,7 @@ server=false;
                 j = response.getJSONObject(i);
                 dateFromResponse=LocalDateTime.parse(j.getString("startDate"));
                 String dateTime=j.getString("startDate").substring(11,16);
-                switch (dateFromResponse.getDayOfWeek().getValue()){
+              /*  switch (dateFromResponse.getDayOfWeek().getValue()){
                     case 1: switch(dateTime){
                         case "08:00":Lun_08.setText(j.getInt("seanceId")+""+""+j.getInt("seanceId"));Lun_08.setBackgroundColor(Color.parseColor("#EC7C32"));
                             break;
@@ -614,7 +614,7 @@ server=false;
                             break;
                     }
                         break;
-                }
+                }*/
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -632,7 +632,7 @@ server=false;
 
                 dateFromResponse=LocalDateTime.parse(seance.getStartDate());
                 String dateTime=seance.getStartDate().substring(11,16);
-                switch (dateFromResponse.getDayOfWeek().getValue()){
+              /*  switch (dateFromResponse.getDayOfWeek().getValue()){
                     case 1: switch(dateTime){
                         case "08:00":Lun_08.setText(seance.getSeanceId()+""+""+"");Lun_08.setBackgroundColor(Color.parseColor("#EC7C32"));
                             break;
@@ -836,7 +836,7 @@ server=false;
                         break;
                 }
 
-
+*/
             } catch (Exception e) {
                 e.printStackTrace();
             }

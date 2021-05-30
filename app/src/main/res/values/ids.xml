@@ -215,4 +215,13 @@
     <item name="day_view" type="id" />
     <item name="week_view" type="id" />
     <item name="month_view" type="id" />
+    <item name="contentofday" type="id" />
+    <item name="Lunpm8" type="id" />
+    <item name="heure" type="id" />
+    <item name="Marpm8" type="id" />
+    <item name="Merpm8" type="id" />
+    <item name="Jeupm8" type="id" />
+    <item name="Venpm8" type="id" />
+    <item name="Sampm8" type="id" />
+    <item name="Dimpm8" type="id" />
 </resources>
