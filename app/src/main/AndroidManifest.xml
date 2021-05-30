@@ -18,7 +18,7 @@
         <activity android:name=".EditFormUser"></activity>
         <activity android:name=".dialog_user_details"
             tools:ignore="Instantiatable" />
-        <activity android:name=".Month_view" android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+        <activity android:name=".MonthView_Calendar" android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
 
         </activity>
         <activity android:name=".DateTimePicker" />
@@ -29,7 +29,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RecycleCalendar" android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+        <activity android:name=".DayView_calendar" android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
 
         </activity>
         <activity android:name=".ListActivity" />
@@ -41,7 +41,6 @@
         <activity android:name=".SplashScreen">
 
         </activity>
-        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>

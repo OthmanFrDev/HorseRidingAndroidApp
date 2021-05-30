@@ -5,18 +5,12 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -28,7 +22,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -183,7 +176,7 @@ public class WeekView_Calendar extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         Intent i=null;
         switch (item.getItemId()){
-            case R.id.month_view:i=new Intent(WeekView_Calendar.this,Month_view.class);startActivity(i);finish();break;
+            case R.id.month_view:i=new Intent(WeekView_Calendar.this, MonthView_Calendar.class);startActivity(i);finish();break;
             case R.id.week_view:findViewById(R.id.week_view).setVisibility(View.INVISIBLE);break;
             case R.id.day_view:i=new Intent(WeekView_Calendar.this, RecyclerView.class);startActivity(i);finish();break;
         }
@@ -871,7 +864,7 @@ public class WeekView_Calendar extends AppCompatActivity {
                     new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            Log.e(MainActivity.class.getSimpleName(), error.getMessage());
+
                         }
                     }
 

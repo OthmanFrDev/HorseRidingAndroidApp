@@ -1,7 +1,6 @@
 package com.example.horseriding;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,7 +19,6 @@ import android.util.TypedValue;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -373,7 +371,7 @@ public class ListActivity extends AppCompatActivity {
 
         if(intent.getStringExtra("click").equals("0")){addIntent = new Intent(ListActivity.this,UserController.class); }
         if(intent.getStringExtra("click").equals("1")){addIntent = new Intent(ListActivity.this,UserController.class);/*task*/}
-        if(intent.getStringExtra("click").equals("2")){addIntent = new Intent(ListActivity.this,RecycleCalendar.class);/*seance*/}
+        if(intent.getStringExtra("click").equals("2")){addIntent = new Intent(ListActivity.this, DayView_calendar.class);/*seance*/}
         if(intent.getStringExtra("click").equals("3")){addIntent = new Intent(ListActivity.this,UserController.class);/*client*/}
 
         ListActivity.this.startActivity(addIntent);

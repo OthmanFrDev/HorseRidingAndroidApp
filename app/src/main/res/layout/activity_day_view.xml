@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_marginTop="5dp"
     android:layout_height="match_parent"
-    tools:context=".RecycleCalendar">
+    tools:context=".DayView_calendar">
     <GridLayout
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

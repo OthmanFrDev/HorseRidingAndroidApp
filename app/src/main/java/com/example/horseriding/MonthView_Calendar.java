@@ -17,19 +17,16 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Method;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 
-public class Month_view extends AppCompatActivity {
+public class MonthView_Calendar extends AppCompatActivity {
     LocalDate dateInit= LocalDate.of(2020, 9, 14);
     TextView Lun_1,Mar_1,Mer_1,Jeu_1,Ven_1,Sam_1,Dim_1,
             Lun_2,Mar_2,Mer_2,Jeu_2,Ven_2,Sam_2,Dim_2,
@@ -95,8 +92,8 @@ public class Month_view extends AppCompatActivity {
         Intent i=null;
         switch (item.getItemId()){
             case R.id.month_view:findViewById(R.id.week_view).setVisibility(View.INVISIBLE);break;
-            case R.id.week_view:i=new Intent(Month_view.this, WeekView_Calendar.class);startActivity(i);finish();break;
-            case R.id.day_view:i=new Intent(Month_view.this, RecyclerView.class);startActivity(i);finish();break;
+            case R.id.week_view:i=new Intent(MonthView_Calendar.this, WeekView_Calendar.class);startActivity(i);finish();break;
+            case R.id.day_view:i=new Intent(MonthView_Calendar.this, RecyclerView.class);startActivity(i);finish();break;
         }
         return true;
     }
