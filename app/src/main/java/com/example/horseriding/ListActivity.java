@@ -40,6 +40,7 @@ import java.util.List;
 public class ListActivity extends AppCompatActivity {
     RecyclerView listClient;
     String url = "http://192.168.111.1:45455/";
+
     EditText sInput;
     List<User>users=new ArrayList<>() ;
     List<Task>tasks=new ArrayList<>() ;
@@ -78,7 +79,11 @@ public class ListActivity extends AppCompatActivity {
         if(listClient!=null){
             Intent intent=getIntent();
             if(intent.getStringExtra("click")!=null){
-            if(intent.getStringExtra("click").equals("0")){getAllUsers();}
+            if(intent.getStringExtra("click").equals("0"))
+            {
+                int P=0;
+                getAllUsers();
+            }
             if(intent.getStringExtra("click").equals("1")){getAllTasks();}
             if(intent.getStringExtra("click").equals("2")){getAllSeances();}
             if(intent.getStringExtra("click").equals("3")){getAllClients();}}
@@ -105,7 +110,7 @@ public class ListActivity extends AppCompatActivity {
     }
 
     public List<User> getAllUsers() {
-        JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, url+"users", null, new Response.Listener<JSONArray>() {
+        JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, WS.URL+"users", null, new Response.Listener<JSONArray>() {
 
             @Override
             public void onResponse(JSONArray response) {
@@ -149,6 +154,8 @@ public class ListActivity extends AppCompatActivity {
         listener=new UserAdapterRecycle.RecycleViewClickListner() {
             @Override
             public void onClickItem(View v, int position) {
+
+                if(getIntent().getStringExtra("emploi")==null){
                 Toast.makeText(ListActivity.this,""+users.get(position).getUserEmail(),Toast.LENGTH_LONG).show();
                 TextView userShape=findViewById(R.id.shapeuser);
                 TextView userName=findViewById(R.id.nameuser);
@@ -194,7 +201,8 @@ public class ListActivity extends AppCompatActivity {
                         public void onClick(View v) {
                             User u=users.get(position);
                             Intent i=new Intent(ListActivity.this,WeekView_Calendar.class);
-                            i.putExtra("id",u.getUserId()+"");
+                            String id=String.valueOf(u.getUserId());
+                            i.putExtra("id",id );
                             i.putExtra("emploitype","1");
                             startActivity(i);
                             finish();
@@ -214,12 +222,23 @@ public class ListActivity extends AppCompatActivity {
                     });
                     dialog.show();
             }
+                else{
+                    TextView idclient= v.findViewById(R.id.userrolelist);
+                    TextView idMonitor= v.findViewById(R.id.nameuserlist);
+
+                    Intent emlpoisIntent = new Intent(ListActivity.this,WeekView_Calendar.class);
+                    emlpoisIntent.putExtra("emploitype","1");
+                    emlpoisIntent.putExtra("id",idMonitor.getText().toString().split(" ")[0]);
+                    ListActivity.this.startActivity(emlpoisIntent);
+                    ListActivity.this.finish();}
+            }
+
         };
     }
 
     void getAllClients() {
         List<Client>clients=new ArrayList<>() ;
-        JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, url+"clients", null, new Response.Listener<JSONArray>() {
+        JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, WS.URL+"clients", null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
 //
@@ -241,16 +260,8 @@ public class ListActivity extends AppCompatActivity {
 
 
                     }
-//                    Integer i = j.getInt("clientId");
-//                    txtNom.setText(j.getString("fName"));
-//                    txtPrenom.setText(j.getString("lName"));
-//                    txtMail.setText(j.getString("clientEmail"));
-//                    txtPasswd.setText(j.getString("passwd"));
-//                    textView.setText(i.toString());
 
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
+
                 ClientAdapterRecycle ua=new ClientAdapterRecycle(ListActivity.this,clients);
                 listClient.setLayoutManager(new LinearLayoutManager(ListActivity.this));
                 listClient.setAdapter(ua);
@@ -269,7 +280,7 @@ public class ListActivity extends AppCompatActivity {
     }
     void getAllTasks() {
 
-        JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, url+"tasks", null, new Response.Listener<JSONArray>() {
+        JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, WS.URL+"tasks", null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
 
@@ -305,7 +316,7 @@ public class ListActivity extends AppCompatActivity {
         MySingleton.getInstance(this.getApplicationContext()).addToRequestQueue(req);
     }
     public List<Seance> getAllSeances() {
-        JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, url+"seances", null, new Response.Listener<JSONArray>() {
+        JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, WS.URL+"seances", null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
 

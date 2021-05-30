@@ -66,17 +66,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
 
-        //3rd argument to be passed is CursorFactory instance
+
     }
 
     // Creating Tables
     @Override
     public void onCreate(SQLiteDatabase db) {
-        /*String CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_CLIENTS + "("
-                + KEY_ID + " INTEGER PRIMARY KEY," + KEY_NAME + " TEXT,"+KEY_LAST_NAME+" TEXT,"+KEY_PHOTO+" TEXT,"+KEY_IDENTITY+" TEXT,"+KEY_MAIL+" TEXT,"
-                +KEY_PASSWORD+" TEXT,"+KEY_NOTES+" TEXT,"
-                + KEY_PH_NO + " TEXT" + ")";*/
-        // CREATE_CONTACTS_TABLE="CREATE TABLE myclients (clientId INTEGER PRIMARY KEY,fName TEXT,lName TEXT)";
+
         String CREATE_USER_TABLE="CREATE TABLE "+TABLE_USERS+"("+KEY_UID+" INTEGER PRIMARY KEY,"+KEY_UEMAIL+" TEXT,"+KEY_UPASSWD+" TEXT,"+KEY_UFNAME+" TEXT,"
                 +KEY_ULNAME+" TEXT,"+KEY_UDESCRIPTION+" TEXT,"+KEY_UTYPE+" TEXT,"+KEY_UPHOTO+" TEXT,"+KEY_UPHONE+" TEXT)";
         String CREATE_CLIENT_TABLE="CREATE TABLE "+TABLE_CLIENTS+"("+KEY_ID+" INTEGER PRIMARY KEY,"+KEY_NAME+" TEXT,"+KEY_LAST_NAME+" TEXT,"+KEY_PHOTO+" TEXT,"
@@ -128,17 +124,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ligne.put(KEY_START,seance.getStartDate());
         getWritableDatabase().insertWithOnConflict(TABLE_SEANCES,null,ligne,SQLiteDatabase.CONFLICT_REPLACE);
     }
-    public void saveNote(Note note)
-    {
-
-        ContentValues ligne =new ContentValues();
-        ligne.put("id",note.getId());
-        ligne.put("notes",note.getNotes());
-
-        ligne.put("date",note.getDate());
-
-        getWritableDatabase().insertWithOnConflict("NOTES",null,ligne,SQLiteDatabase.CONFLICT_REPLACE);
-    }
+//    public void saveNote(Note note)
+//    {
+//
+//        ContentValues ligne =new ContentValues();
+//        ligne.put("id",note.getId());
+//        ligne.put("notes",note.getNotes());
+//
+//        ligne.put("date",note.getDate());
+//
+//        getWritableDatabase().insertWithOnConflict("NOTES",null,ligne,SQLiteDatabase.CONFLICT_REPLACE);
+//    }
     public List<Note> readNote()
     {
 
@@ -149,7 +145,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                  null, null, null, null);
         if (!(cursor.moveToFirst()) || cursor.getCount() ==0){
             //cursor is empty
-            Log.d("ppp","note not found");
+            Log.w("readnote"," not found !!!");
             return null;
         }
 
@@ -166,74 +162,42 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
-    // code to add the new remarque
-    void addRemarque(Note note) {
+
+    void saveNote(Note note) {
         SQLiteDatabase db = this.getWritableDatabase();
         try {
             ContentValues values = new ContentValues();
             values.put("notes", String.valueOf(note.getNotes()));
             values.put("date", String.valueOf(note.getDate()));
-            // Inserting Row
             db.insert("NOTES", null, values);
-            //2nd argument is String containing nullColumnHack
-            db.close(); // Closing database connection
+            db.close();
         }catch (Exception ex)
         {
-            //cursor is empty
             db.close();
-            Log.d("ppp","remarque exist");
+            ex.printStackTrace();
         }
     }
-    // code to update the new remarque
-    void updateRemarque(int id,String note) {
+
+    void updateNote(int id, String note) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("UPDATE NOTES SET contenue ='"+note+"' WHERE id = "+id);
         db.close();
     }
-    // code to delete the new remarque
-    void deleteRemarque(int id) {
+
+    void deleteNote(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM NOTES WHERE id = "+id);
         db.close();
     }
-    //code to get all remarques
 
-//    List<Note> getRemarques()
-//    {
-//        List<Note> remarqueList=new ArrayList<>();
-//        SQLiteDatabase db = this.getReadableDatabase();
-//        Cursor  cursor = db.rawQuery("select * from NOTES",null);
-//        if (!(cursor.moveToFirst()) || cursor.getCount() ==0){
-//            //cursor is empty
-//            Log.d("ppp","remarque not found");
-//            db.close();
-//            return null;
-//        }
-//        else
-//        {
-//            if (cursor.moveToFirst()) {
-//                while (!cursor.isAfterLast()) {
-//                    Remarque r=new Remarque();
-//                    r.setId(cursor.getInt(0));
-//                    r.setContenue(String.valueOf(cursor.getString(1)));
-//                    r.setDate_changement(LocalDateTime.parse(cursor.getString(2)));
-//                    remarqueList.add(r);
-//                    cursor.moveToNext();
-//                }
-//            }
-//            db.close();
-//            return remarqueList;
-//        }
-//    }
-    //code to get remarque by id
 
-    Note getRemarque(int id)
+    Note readNote(int id)
     {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("select * from NOTES WHERE id=?",new String[]{String.valueOf(id)});
         if (!(cursor.moveToFirst()) || cursor.getCount() ==0){
             //cursor is empty
-            Log.d("ppp","remarque not found");
+            Log.d("readnoteid","not found !!!");
             db.close();
             return null;
         }
@@ -291,7 +255,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 null, null, null, null);
             if (!(cursor.moveToFirst()) || cursor.getCount() ==0){
                 //cursor is empty
-                Log.d("ppp","Utilisateur not found");
+                Log.d("readseance"," not found !!!");
                 return null;
             }
             else
@@ -308,28 +272,86 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         }
     }
+    public List<Seance> readUserSeance(int id)
+    {
 
-    // code to add the new client
+        SQLiteDatabase db = this.getReadableDatabase();
+
+
+        List<Seance> seanceList=new ArrayList<>();
+
+        Cursor cursor = db.query(TABLE_SEANCES, new String[] { KEY_SID,
+                        KEY_COMMENTS, KEY_CLIENTID,KEY_MONITOR,KEY_DURATION,KEY_START }, KEY_MONITOR + "=?",
+                new String[] { String.valueOf(id) }, null, null, null);
+        if (!(cursor.moveToFirst()) || cursor.getCount() ==0){
+            //cursor is empty
+            Log.d("readuserseance","not found !!!");
+            return null;
+        }
+        else
+        {
+            if (cursor.moveToFirst()) {
+                while (!cursor.isAfterLast()) {
+                    seanceList.add(new Seance(Integer.parseInt(cursor.getString(0)),
+                            cursor.getString(1), Integer.parseInt(cursor.getString(2)), Integer.parseInt(cursor.getString(3)),
+                            Integer.parseInt(cursor.getString(4)), cursor.getString(5)));
+                    cursor.moveToNext();
+                }
+            }
+            return seanceList;
+
+        }
+    }
+
+    public List<Seance> readClientSeance(int id)
+    {
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+
+        List<Seance> seanceList=new ArrayList<>();
+
+        Cursor cursor = db.query(TABLE_SEANCES, new String[] { KEY_SID,
+                        KEY_COMMENTS, KEY_CLIENTID,KEY_MONITOR,KEY_DURATION,KEY_START }, KEY_CLIENTID + "=?",
+                new String[] { String.valueOf(id) }, null, null, null);
+        if (!(cursor.moveToFirst()) || cursor.getCount() ==0){
+            //cursor is empty
+            Log.d("readclientseance","not found !!!");
+            return null;
+        }
+        else
+        {
+            if (cursor.moveToFirst()) {
+                while (!cursor.isAfterLast()) {
+                    seanceList.add(new Seance(Integer.parseInt(cursor.getString(0)),
+                            cursor.getString(1), Integer.parseInt(cursor.getString(2)), Integer.parseInt(cursor.getString(3)),
+                            Integer.parseInt(cursor.getString(4)), cursor.getString(5)));
+                    cursor.moveToNext();
+                }
+            }
+            return seanceList;
+
+        }
+    }
+
     void addClient(Client client) {
         SQLiteDatabase db = this.getWritableDatabase();
 
 
         ContentValues values = new ContentValues();
         values.put(KEY_ID,client.getClientId());
-        values.put(KEY_NAME, client.getfName()); // Contact Name
-        values.put(KEY_LAST_NAME, client.getlName()); // Contact Phone
-        values.put(KEY_PHOTO, client.getPhoto()); // Contact Phone
-        values.put(KEY_IDENTITY, client.getIdentityDoc()); // Contact Phone
-        values.put(KEY_MAIL, client.getClientEmail()); // Contact Phone
-        values.put(KEY_PASSWORD, client.getPasswd()); // Contact Phone
-        values.put(KEY_NOTES, client.getNotes()); // Contact Phone
-        values.put(KEY_PH_NO, client.getClientPhone()); // Contact Phone
-         // Contact Phone
+        values.put(KEY_NAME, client.getfName());
+        values.put(KEY_LAST_NAME, client.getlName());
+        values.put(KEY_PHOTO, client.getPhoto());
+        values.put(KEY_IDENTITY, client.getIdentityDoc());
+        values.put(KEY_MAIL, client.getClientEmail());
+        values.put(KEY_PASSWORD, client.getPasswd());
+        values.put(KEY_NOTES, client.getNotes());
+        values.put(KEY_PH_NO, client.getClientPhone());
 
-        // Inserting Row
         db.insert(TABLE_CLIENTS, null, values);
-        //2nd argument is String containing nullColumnHack
-        db.close(); // Closing database connection
+
+        db.close();
     }
     void addUser(User user) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -337,23 +359,22 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         values.put(KEY_UID,user.getUserId());
-        values.put(KEY_UFNAME, user.getUserFname()); // Contact Name
-        values.put(KEY_ULNAME, user.getUserLname()); // Contact Phone
-        values.put(KEY_UPHOTO, user.getUserphoto()); // Contact Phone
-        values.put(KEY_UEMAIL, user.getUserEmail()); // Contact Phone
-        values.put(KEY_UPASSWD, user.getUserPasswd()); // Contact Phone
-        values.put(KEY_UDESCRIPTION, user.getDescription()); // Contact Phone
-        values.put(KEY_UTYPE, user.getUserType()); // Contact Phone
-        values.put(KEY_UPHONE, user.getUserPhone()); // Contact Phone
-        // Contact Phone
+        values.put(KEY_UFNAME, user.getUserFname());
+        values.put(KEY_ULNAME, user.getUserLname());
+        values.put(KEY_UPHOTO, user.getUserphoto());
+        values.put(KEY_UEMAIL, user.getUserEmail());
+        values.put(KEY_UPASSWD, user.getUserPasswd());
+        values.put(KEY_UDESCRIPTION, user.getDescription());
+        values.put(KEY_UTYPE, user.getUserType());
+        values.put(KEY_UPHONE, user.getUserPhone());
 
-        // Inserting Row
+
         db.insert(TABLE_USERS, null, values);
-        //2nd argument is String containing nullColumnHack
-        db.close(); // Closing database connection
+
+        db.close();
     }
 
-    // code to get the single contact
+
     Client getContact(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -371,7 +392,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return client;
     }
 
-    // code to get all contacts in a list view
+
     public List<Client> getAllContacts() {
         List<Client> contactList = new ArrayList<Client>();
         // Select All Query
@@ -380,7 +401,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
-        // looping through all rows and adding to list
+
         if (cursor.moveToFirst()) {
             do {
                 Client contact = new Client();
@@ -393,16 +414,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 contact.setPasswd(cursor.getString(6));
                 contact.setClientPhone(cursor.getString(7));
                 contact.setNotes(cursor.getString(8));
-                // Adding contact to list
+
                 contactList.add(contact);
             } while (cursor.moveToNext());
         }
 
-        // return contact list
+
         return contactList;
     }
 
-    // code to update the single contact
+
     public int updateContact(Client client) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -416,12 +437,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_PH_NO, client.getfName());
         values.put(KEY_NOTES, client.getClientPhone());
 
-        // updating row
+
         return db.update(TABLE_CLIENTS, values, KEY_ID + " = ?",
                 new String[] { String.valueOf(client.getClientId()) });
     }
 
-    // Deleting single contact
+
     public void deleteContact(Client client) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_CLIENTS, KEY_ID + " = ?",
@@ -429,14 +450,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
-    // Getting contacts Count
+
     public int getContactsCount() {
         String countQuery = "SELECT  * FROM " + TABLE_CLIENTS;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(countQuery, null);
         cursor.close();
 
-        // return count
+
         return cursor.getCount();
     }
 

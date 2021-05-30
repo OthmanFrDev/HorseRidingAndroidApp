@@ -9,8 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -60,7 +58,7 @@ public class RecyclerViewAdapter_note extends RecyclerView.Adapter<RecyclerViewA
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         try {
-                            db.deleteRemarque(remarqueList.get(position).getId());
+                            db.deleteNote(remarqueList.get(position).getId());
                             remarqueList.remove(remarqueList.get(position));
                             notifyItemRemoved(position);
                             notifyItemRangeChanged(position, remarqueList.size());

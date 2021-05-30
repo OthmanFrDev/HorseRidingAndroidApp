@@ -11,7 +11,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
+
 import java.time.LocalDateTime;
 public class EditNote extends AppCompatActivity {
     private TextView current_date_label;
@@ -36,7 +36,7 @@ public class EditNote extends AppCompatActivity {
         {
             int id=getIntent().getIntExtra("id",0);
             Note r=new Note();
-            r=db.getRemarque(id);
+            r=db.readNote(id);
             contenue.setText(r.getNotes());
             current_date_label.setText(LocalDateTime.parse(r.getDate()).getDayOfMonth()+" "+LocalDateTime.parse(r.getDate()).getMonth()+" "+LocalDateTime.parse(r.getDate()).getYear()+" à "+LocalDateTime.parse(r.getDate()).getHour()+":"+LocalDateTime.parse(r.getDate()).getMinute());
         }
@@ -52,7 +52,7 @@ public class EditNote extends AppCompatActivity {
         else if(getIntent().getIntExtra("code",0)==1)
         {
             Note remarque=new Note(LocalDateTime.now().toString(),contenue.getText().toString());
-            db.addRemarque(remarque);
+            db.saveNote(remarque);
             Log.d("jes","added remarque");
             EditNote.this.finish();
             Intent myIntent = new Intent(getApplicationContext(),NoteController.class);
@@ -62,7 +62,7 @@ public class EditNote extends AppCompatActivity {
         else if(getIntent().getIntExtra("code",0)==2)
         {
             int id=getIntent().getIntExtra("id",0);
-            db.updateRemarque(id,contenue.getText().toString());
+            db.updateNote(id,contenue.getText().toString());
             Log.d("jes","updated remarque");
             EditNote.this.finish();
             return true;

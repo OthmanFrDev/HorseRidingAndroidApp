@@ -24,7 +24,7 @@
         <TextView
             android:layout_gravity="center"
             android:layout_columnWeight="1"
-            android:text="LUN"
+            android:text="@string/lun"
             android:gravity="center"
             android:background="@drawable/textview_border"
             android:layout_rowWeight="1"
@@ -49,59 +49,59 @@
             android:layout_height="wrap_content">
     <GridLayout
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         app:layout_constraintTop_toBottomOf="@id/gridDay"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:rowCount="7"
+        android:rowCount="6"
         android:columnCount="7"
         >
         <TextView
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
             android:textAlignment="center" 
-            android:layout_width="100dp" 
-            android:layout_height="80dp"
+            android:layout_width="150dp" 
+            android:layout_height="30dp"
             android:layout_gravity="center"
             android:text="@string/lun" />
         <TextView
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
             android:textAlignment="center" 
-            android:layout_width="100dp"
-            android:layout_height="80dp"
+            android:layout_width="150dp"
+            android:layout_height="30dp"
             android:layout_gravity="center"
             android:text="@string/mar" />
         <TextView
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
             android:textAlignment="center"
-            android:layout_width="100dp"
-            android:layout_height="80dp"
+            android:layout_width="150dp"
+            android:layout_height="30dp"
             android:layout_gravity="center"
             android:text="@string/mer" />
         <TextView
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:textAlignment="center" android:layout_width="100dp" android:layout_height="80dp"
+            android:textAlignment="center" android:layout_width="150dp" android:layout_height="30dp"
             android:layout_gravity="center"
             android:text="@string/jeu" />
         <TextView
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:textAlignment="center" android:layout_width="100dp" android:layout_height="80dp"
+            android:textAlignment="center" android:layout_width="150dp" android:layout_height="30dp"
             android:layout_gravity="center"
             android:text="@string/ven" />
         <TextView
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:textAlignment="center" android:layout_width="100dp" android:layout_height="80dp"
+            android:textAlignment="center" android:layout_width="150dp" android:layout_height="30dp"
             android:layout_gravity="center"
             android:text="@string/sam" />
         <TextView
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:textAlignment="center" android:layout_width="100dp" android:layout_height="80dp"
+            android:textAlignment="center" android:layout_width="150dp" android:layout_height="30dp"
             android:layout_gravity="center"
             android:text="@string/dim" />
         <TextView
@@ -109,287 +109,287 @@
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
             android:textAlignment="center"
-            android:layout_width="100dp"
+            android:layout_width="150dp"
             android:layout_height="80dp"
             android:text="" />
         <TextView
             android:id="@id/Mar_1"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:textAlignment="center" android:layout_width="100dp" android:layout_height="80dp"
+            android:textAlignment="center" android:layout_width="150dp" android:layout_height="80dp"
 
             android:text="" />
         <TextView
             android:id="@id/Mer_1"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:textAlignment="center" android:layout_width="100dp" android:layout_height="80dp"
+            android:textAlignment="center" android:layout_width="150dp" android:layout_height="80dp"
 
             android:text="" />
         <TextView
             android:id="@id/Jeu_1"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:textAlignment="center" android:layout_width="100dp" android:layout_height="80dp"
+            android:textAlignment="center" android:layout_width="150dp" android:layout_height="80dp"
 
             android:text="" />
         <TextView
             android:id="@id/Ven_1"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:textAlignment="center" android:layout_width="100dp" android:layout_height="80dp"
+            android:textAlignment="center" android:layout_width="150dp" android:layout_height="80dp"
 
             android:text="" />
         <TextView
             android:id="@id/Sam_1"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:textAlignment="center" android:layout_width="100dp" android:layout_height="80dp"
+            android:textAlignment="center" android:layout_width="150dp" android:layout_height="80dp"
             android:text="" />
         <TextView
             android:id="@id/Dim_1"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:textAlignment="center" android:layout_width="100dp" android:layout_height="80dp"
+            android:textAlignment="center" android:layout_width="150dp" android:layout_height="80dp"
 
             android:text="" />
         <TextView
             android:id="@id/Lun_2"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:textAlignment="center" android:layout_width="100dp" android:layout_height="80dp"
+            android:textAlignment="center" android:layout_width="150dp" android:layout_height="80dp"
 
             android:text="" />
         <TextView
             android:id="@id/Mar_2"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:textAlignment="center" android:layout_width="100dp" android:layout_height="80dp"
+            android:textAlignment="center" android:layout_width="150dp" android:layout_height="80dp"
 
             android:text="" />
         <TextView
             android:id="@id/Mer_2"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:textAlignment="center" android:layout_width="100dp" android:layout_height="80dp"
+            android:textAlignment="center" android:layout_width="150dp" android:layout_height="80dp"
 
             android:text="" />
         <TextView
             android:id="@id/Jeu_2"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:textAlignment="center" android:layout_width="100dp" android:layout_height="80dp"
+            android:textAlignment="center" android:layout_width="150dp" android:layout_height="80dp"
 
             android:text="" />
         <TextView
             android:id="@id/Ven_2"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:textAlignment="center" android:layout_width="100dp" android:layout_height="80dp"
+            android:textAlignment="center" android:layout_width="150dp" android:layout_height="80dp"
 
             android:text="" />
         <TextView
             android:id="@id/Sam_2"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:textAlignment="center" android:layout_width="100dp" android:layout_height="80dp"
+            android:textAlignment="center" android:layout_width="150dp" android:layout_height="80dp"
             android:text="" />
         <TextView
             android:id="@id/Dim_2"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:textAlignment="center" android:layout_width="100dp" android:layout_height="80dp"
+            android:textAlignment="center" android:layout_width="150dp" android:layout_height="80dp"
 
             android:text="" />
         <TextView
             android:id="@id/Lun_3"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:textAlignment="center" android:layout_width="100dp" android:layout_height="80dp"
+            android:textAlignment="center" android:layout_width="150dp" android:layout_height="80dp"
 
             android:text="" />
         <TextView
             android:id="@id/Mar_3"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:textAlignment="center" android:layout_width="100dp" android:layout_height="80dp"
+            android:textAlignment="center" android:layout_width="150dp" android:layout_height="80dp"
 
             android:text="" />
         <TextView
             android:id="@id/Mer_3"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:textAlignment="center" android:layout_width="100dp" android:layout_height="80dp"
+            android:textAlignment="center" android:layout_width="150dp" android:layout_height="80dp"
 
             android:text="" />
         <TextView
             android:id="@id/Jeu_3"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:textAlignment="center" android:layout_width="100dp" android:layout_height="80dp"
+            android:textAlignment="center" android:layout_width="150dp" android:layout_height="80dp"
 
             android:text="" />
         <TextView
             android:id="@id/Ven_3"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:textAlignment="center" android:layout_width="100dp" android:layout_height="80dp"
+            android:textAlignment="center" android:layout_width="150dp" android:layout_height="80dp"
 
             android:text="" />
         <TextView
             android:id="@id/Sam_3"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:textAlignment="center" android:layout_width="100dp" android:layout_height="80dp"
+            android:textAlignment="center" android:layout_width="150dp" android:layout_height="80dp"
             android:text="" />
         <TextView
             android:id="@id/Dim_3"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:textAlignment="center" android:layout_width="100dp" android:layout_height="80dp"
+            android:textAlignment="center" android:layout_width="150dp" android:layout_height="80dp"
 
             android:text="" />
         <TextView
             android:id="@id/Lun_4"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:textAlignment="center" android:layout_width="100dp" android:layout_height="80dp"
+            android:textAlignment="center" android:layout_width="150dp" android:layout_height="80dp"
 
             android:text="" />
         <TextView
             android:id="@id/Mar_4"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:textAlignment="center" android:layout_width="100dp" android:layout_height="80dp"
+            android:textAlignment="center" android:layout_width="150dp" android:layout_height="80dp"
 
             android:text="" />
         <TextView
             android:id="@id/Mer_4"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:textAlignment="center" android:layout_width="100dp" android:layout_height="80dp"
+            android:textAlignment="center" android:layout_width="150dp" android:layout_height="80dp"
 
             android:text="" />
         <TextView
             android:id="@id/Jeu_4"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:textAlignment="center" android:layout_width="100dp" android:layout_height="80dp"
+            android:textAlignment="center" android:layout_width="150dp" android:layout_height="80dp"
 
             android:text="" />
         <TextView
             android:id="@id/Ven_4"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:textAlignment="center" android:layout_width="100dp" android:layout_height="80dp"
+            android:textAlignment="center" android:layout_width="150dp" android:layout_height="80dp"
 
             android:text="" />
         <TextView
             android:id="@id/Sam_4"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:textAlignment="center" android:layout_width="100dp" android:layout_height="80dp"
+            android:textAlignment="center" android:layout_width="150dp" android:layout_height="80dp"
             android:text="" />
         <TextView
             android:id="@id/Dim_4"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:textAlignment="center" android:layout_width="100dp" android:layout_height="80dp"
+            android:textAlignment="center" android:layout_width="150dp" android:layout_height="80dp"
 
             android:text="" />
         <TextView
             android:id="@id/Lun_5"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:textAlignment="center" android:layout_width="100dp" android:layout_height="80dp"
+            android:textAlignment="center" android:layout_width="150dp" android:layout_height="80dp"
 
             android:text="" />
         <TextView
             android:id="@id/Mar_5"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:textAlignment="center" android:layout_width="100dp" android:layout_height="80dp"
+            android:textAlignment="center" android:layout_width="150dp" android:layout_height="80dp"
 
             android:text="" />
         <TextView
             android:id="@id/Mer_5"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:textAlignment="center" android:layout_width="100dp" android:layout_height="80dp"
+            android:textAlignment="center" android:layout_width="150dp" android:layout_height="80dp"
 
             android:text="" />
         <TextView
             android:id="@id/Jeu_5"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:textAlignment="center" android:layout_width="100dp" android:layout_height="80dp"
+            android:textAlignment="center" android:layout_width="150dp" android:layout_height="80dp"
             android:text="" />
         <TextView
             android:id="@id/Ven_5"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:textAlignment="center" android:layout_width="100dp" android:layout_height="80dp"
+            android:textAlignment="center" android:layout_width="150dp" android:layout_height="80dp"
 
             android:text="" />
         <TextView
             android:id="@id/Sam_5"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:textAlignment="center" android:layout_width="100dp" android:layout_height="80dp"
+            android:textAlignment="center" android:layout_width="150dp" android:layout_height="80dp"
             android:text="" />
         <TextView
             android:id="@id/Dim_5"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:textAlignment="center" android:layout_width="100dp" android:layout_height="80dp"
+            android:textAlignment="center" android:layout_width="150dp" android:layout_height="80dp"
 
             android:text="" />
         <TextView
             android:id="@id/Lun_6"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:textAlignment="center" android:layout_width="100dp" android:layout_height="80dp"
+            android:textAlignment="center" android:layout_width="150dp" android:layout_height="80dp"
 
             android:text="" />
         <TextView
             android:id="@id/Mar_6"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:textAlignment="center" android:layout_width="100dp" android:layout_height="80dp"
+            android:textAlignment="center" android:layout_width="150dp" android:layout_height="80dp"
 
             android:text="" />
         <TextView
             android:id="@id/Mer_6"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:textAlignment="center" android:layout_width="100dp" android:layout_height="80dp"
+            android:textAlignment="center" android:layout_width="150dp" android:layout_height="80dp"
 
             android:text="" />
         <TextView
             android:id="@id/Jeu_6"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:textAlignment="center" android:layout_width="100dp" android:layout_height="80dp"
+            android:textAlignment="center" android:layout_width="150dp" android:layout_height="80dp"
 
             android:text="" />
         <TextView
             android:id="@id/Ven_6"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:textAlignment="center" android:layout_width="100dp" android:layout_height="80dp"
+            android:textAlignment="center" android:layout_width="150dp" android:layout_height="80dp"
 
             android:text="" />
         <TextView
             android:id="@id/Sam_6"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:textAlignment="center" android:layout_width="100dp" android:layout_height="80dp"
+            android:textAlignment="center" android:layout_width="150dp" android:layout_height="80dp"
             android:text="" />
         <TextView
             android:id="@id/Dim_6"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:textAlignment="center" android:layout_width="100dp" android:layout_height="80dp"
+            android:textAlignment="center" android:layout_width="150dp" android:layout_height="80dp"
 
             android:text="" />
 

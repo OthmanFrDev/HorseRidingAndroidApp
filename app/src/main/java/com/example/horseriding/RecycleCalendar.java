@@ -1,24 +1,22 @@
 package com.example.horseriding;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.util.Log;
+
+import android.view.Menu;
+import android.view.MenuInflater;
+
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.NumberPicker;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,7 +26,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
-import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,41 +37,29 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Formatter;
 import java.util.List;
 import java.util.Locale;
 
 public class RecycleCalendar extends AppCompatActivity {
    static LocalDateTime DateInit;
-   static LocalDateTime NextDate;
-  static String DateInitString="";
+
+
     String fullName ;
+    String URLEXTENSION;
     List<Seance> lSeance;
     TextView time_08,time_09,time_10,time_11,time_12,time_13,time_14,time_15,time_16,time_17,time_18;
     TextView day;
     DateTimeFormatter dateFormatter;
-    Intent splashIntent;
+
+    private String id;
+    private String monitor;
+    BottomNavigationView bnv;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recycle_calendar);
-
-        Toolbar toolbar=findViewById(R.id.toolBar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    }
-    public boolean onOptionsItemSelected(MenuItem item){
-
-        Intent myIntent = new Intent(getApplicationContext(),DashboardActivity.class);
-        startActivity(myIntent);
-        return true;
-    }
-    @Override
-    protected void onResume() {
-        super.onResume();
+        setContentView(R.layout.activity_day_view);
+        id=getIntent().getStringExtra("id");
         time_08=findViewById(R.id.time_08);
         time_09=findViewById(R.id.time_09);
         time_10=findViewById(R.id.time_10);
@@ -85,29 +71,83 @@ public class RecycleCalendar extends AppCompatActivity {
         time_16=findViewById(R.id.time_16);
         time_17=findViewById(R.id.time_17);
         time_18=findViewById(R.id.time_18);
+        day=findViewById(R.id.day);
+        bnv=findViewById(R.id.bottom_navigation);
+        bnv.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Intent i=null;
+                switch(item.getItemId()){
+                    case R.id.hide_nav:findViewById(R.id.floatingActionButtonweek).setVisibility(View.VISIBLE );findViewById(R.id.bottom_navigation).setVisibility(View.INVISIBLE);break;
+                    case R.id.home_nav:i=new Intent(RecycleCalendar.this,DashboardActivity.class);startActivity(i);finish();
+                    case R.id.setting_nav:findViewById(R.id.floatingActionButtonweek).setVisibility(View.VISIBLE );findViewById(R.id.bottom_navigation).setVisibility(View.INVISIBLE);break;
+                    case R.id.logout_nav:SessionManager sessionManager=new SessionManager(RecycleCalendar.this);
+                        sessionManager.logout();
+                        Intent splashIntent = new Intent(RecycleCalendar.this, LoginActivity.class);
+                        RecycleCalendar.this.startActivity(splashIntent);
+                        RecycleCalendar.this.finish();break;
+                }
+                return true;
+            }
+        });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater mI=getMenuInflater();
+        mI.inflate(R.menu.menu_calendar,menu);
+        return true;
+    }
+//
+//<<<<<<< HEAD
+//        Toolbar toolbar=findViewById(R.id.toolBar);
+//        setSupportActionBar(toolbar);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//    }
+//    public boolean onOptionsItemSelected(MenuItem item){
+//
+//        Intent myIntent = new Intent(getApplicationContext(),DashboardActivity.class);
+//        startActivity(myIntent);
+//=======
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        Intent i=null;
+        switch (item.getItemId()){
+            case R.id.month_view:calenderSwitcher(RecycleCalendar.this,Month_view.class);break;
+            case R.id.week_view:calenderSwitcher(RecycleCalendar.this,WeekView_Calendar.class); break;
+            case R.id.day_view:/*findViewById(R.id.week_view).setVisibility(View.INVISIBLE)*/Toast.makeText(RecycleCalendar.this,"already in day section",Toast.LENGTH_SHORT).show();
+        }
+
+        return true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
 
         Locale local=new Locale("fr","Fr");
 
-//DateInit=LocalDateTime.of();
-        if(DateInit==null){DateInit=LocalDateTime.now();}
 
-        //DateTimeFormatter dt= ;
-        day=findViewById(R.id.day);
+        if(DateInit==null){DateInit=LocalDateTime.of(2020,9,14,15,48);}
+
+
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        //day.setText(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.FULL, FormatStyle.SHORT).withLocale(local).format(DateInit));
         day.setText(dateFormatter.format(DateInit));
-        JsonArrayRequest jArray=new JsonArrayRequest(Request.Method.GET, "http://192.168.111.1:45455/seances/getwithdate/"+day.getText().toString(), null, new Response.Listener<JSONArray>() {
+
+         urlExtension();
+        JsonArrayRequest jArray=new JsonArrayRequest(Request.Method.GET, WS.URL+URLEXTENSION, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 JSONObject j = null;
                 for (int i = 0; i < response.length(); i++) {
-                    Log.w("debuuuuuuuuuuuuuuuuuuuuuuuuuuuugggg","raniiii fl boucle "+response);
+
                     try {
                         j = response.getJSONObject(i);
                         Seance seance = new Seance(j.getInt("seanceId"),j.getInt("seanceGrpId"),j.getInt("clientId"),j.getInt("monitorId"),j.getInt("durationMinut"),j.getString("comments"),j.getString("startDate"));
                         DatabaseHandler databaseHandler =new DatabaseHandler(RecycleCalendar.this);
                       databaseHandler.saveSeance(seance);
-                   //     Log.w("databaaaaaaaaaaaaaaaaaase",databaseHandler.readSeance(seance.getSeanceId()));
+
                         String dateDay=j.getString("startDate").substring(0,10);
                         String dateTime=j.getString("startDate").substring(11,16);
                         ConnectivityManager cm=(ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
@@ -176,25 +216,35 @@ public class RecycleCalendar extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
 
-                Log.w("ONERRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRROOOOOR"," "+error);
+                Toast.makeText(RecycleCalendar.this,"our server run into problems please wait",Toast.LENGTH_SHORT).show();
             }
         });
         MySingleton.getInstance(this.getApplicationContext()).addToRequestQueue(jArray);
     }
 
-    public void nextday(View view) {
+    private void urlExtension() {
+        if(getIntent().getStringExtra("emploitype")!=null){
+             id=getIntent().getStringExtra("id");
+            switch (getIntent().getStringExtra("emploitype"))
+            {
+
+
+                case "1": URLEXTENSION ="seances/monitor/"+day.getText().toString()+"/"+id; break;
+
+
+
+
+                case "2":URLEXTENSION ="seances/getwithdate/"+day.getText().toString()+"/"+id;break;
+
+
+
+            }
+        }else{ URLEXTENSION ="seances/getwithdate/"+day.getText().toString();}
+    }
+
+    public void daySwitcher(View view) {
         init();
-        time_08=findViewById(R.id.time_08);
-        time_09=findViewById(R.id.time_09);
-        time_10=findViewById(R.id.time_10);
-        time_11=findViewById(R.id.time_11);
-        time_12=findViewById(R.id.time_12);
-        time_13=findViewById(R.id.time_13);
-        time_14=findViewById(R.id.time_14);
-        time_15=findViewById(R.id.time_15);
-        time_16=findViewById(R.id.time_16);
-        time_17=findViewById(R.id.time_17);
-        time_18=findViewById(R.id.time_18);
+
         switch(view.getId())
         {
             case R.id.btnnext:DateInit= DateInit.plusDays(1);
@@ -205,69 +255,10 @@ public class RecycleCalendar extends AppCompatActivity {
         Locale local=new Locale("fr","Fr");
 
 
-        //DateTimeFormatter dt= ;
-        day=findViewById(R.id.day);
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        //day.setText(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.FULL, FormatStyle.SHORT).withLocale(local).format(DateInit));
-        day.setText(dateFormatter.format(DateInit));
-        JsonArrayRequest jArray=new JsonArrayRequest(Request.Method.GET, "http://192.168.111.1:45455/seances/getwithdate/"+day.getText().toString(), null, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-                JSONObject j = null;
-                for (int i = 0; i < response.length(); i++) {
-                    Log.w("debuuuuuuuuuuuuuuuuuuuuuuuuuuuugggg","raniiii fl boucle "+response);
-                    try {
-                        j = response.getJSONObject(i);
-                        String dateDay=j.getString("startDate").substring(0,10);
-                        String dateTime=j.getString("startDate").substring(11,16);
-                        String color;
-                        if(LocalDateTime.now().compareTo(LocalDateTime.parse(j.getString("startDate")) )<=0)
-                        {
-                            color="#00DAC5";
-                        }else
-                        {
-                            color="#ff6347";
-                        }
-                        switch(dateTime){
-                            case "08:00":time_08.setText(j.getInt("seanceId")+" "+j.getString("comments"));time_08.setBackgroundColor(Color.parseColor(color));
-                                break;
-                            case "09:00":time_09.setText(j.getInt("seanceId")+" "+j.getString("comments"));time_09.setBackgroundColor(Color.parseColor(color));
-                                break;
-                            case "10:00":time_10.setText(j.getInt("seanceId")+" "+j.getString("comments"));time_10.setBackgroundColor(Color.parseColor(color));
-                                break;
-                            case "11:00":time_11.setText(j.getInt("seanceId")+" "+j.getString("comments"));time_11.setBackgroundColor(Color.parseColor(color));
-                                break;
-                            case "12:00":time_12.setText(j.getInt("seanceId")+" "+j.getString("comments"));time_12.setBackgroundColor(Color.parseColor(color));
-                                break;
-                            case "13:00":time_13.setText(j.getInt("seanceId")+" "+j.getString("comments"));time_13.setBackgroundColor(Color.parseColor(color));
-                                break;
-                            case "14:00":time_14.setText(j.getInt("seanceId")+" "+j.getString("comments"));time_14.setBackgroundColor(Color.parseColor(color));
-                                break;
-                            case "15:00":time_15.setText(j.getInt("seanceId")+" "+j.getString("comments"));time_15.setBackgroundColor(Color.parseColor(color));
-                                break;
-                            case "16:00":time_16.setText(j.getInt("seanceId")+" "+j.getString("comments"));time_16.setBackgroundColor(Color.parseColor(color));
-                                break;
-                            case "17:00":time_17.setText(j.getInt("seanceId")+" "+j.getString("comments"));time_17.setBackgroundColor(Color.parseColor(color));
-                                break;
-                            case "18:00":time_18.setText(j.getInt("seanceId")+" "+j.getString("comments"));time_18.setBackgroundColor(Color.parseColor(color));
-                                break;
 
-
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.w("ONERRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRROOOOOR"," "+error);
-            }
-        });
-        MySingleton.getInstance(this.getApplicationContext()).addToRequestQueue(jArray);
+        onResume();
     }
-    
+
     void init()
     {
         time_08.setText("VIDE");
@@ -294,19 +285,20 @@ public class RecycleCalendar extends AppCompatActivity {
         time_18.setBackgroundColor(Color.parseColor("#ffffff"));
     }
 
-    public void addSeance(View view) {
+    public void clickSeance(View view) {
         TextView textView=findViewById(view.getId());
         if(textView.getText().toString().compareTo("VIDE")!=0){
            String[] list= textView.getText().toString().split(" ");
-            JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET,  "http://192.168.111.1:45455/seances/"+ list[0], null, new Response.Listener<JSONObject>() {
+            JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET,  WS.URL+"seances/"+ list[0], null, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
 
                     try {
+                          monitor= getMonitorName(response.getInt("monitorId"));
 
-                        AlertDialog.Builder builder = new AlertDialog.Builder(RecycleCalendar.this);
+                           AlertDialog.Builder builder = new AlertDialog.Builder(RecycleCalendar.this);
                         builder.setTitle("Seance Detail:");
-                        builder.setMessage("ID = "+ response.getInt("seanceId")+"\n\n" +"Sart Date = "+ response.getString("startDate")+"\n\n"+"Monitor = "+getMonitorName(response.getInt("monitorId"))+"\n\n"+
+                        builder.setMessage("ID = "+ response.getInt("seanceId")+"\n\n" +"Sart Date = "+ response.getString("startDate")+"\n\n"+"Monitor = "+monitor+"\n\n"+
                                 "Duration = "+response.getInt("durationMinut")+"\n\n"+
                                 "Comment = "+ response.getString("comments")
                         );
@@ -321,7 +313,7 @@ public class RecycleCalendar extends AppCompatActivity {
                                     String dateTime=response.getString("startDate").substring(11,16);
 
                                     DateInit=LocalDateTime.of(LocalDate.parse(dateDay),LocalTime.parse(dateTime));
-                                    StringRequest dr = new StringRequest(Request.Method.DELETE, "http://192.168.111.1:45455/seances/"+response.getInt("seanceId"),
+                                    StringRequest dr = new StringRequest(Request.Method.DELETE, WS.URL+"seances/"+response.getInt("seanceId"),
                                             new Response.Listener<String>()
                                             {
                                                 @Override
@@ -365,94 +357,86 @@ public class RecycleCalendar extends AppCompatActivity {
             MySingleton.getInstance(this.getApplicationContext()).addToRequestQueue(req);
         }
         else{
+            Intent addSeanceIntent = new Intent(RecycleCalendar.this, DateTimePicker.class);
+            dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            String date=  dateFormatter.format(DateInit);
             switch(view.getId()){
-                case R.id.time_08: dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                    String date=  dateFormatter.format(DateInit);
+
+                case R.id.time_08:
                     Seance seance=new Seance(1,1,1,2,60,"",date);
-                    Intent splashIntent = new Intent(RecycleCalendar.this, DateTimePicker.class);
-                    splashIntent.putExtra("seance", (Serializable) seance);
-                    splashIntent.putExtra("time","08:00");
-                    RecycleCalendar.this.startActivity(splashIntent);
+
+                    addSeanceIntent.putExtra("seance", (Serializable) seance);
+                    addSeanceIntent.putExtra("time","08:00");
+                    RecycleCalendar.this.startActivity(addSeanceIntent);
                     RecycleCalendar.this.finish();
                     break;
-                case R.id.time_09: dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                    dateFormatter.format(DateInit);
-                    splashIntent = new Intent(RecycleCalendar.this, DateTimePicker.class);
-                    splashIntent.putExtra("seance", (Serializable)  new Seance(1,1,1,2,60,"",dateFormatter.format(DateInit)));
-                    splashIntent.putExtra("time","09:00");
-                    RecycleCalendar.this.startActivity(splashIntent);
+                case R.id.time_09:
+
+                    addSeanceIntent.putExtra("seance", (Serializable)  new Seance(1,1,1,2,60,"",dateFormatter.format(DateInit)));
+                    addSeanceIntent.putExtra("time","09:00");
+                    RecycleCalendar.this.startActivity(addSeanceIntent);
                     RecycleCalendar.this.finish();
                     break;
-                case R.id.time_10: dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                    dateFormatter.format(DateInit);
-                    splashIntent = new Intent(RecycleCalendar.this, DateTimePicker.class);
-                    splashIntent.putExtra("seance", (Serializable)  new Seance(1,1,1,2,60,"",dateFormatter.format(DateInit)));
-                    splashIntent.putExtra("time","10:00");
-                    RecycleCalendar.this.startActivity(splashIntent);
+                case R.id.time_10:
+
+                    addSeanceIntent.putExtra("seance", (Serializable)  new Seance(1,1,1,2,60,"",dateFormatter.format(DateInit)));
+                    addSeanceIntent.putExtra("time","10:00");
+                    RecycleCalendar.this.startActivity(addSeanceIntent);
                     RecycleCalendar.this.finish();
                     break;
-                case R.id.time_11: dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                    dateFormatter.format(DateInit);
-                    splashIntent = new Intent(RecycleCalendar.this, DateTimePicker.class);
-                    splashIntent.putExtra("seance", (Serializable)  new Seance(1,1,1,2,60,"",dateFormatter.format(DateInit)));
-                    splashIntent.putExtra("time","11:00");
-                    RecycleCalendar.this.startActivity(splashIntent);
+                case R.id.time_11:
+
+                    addSeanceIntent.putExtra("seance", (Serializable)  new Seance(1,1,1,2,60,"",dateFormatter.format(DateInit)));
+                    addSeanceIntent.putExtra("time","11:00");
+                    RecycleCalendar.this.startActivity(addSeanceIntent);
                     RecycleCalendar.this.finish();
                     break;
-                case R.id.time_12: dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                    dateFormatter.format(DateInit);
-                    splashIntent = new Intent(RecycleCalendar.this, DateTimePicker.class);
-                    splashIntent.putExtra("seance", (Serializable)  new Seance(1,1,1,2,60,"",dateFormatter.format(DateInit)));
-                    splashIntent.putExtra("time","12:00");
-                    RecycleCalendar.this.startActivity(splashIntent);
+                case R.id.time_12:
+
+                    addSeanceIntent.putExtra("seance", (Serializable)  new Seance(1,1,1,2,60,"",dateFormatter.format(DateInit)));
+                    addSeanceIntent.putExtra("time","12:00");
+                    RecycleCalendar.this.startActivity(addSeanceIntent);
                     RecycleCalendar.this.finish();
                     break;
-                case R.id.time_13: dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                    dateFormatter.format(DateInit);
-                    splashIntent = new Intent(RecycleCalendar.this, DateTimePicker.class);
-                    splashIntent.putExtra("seance", (Serializable)  new Seance(1,1,1,2,60,"",dateFormatter.format(DateInit)));
-                    splashIntent.putExtra("time","13:00");
-                    RecycleCalendar.this.startActivity(splashIntent);
+                case R.id.time_13:
+
+                    addSeanceIntent.putExtra("seance", (Serializable)  new Seance(1,1,1,2,60,"",dateFormatter.format(DateInit)));
+                    addSeanceIntent.putExtra("time","13:00");
+                    RecycleCalendar.this.startActivity(addSeanceIntent);
                     RecycleCalendar.this.finish();
                     break;
-                case R.id.time_14: dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                    dateFormatter.format(DateInit);
-                    splashIntent = new Intent(RecycleCalendar.this, DateTimePicker.class);
-                    splashIntent.putExtra("seance", (Serializable)  new Seance(1,1,1,2,60,"",dateFormatter.format(DateInit)));
-                    splashIntent.putExtra("time","14:00");
-                    RecycleCalendar.this.startActivity(splashIntent);
+                case R.id.time_14:
+                    addSeanceIntent.putExtra("seance", (Serializable)  new Seance(1,1,1,2,60,"",dateFormatter.format(DateInit)));
+                    addSeanceIntent.putExtra("time","14:00");
+                    RecycleCalendar.this.startActivity(addSeanceIntent);
                     RecycleCalendar.this.finish();
                     break;
-                case R.id.time_15: dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                    dateFormatter.format(DateInit);
-                    splashIntent = new Intent(RecycleCalendar.this, DateTimePicker.class);
-                    splashIntent.putExtra("seance", (Serializable)  new Seance(1,1,1,2,60,"",dateFormatter.format(DateInit)));
-                    splashIntent.putExtra("time","15:00");
-                    RecycleCalendar.this.startActivity(splashIntent);
+                case R.id.time_15:
+
+                    addSeanceIntent.putExtra("seance", (Serializable)  new Seance(1,1,1,2,60,"",dateFormatter.format(DateInit)));
+                    addSeanceIntent.putExtra("time","15:00");
+                    RecycleCalendar.this.startActivity(addSeanceIntent);
                     RecycleCalendar.this.finish();
                     break;
-                case R.id.time_16: dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                    dateFormatter.format(DateInit);
-                    splashIntent = new Intent(RecycleCalendar.this, DateTimePicker.class);
-                    splashIntent.putExtra("seance", (Serializable)  new Seance(1,1,1,2,60,"",dateFormatter.format(DateInit)));
-                    splashIntent.putExtra("time","16:00");
-                    RecycleCalendar.this.startActivity(splashIntent);
+                case R.id.time_16:
+
+                    addSeanceIntent.putExtra("seance", (Serializable)  new Seance(1,1,1,2,60,"",dateFormatter.format(DateInit)));
+                    addSeanceIntent.putExtra("time","16:00");
+                    RecycleCalendar.this.startActivity(addSeanceIntent);
                     RecycleCalendar.this.finish();
                     break;
-                case R.id.time_17: dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                    dateFormatter.format(DateInit);
-                    splashIntent = new Intent(RecycleCalendar.this, DateTimePicker.class);
-                    splashIntent.putExtra("seance", (Serializable)  new Seance(1,1,1,2,60,"",dateFormatter.format(DateInit)));
-                    splashIntent.putExtra("time","17:00");
-                    RecycleCalendar.this.startActivity(splashIntent);
+                case R.id.time_17:
+
+                    addSeanceIntent.putExtra("seance", (Serializable)  new Seance(1,1,1,2,60,"",dateFormatter.format(DateInit)));
+                    addSeanceIntent.putExtra("time","17:00");
+                    RecycleCalendar.this.startActivity(addSeanceIntent);
                     RecycleCalendar.this.finish();
                     break;
-                case R.id.time_18: dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                    dateFormatter.format(DateInit);
-                    splashIntent = new Intent(RecycleCalendar.this, DateTimePicker.class);
-                    splashIntent.putExtra("seance", (Serializable)  new Seance(1,1,1,2,60,"",dateFormatter.format(DateInit)));
-                    splashIntent.putExtra("time","18:00");
-                    RecycleCalendar.this.startActivity(splashIntent);
+                case R.id.time_18:
+
+                    addSeanceIntent.putExtra("seance", (Serializable)  new Seance(1,1,1,2,60,"",dateFormatter.format(DateInit)));
+                    addSeanceIntent.putExtra("time","18:00");
+                    RecycleCalendar.this.startActivity(addSeanceIntent);
                     RecycleCalendar.this.finish();
                     break;
             }
@@ -489,6 +473,26 @@ String getMonitorName(int id)
     return fullName;
 }
 
+    private void calenderSwitcher(Context context, Class<?> CLASS) {
+        Intent i=null;
+        i=new Intent(context, CLASS);
+        if(getIntent().getStringExtra("emploitype")!=null){
+            switch (getIntent().getStringExtra("emploitype"))
+            {
+                case "0": startActivity(i);finish();break;
+
+                case "1":  i.putExtra("emploitype","1");i.putExtra("id",id); startActivity(i);finish();break;
 
 
+
+
+                case "2":i.putExtra("emploitype","2");i.putExtra("id",id); startActivity(i);finish();break;
+
+
+            }
+        }else{ startActivity(i);finish(); }
+    }
+    public void onclickbtn(View view) {
+        findViewById(R.id.floatingActionButtonweek).setVisibility(View.INVISIBLE);findViewById(R.id.bottom_navigation).setVisibility(View.VISIBLE);
+    }
 }

@@ -9,8 +9,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -19,6 +21,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONArray;
@@ -33,14 +36,16 @@ public class UserController extends AppCompatActivity {
     String url = "http://192.168.111.1:45455/users";
     Spinner userType ;
     TextInputLayout nom,prenom,mail,tel,lastmdp,desc;
-
-
+    TextView label;
+    BottomNavigationView bnv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_form_user);
+        label=findViewById(R.id.labeledit);
+        label.setText("Ajouter Utilisateur");
         userType = findViewById(R.id.userspinner);
         //Setting ToolBar Back Button
         getType();
@@ -54,36 +59,29 @@ public class UserController extends AppCompatActivity {
         tel=findViewById(R.id.inputtel);
         lastmdp=findViewById(R.id.inputlastpass);
         desc=findViewById(R.id.inputdescription);
-//        User user = (User) intent.getSerializableExtra("user");
-//        EditText userId = findViewById(R.id.editTextTextPersonName);
-//        EditText lastLoginTime = findViewById(R.id.editTextTextPersonName2);
-//        EditText userEmail = findViewById(R.id.editTextTextPersonName3);
-//        EditText userPasswd = findViewById(R.id.editTextTextPersonName4);
-//        EditText adminLevel = findViewById(R.id.editTextTextPersonName5);
-//        EditText isActive = findViewById(R.id.editTextTextPersonName6);
-//        EditText userFname = findViewById(R.id.editTextTextPersonName7);
-//        EditText userLname = findViewById(R.id.editTextTextPersonName8);
-//        EditText description = findViewById(R.id.editTextTextPersonName9);
-//        EditText userType = findViewById(R.id.editTextTextPersonName10);
-//        EditText userphoto = findViewById(R.id.editTextTextPersonName11);
-//        EditText contractDate = findViewById(R.id.editTextTextPersonName12);
-//        EditText userPhone = findViewById(R.id.editTextTextPersonName13);
-//        EditText displayColor = findViewById(R.id.editTextTextPersonName14);
-//        Button button = findViewById(R.id.button);
-
-//        userId.setText(String.valueOf(user.getUserId()));
-//        userEmail.setText(user.getUserEmail());
-//        userFname.setText(user.getUserFname());
-//        userLname.setText(user.getUserLname());
-//        userPasswd.setText(user.getUserPasswd());
-//        userPhone.setText(user.getUserPhone());
-//        userType.setText(user.getUserType());
-//        description.setText(user.getDescription());
-//        userphoto.setText(user.getUserphoto());
-
-
+        bnv=findViewById(R.id.bottom_navigation);
+        bnv.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Intent i=null;
+                switch(item.getItemId()){
+                    case R.id.hide_nav:findViewById(R.id.floatingActionButtonweek).setVisibility(View.VISIBLE );findViewById(R.id.bottom_navigation).setVisibility(View.INVISIBLE);break;
+                    case R.id.home_nav:
+                        i = new Intent(UserController.this, DashboardActivity.class);UserController.this.startActivity(i);break;
+                    case R.id.setting_nav:i = new Intent(UserController.this, EditFormUser.class); UserController.this.startActivity(i);break;
+                    case R.id.logout_nav:SessionManager sessionManager=new SessionManager(UserController.this);
+                        sessionManager.logout();
+                        i = new Intent(UserController.this, LoginActivity.class);
+                        UserController.this.startActivity(i);
+                        UserController.this.finish();break;
+                }
+                return true;
+            }
+        });
     }
-
+    public void onclickbtn(View view) {
+        findViewById(R.id.floatingActionButtonweek).setVisibility(View.INVISIBLE);findViewById(R.id.bottom_navigation).setVisibility(View.VISIBLE);
+    }
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent myIntent = new Intent(getApplicationContext(), ListActivity.class);
         myIntent.putExtra("click","0");

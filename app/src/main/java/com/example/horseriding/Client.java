@@ -98,4 +98,19 @@ public class Client {
     public void setNotes(String notes) {
         this.notes = notes;
     }
+
+//    @Override
+//    public String toString() {
+//        return "Client{" +
+//                "clientId=" + clientId +
+//                ", fName='" + fName + '\'' +
+//                ", lName='" + lName + '\'' +
+//                ", photo='" + photo + '\'' +
+//                ", identityDoc='" + identityDoc + '\'' +
+//                ", clientEmail='" + clientEmail + '\'' +
+//                ", passwd='" + passwd + '\'' +
+//                ", clientPhone='" + clientPhone + '\'' +
+//                ", notes='" + notes + '\'' +
+//                '}';
+//    }
 }

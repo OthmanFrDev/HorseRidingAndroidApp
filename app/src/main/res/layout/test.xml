@@ -193,5 +193,5 @@
         android:onClick="onclickbtn"
         android:src="@drawable/ic_baseline_dehaze_50"
         android:clickable="true"
-        />
+       />
 </androidx.constraintlayout.widget.ConstraintLayout>

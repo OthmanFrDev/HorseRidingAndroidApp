@@ -7,22 +7,22 @@ import androidx.cardview.widget.CardView;
 
 import android.app.Dialog;
 import android.content.Intent;
+
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+
+import android.content.res.Configuration;
+
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
+import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.HashMap;
 
 public class DashboardActivity extends AppCompatActivity {
@@ -31,20 +31,28 @@ Dialog dialog;
     CardView cardView ;
 
     BottomNavigationView bnv;
+    TextView userShape;
+    TextView welcomeUserName;
+    private SessionManager sessionManager;
+    private HashMap<String, String> userdetail;
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
-        Log.d("Debug",LocalDateTime.now().getMonth().toString()) ;
+
         bnv=findViewById(R.id.bottom_navigation);
         cardView=findViewById(R.id.cardviewuser);
-        TextView textView=findViewById(R.id.welcomeuser);
-
         dialog=new Dialog(this);
-        SessionManager sessionManager=new SessionManager(this);
-        HashMap<String,String> userdetail=sessionManager.getUserDetailFromSession();
-        textView.setText(userdetail.get(SessionManager.KEY_FULLNAME));
+        welcomeUserName =findViewById(R.id.welcomeuser);
+        sessionManager=new SessionManager(this);
+        userdetail=sessionManager.getUserDetailFromSession();
+        welcomeUserName.setText(userdetail.get(SessionManager.KEY_FULLNAME));
+        userShape=findViewById(R.id.shapeuser);
+        userShape.setText(userdetail.get(SessionManager.KEY_FULLNAME).split(" ")[0].toUpperCase().substring(0,1)+""+userdetail.get(SessionManager.KEY_FULLNAME).split(" ")[1].toUpperCase().substring(0,1));
+        userShape.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 70);
+        userShape.setTextColor(Color.parseColor("#ffffff"));
 
         bnv.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -52,7 +60,7 @@ Dialog dialog;
                 Intent i=null;
                 switch(item.getItemId()){
                     case R.id.hide_nav:findViewById(R.id.floatingActionButtonweek).setVisibility(View.VISIBLE );findViewById(R.id.bottom_navigation).setVisibility(View.INVISIBLE);break;
-                    case R.id.home_nav:Toast.makeText(DashboardActivity.this,"Vous êtes dans l'acceuil",Toast.LENGTH_SHORT).show();
+                    case R.id.home_nav:Toast.makeText(DashboardActivity.this,"Vous êtes dans l'acceuil",Toast.LENGTH_SHORT).show();break;
                     case R.id.setting_nav:i = new Intent(DashboardActivity.this, EditFormUser.class);
                         DashboardActivity.this.startActivity(i);break;
                     case R.id.logout_nav:SessionManager sessionManager=new SessionManager(DashboardActivity.this);
@@ -67,7 +75,19 @@ Dialog dialog;
 
     }
 
-    public void afficherUtilisateur(View view) {
+    @Override
+    protected void onResume() {
+        super.onResume();
+        int orientation = getResources().getConfiguration().orientation;
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+
+            userShape.setVisibility(View.INVISIBLE);
+            welcomeUserName.setVisibility(View.INVISIBLE);
+        }
+
+    }
+
+    public void OnclickCardview(View view) {
 
         MainActivity main = new MainActivity();
         Intent splashIntent = new Intent(DashboardActivity.this, ListActivity.class);
@@ -87,6 +107,10 @@ Dialog dialog;
             case R.id.cardviewseance:
 
                Intent addIntent = new Intent(DashboardActivity.this,RecycleCalendar.class);
+               addIntent.putExtra("emploitype","1");
+               addIntent.putExtra("id",userdetail.get(SessionManager.KEY_ID));
+
+
                DashboardActivity.this.startActivity(addIntent);
                DashboardActivity.this.finish();
 //                splashIntent.putExtra("click","2");
@@ -108,15 +132,9 @@ Dialog dialog;
         findViewById(R.id.floatingActionButtonweek).setVisibility(View.INVISIBLE);findViewById(R.id.bottom_navigation).setVisibility(View.VISIBLE);
     }
 
-    public void logout(View view) {
-        SessionManager sessionManager=new SessionManager(this);
-        sessionManager.logout();
-        Intent splashIntent = new Intent(DashboardActivity.this, LoginActivity.class);
-        DashboardActivity.this.startActivity(splashIntent);
-        DashboardActivity.this.finish();
-    }
 
-    public void getemploi(View view) {
+
+    public void getCalender(View view) {
         Intent calenderIntent=new Intent(this,WeekView_Calendar.class);
         Intent ListActivityIntent = new Intent(DashboardActivity.this, ListActivity.class);
         switch (view.getId())
@@ -126,24 +144,22 @@ Dialog dialog;
             calenderIntent.putExtra("emploitype","0");
             DashboardActivity.this.startActivity(calenderIntent);
             DashboardActivity.this.finish();
-        break;case R.id.monitoremploi:
+            dialog.dismiss();
+        break;
 
-//            splashIntent.putExtra("emploitype","1");
-//            DashboardActivity.this.startActivity(splashIntent);
-//            DashboardActivity.this.finish();
+        case R.id.monitoremploi:
+        ListActivityIntent.putExtra("emploi","1");
         ListActivityIntent.putExtra("click","0");
-
         DashboardActivity.this.startActivity(ListActivityIntent);
         DashboardActivity.this.finish();
+        dialog.dismiss();
 
         break;case R.id.clientemploi:
 
-//            splashIntent.putExtra("emploitype","2");
-//            DashboardActivity.this.startActivity(splashIntent);
-//            DashboardActivity.this.finish();
         ListActivityIntent.putExtra("click","3");
         DashboardActivity.this.startActivity(ListActivityIntent);
         DashboardActivity.this.finish();
+        dialog.dismiss();
         break;
     }
     }

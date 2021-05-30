@@ -1,9 +1,15 @@
 package com.example.horseriding;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -77,13 +83,29 @@ public class Month_view extends AppCompatActivity {
         Sam_5=findViewById(R.id.Sam_5);
         Dim_5=findViewById(R.id.Dim_5);
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater mI=getMenuInflater();
+        mI.inflate(R.menu.menu_calendar,menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        Intent i=null;
+        switch (item.getItemId()){
+            case R.id.month_view:findViewById(R.id.week_view).setVisibility(View.INVISIBLE);break;
+            case R.id.week_view:i=new Intent(Month_view.this, WeekView_Calendar.class);startActivity(i);finish();break;
+            case R.id.day_view:i=new Intent(Month_view.this, RecycleCalendar.class);startActivity(i);finish();break;
+        }
+        return true;
+    }
 
     @Override
     protected void onResume() {
         super.onResume();
         starDate=firstDate;endDate=firstDate;
-        day.setText(firstDate.getMonth().toString());
+        day.setText(firstDate.getMonth().toString()+" "+firstDate.getYear());
         switch(firstDate.getDayOfWeek().getValue()) {
             case 1:starDate=firstDate;endDate=starDate.plusDays(6);break;
             case 2:starDate=firstDate.minusDays(1);endDate=starDate.plusDays(6);break;
@@ -95,7 +117,7 @@ public class Month_view extends AppCompatActivity {
         }
         String startDateString = dateFormatter.format(starDate);
         String endDateString = dateFormatter.format(endDate);
-        JsonArrayRequest jsonWeek1=new JsonArrayRequest(Request.Method.GET, "http://192.168.1.7:45455/seances/"+startDateString+"/"+endDateString, null, new Response.Listener<JSONArray>() {
+        JsonArrayRequest jsonWeek1=new JsonArrayRequest(Request.Method.GET, WS.URL+"seances/"+startDateString+"/"+endDateString, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 LocalDateTime dateFromResponse;
@@ -130,7 +152,7 @@ public class Month_view extends AppCompatActivity {
         endDate=endDate.plusDays(7);
         startDateString=dateFormatter.format(starDate);
         endDateString=dateFormatter.format(endDate);
-        JsonArrayRequest jsonWeek2=new JsonArrayRequest(Request.Method.GET, "http://192.168.1.7:45455/seances/"+startDateString+"/"+endDateString, null, new Response.Listener<JSONArray>() {
+        JsonArrayRequest jsonWeek2=new JsonArrayRequest(Request.Method.GET, WS.URL+"seances/"+startDateString+"/"+endDateString, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 LocalDateTime dateFromResponse;
@@ -165,7 +187,7 @@ public class Month_view extends AppCompatActivity {
         endDate=endDate.plusDays(7);
         startDateString=dateFormatter.format(starDate);
         endDateString=dateFormatter.format(endDate);
-        JsonArrayRequest jsonWeek3=new JsonArrayRequest(Request.Method.GET, "http://192.168.1.7:45455/seances/"+startDateString+"/"+endDateString, null, new Response.Listener<JSONArray>() {
+        JsonArrayRequest jsonWeek3=new JsonArrayRequest(Request.Method.GET, WS.URL+"seances/"+startDateString+"/"+endDateString, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 LocalDateTime dateFromResponse;
@@ -201,7 +223,7 @@ public class Month_view extends AppCompatActivity {
         endDate=endDate.plusDays(7);
         startDateString=dateFormatter.format(starDate);
         endDateString=dateFormatter.format(endDate);
-        JsonArrayRequest jsonWeek4=new JsonArrayRequest(Request.Method.GET, "http://192.168.1.7:45455/seances/"+startDateString+"/"+endDateString, null, new Response.Listener<JSONArray>() {
+        JsonArrayRequest jsonWeek4=new JsonArrayRequest(Request.Method.GET, WS.URL+"seances/"+startDateString+"/"+endDateString, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 LocalDateTime dateFromResponse;
@@ -237,7 +259,7 @@ public class Month_view extends AppCompatActivity {
         endDate=endDate.plusDays(7);
         startDateString=dateFormatter.format(starDate);
         endDateString=dateFormatter.format(endDate);
-        JsonArrayRequest jsonWeek5=new JsonArrayRequest(Request.Method.GET, "http://192.168.1.7:45455/seances/"+startDateString+"/"+endDateString, null, new Response.Listener<JSONArray>() {
+        JsonArrayRequest jsonWeek5=new JsonArrayRequest(Request.Method.GET, WS.URL+"seances/"+startDateString+"/"+endDateString, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 LocalDateTime dateFromResponse;

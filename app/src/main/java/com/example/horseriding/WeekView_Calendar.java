@@ -3,15 +3,21 @@ package com.example.horseriding;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -47,6 +53,7 @@ public class WeekView_Calendar extends AppCompatActivity {
     String id;
     String url;
     String color;
+    List<Seance> seances;
   static   boolean server=false;
     TextView Lun_08,Lun_09,Lun_10,Lun_11,Lun_12,Lun_13,Lun_14,Lun_15,Lun_16,Lun_17,Lun_18,
             Mar_08,Mar_09,Mar_10,Mar_11,Mar_12,Mar_13,Mar_14,Mar_15,Mar_16,Mar_17,Mar_18,
@@ -61,6 +68,9 @@ public class WeekView_Calendar extends AppCompatActivity {
 
     LocalDateTime starDate=dateInit,endDate=dateInit;
     BottomNavigationView bnv;
+    private Dialog dialog;
+    private String urlTask;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +78,7 @@ public class WeekView_Calendar extends AppCompatActivity {
         Intent emploiIntent=getIntent();
         id=emploiIntent.getStringExtra("id");
         bnv=findViewById(R.id.bottom_navigation);
+        dialog= new Dialog(WeekView_Calendar.this);
         switch(dateInit.getDayOfWeek().getValue()) {
             case 1:starDate=dateInit;endDate=starDate.plusDays(6);break;
             case 2:starDate=dateInit.minusDays(1);endDate=starDate.plusDays(6);break;
@@ -176,37 +187,76 @@ public class WeekView_Calendar extends AppCompatActivity {
 
 
     }
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater mI=getMenuInflater();
+
+        mI.inflate(R.menu.menu_calendar,menu);
+
+        return true;
+    }
 
     @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+
+        switch (item.getItemId()){
+            case R.id.month_view:calenderSwitcher(WeekView_Calendar.this,Month_view.class);
+            case R.id.week_view:/*item.setVisible(false);*/Toast.makeText(WeekView_Calendar.this,"already in week section",Toast.LENGTH_SHORT).show();break;
+            case R.id.day_view: calenderSwitcher(WeekView_Calendar.this,RecycleCalendar.class);
+
+
+        }
+        return true;
+    }
+
+    private void calenderSwitcher(Context context, Class<?> CLASS) {
+        Intent i=null;
+        i=new Intent(context, CLASS);
+        if(getIntent().getStringExtra("emploitype")!=null){
+            switch (getIntent().getStringExtra("emploitype"))
+            {
+                case "0": startActivity(i);finish();break;
+
+                case "1":  i.putExtra("emploitype","1");i.putExtra("id",id); startActivity(i);finish();break;
+
+
+
+
+                case "2":i.putExtra("emploitype","2");i.putExtra("id",id); startActivity(i);finish();break;
+
+
+            }
+        }else{ startActivity(i);finish(); }
+    }
+
+    @Override
+
     protected void onResume() {
         SessionManager sessionManager=new SessionManager(WeekView_Calendar.this);
         super.onResume();
 
+         emploitype();
 
+        dialog.setContentView(R.layout.progressbar);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-switch (getIntent().getStringExtra("emploitype"))
-{
-        case "0":url="http://192.168.111.1:45455/seances/"+startDateString+"/"+endDateString;
-         break;
-        case "1":url="http://192.168.111.1:45455/seances/monitor/"+startDateString+"/"+endDateString+"/"+id;
-        getTache();
-
-
-         break;
-        case "2":url="http://192.168.111.1:45455/seances/"+startDateString+"/"+endDateString+"/"+id;
-         break;
-}
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.show();
         JsonArrayRequest jArray=new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+
+
+
 
             @Override
             public void onResponse(JSONArray response) {
+                dialog.cancel();
                 TextView day=findViewById(R.id.day);
                 day.setText(startDateString+" -> "+endDateString);
                 getSeance(response);
                // getTache();
                 JSONObject j = null;
 
-                sessionManager.server(true);
+
 
 
                 for(int i=0;i<response.length();i++) {
@@ -224,13 +274,37 @@ switch (getIntent().getStringExtra("emploitype"))
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                Toast.makeText(WeekView_Calendar.this,"here error",Toast.LENGTH_SHORT).show();
+            dialog.cancel();
+             getSeance(seances);
 
-                Log.d("testoooooooooooooo",error+" ");
             }
         });
         MySingleton.getInstance(this.getApplicationContext()).addToRequestQueue(jArray);
 
     }
+
+    private void emploitype() {
+        if(getIntent().getStringExtra("emploitype")!=null){
+            switch (getIntent().getStringExtra("emploitype"))
+            {
+                case "0":url=WS.URL+"seances/"+startDateString+"/"+endDateString ;
+                seances=databaseHandler.readSeance();
+                getTache();
+                    break;
+                case "1":url=WS.URL+"seances/monitor/"+startDateString+"/"+endDateString+"/"+id;
+                    //getTache();
+                  seances=databaseHandler.readUserSeance(Integer.valueOf(id));
+
+                    break;
+                case "2":url=WS.URL +"seances/"+startDateString+"/"+endDateString+"/"+id;
+                seances=databaseHandler.readClientSeance(Integer.valueOf(id));
+                    break;
+
+            }
+        }else{url=WS.URL+"seances/"+startDateString+"/"+endDateString; getTache();}
+    }
+
     public void initId(String jour){
 
     }
@@ -255,18 +329,7 @@ switch (getIntent().getStringExtra("emploitype"))
                 break;
         }
         Locale local=new Locale("fr","Fr");
-
-        switch (getIntent().getStringExtra("emploitype"))
-        {
-            case "0":url="http://192.168.111.1:45455/seances/"+startDateString+"/"+endDateString;
-                break;
-            case "1":url="http://192.168.111.1:45455/seances/"+startDateString+"/"+endDateString+"/"+id
-
-            ;getTache();
-                break;
-            case "2":url="http://192.168.111.1:45455/seances/"+startDateString+"/"+endDateString+"/"+id;
-                break;
-        }
+emploitype();
         //DateTimeFormatter dt= ;
         TextView day=findViewById(R.id.day);
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -275,7 +338,9 @@ switch (getIntent().getStringExtra("emploitype"))
 
 
 
+
             JsonArrayRequest jArray=new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+
 
             @Override
             public void onResponse(JSONArray response) {
@@ -474,7 +539,7 @@ switch (getIntent().getStringExtra("emploitype"))
 //                }
                 if(LocalDateTime.now().compareTo(dateFromResponse)<=0)
                 {
-                    color="#059CE5";
+                    color="#2de04b";
                 }else
                 {
                     color="#CC0000";
@@ -669,7 +734,23 @@ switch (getIntent().getStringExtra("emploitype"))
 
     void getTache()
     {
-        JsonArrayRequest jArray=new JsonArrayRequest(Request.Method.GET, "http://192.168.111.1:45455/tasks/"+startDateString+"/"+endDateString+"/"+id, null, new Response.Listener<JSONArray>() {
+        if(getIntent().getStringExtra("emploitype")!=null){
+            switch (getIntent().getStringExtra("emploitype"))
+            {
+                case "0":urlTask=WS.URL+"tasks/"+startDateString+"/"+endDateString ;
+
+
+                    break;
+                case "1":urlTask=WS.URL+"tasks/"+startDateString+"/"+endDateString +"/"+id;
+
+
+                    break;
+
+
+            }
+        }else{url=WS.URL+"tasks/"+startDateString+"/"+endDateString; }
+
+        JsonArrayRequest jArray=new JsonArrayRequest(Request.Method.GET, urlTask, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 TextView day=findViewById(R.id.day);
@@ -899,7 +980,7 @@ switch (getIntent().getStringExtra("emploitype"))
             @Override
             public void onErrorResponse(VolleyError error) {
 
-                Log.d("testoooooooooooooo",error+" ");
+                Log.d("gettache",error+" ");
             }
         });
         MySingleton.getInstance(this.getApplicationContext()).addToRequestQueue(jArray);
@@ -1131,7 +1212,9 @@ switch (getIntent().getStringExtra("emploitype"))
     public void seancedetails(View view) {
         TextView textView=findViewById(view.getId());
         if(textView.getText().toString().compareTo("")!=0){
-            JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET,  "http://192.168.111.1:45455/seances/"+ textView.getText().toString(), null, new Response.Listener<JSONObject>() {
+
+            JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET,  WS.URL+"seances/"+ textView.getText().toString(), null, new Response.Listener<JSONObject>() {
+
                 @Override
                 public void onResponse(JSONObject response) {
 

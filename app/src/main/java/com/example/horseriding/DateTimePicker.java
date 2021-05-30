@@ -45,8 +45,10 @@ public class DateTimePicker extends AppCompatActivity implements
     private int mYear, mMonth, mDay, mHour, mMinute;
     Spinner monitor;
     Seance seance;
+
     Spinner clientid;
     private String url="http://192.168.111.1:45455/seances";
+
     private int rep;
 
     @Override
@@ -149,8 +151,7 @@ else  txtTime.setText(hourOfDay + ":" + minute+":00");
 
     public void PostSeance(View view) {
 
-//        Intent intent = getIntent();
-//        User user = (User) intent.getSerializableExtra("user");
+
 
          monitor = findViewById(R.id.monitor);
         EditText duration = findViewById(R.id.duration);
@@ -182,7 +183,7 @@ else  txtTime.setText(hourOfDay + ":" + minute+":00");
             Log.d("jsonbody", jsonBody.toString());
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                     Request.Method.POST,
-                    url,
+                    WS.URL+"seances",
                     jsonBody,
                     new Response.Listener<JSONObject>() {
                         @Override

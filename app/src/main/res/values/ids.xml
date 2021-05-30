@@ -209,4 +209,10 @@
     <item name="Ven_6" type="id" />
     <item name="Sam_6" type="id" />
     <item name="Dim_6" type="id" />
+    <item name="scrollview" type="id" />
+    <item name="dashboard" type="id" />
+    <item name="welcomeuser" type="id" />
+    <item name="day_view" type="id" />
+    <item name="week_view" type="id" />
+    <item name="month_view" type="id" />
 </resources>
