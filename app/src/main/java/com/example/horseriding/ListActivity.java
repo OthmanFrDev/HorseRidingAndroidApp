@@ -1,7 +1,6 @@
 package com.example.horseriding;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,7 +19,6 @@ import android.util.TypedValue;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,6 +47,7 @@ public class ListActivity extends AppCompatActivity {
 
     UserAdapterRecycle ua;
     TaskAdapterRecycle ta;
+    ClientAdapterRecycle ca;
     SeanceAdapterRecycle sa=new SeanceAdapterRecycle(ListActivity.this,seances);
     Dialog dialog;
 
@@ -81,7 +80,7 @@ public class ListActivity extends AppCompatActivity {
             if(intent.getStringExtra("click")!=null){
             if(intent.getStringExtra("click").equals("0"))
             {
-                int P=0;
+
                 getAllUsers();
             }
             if(intent.getStringExtra("click").equals("1")){getAllTasks();}
@@ -98,8 +97,9 @@ public class ListActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 ua.getFilter().filter(s);
-                sa.getFilter().filter(s);
-                ta.getFilter().filter(s);
+                ca.getFilter().filter(s);
+               // sa.getFilter().filter(s);
+                //ta.getFilter().filter(s);
             }
 
             @Override
@@ -262,9 +262,9 @@ public class ListActivity extends AppCompatActivity {
                     }
 
 
-                ClientAdapterRecycle ua=new ClientAdapterRecycle(ListActivity.this,clients);
+                 ca=new ClientAdapterRecycle(ListActivity.this,clients);
                 listClient.setLayoutManager(new LinearLayoutManager(ListActivity.this));
-                listClient.setAdapter(ua);
+                listClient.setAdapter(ca);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -382,7 +382,7 @@ public class ListActivity extends AppCompatActivity {
 
         if(intent.getStringExtra("click").equals("0")){addIntent = new Intent(ListActivity.this,UserController.class); }
         if(intent.getStringExtra("click").equals("1")){addIntent = new Intent(ListActivity.this,UserController.class);/*task*/}
-        if(intent.getStringExtra("click").equals("2")){addIntent = new Intent(ListActivity.this,RecycleCalendar.class);/*seance*/}
+        if(intent.getStringExtra("click").equals("2")){addIntent = new Intent(ListActivity.this, DayView_calendar.class);/*seance*/}
         if(intent.getStringExtra("click").equals("3")){addIntent = new Intent(ListActivity.this,UserController.class);/*client*/}
 
         ListActivity.this.startActivity(addIntent);

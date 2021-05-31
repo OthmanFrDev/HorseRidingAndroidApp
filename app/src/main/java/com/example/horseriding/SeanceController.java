@@ -192,7 +192,7 @@ public class SeanceController extends AppCompatActivity implements
                                 try {
                                     Toast.makeText(SeanceController.this, "seance ajouter", Toast.LENGTH_LONG).show();
 
-                                    Intent splashIntent = new Intent(SeanceController.this, RecycleCalendar.class);
+                                    Intent splashIntent = new Intent(SeanceController.this, DayView_calendar.class);
                                     SeanceController.this.startActivity(splashIntent);
                                     SeanceController.this.finish();
                                 } catch (Exception e) {

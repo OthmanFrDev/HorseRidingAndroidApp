@@ -10,8 +10,6 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -192,7 +190,7 @@ else  txtTime.setText(hourOfDay + ":" + minute+":00");
                             try {
                                 Toast.makeText(DateTimePicker.this, "Bien modifié", Toast.LENGTH_LONG).show();
 
-                                Intent splashIntent = new Intent(DateTimePicker.this, RecycleCalendar.class);
+                                Intent splashIntent = new Intent(DateTimePicker.this, DayView_calendar.class);
                                 DateTimePicker.this.startActivity(splashIntent);
                                 DateTimePicker.this.finish();
                             } catch (Exception e) {

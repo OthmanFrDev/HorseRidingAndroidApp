@@ -30,7 +30,7 @@
             android:layout_columnWeight="1"
             android:text="LUN"
             android:gravity="center"
-            android:background="@drawable/textview_border"
+
             android:layout_rowWeight="1"
             android:id="@id/day" />
 
@@ -59,890 +59,898 @@
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-            <GridLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:rowCount="1"
-                android:layout_gravity="fill"
-                android:columnCount="8">
                 <GridLayout
-                    android:id="@id/gridTime"
-                    android:layout_width="42dp"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:rowCount="12"
-                    android:columnCount="1">
-                    <TextView
-                        android:id="@id/pm8"
-                        android:layout_rowWeight="1" 
-                        android:layout_columnWeight="1"
-                        android:text="" />
-                    <TextView
-                        android:id="@id/pm8"
-                        android:layout_height="80dp"
+                    android:rowCount="1"
+                    android:layout_gravity="fill"
+                    android:columnCount="8">
+                    <GridLayout
+                        android:id="@id/gridTime"
+                        android:layout_width="42dp"
+                        android:layout_height="match_parent"
+                        android:rowCount="12"
+                        android:columnCount="1">
+                        <TextView
+                            android:id="@id/pm8"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:text="" />
+                        <TextView
+                            android:id="@id/pm8"
+                            android:layout_height="80dp"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:text="08:00" />
+                        <TextView
+                            android:text="09:00"
+                            android:layout_columnWeight="1"
+                            android:layout_height="80dp"
+                            android:layout_rowWeight="1"
+                            android:id="@id/pm9"/>
+                        <TextView
+                            android:text="10:00"
+                            android:layout_columnWeight="1"
+                            android:layout_height="80dp"
+                            android:layout_rowWeight="1"
+                            android:id="@id/pm10"/>
+                        <TextView
+                            android:text="11:00"
+                            android:layout_columnWeight="1"
+                            android:layout_height="80dp"
+                            android:layout_rowWeight="1"
+                            android:id="@id/pm11"/>
+                        <TextView
+                            android:text="12:00"
+                            android:layout_columnWeight="1"
+                            android:layout_rowWeight="1"
+                            android:layout_height="80dp"
+                            android:id="@id/pm12"/>
+                        <TextView
+                            android:text="13:00"
+                            android:layout_columnWeight="1"
+                            android:layout_rowWeight="1"
+                            android:layout_height="80dp"
+                            android:id="@id/pm13"/>
+                        <TextView
+                            android:text="14:00"
+                            android:layout_columnWeight="1"
+                            android:layout_rowWeight="1"
+                            android:layout_height="80dp"
+                            android:id="@id/pm14"/>
+                        <TextView
+                            android:text="15:00"
+                            android:layout_columnWeight="1"
+                            android:layout_height="80dp"
+                            android:layout_rowWeight="1"
+                            android:id="@id/pm15"/>
+                        <TextView
+                            android:text="16:00"
+                            android:layout_columnWeight="1"
+                            android:layout_height="80dp"
+                            android:layout_rowWeight="1"
+                            android:id="@id/pm16"/>
+                        <TextView
+                            android:text="17:00"
+                            android:layout_columnWeight="1"
+                            android:layout_height="80dp"
+                            android:layout_rowWeight="1"
+                            android:id="@id/pm17"/>
+                        <TextView
+                            android:text="18:00"
+                            android:layout_columnWeight="1"
+                            android:layout_rowWeight="1"
+                            android:layout_height="80dp"
+                            android:id="@id/pm18"/>
+                    </GridLayout>
+
+                    <GridLayout
                         android:layout_rowWeight="1"
                         android:layout_columnWeight="1"
-                        android:text="08:00" />
-                    <TextView
-                        android:text="09:00"
-                        android:layout_columnWeight="1"
-                        android:layout_height="80dp"
+                        android:layout_width="150dp"
+                        android:layout_height="match_parent"
+                        android:rowCount="12"
+                        android:columnCount="1">
+                        <TextView
+                            android:id="@id/time_08"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:textAlignment="center"
+                            android:layout_gravity="center"
+                            android:text="LUN" />
+                        <LinearLayout
+                            android:id="@id/Lun_08"
+                            android:layout_width="match_parent"
+                            android:layout_height="80dp"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:text=""
+                            android:background="@drawable/border"
+                            android:textAlignment="center"
+                            android:onClick="seancedetails"
+                            android:orientation="vertical">
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Lun_09"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:textAlignment="center"
+                            android:layout_width="match_parent"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Lun_10"
+                            android:layout_width="match_parent"
+                            android:layout_rowWeight="1"
+                            android:textAlignment="center"
+                            android:onClick="seancedetails"
+                            android:layout_columnWeight="1"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Lun_11"
+                            android:layout_width="match_parent"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:textAlignment="center"
+                            android:layout_height="80dp"
+                            android:text=""
+                            android:background="@drawable/border"
+                            android:onClick="seancedetails"
+                            android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Lun_12"
+                            android:layout_width="match_parent"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:textAlignment="center"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Lun_13"
+                            android:layout_width="match_parent"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:textAlignment="center"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Lun_14"
+                            android:layout_width="match_parent"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:textAlignment="center"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Lun_15"
+                            android:layout_width="match_parent"
+                            android:layout_rowWeight="1"
+                            android:textAlignment="center"
+                            android:layout_columnWeight="1"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Lun_16"
+                            android:layout_width="match_parent"
+                            android:layout_rowWeight="1"
+                            android:textAlignment="center"
+                            android:layout_columnWeight="1"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Lun_17"
+                            android:layout_width="match_parent"
+                            android:layout_rowWeight="1"
+                            android:textAlignment="center"
+                            android:layout_columnWeight="1"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Lun_18"
+                            android:layout_width="match_parent"
+                            android:textAlignment="center"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                    </GridLayout>
+                    <GridLayout
                         android:layout_rowWeight="1"
-                        android:id="@id/pm9"/>
-                    <TextView
-                        android:text="10:00"
                         android:layout_columnWeight="1"
-                        android:layout_height="80dp"
+                        android:layout_height="match_parent"
+                        android:layout_width="150dp"
+                        android:rowCount="12"
+                        android:columnCount="1">
+                        <TextView
+                            android:id="@id/time_08"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:textAlignment="center"
+                            android:layout_gravity="center"
+                            android:text="MAR" />
+                        <LinearLayout
+                            android:id="@id/Mar_08"
+                            android:layout_width="match_parent"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:textAlignment="center"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Mar_09"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:onClick="seancedetails"
+                            android:textAlignment="center"
+                            android:layout_width="match_parent"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Mar_10"
+                            android:layout_width="match_parent"
+                            android:layout_rowWeight="1"
+                            android:textAlignment="center"
+                            android:layout_columnWeight="1"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Mar_11"
+                            android:layout_width="match_parent"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:textAlignment="center"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Mar_12"
+                            android:layout_width="match_parent"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:textAlignment="center"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Mar_13"
+                            android:layout_width="match_parent"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:textAlignment="center"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Mar_14"
+                            android:layout_width="match_parent"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:textAlignment="center"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Mar_15"
+                            android:layout_width="match_parent"
+                            android:layout_rowWeight="1"
+                            android:textAlignment="center"
+                            android:layout_columnWeight="1"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Mar_16"
+                            android:layout_width="match_parent"
+                            android:layout_rowWeight="1"
+                            android:textAlignment="center"
+                            android:layout_columnWeight="1"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Mar_17"
+                            android:layout_width="match_parent"
+                            android:layout_rowWeight="1"
+                            android:textAlignment="center"
+                            android:layout_columnWeight="1"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Mar_18"
+                            android:layout_width="match_parent"
+                            android:textAlignment="center"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                    </GridLayout>
+                    <GridLayout
                         android:layout_rowWeight="1"
-                        android:id="@id/pm10"/>
-                    <TextView
-                        android:text="11:00"
                         android:layout_columnWeight="1"
-                        android:layout_height="80dp"
+                        android:layout_height="match_parent"
+                        android:rowCount="12"
+                        android:layout_width="150dp"
+                        android:columnCount="1">
+                        <TextView
+                            android:id="@id/time_08"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:textAlignment="center"
+                            android:layout_gravity="center"
+                            android:text="MER" />
+                        <LinearLayout
+                            android:id="@id/Mer_08"
+                            android:layout_width="match_parent"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:textAlignment="center"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Mer_09"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:onClick="seancedetails"
+                            android:textAlignment="center"
+                            android:layout_width="match_parent"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Mer_10"
+                            android:layout_width="match_parent"
+                            android:layout_rowWeight="1"
+                            android:textAlignment="center"
+                            android:layout_columnWeight="1"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Mer_11"
+                            android:layout_width="match_parent"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:textAlignment="center"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Mer_12"
+                            android:layout_width="match_parent"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:textAlignment="center"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Mer_13"
+                            android:layout_width="match_parent"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:textAlignment="center"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Mer_14"
+                            android:layout_width="match_parent"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:textAlignment="center"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Mer_15"
+                            android:layout_width="match_parent"
+                            android:layout_rowWeight="1"
+                            android:textAlignment="center"
+                            android:layout_columnWeight="1"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Mer_16"
+                            android:layout_width="match_parent"
+                            android:layout_rowWeight="1"
+                            android:textAlignment="center"
+                            android:layout_columnWeight="1"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Mer_17"
+                            android:layout_width="match_parent"
+                            android:layout_rowWeight="1"
+                            android:textAlignment="center"
+                            android:layout_columnWeight="1"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Mer_18"
+                            android:layout_width="match_parent"
+                            android:textAlignment="center"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                    </GridLayout>
+                    <GridLayout
                         android:layout_rowWeight="1"
-                        android:id="@id/pm11"/>
-                    <TextView
-                        android:text="12:00"
                         android:layout_columnWeight="1"
+                        android:layout_width="150dp"
+                        android:layout_height="match_parent"
+                        android:rowCount="12"
+                        android:columnCount="1">
+                        <TextView
+                            android:id="@id/time_08"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:textAlignment="center"
+                            android:layout_gravity="center"
+                            android:text="JEU" />
+                        <LinearLayout
+                            android:id="@id/Jeu_08"
+                            android:layout_width="match_parent"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:textAlignment="center"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Jeu_09"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:onClick="seancedetails"
+                            android:textAlignment="center"
+                            android:layout_width="match_parent"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Jeu_10"
+                            android:layout_width="match_parent"
+                            android:layout_rowWeight="1"
+                            android:textAlignment="center"
+                            android:layout_columnWeight="1"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Jeu_11"
+                            android:layout_width="match_parent"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:textAlignment="center"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Jeu_12"
+                            android:layout_width="match_parent"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:textAlignment="center"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Jeu_13"
+                            android:layout_width="match_parent"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:textAlignment="center"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Jeu_14"
+                            android:layout_width="match_parent"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:textAlignment="center"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Jeu_15"
+                            android:layout_width="match_parent"
+                            android:layout_rowWeight="1"
+                            android:textAlignment="center"
+                            android:layout_columnWeight="1"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Jeu_16"
+                            android:layout_width="match_parent"
+                            android:layout_rowWeight="1"
+                            android:textAlignment="center"
+                            android:layout_columnWeight="1"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Jeu_17"
+                            android:layout_width="match_parent"
+                            android:layout_rowWeight="1"
+                            android:textAlignment="center"
+                            android:layout_columnWeight="1"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Jeu_18"
+                            android:layout_width="match_parent"
+                            android:textAlignment="center"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                    </GridLayout>
+                    <GridLayout
                         android:layout_rowWeight="1"
-                        android:layout_height="80dp"
-                        android:id="@id/pm12"/>
-                    <TextView
-                        android:text="13:00"
                         android:layout_columnWeight="1"
+                        android:layout_width="150dp"
+                        android:layout_height="match_parent"
+                        android:rowCount="12"
+                        android:columnCount="1">
+                        <TextView
+                            android:id="@id/time_08"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:textAlignment="center"
+                            android:layout_gravity="center"
+                            android:text="VEN" />
+                        <LinearLayout
+                            android:id="@id/Ven_08"
+                            android:layout_width="match_parent"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:textAlignment="center"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Ven_09"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:onClick="seancedetails"
+                            android:textAlignment="center"
+                            android:layout_width="match_parent"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Ven_10"
+                            android:layout_width="match_parent"
+                            android:layout_rowWeight="1"
+                            android:textAlignment="center"
+                            android:layout_columnWeight="1"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Ven_11"
+                            android:layout_width="match_parent"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:textAlignment="center"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Ven_12"
+                            android:layout_width="match_parent"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:textAlignment="center"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Ven_13"
+                            android:layout_width="match_parent"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:textAlignment="center"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Ven_14"
+                            android:layout_width="match_parent"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:textAlignment="center"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Ven_15"
+                            android:layout_width="match_parent"
+                            android:layout_rowWeight="1"
+                            android:textAlignment="center"
+                            android:layout_columnWeight="1"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Ven_16"
+                            android:layout_width="match_parent"
+                            android:layout_rowWeight="1"
+                            android:textAlignment="center"
+                            android:layout_columnWeight="1"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Ven_17"
+                            android:layout_width="match_parent"
+                            android:layout_rowWeight="1"
+                            android:textAlignment="center"
+                            android:layout_columnWeight="1"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Ven_18"
+                            android:layout_width="match_parent"
+                            android:textAlignment="center"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                    </GridLayout>
+                    <GridLayout
                         android:layout_rowWeight="1"
-                        android:layout_height="80dp"
-                        android:id="@id/pm13"/>
-                    <TextView
-                        android:text="14:00"
                         android:layout_columnWeight="1"
+                        android:layout_width="150dp"
+                        android:layout_height="match_parent"
+                        android:rowCount="12"
+                        android:columnCount="1">
+                        <TextView
+                            android:id="@id/time_08"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:textAlignment="center"
+                            android:layout_gravity="center"
+                            android:text="SAM" />
+                        <LinearLayout
+                            android:id="@id/Sam_08"
+                            android:layout_width="match_parent"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:textAlignment="center"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Sam_09"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:onClick="seancedetails"
+                            android:textAlignment="center"
+                            android:layout_width="match_parent"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Sam_10"
+                            android:layout_width="match_parent"
+                            android:layout_rowWeight="1"
+                            android:textAlignment="center"
+                            android:layout_columnWeight="1"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Sam_11"
+                            android:layout_width="match_parent"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:textAlignment="center"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Sam_12"
+                            android:layout_width="match_parent"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:textAlignment="center"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Sam_13"
+                            android:layout_width="match_parent"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:textAlignment="center"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Sam_14"
+                            android:layout_width="match_parent"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:textAlignment="center"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Sam_15"
+                            android:layout_width="match_parent"
+                            android:layout_rowWeight="1"
+                            android:textAlignment="center"
+                            android:layout_columnWeight="1"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Sam_16"
+                            android:layout_width="match_parent"
+                            android:layout_rowWeight="1"
+                            android:textAlignment="center"
+                            android:layout_columnWeight="1"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Sam_17"
+                            android:layout_width="match_parent"
+                            android:layout_rowWeight="1"
+                            android:textAlignment="center"
+                            android:layout_columnWeight="1"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Sam_18"
+                            android:layout_width="match_parent"
+                            android:textAlignment="center"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                    </GridLayout>
+                    <GridLayout
                         android:layout_rowWeight="1"
-                        android:layout_height="80dp"
-                        android:id="@id/pm14"/>
-                    <TextView
-                        android:text="15:00"
                         android:layout_columnWeight="1"
-                        android:layout_height="80dp"
-                        android:layout_rowWeight="1" 
-                        android:id="@id/pm15"/>
-                    <TextView
-                        android:text="16:00"
-                        android:layout_columnWeight="1"
-                        android:layout_height="80dp"
-                        android:layout_rowWeight="1"
-                        android:id="@id/pm16"/>
-                    <TextView
-                        android:text="17:00"
-                        android:layout_columnWeight="1"
-                        android:layout_height="80dp"
-                        android:layout_rowWeight="1"
-                        android:id="@id/pm17"/>
-                    <TextView
-                        android:text="18:00"
-                        android:layout_columnWeight="1"
-                        android:layout_rowWeight="1"
-                        android:layout_height="80dp"
-                        android:id="@id/pm18"/>
+                        android:layout_height="match_parent"
+                        android:layout_width="150dp"
+                        android:rowCount="12"
+                        android:columnCount="1">
+                        <TextView
+                            android:id="@id/time_08"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:textAlignment="center"
+                            android:layout_gravity="center"
+                            android:text="DIM" />
+                        <LinearLayout
+                            android:id="@id/Dim_08"
+                            android:layout_width="match_parent"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:textAlignment="center"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Dim_09"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:onClick="seancedetails"
+                            android:textAlignment="center"
+                            android:layout_width="match_parent"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical">
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Dim_10"
+                            android:layout_width="match_parent"
+                            android:layout_rowWeight="1"
+                            android:textAlignment="center"
+                            android:layout_columnWeight="1"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Dim_11"
+                            android:layout_width="match_parent"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:textAlignment="center"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Dim_12"
+                            android:layout_width="match_parent"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:textAlignment="center"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Dim_13"
+                            android:layout_width="match_parent"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:textAlignment="center"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Dim_14"
+                            android:layout_width="match_parent"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:textAlignment="center"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Dim_15"
+                            android:layout_width="match_parent"
+                            android:layout_rowWeight="1"
+                            android:textAlignment="center"
+                            android:layout_columnWeight="1"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Dim_16"
+                            android:layout_width="match_parent"
+                            android:layout_rowWeight="1"
+                            android:textAlignment="center"
+                            android:layout_columnWeight="1"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Dim_17"
+                            android:layout_width="match_parent"
+                            android:layout_rowWeight="1"
+                            android:textAlignment="center"
+                            android:layout_columnWeight="1"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/Dim_18"
+                            android:layout_width="match_parent"
+                            android:textAlignment="center"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:onClick="seancedetails"
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+
+                    </GridLayout>
                 </GridLayout>
-
-                <GridLayout
-                    android:layout_rowWeight="1"
-                    android:layout_columnWeight="1"
-                    android:layout_width="150dp"
-                    android:layout_height="match_parent"
-                    android:rowCount="12"
-                    android:columnCount="1">
-                    <TextView
-                        android:id="@id/time_08"
-                        android:layout_rowWeight="1"
-                        android:layout_columnWeight="1"
-                        android:textAlignment="center"
-                        android:layout_gravity="center"
-                        android:text="LUN" />
-                    <TextView
-                        android:id="@id/Lun_08"
-                        android:layout_width="match_parent"
-                        android:layout_height="80dp"
-                        android:layout_rowWeight="1"
-                        android:layout_columnWeight="1"
-                        android:text=""
-                        android:background="@drawable/border"
-                        android:textAlignment="center"
-                        android:onClick="seancedetails"
-                        />
-
-                    <TextView
-                        android:id="@id/Lun_09"
-                        android:layout_rowWeight="1"
-                        android:layout_columnWeight="1"
-                        android:textAlignment="center"
-                        android:layout_width="match_parent"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Lun_10"
-                        android:layout_width="match_parent"
-                        android:layout_rowWeight="1"
-                        android:textAlignment="center"
-                        android:onClick="seancedetails"
-                        android:layout_columnWeight="1"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Lun_11"
-                        android:layout_width="match_parent"
-                        android:layout_rowWeight="1"
-                        android:layout_columnWeight="1"
-                        android:textAlignment="center"
-                        android:layout_height="80dp"
-                        android:text=""
-                        android:background="@drawable/border"
-                        android:onClick="seancedetails"
-                        />
-
-                    <TextView
-                        android:id="@id/Lun_12"
-                        android:layout_width="match_parent"
-                        android:layout_rowWeight="1"
-                        android:layout_columnWeight="1"
-                        android:textAlignment="center"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Lun_13"
-                        android:layout_width="match_parent"
-                        android:layout_rowWeight="1"
-                        android:layout_columnWeight="1"
-                        android:textAlignment="center"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Lun_14"
-                        android:layout_width="match_parent"
-                        android:layout_rowWeight="1"
-                        android:layout_columnWeight="1"
-                        android:textAlignment="center"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Lun_15"
-                        android:layout_width="match_parent"
-                        android:layout_rowWeight="1"
-                        android:textAlignment="center"
-                        android:layout_columnWeight="1"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Lun_16"
-                        android:layout_width="match_parent"
-                        android:layout_rowWeight="1"
-                        android:textAlignment="center"
-                        android:layout_columnWeight="1"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Lun_17"
-                        android:layout_width="match_parent"
-                        android:layout_rowWeight="1"
-                        android:textAlignment="center"
-                        android:layout_columnWeight="1"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Lun_18"
-                        android:layout_width="match_parent"
-                        android:textAlignment="center"
-                        android:layout_rowWeight="1"
-                        android:layout_columnWeight="1"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-                </GridLayout>
-                <GridLayout
-                    android:layout_rowWeight="1"
-                    android:layout_columnWeight="1"
-                    android:layout_height="match_parent"
-                    android:layout_width="150dp"
-                    android:rowCount="12"
-                    android:columnCount="1">
-                    <TextView
-                        android:id="@id/time_08"
-                        android:layout_rowWeight="1"
-                        android:layout_columnWeight="1"
-                        android:textAlignment="center"
-                        android:layout_gravity="center"
-                        android:text="MAR" />
-                    <TextView
-                        android:id="@id/Mar_08"
-                        android:layout_width="match_parent"
-                        android:layout_rowWeight="1"
-                        android:layout_columnWeight="1"
-                        android:textAlignment="center"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Mar_09"
-                        android:layout_rowWeight="1"
-                        android:layout_columnWeight="1"
-                        android:onClick="seancedetails"
-                        android:textAlignment="center"
-                        android:layout_width="match_parent"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Mar_10"
-                        android:layout_width="match_parent"
-                        android:layout_rowWeight="1"
-                        android:textAlignment="center"
-                        android:layout_columnWeight="1"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Mar_11"
-                        android:layout_width="match_parent"
-                        android:layout_rowWeight="1"
-                        android:layout_columnWeight="1"
-                        android:textAlignment="center"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Mar_12"
-                        android:layout_width="match_parent"
-                        android:layout_rowWeight="1"
-                        android:layout_columnWeight="1"
-                        android:textAlignment="center"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Mar_13"
-                        android:layout_width="match_parent"
-                        android:layout_rowWeight="1"
-                        android:layout_columnWeight="1"
-                        android:textAlignment="center"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Mar_14"
-                        android:layout_width="match_parent"
-                        android:layout_rowWeight="1"
-                        android:layout_columnWeight="1"
-                        android:textAlignment="center"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Mar_15"
-                        android:layout_width="match_parent"
-                        android:layout_rowWeight="1"
-                        android:textAlignment="center"
-                        android:layout_columnWeight="1"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Mar_16"
-                        android:layout_width="match_parent"
-                        android:layout_rowWeight="1"
-                        android:textAlignment="center"
-                        android:layout_columnWeight="1"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Mar_17"
-                        android:layout_width="match_parent"
-                        android:layout_rowWeight="1"
-                        android:textAlignment="center"
-                        android:layout_columnWeight="1"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Mar_18"
-                        android:layout_width="match_parent"
-                        android:textAlignment="center"
-                        android:layout_rowWeight="1"
-                        android:layout_columnWeight="1"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-                </GridLayout>
-                <GridLayout
-                    android:layout_rowWeight="1"
-                    android:layout_columnWeight="1"
-                    android:layout_height="match_parent"
-                    android:rowCount="12"
-                    android:layout_width="150dp"
-                    android:columnCount="1">
-                    <TextView
-                        android:id="@id/time_08"
-                        android:layout_rowWeight="1"
-                        android:layout_columnWeight="1"
-                        android:textAlignment="center"
-                        android:layout_gravity="center"
-                        android:text="MER" />
-                    <TextView
-                        android:id="@id/Mer_08"
-                        android:layout_width="match_parent"
-                        android:layout_rowWeight="1"
-                        android:layout_columnWeight="1"
-                        android:textAlignment="center"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Mer_09"
-                        android:layout_rowWeight="1"
-                        android:layout_columnWeight="1"
-                        android:onClick="seancedetails"
-                        android:textAlignment="center"
-                        android:layout_width="match_parent"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Mer_10"
-                        android:layout_width="match_parent"
-                        android:layout_rowWeight="1"
-                        android:textAlignment="center"
-                        android:layout_columnWeight="1"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Mer_11"
-                        android:layout_width="match_parent"
-                        android:layout_rowWeight="1"
-                        android:layout_columnWeight="1"
-                        android:textAlignment="center"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Mer_12"
-                        android:layout_width="match_parent"
-                        android:layout_rowWeight="1"
-                        android:layout_columnWeight="1"
-                        android:textAlignment="center"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Mer_13"
-                        android:layout_width="match_parent"
-                        android:layout_rowWeight="1"
-                        android:layout_columnWeight="1"
-                        android:textAlignment="center"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Mer_14"
-                        android:layout_width="match_parent"
-                        android:layout_rowWeight="1"
-                        android:layout_columnWeight="1"
-                        android:textAlignment="center"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Mer_15"
-                        android:layout_width="match_parent"
-                        android:layout_rowWeight="1"
-                        android:textAlignment="center"
-                        android:layout_columnWeight="1"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Mer_16"
-                        android:layout_width="match_parent"
-                        android:layout_rowWeight="1"
-                        android:textAlignment="center"
-                        android:layout_columnWeight="1"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Mer_17"
-                        android:layout_width="match_parent"
-                        android:layout_rowWeight="1"
-                        android:textAlignment="center"
-                        android:layout_columnWeight="1"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Mer_18"
-                        android:layout_width="match_parent"
-                        android:textAlignment="center"
-                        android:layout_rowWeight="1"
-                        android:layout_columnWeight="1"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-                </GridLayout>
-                <GridLayout
-                    android:layout_rowWeight="1"
-                    android:layout_columnWeight="1"
-                    android:layout_width="150dp"
-                    android:layout_height="match_parent"
-                    android:rowCount="12"
-                    android:columnCount="1">
-                    <TextView
-                        android:id="@id/time_08"
-                        android:layout_rowWeight="1"
-                        android:layout_columnWeight="1"
-                        android:textAlignment="center"
-                        android:layout_gravity="center"
-                        android:text="JEU" />
-                    <TextView
-                        android:id="@id/Jeu_08"
-                        android:layout_width="match_parent"
-                        android:layout_rowWeight="1"
-                        android:layout_columnWeight="1"
-                        android:textAlignment="center"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Jeu_09"
-                        android:layout_rowWeight="1"
-                        android:layout_columnWeight="1"
-                        android:onClick="seancedetails"
-                        android:textAlignment="center"
-                        android:layout_width="match_parent"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Jeu_10"
-                        android:layout_width="match_parent"
-                        android:layout_rowWeight="1"
-                        android:textAlignment="center"
-                        android:layout_columnWeight="1"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Jeu_11"
-                        android:layout_width="match_parent"
-                        android:layout_rowWeight="1"
-                        android:layout_columnWeight="1"
-                        android:textAlignment="center"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Jeu_12"
-                        android:layout_width="match_parent"
-                        android:layout_rowWeight="1"
-                        android:layout_columnWeight="1"
-                        android:textAlignment="center"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Jeu_13"
-                        android:layout_width="match_parent"
-                        android:layout_rowWeight="1"
-                        android:layout_columnWeight="1"
-                        android:textAlignment="center"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Jeu_14"
-                        android:layout_width="match_parent"
-                        android:layout_rowWeight="1"
-                        android:layout_columnWeight="1"
-                        android:textAlignment="center"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Jeu_15"
-                        android:layout_width="match_parent"
-                        android:layout_rowWeight="1"
-                        android:textAlignment="center"
-                        android:layout_columnWeight="1"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Jeu_16"
-                        android:layout_width="match_parent"
-                        android:layout_rowWeight="1"
-                        android:textAlignment="center"
-                        android:layout_columnWeight="1"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Jeu_17"
-                        android:layout_width="match_parent"
-                        android:layout_rowWeight="1"
-                        android:textAlignment="center"
-                        android:layout_columnWeight="1"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Jeu_18"
-                        android:layout_width="match_parent"
-                        android:textAlignment="center"
-                        android:layout_rowWeight="1"
-                        android:layout_columnWeight="1"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-                </GridLayout>
-                <GridLayout
-                    android:layout_rowWeight="1"
-                    android:layout_columnWeight="1"
-                    android:layout_width="150dp"
-                    android:layout_height="match_parent"
-                    android:rowCount="12"
-                    android:columnCount="1">
-                    <TextView
-                        android:id="@id/time_08"
-                        android:layout_rowWeight="1"
-                        android:layout_columnWeight="1"
-                        android:textAlignment="center"
-                        android:layout_gravity="center"
-                        android:text="VEN" />
-                    <TextView
-                        android:id="@id/Ven_08"
-                        android:layout_width="match_parent"
-                        android:layout_rowWeight="1"
-                        android:layout_columnWeight="1"
-                        android:textAlignment="center"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Ven_09"
-                        android:layout_rowWeight="1"
-                        android:layout_columnWeight="1"
-                        android:onClick="seancedetails"
-                        android:textAlignment="center"
-                        android:layout_width="match_parent"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Ven_10"
-                        android:layout_width="match_parent"
-                        android:layout_rowWeight="1"
-                        android:textAlignment="center"
-                        android:layout_columnWeight="1"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Ven_11"
-                        android:layout_width="match_parent"
-                        android:layout_rowWeight="1"
-                        android:layout_columnWeight="1"
-                        android:textAlignment="center"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Ven_12"
-                        android:layout_width="match_parent"
-                        android:layout_rowWeight="1"
-                        android:layout_columnWeight="1"
-                        android:textAlignment="center"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Ven_13"
-                        android:layout_width="match_parent"
-                        android:layout_rowWeight="1"
-                        android:layout_columnWeight="1"
-                        android:textAlignment="center"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Ven_14"
-                        android:layout_width="match_parent"
-                        android:layout_rowWeight="1"
-                        android:layout_columnWeight="1"
-                        android:textAlignment="center"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Ven_15"
-                        android:layout_width="match_parent"
-                        android:layout_rowWeight="1"
-                        android:textAlignment="center"
-                        android:layout_columnWeight="1"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Ven_16"
-                        android:layout_width="match_parent"
-                        android:layout_rowWeight="1"
-                        android:textAlignment="center"
-                        android:layout_columnWeight="1"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Ven_17"
-                        android:layout_width="match_parent"
-                        android:layout_rowWeight="1"
-                        android:textAlignment="center"
-                        android:layout_columnWeight="1"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Ven_18"
-                        android:layout_width="match_parent"
-                        android:textAlignment="center"
-                        android:layout_rowWeight="1"
-                        android:layout_columnWeight="1"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-                </GridLayout>
-                <GridLayout
-                    android:layout_rowWeight="1"
-                    android:layout_columnWeight="1"
-                    android:layout_width="150dp"
-                    android:layout_height="match_parent"
-                    android:rowCount="12"
-                    android:columnCount="1">
-                    <TextView
-                        android:id="@id/time_08"
-                        android:layout_rowWeight="1"
-                        android:layout_columnWeight="1"
-                        android:textAlignment="center"
-                        android:layout_gravity="center"
-                        android:text="SAM" />
-                    <TextView
-                        android:id="@id/Sam_08"
-                        android:layout_width="match_parent"
-                        android:layout_rowWeight="1"
-                        android:layout_columnWeight="1"
-                        android:textAlignment="center"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Sam_09"
-                        android:layout_rowWeight="1"
-                        android:layout_columnWeight="1"
-                        android:onClick="seancedetails"
-                        android:textAlignment="center"
-                        android:layout_width="match_parent"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Sam_10"
-                        android:layout_width="match_parent"
-                        android:layout_rowWeight="1"
-                        android:textAlignment="center"
-                        android:layout_columnWeight="1"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Sam_11"
-                        android:layout_width="match_parent"
-                        android:layout_rowWeight="1"
-                        android:layout_columnWeight="1"
-                        android:textAlignment="center"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Sam_12"
-                        android:layout_width="match_parent"
-                        android:layout_rowWeight="1"
-                        android:layout_columnWeight="1"
-                        android:textAlignment="center"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Sam_13"
-                        android:layout_width="match_parent"
-                        android:layout_rowWeight="1"
-                        android:layout_columnWeight="1"
-                        android:textAlignment="center"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Sam_14"
-                        android:layout_width="match_parent"
-                        android:layout_rowWeight="1"
-                        android:layout_columnWeight="1"
-                        android:textAlignment="center"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Sam_15"
-                        android:layout_width="match_parent"
-                        android:layout_rowWeight="1"
-                        android:textAlignment="center"
-                        android:layout_columnWeight="1"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Sam_16"
-                        android:layout_width="match_parent"
-                        android:layout_rowWeight="1"
-                        android:textAlignment="center"
-                        android:layout_columnWeight="1"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Sam_17"
-                        android:layout_width="match_parent"
-                        android:layout_rowWeight="1"
-                        android:textAlignment="center"
-                        android:layout_columnWeight="1"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Sam_18"
-                        android:layout_width="match_parent"
-                        android:textAlignment="center"
-                        android:layout_rowWeight="1"
-                        android:layout_columnWeight="1"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-                </GridLayout>
-                <GridLayout
-                    android:layout_rowWeight="1"
-                    android:layout_columnWeight="1"
-                    android:layout_height="match_parent"
-                    android:layout_width="150dp"
-                    android:rowCount="12"
-                    android:columnCount="1">
-                    <TextView
-                        android:id="@id/time_08"
-                        android:layout_rowWeight="1"
-                        android:layout_columnWeight="1"
-                        android:textAlignment="center"
-                        android:layout_gravity="center"
-                        android:text="DIM" />
-                    <TextView
-                        android:id="@id/Dim_08"
-                        android:layout_width="match_parent"
-                        android:layout_rowWeight="1"
-                        android:layout_columnWeight="1"
-                        android:textAlignment="center"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Dim_09"
-                        android:layout_rowWeight="1"
-                        android:layout_columnWeight="1"
-                        android:onClick="seancedetails"
-                        android:textAlignment="center"
-                        android:layout_width="match_parent"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Dim_10"
-                        android:layout_width="match_parent"
-                        android:layout_rowWeight="1"
-                        android:textAlignment="center"
-                        android:layout_columnWeight="1"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Dim_11"
-                        android:layout_width="match_parent"
-                        android:layout_rowWeight="1"
-                        android:layout_columnWeight="1"
-                        android:textAlignment="center"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Dim_12"
-                        android:layout_width="match_parent"
-                        android:layout_rowWeight="1"
-                        android:layout_columnWeight="1"
-                        android:textAlignment="center"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Dim_13"
-                        android:layout_width="match_parent"
-                        android:layout_rowWeight="1"
-                        android:layout_columnWeight="1"
-                        android:textAlignment="center"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Dim_14"
-                        android:layout_width="match_parent"
-                        android:layout_rowWeight="1"
-                        android:layout_columnWeight="1"
-                        android:textAlignment="center"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Dim_15"
-                        android:layout_width="match_parent"
-                        android:layout_rowWeight="1"
-                        android:textAlignment="center"
-                        android:layout_columnWeight="1"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Dim_16"
-                        android:layout_width="match_parent"
-                        android:layout_rowWeight="1"
-                        android:textAlignment="center"
-                        android:layout_columnWeight="1"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Dim_17"
-                        android:layout_width="match_parent"
-                        android:layout_rowWeight="1"
-                        android:textAlignment="center"
-                        android:layout_columnWeight="1"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-
-                    <TextView
-                        android:id="@id/Dim_18"
-                        android:layout_width="match_parent"
-                        android:textAlignment="center"
-                        android:layout_rowWeight="1"
-                        android:layout_columnWeight="1"
-                        android:onClick="seancedetails"
-                        android:text="" android:background="@drawable/border" android:layout_height="80dp" />
-                </GridLayout>
-            </GridLayout>
-        </HorizontalScrollView>
+            </HorizontalScrollView>
         </ScrollView>
     </LinearLayout>
     <com.google.android.material.bottomnavigation.BottomNavigationView

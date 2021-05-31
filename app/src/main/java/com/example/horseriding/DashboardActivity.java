@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,8 +32,8 @@ Dialog dialog;
     CardView cardView ;
 
     BottomNavigationView bnv;
-    TextView userShape;
-    TextView welcomeUserName;
+    LinearLayout userShape;
+    TextView welcomeUserName,nameuser;
     private SessionManager sessionManager;
     private HashMap<String, String> userdetail;
 
@@ -46,13 +47,14 @@ Dialog dialog;
         cardView=findViewById(R.id.cardviewuser);
         dialog=new Dialog(this);
         welcomeUserName =findViewById(R.id.welcomeuser);
+        nameuser =findViewById(R.id.nameuser);
         sessionManager=new SessionManager(this);
         userdetail=sessionManager.getUserDetailFromSession();
         welcomeUserName.setText(userdetail.get(SessionManager.KEY_FULLNAME));
         userShape=findViewById(R.id.shapeuser);
-        userShape.setText(userdetail.get(SessionManager.KEY_FULLNAME).split(" ")[0].toUpperCase().substring(0,1)+""+userdetail.get(SessionManager.KEY_FULLNAME).split(" ")[1].toUpperCase().substring(0,1));
-        userShape.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 70);
-        userShape.setTextColor(Color.parseColor("#ffffff"));
+        nameuser.setText(userdetail.get(SessionManager.KEY_FULLNAME).split(" ")[0].toUpperCase().substring(0,1)+""+userdetail.get(SessionManager.KEY_FULLNAME).split(" ")[1].toUpperCase().substring(0,1));
+        nameuser.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 70);
+        nameuser.setTextColor(Color.parseColor("#ffffff"));
 
         bnv.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -106,7 +108,7 @@ Dialog dialog;
                     break;
             case R.id.cardviewseance:
 
-               Intent addIntent = new Intent(DashboardActivity.this,RecycleCalendar.class);
+               Intent addIntent = new Intent(DashboardActivity.this,DayView_calendar.class);
                addIntent.putExtra("emploitype","1");
                addIntent.putExtra("id",userdetail.get(SessionManager.KEY_ID));
 
