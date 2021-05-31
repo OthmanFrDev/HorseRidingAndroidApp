@@ -15,6 +15,7 @@ import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,7 +31,8 @@ public class DashboardActivity extends AppCompatActivity {
     CardView cardView ;
 
     BottomNavigationView bnv;
-    TextView userShape;
+    LinearLayout usershape;
+    TextView nameuser;
     TextView textView;
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -44,10 +46,17 @@ public class DashboardActivity extends AppCompatActivity {
         SessionManager sessionManager=new SessionManager(this);
         HashMap<String,String> userdetail=sessionManager.getUserDetailFromSession();
         textView.setText(userdetail.get(SessionManager.KEY_FULLNAME));
-        userShape=findViewById(R.id.shapeuser);
-        userShape.setText(userdetail.get(SessionManager.KEY_FULLNAME).split(" ")[0].toUpperCase().substring(0,1)+""+userdetail.get(SessionManager.KEY_FULLNAME).split(" ")[1].toUpperCase().substring(0,1));
-        userShape.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 70);
-        userShape.setTextColor(Color.parseColor("#ffffff"));
+        usershape=findViewById(R.id.shapeuser);
+        nameuser=findViewById(R.id.nameuser);
+        nameuser.setText(userdetail.get(SessionManager.KEY_FULLNAME).split(" ")[0].toUpperCase().substring(0,1)+""+userdetail.get(SessionManager.KEY_FULLNAME).split(" ")[1].toUpperCase().substring(0,1));
+        nameuser.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 70);
+        nameuser.setTextColor(Color.parseColor("#ffffff"));
+        int orientation = getResources().getConfiguration().orientation;
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            usershape.setVisibility(View.INVISIBLE);
+            nameuser.setVisibility(View.INVISIBLE);
+            textView.setVisibility(View.INVISIBLE);
+        }
         bnv.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -71,18 +80,11 @@ public class DashboardActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        int orientation = getResources().getConfiguration().orientation;
-        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-
-            userShape.setVisibility(View.INVISIBLE);
-            textView.setVisibility(View.INVISIBLE);
-        }
-
     }
 
     public void afficherUtilisateur(View view) {
 
-        MainActivity main = new MainActivity();
+
         Intent splashIntent = new Intent(DashboardActivity.this, ListActivity.class);
         switch (view.getId()) {
             case R.id.cardviewuser:
