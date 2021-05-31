@@ -9,34 +9,23 @@ import java.util.List;
 
 public class User implements Serializable {
 private int userId,adminLevel,isActive;
-private String userEmail,userPasswd,userFname,userLname,description,userType,userphoto,userPhone;
+private String userEmail,userPasswd,userFname,userLname,description,userType,userphoto,userPhone,lastLoginTime,displayColor;
 
     private List<Seance> seances;
     private  List<Task> tasks;
-    public User(){
 
-    }
 
     @Override
     public String toString() {
-        return "User{" +
-                "userId=" + userId +
-                ", adminLevel=" + adminLevel +
-                ", isActive=" + isActive +
-                ", userEmail='" + userEmail + '\'' +
-                ", userPasswd='" + userPasswd + '\'' +
-                ", userFname='" + userFname + '\'' +
-                ", userLname='" + userLname + '\'' +
-                ", description='" + description + '\'' +
-                ", userType='" + userType + '\'' +
-                ", userphoto='" + userphoto + '\'' +
-                ", userPhone='" + userPhone + '\'' +
-                ", seances=" + seances +
-                ", tasks=" + tasks +
-                '}';
-    }
+        return userFname+" " +userLname;
 
-    public User(int userId, String userEmail, String userPasswd, String userFname, String userLname, String description, String userType, String userphoto, String userPhone) {
+
+
+    }
+    public User(){
+
+    }
+    public User(int userId, String userEmail, String userPasswd, String userFname, String userLname, String description, String userType, String userphoto, String userPhone,String lastLoginTime,String displayColor) {
         this.userId = userId;
         this.userEmail = userEmail;
         this.userPasswd = userPasswd;
@@ -46,9 +35,11 @@ private String userEmail,userPasswd,userFname,userLname,description,userType,use
         this.userType = userType;
         this.userphoto = userphoto;
         this.userPhone = userPhone;
+        this.lastLoginTime=lastLoginTime;
+        this.displayColor=displayColor;
     }
     public void setSeances(Seance seance) {
-        seances.add(seance); 
+        seances.add(seance);
     }
     public   void addSeance(Seance seance)
     {
@@ -157,4 +148,19 @@ private String userEmail,userPasswd,userFname,userLname,description,userType,use
         this.tasks = tasks;
     }
 
+    public String getLastLoginTime() {
+        return lastLoginTime;
+    }
+
+    public void setLastLoginTime(String lastLoginTime) {
+        this.lastLoginTime = lastLoginTime;
+    }
+
+    public String getDisplayColor() {
+        return displayColor;
+    }
+
+    public void setDisplayColor(String displayColor) {
+        this.displayColor = displayColor;
+    }
 }

@@ -19,6 +19,7 @@ public class TaskAdapterRecycle extends RecyclerView.Adapter<TaskAdapterRecycle.
     private List<Task> list;
     private List<Task> listFiltred;
 
+
     @Override
     public Filter getFilter() {
         return new Filter() {

@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -25,10 +27,11 @@ import org.json.JSONObject;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 public class MonthView_Calendar extends AppCompatActivity {
     LocalDate dateInit= LocalDate.of(2020, 9, 14);
-    TextView Lun_1,Mar_1,Mer_1,Jeu_1,Ven_1,Sam_1,Dim_1,
+    LinearLayout Lun_1,Mar_1,Mer_1,Jeu_1,Ven_1,Sam_1,Dim_1,
             Lun_2,Mar_2,Mer_2,Jeu_2,Ven_2,Sam_2,Dim_2,
             Lun_3,Mar_3,Mer_3,Jeu_3,Ven_3,Sam_3,Dim_3,
             Lun_4,Mar_4,Mer_4,Jeu_4,Ven_4,Sam_4,Dim_4,
@@ -36,13 +39,22 @@ public class MonthView_Calendar extends AppCompatActivity {
     LocalDate starDate,endDate;
     TextView day;
     LocalDate firstDate=dateInit.withDayOfMonth(1);
-
-
+    LinearLayout.LayoutParams params ;
+    TextView v;
+    String startDateString;
+    String endDateString;
+    String url;
+    String id;
+    DatabaseHandler databaseHandler;
     DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private List<Seance> seances;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_month_view);
+        Intent emploiIntent=getIntent();
+        id=emploiIntent.getStringExtra("id");
         day=findViewById(R.id.day);
         Lun_1=findViewById(R.id.Lun_1);
         Mar_1=findViewById(R.id.Mar_1);
@@ -79,6 +91,21 @@ public class MonthView_Calendar extends AppCompatActivity {
         Ven_5=findViewById(R.id.Ven_5);
         Sam_5=findViewById(R.id.Sam_5);
         Dim_5=findViewById(R.id.Dim_5);
+        databaseHandler=new DatabaseHandler(MonthView_Calendar.this);
+        starDate=firstDate;endDate=firstDate;
+        switch(firstDate.getDayOfWeek().getValue()) {
+            case 1:starDate=firstDate;endDate=starDate.plusDays(6);break;
+            case 2:starDate=firstDate.minusDays(1);endDate=starDate.plusDays(6);break;
+            case 3:starDate=firstDate.minusDays(2);endDate=starDate.plusDays(6);break;
+            case 4:starDate=firstDate.minusDays(3);endDate=starDate.plusDays(6);break;
+            case 5:starDate=firstDate.minusDays(4);endDate=starDate.plusDays(6);break;
+            case 6:starDate=firstDate.minusDays(5);endDate=starDate.plusDays(6);break;
+            case 7:starDate=firstDate.minusDays(6);endDate=starDate.plusDays(6);break;
+        }
+        startDateString = dateFormatter.format(starDate);
+        endDateString = dateFormatter.format(endDate);
+        params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        params.setMargins(10,10,10,10);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -92,8 +119,10 @@ public class MonthView_Calendar extends AppCompatActivity {
         Intent i=null;
         switch (item.getItemId()){
             case R.id.month_view:findViewById(R.id.week_view).setVisibility(View.INVISIBLE);break;
+
             case R.id.week_view:i=new Intent(MonthView_Calendar.this, WeekView_Calendar.class);startActivity(i);finish();break;
-            case R.id.day_view:i=new Intent(MonthView_Calendar.this, RecyclerView.class);startActivity(i);finish();break;
+            case R.id.day_view:i=new Intent(MonthView_Calendar.this, DayView_calendar.class);startActivity(i);finish();break;
+
         }
         return true;
     }
@@ -101,36 +130,34 @@ public class MonthView_Calendar extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        starDate=firstDate;endDate=firstDate;
-        day.setText(firstDate.getMonth().toString()+" "+firstDate.getYear());
-        switch(firstDate.getDayOfWeek().getValue()) {
-            case 1:starDate=firstDate;endDate=starDate.plusDays(6);break;
-            case 2:starDate=firstDate.minusDays(1);endDate=starDate.plusDays(6);break;
-            case 3:starDate=firstDate.minusDays(2);endDate=starDate.plusDays(6);break;
-            case 4:starDate=firstDate.minusDays(3);endDate=starDate.plusDays(6);break;
-            case 5:starDate=firstDate.minusDays(4);endDate=starDate.plusDays(6);break;
-            case 6:starDate=firstDate.minusDays(5);endDate=starDate.plusDays(6);break;
-            case 7:starDate=firstDate.minusDays(6);endDate=starDate.plusDays(6);break;
-        }
-        String startDateString = dateFormatter.format(starDate);
-        String endDateString = dateFormatter.format(endDate);
-        JsonArrayRequest jsonWeek1=new JsonArrayRequest(Request.Method.GET, WS.URL+"seances/"+startDateString+"/"+endDateString, null, new Response.Listener<JSONArray>() {
+
+
+        emploitype();
+day.setText(firstDate.getMonth().toString()+" "+firstDate.getYear());
+        JsonArrayRequest jsonWeek1=new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 LocalDateTime dateFromResponse;
                 JSONObject j = null;
                 for(int i=0;i<response.length();i++){
+                    v=new TextView(MonthView_Calendar.this);
+                    v.setLayoutParams(params);
+                    v.setBackgroundResource(R.drawable.textview_border);
+                    v.setTextSize(11);
+
                     try {
+                        
                         j = response.getJSONObject(i);
                         dateFromResponse=LocalDateTime.parse(j.getString("startDate"));
+                        v.setText(j.getInt("seanceId")+"\n"+""+""+dateFromResponse.getDayOfMonth());
                         switch (dateFromResponse.getDayOfWeek().getValue()){
-                            case 1:Lun_1.append(j.getInt("seanceId")+"\n"+""+""+dateFromResponse.getDayOfMonth());Lun_1.setBackgroundColor(Color.parseColor("#EC7C32"));break;
-                            case 2:Mar_1.append(j.getInt("seanceId")+"\n"+""+""+dateFromResponse.getDayOfMonth());Mar_1.setBackgroundColor(Color.parseColor("#EC7C32"));break;
-                            case 3:Mer_1.append(j.getInt("seanceId")+"\n"+""+""+dateFromResponse.getDayOfMonth());Mer_1.setBackgroundColor(Color.parseColor("#EC7C32"));break;
-                            case 4:Jeu_1.append(j.getInt("seanceId")+"\n"+""+""+dateFromResponse.getDayOfMonth());Jeu_1.setBackgroundColor(Color.parseColor("#EC7C32"));break;
-                            case 5:Ven_1.append(j.getInt("seanceId")+"\n"+""+""+dateFromResponse.getDayOfMonth());Ven_1.setBackgroundColor(Color.parseColor("#EC7C32"));break;
-                            case 6:Sam_1.append(j.getInt("seanceId")+"\n"+""+""+dateFromResponse.getDayOfMonth());Sam_1.setBackgroundColor(Color.parseColor("#EC7C32"));break;
-                            case 7:Dim_1.append(j.getInt("seanceId")+"\n"+""+""+dateFromResponse.getDayOfMonth());Dim_1.setBackgroundColor(Color.parseColor("#EC7C32"));break;
+                            case 1:Lun_1.addView(v);break;
+                            case 2:Mar_1.addView(v);break;
+                            case 3:Mer_1.addView(v);break;
+                            case 4:Jeu_1.addView(v);break;
+                            case 5:Ven_1.addView(v);break;
+                            case 6:Sam_1.addView(v);break;
+                            case 7:Dim_1.addView(v);break;
                         }
 
                     } catch (JSONException e) {
@@ -147,25 +174,34 @@ public class MonthView_Calendar extends AppCompatActivity {
         MySingleton.getInstance(this.getApplicationContext()).addToRequestQueue(jsonWeek1);
         starDate=starDate.plusDays(7);
         endDate=endDate.plusDays(7);
+
         startDateString=dateFormatter.format(starDate);
         endDateString=dateFormatter.format(endDate);
-        JsonArrayRequest jsonWeek2=new JsonArrayRequest(Request.Method.GET, WS.URL+"seances/"+startDateString+"/"+endDateString, null, new Response.Listener<JSONArray>() {
+        emploitype();
+        JsonArrayRequest jsonWeek2=new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 LocalDateTime dateFromResponse;
                 JSONObject j = null;
                 for(int i=0;i<response.length();i++){
+                    v=new TextView(MonthView_Calendar.this);
+                    v.setLayoutParams(params);
+                    v.setBackgroundResource(R.drawable.textview_border);
+                    v.setTextSize(11);
+
                     try {
+
                         j = response.getJSONObject(i);
+                        v.setText(String.valueOf(j.getInt("seanceId")) );
                         dateFromResponse=LocalDateTime.parse(j.getString("startDate"));
                         switch (dateFromResponse.getDayOfWeek().getValue()){
-                            case 1:Lun_2.append(j.getInt("seanceId")+"\n"+""+""+dateFromResponse.getDayOfMonth());Lun_2.setBackgroundColor(Color.parseColor("#EC7C32"));break;
-                            case 2:Mar_2.append(j.getInt("seanceId")+"\n"+""+""+dateFromResponse.getDayOfMonth());Mar_2.setBackgroundColor(Color.parseColor("#EC7C32"));break;
-                            case 3:Mer_2.append(j.getInt("seanceId")+"\n"+""+""+dateFromResponse.getDayOfMonth());Mer_2.setBackgroundColor(Color.parseColor("#EC7C32"));break;
-                            case 4:Jeu_2.append(j.getInt("seanceId")+"\n"+""+""+dateFromResponse.getDayOfMonth());Jeu_2.setBackgroundColor(Color.parseColor("#EC7C32"));break;
-                            case 5:Ven_2.append(j.getInt("seanceId")+"\n"+""+""+dateFromResponse.getDayOfMonth());Ven_2.setBackgroundColor(Color.parseColor("#EC7C32"));break;
-                            case 6:Sam_2.append(j.getInt("seanceId")+"\n"+""+""+dateFromResponse.getDayOfMonth());Sam_2.setBackgroundColor(Color.parseColor("#EC7C32"));break;
-                            case 7:Dim_2.append(j.getInt("seanceId")+"\n"+""+""+dateFromResponse.getDayOfMonth());Dim_2.setBackgroundColor(Color.parseColor("#EC7C32"));break;
+                            case 1:Lun_2.addView(v);break;
+                            case 2:Mar_2.addView(v);break;
+                            case 3:Mer_2.addView(v);break;
+                            case 4:Jeu_2.addView(v);break;
+                            case 5:Ven_2.addView(v);break;
+                            case 6:Sam_2.addView(v);break;
+                            case 7:Dim_2.addView(v);break;
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -184,23 +220,30 @@ public class MonthView_Calendar extends AppCompatActivity {
         endDate=endDate.plusDays(7);
         startDateString=dateFormatter.format(starDate);
         endDateString=dateFormatter.format(endDate);
-        JsonArrayRequest jsonWeek3=new JsonArrayRequest(Request.Method.GET, WS.URL+"seances/"+startDateString+"/"+endDateString, null, new Response.Listener<JSONArray>() {
+        emploitype();
+        JsonArrayRequest jsonWeek3=new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 LocalDateTime dateFromResponse;
                 JSONObject j = null;
                 for(int i=0;i<response.length();i++){
+                    v=new TextView(MonthView_Calendar.this);
+                    v.setLayoutParams(params);
+                    v.setBackgroundResource(R.drawable.textview_border);
+                    v.setTextSize(11);
                     try {
+
                         j = response.getJSONObject(i);
+                        v.setText(String.valueOf(j.getInt("seanceId")) );
                         dateFromResponse=LocalDateTime.parse(j.getString("startDate"));
                         switch (dateFromResponse.getDayOfWeek().getValue()){
-                            case 1:Lun_3.append(j.getInt("seanceId")+"\n"+""+""+dateFromResponse.getDayOfMonth());Lun_3.setBackgroundColor(Color.parseColor("#EC7C32"));break;
-                            case 2:Mar_3.append(j.getInt("seanceId")+"\n"+""+""+dateFromResponse.getDayOfMonth());Mar_3.setBackgroundColor(Color.parseColor("#EC7C32"));break;
-                            case 3:Mer_3.append(j.getInt("seanceId")+"\n"+""+""+dateFromResponse.getDayOfMonth());Mer_3.setBackgroundColor(Color.parseColor("#EC7C32"));break;
-                            case 4:Jeu_3.append(j.getInt("seanceId")+"\n"+""+""+dateFromResponse.getDayOfMonth());Jeu_3.setBackgroundColor(Color.parseColor("#EC7C32"));break;
-                            case 5:Ven_3.append(j.getInt("seanceId")+"\n"+""+""+dateFromResponse.getDayOfMonth());Ven_3.setBackgroundColor(Color.parseColor("#EC7C32"));break;
-                            case 6:Sam_3.append(j.getInt("seanceId")+"\n"+""+""+dateFromResponse.getDayOfMonth());Sam_3.setBackgroundColor(Color.parseColor("#EC7C32"));break;
-                            case 7:Dim_3.append(j.getInt("seanceId")+"\n"+""+""+dateFromResponse.getDayOfMonth());Dim_3.setBackgroundColor(Color.parseColor("#EC7C32"));break;
+                            case 1:Lun_3.addView(v);break;
+                            case 2:Mar_3.addView(v);break;
+                            case 3:Mer_3.addView(v);break;
+                            case 4:Jeu_3.addView(v);break;
+                            case 5:Ven_3.addView(v);break;
+                            case 6:Sam_3.addView(v);break;
+                            case 7:Dim_3.addView(v);break;
                         }
 
                     } catch (JSONException e) {
@@ -220,23 +263,29 @@ public class MonthView_Calendar extends AppCompatActivity {
         endDate=endDate.plusDays(7);
         startDateString=dateFormatter.format(starDate);
         endDateString=dateFormatter.format(endDate);
-        JsonArrayRequest jsonWeek4=new JsonArrayRequest(Request.Method.GET, WS.URL+"seances/"+startDateString+"/"+endDateString, null, new Response.Listener<JSONArray>() {
+        emploitype();
+        JsonArrayRequest jsonWeek4=new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 LocalDateTime dateFromResponse;
                 JSONObject j = null;
                 for(int i=0;i<response.length();i++){
+                    v=new TextView(MonthView_Calendar.this);
+                    v.setLayoutParams(params);
+                    v.setBackgroundResource(R.drawable.textview_border);
+                    v.setTextSize(11);
                     try {
                         j = response.getJSONObject(i);
+                        v.setText(String.valueOf(j.getInt("seanceId")) );
                         dateFromResponse=LocalDateTime.parse(j.getString("startDate"));
                         switch (dateFromResponse.getDayOfWeek().getValue()){
-                            case 1:Lun_4.append(j.getInt("seanceId")+"\n"+""+""+dateFromResponse.getDayOfMonth());Lun_4.setBackgroundColor(Color.parseColor("#EC7C32"));break;
-                            case 2:Mar_4.append(j.getInt("seanceId")+"\n"+""+""+dateFromResponse.getDayOfMonth());Mar_4.setBackgroundColor(Color.parseColor("#EC7C32"));break;
-                            case 3:Mer_4.append(j.getInt("seanceId")+"\n"+""+""+dateFromResponse.getDayOfMonth());Mer_4.setBackgroundColor(Color.parseColor("#EC7C32"));break;
-                            case 4:Jeu_4.append(j.getInt("seanceId")+"\n"+""+""+dateFromResponse.getDayOfMonth());Jeu_4.setBackgroundColor(Color.parseColor("#EC7C32"));break;
-                            case 5:Ven_4.append(j.getInt("seanceId")+"\n"+""+""+dateFromResponse.getDayOfMonth());Ven_4.setBackgroundColor(Color.parseColor("#EC7C32"));break;
-                            case 6:Sam_4.append(j.getInt("seanceId")+"\n"+""+""+dateFromResponse.getDayOfMonth());Sam_4.setBackgroundColor(Color.parseColor("#EC7C32"));break;
-                            case 7:Dim_4.append(j.getInt("seanceId")+"\n"+""+""+dateFromResponse.getDayOfMonth());Dim_4.setBackgroundColor(Color.parseColor("#EC7C32"));break;
+                            case 1:Lun_4.addView(v);break;
+                            case 2:Mar_4.addView(v);break;
+                            case 3:Mer_4.addView(v);break;
+                            case 4:Jeu_4.addView(v);break;
+                            case 5:Ven_4.addView(v);break;
+                            case 6:Sam_4.addView(v);break;
+                            case 7:Dim_4.addView(v);break;
                         }
 
                     } catch (JSONException e) {
@@ -256,23 +305,29 @@ public class MonthView_Calendar extends AppCompatActivity {
         endDate=endDate.plusDays(7);
         startDateString=dateFormatter.format(starDate);
         endDateString=dateFormatter.format(endDate);
-        JsonArrayRequest jsonWeek5=new JsonArrayRequest(Request.Method.GET, WS.URL+"seances/"+startDateString+"/"+endDateString, null, new Response.Listener<JSONArray>() {
+        emploitype();
+        JsonArrayRequest jsonWeek5=new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 LocalDateTime dateFromResponse;
                 JSONObject j = null;
                 for(int i=0;i<response.length();i++){
+                    v=new TextView(MonthView_Calendar.this);
+                    v.setLayoutParams(params);
+                    v.setBackgroundResource(R.drawable.textview_border);
+                    v.setTextSize(11);
                     try {
                         j = response.getJSONObject(i);
+                        v.setText(String.valueOf(j.getInt("seanceId")) );
                         dateFromResponse=LocalDateTime.parse(j.getString("startDate"));
                         switch (dateFromResponse.getDayOfWeek().getValue()){
-                            case 1:Lun_5.append(j.getInt("seanceId")+"\n"+""+""+dateFromResponse.getDayOfMonth());Lun_5.setBackgroundColor(Color.parseColor("#EC7C32"));break;
-                            case 2:Mar_5.append(j.getInt("seanceId")+"\n"+""+""+dateFromResponse.getDayOfMonth());Mar_5.setBackgroundColor(Color.parseColor("#EC7C32"));break;
-                            case 3:Mer_5.append(j.getInt("seanceId")+"\n"+""+""+dateFromResponse.getDayOfMonth());Mer_5.setBackgroundColor(Color.parseColor("#EC7C32"));break;
-                            case 4:Jeu_5.append(j.getInt("seanceId")+"\n"+""+""+dateFromResponse.getDayOfMonth());Jeu_5.setBackgroundColor(Color.parseColor("#EC7C32"));break;
-                            case 5:Ven_5.append(j.getInt("seanceId")+"\n"+""+""+dateFromResponse.getDayOfMonth());Ven_5.setBackgroundColor(Color.parseColor("#EC7C32"));break;
-                            case 6:Sam_5.append(j.getInt("seanceId")+"\n"+""+""+dateFromResponse.getDayOfMonth());Sam_5.setBackgroundColor(Color.parseColor("#EC7C32"));break;
-                            case 7:Dim_5.append(j.getInt("seanceId")+"\n"+""+""+dateFromResponse.getDayOfMonth());Dim_5.setBackgroundColor(Color.parseColor("#EC7C32"));break;
+                            case 1:Lun_5.addView(v);break;
+                            case 2:Mar_5.addView(v);break;
+                            case 3:Mer_5.addView(v);break;
+                            case 4:Jeu_5.addView(v);break;
+                            case 5:Ven_5.addView(v);break;
+                            case 6:Sam_5.addView(v);break;
+                            case 7:Dim_5.addView(v);break;
                         }
 
                     } catch (JSONException e) {
@@ -300,5 +355,30 @@ public class MonthView_Calendar extends AppCompatActivity {
     public void nextMonth(View view) {
         firstDate=firstDate.plusMonths(1);
         onResume();
+    }
+    private void emploitype() {
+        if (getIntent().getStringExtra("emploitype") != null) {
+            switch (getIntent().getStringExtra("emploitype")) {
+                case "0":
+                    url = WS.URL + "seances/" + startDateString + "/" + endDateString;
+                    seances = databaseHandler.readSeance();
+                    // getTache();
+                    break;
+                case "1":
+                    url = WS.URL + "seances/monitor/" + startDateString + "/" + endDateString + "/" + id;
+                    //getTache();
+                    seances = databaseHandler.readUserSeance(Integer.valueOf(id));
+
+                    break;
+                case "2":
+                    url = WS.URL + "seances/" + startDateString + "/" + endDateString + "/" + id;
+                    seances = databaseHandler.readClientSeance(Integer.valueOf(id));
+                    break;
+
+            }
+        } else {
+            url = WS.URL + "seances/" + startDateString + "/" + endDateString; //getTache();
+        }
+
     }
 }

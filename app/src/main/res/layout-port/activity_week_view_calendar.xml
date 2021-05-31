@@ -30,7 +30,7 @@
             android:layout_columnWeight="1"
             android:text="LUN"
             android:gravity="center"
-            android:background="@drawable/textview_border"
+            
             android:layout_rowWeight="1"
             android:id="@id/day" />
 
@@ -55,6 +55,7 @@
         android:orientation="vertical">
         <ScrollView
             android:layout_width="match_parent"
+
             android:layout_height="match_parent">
             <HorizontalScrollView
                 android:layout_width="match_parent"
@@ -168,7 +169,7 @@
                             android:background="@drawable/border"
                             android:textAlignment="center"
                             android:onClick="seancedetails"
-                            android:orientation="vertical">
+                             android:orientation="vertical">
                         </LinearLayout>
 
                         <LinearLayout
@@ -178,7 +179,7 @@
                             android:textAlignment="center"
                             android:layout_width="match_parent"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Lun_10"
@@ -187,7 +188,7 @@
                             android:textAlignment="center"
                             android:onClick="seancedetails"
                             android:layout_columnWeight="1"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Lun_11"
@@ -199,7 +200,7 @@
                             android:text=""
                             android:background="@drawable/border"
                             android:onClick="seancedetails"
-                            android:orientation="vertical"></LinearLayout>
+                             android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Lun_12"
@@ -208,7 +209,7 @@
                             android:layout_columnWeight="1"
                             android:textAlignment="center"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Lun_13"
@@ -217,7 +218,7 @@
                             android:layout_columnWeight="1"
                             android:textAlignment="center"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Lun_14"
@@ -226,7 +227,7 @@
                             android:layout_columnWeight="1"
                             android:textAlignment="center"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Lun_15"
@@ -235,7 +236,7 @@
                             android:textAlignment="center"
                             android:layout_columnWeight="1"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Lun_16"
@@ -244,7 +245,7 @@
                             android:textAlignment="center"
                             android:layout_columnWeight="1"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Lun_17"
@@ -253,7 +254,7 @@
                             android:textAlignment="center"
                             android:layout_columnWeight="1"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Lun_18"
@@ -262,7 +263,7 @@
                             android:layout_rowWeight="1"
                             android:layout_columnWeight="1"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
                     </GridLayout>
                     <GridLayout
                         android:layout_rowWeight="1"
@@ -285,7 +286,7 @@
                             android:layout_columnWeight="1"
                             android:textAlignment="center"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Mar_09"
@@ -294,7 +295,7 @@
                             android:onClick="seancedetails"
                             android:textAlignment="center"
                             android:layout_width="match_parent"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Mar_10"
@@ -303,7 +304,7 @@
                             android:textAlignment="center"
                             android:layout_columnWeight="1"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Mar_11"
@@ -312,7 +313,7 @@
                             android:layout_columnWeight="1"
                             android:textAlignment="center"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Mar_12"
@@ -321,7 +322,7 @@
                             android:layout_columnWeight="1"
                             android:textAlignment="center"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Mar_13"
@@ -330,7 +331,7 @@
                             android:layout_columnWeight="1"
                             android:textAlignment="center"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Mar_14"
@@ -339,7 +340,7 @@
                             android:layout_columnWeight="1"
                             android:textAlignment="center"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Mar_15"
@@ -348,7 +349,7 @@
                             android:textAlignment="center"
                             android:layout_columnWeight="1"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Mar_16"
@@ -357,7 +358,7 @@
                             android:textAlignment="center"
                             android:layout_columnWeight="1"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Mar_17"
@@ -366,7 +367,7 @@
                             android:textAlignment="center"
                             android:layout_columnWeight="1"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Mar_18"
@@ -375,7 +376,7 @@
                             android:layout_rowWeight="1"
                             android:layout_columnWeight="1"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                     </GridLayout>
                     <GridLayout
@@ -399,7 +400,7 @@
                             android:layout_columnWeight="1"
                             android:textAlignment="center"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Mer_09"
@@ -408,7 +409,7 @@
                             android:onClick="seancedetails"
                             android:textAlignment="center"
                             android:layout_width="match_parent"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Mer_10"
@@ -417,7 +418,7 @@
                             android:textAlignment="center"
                             android:layout_columnWeight="1"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Mer_11"
@@ -426,7 +427,7 @@
                             android:layout_columnWeight="1"
                             android:textAlignment="center"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Mer_12"
@@ -435,7 +436,7 @@
                             android:layout_columnWeight="1"
                             android:textAlignment="center"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Mer_13"
@@ -444,7 +445,7 @@
                             android:layout_columnWeight="1"
                             android:textAlignment="center"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Mer_14"
@@ -453,7 +454,7 @@
                             android:layout_columnWeight="1"
                             android:textAlignment="center"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Mer_15"
@@ -462,7 +463,7 @@
                             android:textAlignment="center"
                             android:layout_columnWeight="1"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Mer_16"
@@ -471,7 +472,7 @@
                             android:textAlignment="center"
                             android:layout_columnWeight="1"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Mer_17"
@@ -480,7 +481,7 @@
                             android:textAlignment="center"
                             android:layout_columnWeight="1"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Mer_18"
@@ -489,7 +490,7 @@
                             android:layout_rowWeight="1"
                             android:layout_columnWeight="1"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                     </GridLayout>
                     <GridLayout
@@ -513,7 +514,7 @@
                             android:layout_columnWeight="1"
                             android:textAlignment="center"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Jeu_09"
@@ -522,7 +523,7 @@
                             android:onClick="seancedetails"
                             android:textAlignment="center"
                             android:layout_width="match_parent"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Jeu_10"
@@ -531,7 +532,7 @@
                             android:textAlignment="center"
                             android:layout_columnWeight="1"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Jeu_11"
@@ -540,7 +541,7 @@
                             android:layout_columnWeight="1"
                             android:textAlignment="center"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Jeu_12"
@@ -549,7 +550,7 @@
                             android:layout_columnWeight="1"
                             android:textAlignment="center"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Jeu_13"
@@ -558,7 +559,7 @@
                             android:layout_columnWeight="1"
                             android:textAlignment="center"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Jeu_14"
@@ -567,7 +568,7 @@
                             android:layout_columnWeight="1"
                             android:textAlignment="center"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Jeu_15"
@@ -576,7 +577,7 @@
                             android:textAlignment="center"
                             android:layout_columnWeight="1"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Jeu_16"
@@ -585,7 +586,7 @@
                             android:textAlignment="center"
                             android:layout_columnWeight="1"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Jeu_17"
@@ -594,7 +595,7 @@
                             android:textAlignment="center"
                             android:layout_columnWeight="1"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Jeu_18"
@@ -603,7 +604,7 @@
                             android:layout_rowWeight="1"
                             android:layout_columnWeight="1"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                     </GridLayout>
                     <GridLayout
@@ -627,7 +628,7 @@
                             android:layout_columnWeight="1"
                             android:textAlignment="center"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Ven_09"
@@ -636,7 +637,7 @@
                             android:onClick="seancedetails"
                             android:textAlignment="center"
                             android:layout_width="match_parent"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Ven_10"
@@ -645,7 +646,7 @@
                             android:textAlignment="center"
                             android:layout_columnWeight="1"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Ven_11"
@@ -654,7 +655,7 @@
                             android:layout_columnWeight="1"
                             android:textAlignment="center"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Ven_12"
@@ -663,7 +664,7 @@
                             android:layout_columnWeight="1"
                             android:textAlignment="center"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Ven_13"
@@ -672,7 +673,7 @@
                             android:layout_columnWeight="1"
                             android:textAlignment="center"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Ven_14"
@@ -681,7 +682,7 @@
                             android:layout_columnWeight="1"
                             android:textAlignment="center"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Ven_15"
@@ -690,7 +691,7 @@
                             android:textAlignment="center"
                             android:layout_columnWeight="1"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Ven_16"
@@ -699,7 +700,7 @@
                             android:textAlignment="center"
                             android:layout_columnWeight="1"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Ven_17"
@@ -708,7 +709,7 @@
                             android:textAlignment="center"
                             android:layout_columnWeight="1"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Ven_18"
@@ -717,7 +718,7 @@
                             android:layout_rowWeight="1"
                             android:layout_columnWeight="1"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                     </GridLayout>
                     <GridLayout
@@ -741,7 +742,7 @@
                             android:layout_columnWeight="1"
                             android:textAlignment="center"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Sam_09"
@@ -750,7 +751,7 @@
                             android:onClick="seancedetails"
                             android:textAlignment="center"
                             android:layout_width="match_parent"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Sam_10"
@@ -759,7 +760,7 @@
                             android:textAlignment="center"
                             android:layout_columnWeight="1"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Sam_11"
@@ -768,7 +769,7 @@
                             android:layout_columnWeight="1"
                             android:textAlignment="center"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Sam_12"
@@ -777,7 +778,7 @@
                             android:layout_columnWeight="1"
                             android:textAlignment="center"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Sam_13"
@@ -786,7 +787,7 @@
                             android:layout_columnWeight="1"
                             android:textAlignment="center"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Sam_14"
@@ -795,7 +796,7 @@
                             android:layout_columnWeight="1"
                             android:textAlignment="center"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Sam_15"
@@ -804,7 +805,7 @@
                             android:textAlignment="center"
                             android:layout_columnWeight="1"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Sam_16"
@@ -813,7 +814,7 @@
                             android:textAlignment="center"
                             android:layout_columnWeight="1"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Sam_17"
@@ -822,7 +823,7 @@
                             android:textAlignment="center"
                             android:layout_columnWeight="1"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Sam_18"
@@ -831,7 +832,7 @@
                             android:layout_rowWeight="1"
                             android:layout_columnWeight="1"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                     </GridLayout>
                     <GridLayout
@@ -855,7 +856,7 @@
                             android:layout_columnWeight="1"
                             android:textAlignment="center"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Dim_09"
@@ -864,7 +865,7 @@
                             android:onClick="seancedetails"
                             android:textAlignment="center"
                             android:layout_width="match_parent"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical">
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical">
                         </LinearLayout>
 
                         <LinearLayout
@@ -874,7 +875,7 @@
                             android:textAlignment="center"
                             android:layout_columnWeight="1"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Dim_11"
@@ -883,7 +884,7 @@
                             android:layout_columnWeight="1"
                             android:textAlignment="center"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Dim_12"
@@ -892,7 +893,7 @@
                             android:layout_columnWeight="1"
                             android:textAlignment="center"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Dim_13"
@@ -901,7 +902,7 @@
                             android:layout_columnWeight="1"
                             android:textAlignment="center"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Dim_14"
@@ -910,7 +911,7 @@
                             android:layout_columnWeight="1"
                             android:textAlignment="center"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Dim_15"
@@ -919,7 +920,7 @@
                             android:textAlignment="center"
                             android:layout_columnWeight="1"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Dim_16"
@@ -928,7 +929,7 @@
                             android:textAlignment="center"
                             android:layout_columnWeight="1"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Dim_17"
@@ -937,7 +938,7 @@
                             android:textAlignment="center"
                             android:layout_columnWeight="1"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                         <LinearLayout
                             android:id="@id/Dim_18"
@@ -946,12 +947,13 @@
                             android:layout_rowWeight="1"
                             android:layout_columnWeight="1"
                             android:onClick="seancedetails"
-                            android:text="" android:background="@drawable/border" android:layout_height="80dp" android:orientation="vertical"></LinearLayout>
+                            android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
 
                     </GridLayout>
                 </GridLayout>
             </HorizontalScrollView>
         </ScrollView>
+>>>>>>> d41ac055ab46e323985f7869385aafd22a4fef34
     </LinearLayout>
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"

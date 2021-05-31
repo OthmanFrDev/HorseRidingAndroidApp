@@ -37,14 +37,17 @@ import java.util.List;
 
 public class ListActivity extends AppCompatActivity {
     RecyclerView listClient;
-    String url = "http://192.168.100.86:45455/";
+    String url = "http://192.168.111.1:45455/";
+
     EditText sInput;
     List<User>users=new ArrayList<>() ;
     List<Task>tasks=new ArrayList<>() ;
     List<Seance>seances=new ArrayList<>() ;
     private UserAdapterRecycle.RecycleViewClickListner listener;
+
     UserAdapterRecycle ua;
-    TaskAdapterRecycle ta=new TaskAdapterRecycle(ListActivity.this,tasks);
+    TaskAdapterRecycle ta;
+    ClientAdapterRecycle ca;
     SeanceAdapterRecycle sa=new SeanceAdapterRecycle(ListActivity.this,seances);
     Dialog dialog;
 
@@ -75,7 +78,11 @@ public class ListActivity extends AppCompatActivity {
         if(listClient!=null){
             Intent intent=getIntent();
             if(intent.getStringExtra("click")!=null){
-            if(intent.getStringExtra("click").equals("0")){getAllUsers();}
+            if(intent.getStringExtra("click").equals("0"))
+            {
+
+                getAllUsers();
+            }
             if(intent.getStringExtra("click").equals("1")){getAllTasks();}
             if(intent.getStringExtra("click").equals("2")){getAllSeances();}
             if(intent.getStringExtra("click").equals("3")){getAllClients();}}
@@ -90,8 +97,9 @@ public class ListActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 ua.getFilter().filter(s);
-                sa.getFilter().filter(s);
-                ta.getFilter().filter(s);
+                ca.getFilter().filter(s);
+               // sa.getFilter().filter(s);
+                //ta.getFilter().filter(s);
             }
 
             @Override
@@ -115,7 +123,7 @@ public class ListActivity extends AppCompatActivity {
                         users.add(new User(j.getInt("userId"), j.getString("userEmail"),
                                 j.getString("userPasswd"), j.getString("userFname"),
                                 j.getString("userLname"), j.getString("description"),
-                                j.getString("userType"), j.getString("userphoto"), j.getString("userPhone")));
+                                j.getString("userType"), j.getString("userphoto"), j.getString("userPhone"),j.getString("lastLoginTime"),j.getString("displayColor")));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -145,6 +153,8 @@ public class ListActivity extends AppCompatActivity {
         listener=new UserAdapterRecycle.RecycleViewClickListner() {
             @Override
             public void onClickItem(View v, int position) {
+
+                if(getIntent().getStringExtra("emploi")==null){
                 Toast.makeText(ListActivity.this,""+users.get(position).getUserEmail(),Toast.LENGTH_LONG).show();
                 TextView userShape=findViewById(R.id.shapeuser);
                 TextView userName=findViewById(R.id.nameuser);
@@ -190,7 +200,9 @@ public class ListActivity extends AppCompatActivity {
                         public void onClick(View v) {
                             User u=users.get(position);
                             Intent i=new Intent(ListActivity.this,WeekView_Calendar.class);
-                            i.putExtra("id",u.getUserId()+"");
+                            String id=String.valueOf(u.getUserId());
+                            i.putExtra("id",id );
+                            i.putExtra("emploitype","1");
                             startActivity(i);
                             finish();
                             dialog.dismiss();
@@ -209,6 +221,17 @@ public class ListActivity extends AppCompatActivity {
                     });
                     dialog.show();
             }
+                else{
+                    TextView idclient= v.findViewById(R.id.userrolelist);
+                    TextView idMonitor= v.findViewById(R.id.nameuserlist);
+
+                    Intent emlpoisIntent = new Intent(ListActivity.this,WeekView_Calendar.class);
+                    emlpoisIntent.putExtra("emploitype","1");
+                    emlpoisIntent.putExtra("id",idMonitor.getText().toString().split(" ")[0]);
+                    ListActivity.this.startActivity(emlpoisIntent);
+                    ListActivity.this.finish();}
+            }
+
         };
     }
 
@@ -236,20 +259,11 @@ public class ListActivity extends AppCompatActivity {
 
 
                     }
-//                    Integer i = j.getInt("clientId");
-//                    txtNom.setText(j.getString("fName"));
-//                    txtPrenom.setText(j.getString("lName"));
-//                    txtMail.setText(j.getString("clientEmail"));
-//                    txtPasswd.setText(j.getString("passwd"));
-//                    textView.setText(i.toString());
 
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-                Log.w("hhhhhhhhhhhhhhhhhhhhhhh",clients.toString());
-                ClientAdapterRecycle ua=new ClientAdapterRecycle(ListActivity.this,clients);
+
+                 ca=new ClientAdapterRecycle(ListActivity.this,clients);
                 listClient.setLayoutManager(new LinearLayoutManager(ListActivity.this));
-                listClient.setAdapter(ua);
+                listClient.setAdapter(ca);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -268,11 +282,7 @@ public class ListActivity extends AppCompatActivity {
             @Override
             public void onResponse(JSONArray response) {
 
-                TextView txtNom = findViewById(R.id.txtNom);
-                TextView txtPrenom = findViewById(R.id.txtprenom);
-                TextView txtMail = findViewById(R.id.userEmail);
-                TextView txtPasswd = findViewById(R.id.userPasswd);
-                TextView textView = (TextView) findViewById(R.id.text);
+
                 JSONObject j = null;
                 for (int i = 0; i < response.length(); i++) {
                     try {
@@ -285,6 +295,7 @@ public class ListActivity extends AppCompatActivity {
 
 
                 }
+                ta=new TaskAdapterRecycle(ListActivity.this,tasks);
                 listClient.setLayoutManager(new LinearLayoutManager(ListActivity.this));
                 listClient.setAdapter(ta);
 
@@ -372,12 +383,28 @@ public class ListActivity extends AppCompatActivity {
         ListActivity.this.finish();
     }
     public void getemplois(View view) {
+        Intent intent=getIntent();
+        TextView idclient= view.findViewById(R.id.userrolelist);
+        TextView idMonitor= view.findViewById(R.id.nameuserlist);
 
-        TextView id= view.findViewById(R.id.userrolelist);
         Intent emlpoisIntent = new Intent(ListActivity.this,WeekView_Calendar.class);
-        emlpoisIntent.putExtra("id",id.getText().toString());
-        ListActivity.this.startActivity(emlpoisIntent);
-        ListActivity.this.finish();
+        switch (intent.getStringExtra("click"))
+        {
+            case "0":
+                emlpoisIntent.putExtra("emploitype","1");
+                emlpoisIntent.putExtra("id",idMonitor.getText().toString().split(" ")[0]);
+                ListActivity.this.startActivity(emlpoisIntent);
+                ListActivity.this.finish();
+                break;
+            case "3":
+
+                emlpoisIntent.putExtra("emploitype","2");
+                emlpoisIntent.putExtra("id",idclient.getText().toString());
+                ListActivity.this.startActivity(emlpoisIntent);
+                ListActivity.this.finish();
+                break;
+        }
+
 
     }
 }

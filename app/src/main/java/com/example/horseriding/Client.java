@@ -4,6 +4,13 @@ public class Client {
     private int clientId;
     private String fName,lName,photo,identityDoc,clientEmail,passwd,clientPhone,notes;
 
+    @Override
+    public String toString() {
+        return  fName + " " +
+                 lName
+                ;
+    }
+
     public Client(int clientId, String fName, String lName, String photo, String identityDoc, String clientEmail, String passwd, String clientPhone, String notes) {
         this.clientId = clientId;
         this.fName = fName;
@@ -92,18 +99,18 @@ public class Client {
         this.notes = notes;
     }
 
-    @Override
-    public String toString() {
-        return "Client{" +
-                "clientId=" + clientId +
-                ", fName='" + fName + '\'' +
-                ", lName='" + lName + '\'' +
-                ", photo='" + photo + '\'' +
-                ", identityDoc='" + identityDoc + '\'' +
-                ", clientEmail='" + clientEmail + '\'' +
-                ", passwd='" + passwd + '\'' +
-                ", clientPhone='" + clientPhone + '\'' +
-                ", notes='" + notes + '\'' +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Client{" +
+//                "clientId=" + clientId +
+//                ", fName='" + fName + '\'' +
+//                ", lName='" + lName + '\'' +
+//                ", photo='" + photo + '\'' +
+//                ", identityDoc='" + identityDoc + '\'' +
+//                ", clientEmail='" + clientEmail + '\'' +
+//                ", passwd='" + passwd + '\'' +
+//                ", clientPhone='" + clientPhone + '\'' +
+//                ", notes='" + notes + '\'' +
+//                '}';
+//    }
 }

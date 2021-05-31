@@ -1,8 +1,7 @@
 package com.example.horseriding;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 
 import android.app.DatePickerDialog;
@@ -12,22 +11,29 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.NumberPicker;
+import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class DateTimePicker extends AppCompatActivity implements
         View.OnClickListener {
@@ -35,19 +41,27 @@ public class DateTimePicker extends AppCompatActivity implements
     Button btnDatePicker, btnTimePicker;
     EditText txtDate, txtTime;
     private int mYear, mMonth, mDay, mHour, mMinute;
+    Spinner monitor;
     Seance seance;
+
+    Spinner clientid;
+    private String url="http://192.168.111.1:45455/seances";
+
     private int rep;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.seance);
-
+         monitor=findViewById(R.id.monitor);
+         clientid = findViewById(R.id.clientid);
         btnDatePicker=(Button)findViewById(R.id.btn_date);
         btnTimePicker=(Button)findViewById(R.id.btn_time);
         txtDate=(EditText)findViewById(R.id.in_date);
         txtTime=(EditText)findViewById(R.id.in_time);
-
+        getmonitors();
+        getclients();
         btnDatePicker.setOnClickListener(this);
         btnTimePicker.setOnClickListener(this);
         Intent intent = getIntent();
@@ -132,12 +146,12 @@ else  txtTime.setText(hourOfDay + ":" + minute+":00");
 
         }
     }
+
     public void PostSeance(View view) {
 
-//        Intent intent = getIntent();
-//        User user = (User) intent.getSerializableExtra("user");
-        EditText clientid = findViewById(R.id.clientid);
-        EditText monitor = findViewById(R.id.monitor);
+
+
+         monitor = findViewById(R.id.monitor);
         EditText duration = findViewById(R.id.duration);
         EditText comment = findViewById(R.id.comment);
 
@@ -145,6 +159,7 @@ else  txtTime.setText(hourOfDay + ":" + minute+":00");
 
 
         try {
+
             JSONObject jsonBody = new JSONObject();
             LocalDateTime localDateTime = LocalDateTime.parse(txtDate.getText().toString() + "T" + txtTime.getText().toString());
             for (int i = 0; i < rep; i++){
@@ -153,8 +168,10 @@ else  txtTime.setText(hourOfDay + ":" + minute+":00");
 
             //    jsonBody.put("userId", Integer.valueOf(userId.getText().toString()));
             jsonBody.put("seanceGrpId", 1);
-            jsonBody.put("clientId", Integer.valueOf(clientid.getText().toString()));
-            jsonBody.put("monitorId", Integer.valueOf(monitor.getText().toString()));
+            Client client= (Client) clientid.getSelectedItem();
+            jsonBody.put("clientId", Integer.valueOf(client.getClientId()));
+            User user = (User) monitor.getSelectedItem();
+            jsonBody.put("monitorId", Integer.valueOf(user.getUserId()));
             jsonBody.put("startDate", localDateTime);
             jsonBody.put("durationMinut", Integer.valueOf(duration.getText().toString()));
             jsonBody.put("isDone", 1);
@@ -202,6 +219,104 @@ else  txtTime.setText(hourOfDay + ":" + minute+":00");
         } catch (Exception e) {
             Toast.makeText(DateTimePicker.this, e.getMessage(), Toast.LENGTH_LONG).show();
             Log.d("wsrong", e.getMessage());
+        }
+
+    }
+
+    void getmonitors() {
+
+
+        try {
+            List<User>users=new ArrayList<>() ;
+
+            JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, "http://192.168.111.1:45455/users", null, new Response.Listener<JSONArray>() {
+
+                @Override
+                public void onResponse(JSONArray response) {
+                    Log.d("getallusers", "success");
+
+                    JSONObject j = null;
+                    for (int i = 0; i < response.length(); i++) {
+                        try {
+                            j = response.getJSONObject(i);
+                            users.add(new User(j.getInt("userId"), j.getString("userEmail"),
+                                    j.getString("userPasswd"), j.getString("userFname"),
+                                    j.getString("userLname"), j.getString("description"),
+                                    j.getString("userType"), j.getString("userphoto"), j.getString("userPhone"),j.getString("lastLoginTime"),j.getString("displayColor")));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+
+                    }
+
+                    ArrayAdapter<User> adapter=new ArrayAdapter<User>(DateTimePicker.this,
+                            R.layout.support_simple_spinner_dropdown_item,users);
+                    adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+                    monitor.setAdapter(adapter);
+                }
+            },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            try {
+                                Log.d("wsrong", error.getMessage());
+                            } catch (NullPointerException ex) {
+                                Log.d("wsrong", ex.getMessage());
+                            }
+                        }
+                    }
+            );
+            MySingleton.getInstance(DateTimePicker.this).addToRequestQueue(req);
+        } catch (Exception ex) {
+            Log.d(getClass().getSimpleName(), ex.getMessage());
+        }
+
+    }
+    void getclients() {
+
+
+        try {
+            List<Client>clients=new ArrayList<>() ;
+
+            JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, "http://192.168.111.1:45455/clients", null, new Response.Listener<JSONArray>() {
+
+                @Override
+                public void onResponse(JSONArray response) {
+                    Log.d("getallusers", "success");
+
+                    JSONObject j = null;
+                    for (int i = 0; i < response.length(); i++) {
+                        try {
+                            j = response.getJSONObject(i);
+                            clients.add(new Client(j.getInt("clientId"), j.getString("fName"), j.getString("lName"), j.getString("photo"), j.getString("identityDoc"), j.getString("clientEmail"),  j.getString("passwd"), j.getString("clientPhone"), j.getString("notes")) );
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+
+                    }
+
+                    ArrayAdapter<Client> adapter=new ArrayAdapter<Client>(DateTimePicker.this,
+                            R.layout.support_simple_spinner_dropdown_item,clients);
+                    adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+                    clientid.setAdapter(adapter);
+                }
+            },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            try {
+                                Log.d("wsrong", error.getMessage());
+                            } catch (NullPointerException ex) {
+                                Log.d("wsrong", ex.getMessage());
+                            }
+                        }
+                    }
+            );
+            MySingleton.getInstance(DateTimePicker.this).addToRequestQueue(req);
+        } catch (Exception ex) {
+            Log.d(getClass().getSimpleName(), ex.getMessage());
         }
 
     }

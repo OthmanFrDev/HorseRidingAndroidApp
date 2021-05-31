@@ -30,7 +30,7 @@
             android:layout_columnWeight="1"
             android:text="LUN"
             android:gravity="center"
-            android:background="@drawable/textview_border"
+
             android:layout_rowWeight="1"
             android:id="@id/day" />
 

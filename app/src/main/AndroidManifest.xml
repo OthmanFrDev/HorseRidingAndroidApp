@@ -16,6 +16,7 @@
         android:theme="@style/Theme.HorseRiding"
         android:usesCleartextTraffic="true">
         <activity android:name=".Add_Client">
+
         </activity>
         <activity android:name=".EditFormUser" />
         <activity
@@ -25,17 +26,19 @@
             android:name=".MonthView_Calendar"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar"></activity>
         <activity android:name=".DateTimePicker" />
-        <activity
-            android:name=".WeekView_Calendar"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+
+
+        <activity android:name=".WeekView_Calendar" android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
+        <activity android:name=".DayView_calendar" android:theme="@style/Theme.AppCompat.Light.DarkActionBar"/>
+
+
+        <activity android:name=".EditNote"></activity>
+        <activity android:name=".NoteController" >
+
 
 
         </activity>
-        <activity
-            android:name=".DayView_calendar"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
 
-        </activity>
         <activity android:name=".ListActivity" />
         <activity android:name=".SeanceController" />
         <activity android:name=".ligne_List_User_Activity" />

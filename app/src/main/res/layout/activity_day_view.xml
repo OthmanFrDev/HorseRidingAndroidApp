@@ -3,9 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_marginTop="5dp"
+    android:layout_marginTop="0dp"
     android:layout_height="match_parent"
+
     tools:context=".DayView_calendar">
+
     <GridLayout
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -20,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:src="@drawable/ic_previous"
-            android:onClick="nextday"
+            android:onClick="daySwitcher"
             />
         <TextView
             android:layout_gravity="center"
@@ -35,9 +37,13 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:src="@drawable/ic_baseline_navigate_next_24"
-            android:onClick="nextday" />
+            android:onClick="daySwitcher" />
+
+
 
     </GridLayout>
+
+
 
     <ScrollView
         android:layout_width="match_parent"
@@ -69,6 +75,7 @@
                         android:layout_rowWeight="1"
                         android:layout_columnWeight="1"
                         android:text="08:00" />
+
 
                     <TextView
                         android:id="@id/pm9"
@@ -138,6 +145,7 @@
                     android:layout_height="match_parent"
                     android:layout_columnWeight="1"
                     android:layout_rowWeight="1"
+
                     android:columnCount="1">
                     <LinearLayout
                         android:orientation="vertical" android:background="@drawable/border"
@@ -148,7 +156,7 @@
                         android:textAlignment="center"
                         android:clickable="true"
                         android:layout_height="80dp"
-                        android:onClick="addSeance"
+                        android:onClick="clickSeance"
                         android:text="VIDE"> </LinearLayout>
 
                     <LinearLayout
@@ -159,7 +167,7 @@
                         android:layout_height="80dp"
                         android:textAlignment="center"
                         android:layout_width="match_parent"
-                        android:onClick="addSeance"
+                        android:onClick="clickSeance"
                         android:text="VIDE"> </LinearLayout>
                     <LinearLayout
                         android:orientation="vertical" android:background="@drawable/border"
@@ -168,7 +176,7 @@
                         android:layout_rowWeight="1"
                         android:textAlignment="center"
                         android:layout_columnWeight="1"
-                        android:onClick="addSeance"
+                        android:onClick="clickSeance"
                         android:layout_height="80dp"
                         android:text="VIDE"> </LinearLayout>
 
@@ -180,7 +188,7 @@
                         android:layout_columnWeight="1"
                         android:textAlignment="center"
                         android:layout_height="80dp"
-                        android:onClick="addSeance"
+                        android:onClick="clickSeance"
                         android:text="VIDE"> </LinearLayout>
 
                     <LinearLayout
@@ -191,7 +199,7 @@
                         android:layout_height="80dp"
                         android:layout_columnWeight="1"
                         android:textAlignment="center"
-                        android:onClick="addSeance"
+                        android:onClick="clickSeance"
                         android:text="VIDE"> </LinearLayout>
 
                     <LinearLayout
@@ -201,7 +209,7 @@
                         android:layout_rowWeight="1"
                         android:layout_columnWeight="1"
                         android:textAlignment="center"
-                        android:onClick="addSeance"
+                        android:onClick="clickSeance"
                         android:layout_height="80dp"
                         android:text="VIDE"> </LinearLayout>
 
@@ -212,7 +220,7 @@
                         android:layout_rowWeight="1"
                         android:layout_columnWeight="1"
                         android:textAlignment="center"
-                        android:onClick="addSeance"
+                        android:onClick="clickSeance"
                         android:layout_height="80dp"
                         android:text="VIDE"> </LinearLayout>
 
@@ -223,7 +231,7 @@
                         android:layout_rowWeight="1"
                         android:textAlignment="center"
                         android:layout_columnWeight="1"
-                        android:onClick="addSeance"
+                        android:onClick="clickSeance"
                         android:layout_height="80dp"
                         android:text="VIDE"> </LinearLayout>
 
@@ -234,7 +242,7 @@
                         android:layout_rowWeight="1"
                         android:textAlignment="center"
                         android:layout_columnWeight="1"
-                        android:onClick="addSeance"
+                        android:onClick="clickSeance"
                         android:layout_height="80dp"
                         android:text="VIDE"> </LinearLayout>
 
@@ -245,7 +253,7 @@
                         android:layout_rowWeight="1"
                         android:textAlignment="center"
                         android:layout_columnWeight="1"
-                        android:onClick="addSeance"
+                        android:onClick="clickSeance"
                         android:layout_height="80dp"
                         android:text="VIDE"> </LinearLayout>
 
@@ -256,11 +264,44 @@
                         android:textAlignment="center"
                         android:layout_rowWeight="1"
                         android:layout_columnWeight="1"
-                        android:onClick="addSeance"
+                        android:onClick="clickSeance"
                         android:layout_height="80dp"
                         android:text="VIDE"> </LinearLayout>
                 </GridLayout>
             </GridLayout>
         </LinearLayout>
     </ScrollView>
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:elevation="2dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+
+        app:menu="@menu/item_menu"
+        android:background="@drawable/rounded_selector"
+        app:itemIconSize="30dp"
+        app:itemIconTint="@drawable/item_selector"
+        android:id="@id/bottom_navigation"
+        />
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@id/floatingActionButtonweek"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="invisible"
+        android:layout_gravity="end|bottom"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+
+        android:onClick="onclickbtn"
+        android:src="@drawable/ic_baseline_dehaze_50"
+        android:clickable="true"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>
