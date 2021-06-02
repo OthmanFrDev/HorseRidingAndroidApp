@@ -80,7 +80,7 @@ public class UserAdapterRecycle extends RecyclerView.Adapter<UserAdapterRecycle.
     @Override
     public void onBindViewHolder(@NonNull UserAdapterRecycle.ViewHolder holder, int position) {
 
-        User u=list.get(position);
+        User u=listFiltred.get(position);
         holder.txtName.setText(u.getUserId() +" "+
                 u.getUserLname()+" "+u.getUserFname());
 
@@ -90,10 +90,6 @@ public class UserAdapterRecycle extends RecyclerView.Adapter<UserAdapterRecycle.
     @Override
     public int getItemCount() {
         return listFiltred.size();
-    }
-    public void filterList(List<User> l){
-        this.list=l;
-        notifyDataSetChanged();
     }
     public interface RecycleViewClickListner{
         void onClickItem(View v,int position);

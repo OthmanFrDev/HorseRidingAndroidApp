@@ -48,7 +48,7 @@ public class ListActivity extends AppCompatActivity {
     UserAdapterRecycle ua;
     TaskAdapterRecycle ta;
     ClientAdapterRecycle ca;
-    SeanceAdapterRecycle sa=new SeanceAdapterRecycle(ListActivity.this,seances);
+    SeanceAdapterRecycle sa;
     Dialog dialog;
 
 
@@ -98,8 +98,8 @@ public class ListActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 ua.getFilter().filter(s);
                 ca.getFilter().filter(s);
-               // sa.getFilter().filter(s);
-                //ta.getFilter().filter(s);
+                sa.getFilter().filter(s);
+                ta.getFilter().filter(s);
             }
 
             @Override
@@ -236,7 +236,7 @@ public class ListActivity extends AppCompatActivity {
     }
 
     void getAllClients() {
-        List<Client>clients=new ArrayList<>() ;
+        List<Client> clients=new ArrayList<>() ;
         JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, WS.URL+"clients", null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
@@ -246,22 +246,22 @@ public class ListActivity extends AppCompatActivity {
 //                TextView txtMail = findViewById(R.id.userEmail);
 //                TextView txtPasswd = findViewById(R.id.userPasswd);
 //                TextView textView = (TextView) findViewById(R.id.text);
-               // try {
-                    JSONObject j = null;
-                    for (int i = 0; i < response.length(); i++) {
-                        try {
-                            j = response.getJSONObject(i);
-                            clients.add(new Client(j.getInt("clientId"), j.getString("fName"), j.getString("lName"), j.getString("photo"), j.getString("identityDoc"), j.getString("clientEmail"),  j.getString("passwd"), j.getString("clientPhone"), j.getString("notes")) );
+                // try {
+                JSONObject j = null;
+                for (int i = 0; i < response.length(); i++) {
+                    try {
+                        j = response.getJSONObject(i);
+                        clients.add(new Client(j.getInt("clientId"), j.getString("fName"), j.getString("lName"), j.getString("photo"), j.getString("identityDoc"), j.getString("clientEmail"),  j.getString("passwd"), j.getString("clientPhone"), j.getString("notes")) );
 
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
 
 
-                 ca=new ClientAdapterRecycle(ListActivity.this,clients);
+                }
+
+
+                ca=new ClientAdapterRecycle(ListActivity.this,clients);
                 listClient.setLayoutManager(new LinearLayoutManager(ListActivity.this));
                 listClient.setAdapter(ca);
             }
@@ -277,7 +277,6 @@ public class ListActivity extends AppCompatActivity {
         MySingleton.getInstance(this.getApplicationContext()).addToRequestQueue(req);
     }
     void getAllTasks() {
-
         JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, WS.URL+"tasks", null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
@@ -336,8 +335,9 @@ public class ListActivity extends AppCompatActivity {
 
 
                     }
+                sa=new SeanceAdapterRecycle(ListActivity.this,seances);
                 listClient.setLayoutManager(new LinearLayoutManager(ListActivity.this));
-                    listClient.setAdapter(sa);
+                listClient.setAdapter(sa);
                     /*Integer i = j.getInt("clientId");
                     txtNom.setText(j.getString("fName"));
                     txtPrenom.setText(j.getString("lName"));

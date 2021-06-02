@@ -21,11 +21,11 @@ public class NoteController extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_note);
+/*        setContentView(R.layout.activity_list_note);
         empty_list_check=findViewById(R.id.empty_list_check);
-        recyclerview_note=findViewById(R.id.recyclerview_note);
+        recyclerview_note=findViewById(R.id.recyclerview_note);*/
     }
-    @Override
+  /*  @Override
     protected void onResume() {
         SessionManager sessionManager = new SessionManager(NoteController.this);
         super.onResume();
@@ -57,5 +57,5 @@ public class NoteController extends AppCompatActivity {
 
         NoteController.this.startActivity(ajouterIntent);
         NoteController.this.finish();
-    }
+    }*/
 }
