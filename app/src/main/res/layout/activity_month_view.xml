@@ -16,7 +16,7 @@
         android:columnCount="3">
         <ImageButton
             android:id="@id/btnprevious"
-            android:onClick="previousMonth"
+            android:onClick="monthChanger"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_previous"
@@ -30,7 +30,7 @@
             android:id="@id/day" />
         <ImageButton
             android:id="@id/btnnext"
-            android:onClick="nextMonth"
+            android:onClick="monthChanger"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_baseline_navigate_next_24"
@@ -128,6 +128,7 @@
         </GridLayout>
 
         <GridLayout
+            android:id="@+id/monthgrid"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:columnCount="7"
@@ -467,4 +468,37 @@
         </LinearLayout>
     </HorizontalScrollView>
 </ScrollView>
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:elevation="2dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+
+        app:menu="@menu/item_menu"
+        android:background="@drawable/rounded_selector"
+        app:itemIconSize="30dp"
+        app:itemIconTint="@drawable/item_selector"
+        android:id="@id/bottom_navigation"
+        />
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@id/floatingActionButtonweek"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="invisible"
+        android:layout_gravity="end|bottom"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+
+        android:onClick="onclickbtn"
+        android:src="@drawable/ic_baseline_dehaze_50"
+        android:clickable="true"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

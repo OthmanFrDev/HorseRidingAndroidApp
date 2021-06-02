@@ -109,8 +109,8 @@ Dialog dialog;
             case R.id.cardviewseance:
 
                Intent addIntent = new Intent(DashboardActivity.this,DayView_calendar.class);
-               addIntent.putExtra("emploitype","1");
-               addIntent.putExtra("id",userdetail.get(SessionManager.KEY_ID));
+               addIntent.putExtra("emploitype","0");
+              // addIntent.putExtra("id",userdetail.get(SessionManager.KEY_ID));
 
 
                DashboardActivity.this.startActivity(addIntent);

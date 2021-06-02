@@ -1,51 +1,44 @@
 package com.example.horseriding;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+
 import android.graphics.drawable.Drawable;
-import android.net.ConnectivityManager;
-
-import android.content.Intent;
-
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.GridLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
-import com.android.volley.ServerError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -57,7 +50,9 @@ public class WeekView_Calendar extends AppCompatActivity {
     String url;
     String color;
     List<Seance> seances;
+      List<Seance> seanceList;
     LinearLayout.LayoutParams params ;
+
   static   boolean server=false;
 
 
@@ -76,8 +71,13 @@ public class WeekView_Calendar extends AppCompatActivity {
     LocalDateTime starDate=dateInit,endDate=dateInit;
     BottomNavigationView bnv;
     private Dialog dialog;
+    private Dialog dialoglist;
     private String urlTask;
     TextView v;
+    private SeanceAdapterRecycle sa;
+    private DialogInterface.OnClickListener listener;
+    private GridLayout contentWeek;
+    private Drawable drawable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +87,9 @@ public class WeekView_Calendar extends AppCompatActivity {
         id=emploiIntent.getStringExtra("id");
         bnv=findViewById(R.id.bottom_navigation);
         dialog= new Dialog(WeekView_Calendar.this);
+        dialoglist= new Dialog(WeekView_Calendar.this);
+        seanceList=new ArrayList<Seance>();
+        contentWeek=findViewById(R.id.gridweekdyalhadi);
         switch(dateInit.getDayOfWeek().getValue()) {
             case 1:starDate=dateInit;endDate=starDate.plusDays(6);break;
             case 2:starDate=dateInit.minusDays(1);endDate=starDate.plusDays(6);break;
@@ -107,8 +110,9 @@ public class WeekView_Calendar extends AppCompatActivity {
                 Intent i=null;
                 switch(item.getItemId()){
                     case R.id.hide_nav:findViewById(R.id.floatingActionButtonweek).setVisibility(View.VISIBLE );findViewById(R.id.bottom_navigation).setVisibility(View.INVISIBLE);break;
-                    case R.id.home_nav:i=new Intent(WeekView_Calendar.this,DashboardActivity.class);startActivity(i);finish();
-                    case R.id.setting_nav:findViewById(R.id.floatingActionButtonweek).setVisibility(View.VISIBLE );findViewById(R.id.bottom_navigation).setVisibility(View.INVISIBLE);break;
+                    case R.id.home_nav:i=new Intent(WeekView_Calendar.this,DashboardActivity.class);startActivity(i);finish();break;
+                    case R.id.setting_nav:i = new Intent(WeekView_Calendar.this, EditFormUser.class);
+                        WeekView_Calendar.this.startActivity(i);break;
                     case R.id.logout_nav:SessionManager sessionManager=new SessionManager(WeekView_Calendar.this);
                                         sessionManager.logout();
                         Intent splashIntent = new Intent(WeekView_Calendar.this, LoginActivity.class);
@@ -197,6 +201,7 @@ public class WeekView_Calendar extends AppCompatActivity {
         Dim_16=findViewById(R.id.Dim_16);
         Dim_17=findViewById(R.id.Dim_17);
         Dim_18=findViewById(R.id.Dim_18);
+        drawable=getResources().getDrawable(R.drawable.ic_baseline_brightness_1_24,getTheme());
 
     }
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -371,155 +376,19 @@ onResume();
 
     }
     void init()
-    {/*
-        Lun_08.setText("");Lun_08.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Lun_09.setText("");Lun_09.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Lun_10.setText("");Lun_10.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Lun_11.setText("");Lun_11.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Lun_12.setText("");Lun_12.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Lun_13.setText("");Lun_13.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Lun_14.setText("");Lun_14.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Lun_15.setText("");Lun_15.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Lun_16.setText("");Lun_16.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Lun_17.setText("");Lun_17.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Lun_18.setText("");Lun_18.setBackgroundColor(Color.parseColor("#ffffff"));
-        Mar_08.setText("");Mar_08.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Mar_09.setText("");Mar_09.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Mar_10.setText("");Mar_10.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Mar_11.setText("");Mar_11.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Mar_12.setText("");Mar_12.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Mar_13.setText("");Mar_13.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Mar_14.setText("");Mar_14.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Mar_15.setText("");Mar_15.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Mar_16.setText("");Mar_16.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Mar_17.setText("");Mar_17.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Mar_18.setText("");Mar_18.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Mer_08.setText("");Mer_08.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Mer_09.setText("");Mer_09.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Mer_10.setText("");Mer_10.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Mer_11.setText("");Mer_11.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Mer_12.setText("");Mer_12.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Mer_13.setText("");Mer_13.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Mer_14.setText("");Mer_14.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Mer_15.setText("");Mer_15.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Mer_16.setText("");Mer_16.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Mer_17.setText("");Mer_17.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Mer_18.setText("");Mer_18.setBackgroundColor(Color.parseColor("#ffffff"));
-        Jeu_08.setText("");Jeu_08.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Jeu_09.setText("");Jeu_09.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Jeu_10.setText("");Jeu_10.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Jeu_11.setText("");Jeu_11.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Jeu_12.setText("");Jeu_12.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Jeu_13.setText("");Jeu_13.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Jeu_14.setText("");Jeu_14.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Jeu_15.setText("");Jeu_15.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Jeu_16.setText("");Jeu_16.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Jeu_17.setText("");Jeu_17.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Jeu_18.setText("");Jeu_18.setBackgroundColor(Color.parseColor("#ffffff"));
-        Ven_08.setText("");Ven_08.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Ven_09.setText("");Ven_09.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Ven_10.setText("");Ven_10.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Ven_11.setText("");Ven_11.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Ven_12.setText("");Ven_12.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Ven_13.setText("");Ven_13.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Ven_14.setText("");Ven_14.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Ven_15.setText("");Ven_15.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Ven_16.setText("");Ven_16.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Ven_17.setText("");Ven_17.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Ven_18.setText("");Ven_18.setBackgroundColor(Color.parseColor("#ffffff"));
-        Sam_08.setText("");Sam_08.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Sam_09.setText("");Sam_09.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Sam_10.setText("");Sam_10.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Sam_11.setText("");Sam_11.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Sam_12.setText("");Sam_12.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Sam_13.setText("");Sam_13.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Sam_14.setText("");Sam_14.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Sam_15.setText("");Sam_15.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Sam_16.setText("");Sam_16.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Sam_17.setText("");Sam_17.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Sam_18.setText("");Sam_18.setBackgroundColor(Color.parseColor("#ffffff"));
-        Dim_08.setText("");Dim_08.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Dim_09.setText("");Dim_09.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Dim_10.setText("");Dim_10.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Dim_11.setText("");Dim_11.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Dim_12.setText("");Dim_12.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Dim_13.setText("");Dim_13.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Dim_14.setText("");Dim_14.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Dim_15.setText("");Dim_15.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Dim_16.setText("");Dim_16.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Dim_17.setText("");Dim_17.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        Dim_18.setText("");Dim_18.setBackgroundColor(Color.parseColor("#ffffff"));*/
+    {
+
+            LinearLayout l=null;
+            for(int i = 1; i< contentWeek.getChildCount(); i++){
+                GridLayout G = (GridLayout) contentWeek.getChildAt(i);
+                for(int j=1; j<G.getChildCount();j++){ if(G.getChildAt(j) instanceof LinearLayout)
+                {
+                    l=(LinearLayout) G.getChildAt(j);
+                    l.removeAllViews();
+                }}
+
+
+            }
 
 
     }
@@ -545,10 +414,6 @@ onResume();
     }
     void getSeance(JSONArray response)
     {
-
-
-
-
         LocalDateTime dateFromResponse;
         JSONObject j = null;
         for(int i=0;i<response.length();i++){
@@ -557,7 +422,7 @@ onResume();
                 v.setLayoutParams(params);
                 v.setBackgroundResource(R.drawable.textview_border);
                 v.setTextSize(11);
-
+                v.setCompoundDrawablesWithIntrinsicBounds(drawable,null,null,null);
                 j = response.getJSONObject(i);
                 dateFromResponse=LocalDateTime.parse(j.getString("startDate"));
                 String dateTime=j.getString("startDate").substring(11,16);
@@ -1241,12 +1106,13 @@ onResume();
     }
 
     public void seancedetails(View view) {
+        StringBuilder stringBuilder= new StringBuilder();
         TextView textView;
         LinearLayout linearLayout=findViewById(view.getId());
+
         if(linearLayout.getChildCount()>0){
-            for(int i=0;i<linearLayout.getChildCount();i++)
-            {
-                textView= (TextView) linearLayout.getChildAt(i);
+
+                textView= (TextView) linearLayout.getChildAt(0);
 
                 JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET,  WS.URL+"seances/"+ textView.getText().toString().trim(), null, new Response.Listener<JSONObject>() {
 
@@ -1254,52 +1120,58 @@ onResume();
                     public void onResponse(JSONObject response) {
 
                         try {
+                           /* Seance seance= new Seance(response.getInt("seanceId"),response.getInt("seanceGrpId"),
+                                    response.getInt("clientId"),response.getInt("monitorId"),
+                                    response.getInt("durationMinut"),response.getString("comments"),response.getString("startDate"));
+                         //  Intent i= new Intent(WeekView_Calendar.this,ListActivity.class); i.putExtra("seance", (Serializable) seance); startActivity(i);finish();*/
 
-                            AlertDialog.Builder builder = new AlertDialog.Builder(WeekView_Calendar.this);
-                            builder.setTitle("Seance Detail:");
-                            builder.setMessage("ID = "+ response.getInt("seanceId")+"\n\n" +"Sart Date = "+ response.getString("startDate")+"\n\n"+
-                                    "Duration = "+response.getInt("durationMinut")+"\n\n"+
-                                    "Comment = "+ response.getString("comments")
-                            );
-                            builder.setNegativeButton("Close", null);
-                            builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which)
-                                {
-                                    try {
-                                        LocalDateTime date=LocalDateTime.parse(response.getString("startDate"));
-                                        String dateDay=response.getString("startDate").substring(0,10);
-                                        String dateTime=response.getString("startDate").substring(11,16);
-
-                                        LocalDateTime  DateInit=LocalDateTime.of(LocalDate.parse(dateDay), LocalTime.parse(dateTime));
-                                        StringRequest dr = new StringRequest(Request.Method.DELETE, WS.URL +"seances/"+response.getInt("seanceId"),
-                                                new Response.Listener<String>()
-                                                {
-                                                    @Override
-                                                    public void onResponse(String res) {
-                                                        // response
-
-                                                        startActivity(getIntent());
-                                                        Toast.makeText(WeekView_Calendar.this, "Deleted", Toast.LENGTH_LONG).show();
-                                                    }
-                                                },
-                                                new Response.ErrorListener()
-                                                {
-                                                    @Override
-                                                    public void onErrorResponse(VolleyError error) {
-                                                        // error.
-
-                                                    }
-                                                }
-                                        ); MySingleton.getInstance(WeekView_Calendar.this).addToRequestQueue(dr);
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-                                }});
+                            JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, WS.URL+"seances/getwithfulldate/"+response.getString("startDate"), null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
 
 
-                            AlertDialog dialog = builder.create();
-                            dialog.show();
+
+                    JSONObject j = null;
+                    for (int i = 0; i < response.length(); i++) {
+                        try {
+                            j = response.getJSONObject(i);
+
+                            seanceList.add(new Seance(j.getInt("seanceId"),j.getInt("seanceGrpId"),
+                                    j.getInt("clientId"),j.getInt("monitorId"),
+                                    j.getInt("durationMinut"),j.getString("comments"),j.getString("startDate"))) ;
+                            Log.w("listaaaaaaaaaa",String.valueOf(seanceList.size()) );
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+
+                    }
+
+                sa = new SeanceAdapterRecycle(WeekView_Calendar.this, seanceList);
+                AlertDialog.Builder builder=new AlertDialog.Builder(WeekView_Calendar.this);
+               // builder.setMessage()
+                RecyclerView listClient= dialoglist.getWindow().findViewById(R.id.listUser);
+                listClient.setLayoutManager(new LinearLayoutManager(WeekView_Calendar.this));
+                listClient.setAdapter(sa);
+                //list.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialoglist.show();
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(MainActivity.class.getSimpleName(), error.getMessage());
+            }
+        }
+
+        );
+
+
+        MySingleton.getInstance( WeekView_Calendar.this).addToRequestQueue(req);
+
+
+
+
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -1318,11 +1190,67 @@ onResume();
                         }
 
                 );
+                sa = new SeanceAdapterRecycle(WeekView_Calendar.this, seanceList);
+                dialoglist.setContentView(R.layout.user_activity_list);
+                RecyclerView listClient= dialoglist.getWindow().findViewById(R.id.listUser);
+                listClient.setLayoutManager(new LinearLayoutManager(WeekView_Calendar.this));
+                listClient.setAdapter(sa);
+                //list.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialoglist.show();
                 MySingleton.getInstance(this.getApplicationContext()).addToRequestQueue(req);
-            }
 
 
-           }
+
+//
+ //           AlertDialog.Builder builder = new AlertDialog.Builder(WeekView_Calendar.this);
+ //           builder.setTitle("Seance Detail:");
+//            builder.setMessage("ID = "+ response.getInt("seanceId")+"\n\n" +"Sart Date = "+ response.getString("startDate")+"\n\n"+
+//                    "Duration = "+response.getInt("durationMinut")+"\n\n"+
+//                    "Comment = "+ response.getString("comments")
+//            );
+         //   builder.setAdapter((ListAdapter) sa,listener);
+         //   builder.setNegativeButton("Close", null);
+//            builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+//                @Override
+//                public void onClick(DialogInterface dialog, int which)
+//                {
+//                    try {
+//
+//                         LocalDateTime date=LocalDateTime.parse(response.getString("startDate"));
+//                         String dateDay=response.getString("startDate").substring(0,10);
+//                         String dateTime=response.getString("startDate").substring(11,16);
+//
+//                        LocalDateTime  DateInit=LocalDateTime.of(LocalDate.parse(dateDay), LocalTime.parse(dateTime));
+//                        StringRequest dr = new StringRequest(Request.Method.DELETE, WS.URL +"seances/"+response.getInt("seanceId"),
+//                                new Response.Listener<String>()
+//                                {
+//                                    @Override
+//                                    public void onResponse(String res) {
+//                                        // response
+//
+//                                        startActivity(getIntent());
+//                                        Toast.makeText(WeekView_Calendar.this, "Deleted", Toast.LENGTH_LONG).show();
+//                                    }
+//                                },
+//                                new Response.ErrorListener()
+//                                {
+//                                    @Override
+//                                    public void onErrorResponse(VolleyError error) {
+//                                        // error.
+//
+//                                    }
+//                                }
+//                        ); MySingleton.getInstance(WeekView_Calendar.this).addToRequestQueue(dr);
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//                }});
+
+
+         //   AlertDialog dialog = builder.create();
+          //  dialog.show();
+
+        }
            else{
 //            LocalDateTime dateFromResponse;
 //            dateFromResponse=LocalDateTime.parse(seance.getStartDate());
@@ -1721,6 +1649,8 @@ onResume();
     public void onclickbtn(View view) {
          findViewById(R.id.floatingActionButtonweek).setVisibility(View.INVISIBLE);findViewById(R.id.bottom_navigation).setVisibility(View.VISIBLE);
     }
+
+
 
 
 }

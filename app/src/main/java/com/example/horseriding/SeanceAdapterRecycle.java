@@ -75,7 +75,7 @@ public class SeanceAdapterRecycle extends RecyclerView.Adapter<SeanceAdapterRecy
 
     @Override
     public void onBindViewHolder(@NonNull SeanceAdapterRecycle.ViewHolder holder, int position) {
-        Seance s=list.get(position);
+        Seance s=listFiltred.get(position);
         holder.txtName.setText(s.getComments()+" ");
         holder.txtRole.setText(String.valueOf(s.getSeanceId()));
     }

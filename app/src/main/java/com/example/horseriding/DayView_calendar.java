@@ -10,6 +10,7 @@ import android.content.Intent;
 
 import android.graphics.Color;
 
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -62,6 +63,7 @@ public class DayView_calendar extends AppCompatActivity {
     private String id;
     private String monitor;
     BottomNavigationView bnv;
+    private Drawable drawable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +86,7 @@ public class DayView_calendar extends AppCompatActivity {
         time_16=findViewById(R.id.time_16);
         time_17=findViewById(R.id.time_17);
         time_18=findViewById(R.id.time_18);
-
+        drawable=getResources().getDrawable(R.drawable.ic_baseline_brightness_1_24,getTheme());
         day=findViewById(R.id.day);
         bnv=findViewById(R.id.bottom_navigation);
         bnv.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -93,8 +95,9 @@ public class DayView_calendar extends AppCompatActivity {
                 Intent i=null;
                 switch(item.getItemId()){
                     case R.id.hide_nav:findViewById(R.id.floatingActionButtonweek).setVisibility(View.VISIBLE );findViewById(R.id.bottom_navigation).setVisibility(View.INVISIBLE);break;
-                    case R.id.home_nav:i=new Intent(DayView_calendar.this,DashboardActivity.class);startActivity(i);finish();
-                    case R.id.setting_nav:findViewById(R.id.floatingActionButtonweek).setVisibility(View.VISIBLE );findViewById(R.id.bottom_navigation).setVisibility(View.INVISIBLE);break;
+                    case R.id.home_nav:i=new Intent(DayView_calendar.this,DashboardActivity.class);startActivity(i);finish();break;
+                    case R.id.setting_nav:i = new Intent(DayView_calendar.this, EditFormUser.class);
+                        DayView_calendar.this.startActivity(i);break;
                     case R.id.logout_nav:SessionManager sessionManager=new SessionManager(DayView_calendar.this);
                         sessionManager.logout();
                         Intent splashIntent = new Intent(DayView_calendar.this, LoginActivity.class);
@@ -174,6 +177,7 @@ public class DayView_calendar extends AppCompatActivity {
                     v.setLayoutParams(params);
                     v.setBackgroundResource(R.drawable.textview_border);
                     v.setTextSize(19);
+                    v.setCompoundDrawablesWithIntrinsicBounds(drawable,null,null,null);
                     try {
                         j = response.getJSONObject(i);
                         Seance seance = new Seance(j.getInt("seanceId"),j.getInt("seanceGrpId"),j.getInt("clientId"),j.getInt("monitorId"),j.getInt("durationMinut"),j.getString("comments"),j.getString("startDate"));
@@ -193,7 +197,7 @@ public class DayView_calendar extends AppCompatActivity {
                             color="#ff6347";
                         }
 
-                            v.setText(j.getInt("seanceId")+" "+j.getInt("monitorId")+" Durée "+j.getInt("durationMinut")+"min");
+                            v.setText(j.getInt("seanceId")+" "+j.getString("comments"));
                             switch(dateTime){
                                 case "08:00":time_08.addView(v);break;
                                 case "09:00":time_09.addView(v);break;
@@ -234,8 +238,7 @@ public class DayView_calendar extends AppCompatActivity {
 
                 case "1": URLEXTENSION ="seances/monitor/"+day.getText().toString()+"/"+id; break;
 
-
-
+                case "0":URLEXTENSION="seances/getwithdate/"+day.getText().toString();break;
 
                 case "2":URLEXTENSION ="seances/getwithdate/"+day.getText().toString()+"/"+id;break;
 
@@ -263,6 +266,7 @@ public class DayView_calendar extends AppCompatActivity {
 
 
 
+
     }
 
     void init()
@@ -275,38 +279,39 @@ public class DayView_calendar extends AppCompatActivity {
     }
 
     public void clickSeance(View view) {
-        TextView textView=findViewById(view.getId());
-        if(textView.getText().toString().compareTo("VIDE")!=0){
-           String[] list= textView.getText().toString().split(" ");
-            JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET,  WS.URL+"seances/"+ list[0], null, new Response.Listener<JSONObject>() {
+        LinearLayout linearLayout=findViewById(view.getId());
+        if(linearLayout.getChildCount()!=0) {
+            for (int i = 0; i < linearLayout.getChildCount(); i++) {
+            TextView textView= (TextView) linearLayout.getChildAt(i);
+            String[] list = textView.getText().toString().split(" ");
+            JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET, WS.URL + "seances/" + list[0], null, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
 
                     try {
-                          monitor= getMonitorName(response.getInt("monitorId"));
+                        monitor = getMonitorName(response.getInt("monitorId"));
 
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(DayView_calendar.this);
 
                         builder.setTitle("Seance Detail:");
-                        builder.setMessage("ID = "+ response.getInt("seanceId")+"\n\n" +"Sart Date = "+ response.getString("startDate")+"\n\n"+"Monitor = "+monitor+"\n\n"+
-                                "Duration = "+response.getInt("durationMinut")+"\n\n"+
-                                "Comment = "+ response.getString("comments")
+                        builder.setMessage("ID = " + response.getInt("seanceId") + "\n\n" + "Sart Date = " + response.getString("startDate") + "\n\n" + "Monitor = " + monitor + "\n\n" +
+                                "Duration = " + response.getInt("durationMinut") + "\n\n" +
+                                "Comment = " + response.getString("comments")
                         );
+
                         builder.setNegativeButton("Close", null);
                         builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                             @Override
-                            public void onClick(DialogInterface dialog, int which)
-                            {
+                            public void onClick(DialogInterface dialog, int which) {
                                 try {
-                                    LocalDateTime date=LocalDateTime.parse(response.getString("startDate"));
-                                    String dateDay=response.getString("startDate").substring(0,10);
-                                    String dateTime=response.getString("startDate").substring(11,16);
+                                    LocalDateTime date = LocalDateTime.parse(response.getString("startDate"));
+                                    String dateDay = response.getString("startDate").substring(0, 10);
+                                    String dateTime = response.getString("startDate").substring(11, 16);
 
-                                    DateInit=LocalDateTime.of(LocalDate.parse(dateDay),LocalTime.parse(dateTime));
-                                    StringRequest dr = new StringRequest(Request.Method.DELETE, WS.URL+"seances/"+response.getInt("seanceId"),
-                                            new Response.Listener<String>()
-                                            {
+                                    DateInit = LocalDateTime.of(LocalDate.parse(dateDay), LocalTime.parse(dateTime));
+                                    StringRequest dr = new StringRequest(Request.Method.DELETE, WS.URL + "seances/" + response.getInt("seanceId"),
+                                            new Response.Listener<String>() {
                                                 @Override
                                                 public void onResponse(String res) {
                                                     // response
@@ -315,19 +320,20 @@ public class DayView_calendar extends AppCompatActivity {
                                                     Toast.makeText(DayView_calendar.this, "Deleted", Toast.LENGTH_LONG).show();
                                                 }
                                             },
-                                            new Response.ErrorListener()
-                                            {
+                                            new Response.ErrorListener() {
                                                 @Override
                                                 public void onErrorResponse(VolleyError error) {
                                                     // error.
 
                                                 }
                                             }
-                                    ); MySingleton.getInstance(DayView_calendar.this).addToRequestQueue(dr);
+                                    );
+                                    MySingleton.getInstance(DayView_calendar.this).addToRequestQueue(dr);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
-                            }});
+                            }
+                        });
 
                         AlertDialog dialog = builder.create();
                         dialog.show();
@@ -346,6 +352,7 @@ public class DayView_calendar extends AppCompatActivity {
 
             );
             MySingleton.getInstance(this.getApplicationContext()).addToRequestQueue(req);
+        }
         }
         else{
             Intent addSeanceIntent = new Intent(DayView_calendar.this, DateTimePicker.class);

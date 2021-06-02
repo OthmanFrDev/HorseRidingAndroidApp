@@ -73,168 +73,175 @@ public class ListActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        listClient=findViewById(R.id.listUser);
-        sInput=findViewById(R.id.searchinput);
-        if(listClient!=null){
-            Intent intent=getIntent();
-            if(intent.getStringExtra("click")!=null){
-            if(intent.getStringExtra("click").equals("0"))
-            {
+        listClient = findViewById(R.id.listUser);
+        sInput = findViewById(R.id.searchinput);
+        if (listClient != null) {
+            Intent intent = getIntent();
+            if (intent.getStringExtra("click") != null) {
+                if (intent.getStringExtra("click").equals("0")) {
 
-                getAllUsers();
+                    getAllUsers();
+                }
+//            if(intent.getStringExtra("click").equals("1")){getAllTasks();}
+//            if(intent.getStringExtra("click").equals("2")){getAllSeances();}
+            if(intent.getStringExtra("click").equals("3")){getAllClients();}
+
             }
-            if(intent.getStringExtra("click").equals("1")){getAllTasks();}
-            if(intent.getStringExtra("click").equals("2")){getAllSeances();}
-            if(intent.getStringExtra("click").equals("3")){getAllClients();}}
+               else if(intent.getSerializableExtra("seance")!=null)
 
+               {
+                   Seance response= (Seance) intent.getSerializableExtra("seance");
+                   Log.d("response",response.getStartDate());
+
+               }
+            }
+            sInput.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    ua.getFilter().filter(s);
+                    //  ca.getFilter().filter(s);
+                    // sa.getFilter().filter(s);
+                    //ta.getFilter().filter(s);
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                }
+            });
         }
-        sInput.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-            }
+        public List<User> getAllUsers () {
+            JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, WS.URL + "users", null, new Response.Listener<JSONArray>() {
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                ua.getFilter().filter(s);
-                ca.getFilter().filter(s);
-               // sa.getFilter().filter(s);
-                //ta.getFilter().filter(s);
-            }
+                @Override
+                public void onResponse(JSONArray response) {
+                    Log.d("getallusers", "success");
 
-            @Override
-            public void afterTextChanged(Editable s) {
+                    JSONObject j = null;
+                    for (int i = 0; i < response.length(); i++) {
+                        try {
+                            j = response.getJSONObject(i);
+                            users.add(new User(j.getInt("userId"), j.getString("userEmail"),
+                                    j.getString("userPasswd"), j.getString("userFname"),
+                                    j.getString("userLname"), j.getString("description"),
+                                    j.getString("userType"), j.getString("userphoto"), j.getString("userPhone"), j.getString("lastLoginTime"), j.getString("displayColor")));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
 
-            }
-        });
-    }
 
-    public List<User> getAllUsers() {
-        JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, WS.URL+"users", null, new Response.Listener<JSONArray>() {
-
-            @Override
-            public void onResponse(JSONArray response) {
-                Log.d("getallusers", "success");
-
-                JSONObject j = null;
-                for (int i = 0; i < response.length(); i++) {
-                    try {
-                        j = response.getJSONObject(i);
-                        users.add(new User(j.getInt("userId"), j.getString("userEmail"),
-                                j.getString("userPasswd"), j.getString("userFname"),
-                                j.getString("userLname"), j.getString("description"),
-                                j.getString("userType"), j.getString("userphoto"), j.getString("userPhone"),j.getString("lastLoginTime"),j.getString("displayColor")));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
                     }
-
+                    setOnclickListner();
+                    ua = new UserAdapterRecycle(ListActivity.this, users, listener);
+                    listClient.setLayoutManager(new LinearLayoutManager(ListActivity.this));
+                    listClient.setAdapter(ua);
 
                 }
-                setOnclickListner();
-                ua=new UserAdapterRecycle(ListActivity.this,users,listener);
-                listClient.setLayoutManager(new LinearLayoutManager(ListActivity.this));
-                listClient.setAdapter(ua);
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.e(MainActivity.class.getSimpleName(), error.getMessage());
+                }
+            }
 
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e(MainActivity.class.getSimpleName(), error.getMessage());
-            }
+            );
+
+
+            MySingleton.getInstance(this.getApplicationContext()).addToRequestQueue(req);
+            return users;
         }
 
-        );
+        private void setOnclickListner () {
+            listener = new UserAdapterRecycle.RecycleViewClickListner() {
+                @Override
+                public void onClickItem(View v, int position) {
 
+                    if (getIntent().getStringExtra("emploi") == null) {
+                        Toast.makeText(ListActivity.this, "" + users.get(position).getUserEmail(), Toast.LENGTH_LONG).show();
+                        TextView userShape = findViewById(R.id.shapeuser);
+                        TextView userName = findViewById(R.id.nameuser);
+                        EditText mailinput = findViewById(R.id.emailinput);
+                        EditText telinput = findViewById(R.id.telephoneinput);
+                        ImageButton callbtn = findViewById(R.id.callbtn);
+                        ImageButton editbtn = findViewById(R.id.editbtn);
+                        ImageButton calendarbtn = findViewById(R.id.calendarbtn);
+                        User u = new User();
+                        u = users.get(position);
+                        int orientation = getResources().getConfiguration().orientation;
+                        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+                            dialog.setContentView(R.layout.activity_dialog_user_details);
+                            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                            userShape = dialog.findViewById(R.id.shapeuser);
+                            userName = dialog.findViewById(R.id.nameuser);
+                            mailinput = dialog.findViewById(R.id.emailinput);
+                            telinput = dialog.findViewById(R.id.telephoneinput);
+                            callbtn = dialog.findViewById(R.id.callbtn);
+                            editbtn = dialog.findViewById(R.id.editbtn);
+                            calendarbtn = dialog.findViewById(R.id.calendarbtn);
+                        }
+                        userShape.setText(u.getUserFname().toUpperCase().substring(0, 1) + "" + u.getUserLname().toUpperCase().substring(0, 1));
+                        userShape.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 50);
+                        userShape.setTextColor(Color.parseColor("#ffffff"));
+                        userShape.setPadding(5, 7, 5, 5);
+                        userName.setText(u.getUserFname() + " " + u.getUserLname());
+                        mailinput.setText(u.getUserEmail());
+                        mailinput.setTextSize(15);
+                        telinput.setText(u.getUserPhone());
+                        telinput.setTextSize(15);
+                        callbtn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                User u = users.get(position);
+                                Intent iDial = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:0" + u.getUserPhone().substring(4, 13)));
+                                startActivity(iDial);
+                                dialog.dismiss();
+                            }
+                        });
+                        calendarbtn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                User u = users.get(position);
+                                Intent i = new Intent(ListActivity.this, WeekView_Calendar.class);
+                                String id = String.valueOf(u.getUserId());
+                                i.putExtra("id", id);
+                                i.putExtra("emploitype", "1");
+                                startActivity(i);
+                                finish();
+                                dialog.dismiss();
+                            }
+                        });
+                        editbtn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                User u = users.get(position);
+                                Intent i = new Intent(ListActivity.this, EditFormUser.class);
+                                i.putExtra("user", u);
+                                startActivity(i);
+                                finish();
+                                dialog.dismiss();
+                            }
+                        });
+                        dialog.show();
+                    } else {
+                        TextView idclient = v.findViewById(R.id.userrolelist);
+                        TextView idMonitor = v.findViewById(R.id.nameuserlist);
 
-        MySingleton.getInstance(this.getApplicationContext()).addToRequestQueue(req);
-        return users;
-    }
-
-    private void setOnclickListner() {
-        listener=new UserAdapterRecycle.RecycleViewClickListner() {
-            @Override
-            public void onClickItem(View v, int position) {
-
-                if(getIntent().getStringExtra("emploi")==null){
-                Toast.makeText(ListActivity.this,""+users.get(position).getUserEmail(),Toast.LENGTH_LONG).show();
-                TextView userShape=findViewById(R.id.shapeuser);
-                TextView userName=findViewById(R.id.nameuser);
-                EditText mailinput=findViewById(R.id.emailinput);
-                EditText telinput=findViewById(R.id.telephoneinput);
-                ImageButton callbtn=findViewById(R.id.callbtn);
-                ImageButton editbtn=findViewById(R.id.editbtn);
-                ImageButton calendarbtn=findViewById(R.id.calendarbtn);
-                User u=new User();
-                u=users.get(position);
-                int orientation = getResources().getConfiguration().orientation;
-                if (orientation == Configuration.ORIENTATION_PORTRAIT) {
-                    dialog.setContentView(R.layout.activity_dialog_user_details);
-                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                    userShape=dialog.findViewById(R.id.shapeuser);
-                    userName=dialog.findViewById(R.id.nameuser);
-                    mailinput=dialog.findViewById(R.id.emailinput);
-                    telinput=dialog.findViewById(R.id.telephoneinput);
-                    callbtn=dialog.findViewById(R.id.callbtn);
-                    editbtn=dialog.findViewById(R.id.editbtn);
-                    calendarbtn=dialog.findViewById(R.id.calendarbtn);
+                        Intent emlpoisIntent = new Intent(ListActivity.this, WeekView_Calendar.class);
+                        emlpoisIntent.putExtra("emploitype", "1");
+                        emlpoisIntent.putExtra("id", idMonitor.getText().toString().split(" ")[0]);
+                        ListActivity.this.startActivity(emlpoisIntent);
+                        ListActivity.this.finish();
+                    }
                 }
-                    userShape.setText(u.getUserFname().toUpperCase().substring(0,1)+""+u.getUserLname().toUpperCase().substring(0,1));
-                    userShape.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 50);
-                    userShape.setTextColor(Color.parseColor("#ffffff"));
-                    userShape.setPadding(5,7,5,5);
-                    userName.setText(u.getUserFname()+" "+u.getUserLname());
-                    mailinput.setText(u.getUserEmail());
-                    mailinput.setTextSize(15);
-                    telinput.setText(u.getUserPhone());
-                    telinput.setTextSize(15);
-                    callbtn.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            User u=users.get(position);
-                            Intent iDial=new Intent(Intent.ACTION_DIAL, Uri.parse("tel:0"+u.getUserPhone().substring(4,13)));
-                            startActivity(iDial);
-                            dialog.dismiss();
-                        }
-                    });
-                    calendarbtn.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            User u=users.get(position);
-                            Intent i=new Intent(ListActivity.this,WeekView_Calendar.class);
-                            String id=String.valueOf(u.getUserId());
-                            i.putExtra("id",id );
-                            i.putExtra("emploitype","1");
-                            startActivity(i);
-                            finish();
-                            dialog.dismiss();
-                        }
-                    });
-                    editbtn.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            User u=users.get(position);
-                            Intent i=new Intent(ListActivity.this,EditFormUser.class);
-                            i.putExtra("user",u);
-                            startActivity(i);
-                            finish();
-                            dialog.dismiss();
-                        }
-                    });
-                    dialog.show();
-            }
-                else{
-                    TextView idclient= v.findViewById(R.id.userrolelist);
-                    TextView idMonitor= v.findViewById(R.id.nameuserlist);
 
-                    Intent emlpoisIntent = new Intent(ListActivity.this,WeekView_Calendar.class);
-                    emlpoisIntent.putExtra("emploitype","1");
-                    emlpoisIntent.putExtra("id",idMonitor.getText().toString().split(" ")[0]);
-                    ListActivity.this.startActivity(emlpoisIntent);
-                    ListActivity.this.finish();}
-            }
-
-        };
-    }
+            };
+        }
 
     void getAllClients() {
         List<Client>clients=new ArrayList<>() ;
@@ -278,80 +285,70 @@ public class ListActivity extends AppCompatActivity {
 
         MySingleton.getInstance(this.getApplicationContext()).addToRequestQueue(req);
     }
-    void getAllTasks() {
-
-        JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, WS.URL+"tasks", null, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-
-
-                JSONObject j = null;
-                for (int i = 0; i < response.length(); i++) {
-                    try {
-                        j = response.getJSONObject(i);
-                        tasks.add(new Task(j.getInt("taskId"),j.getInt("durationMinut"),
-                                j.getInt("userFk"),j.getString("title"),j.getString("detail")));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
-
-                }
-                ta=new TaskAdapterRecycle(ListActivity.this,tasks);
-                listClient.setLayoutManager(new LinearLayoutManager(ListActivity.this));
-                listClient.setAdapter(ta);
-
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e(MainActivity.class.getSimpleName(), error.getMessage());
-            }
-        }
-
-        );
-
-
-        MySingleton.getInstance(this.getApplicationContext()).addToRequestQueue(req);
-    }
-    public List<Seance> getAllSeances() {
-        JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, WS.URL+"seances", null, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-
- /*               TextView txtNom = findViewById(R.id.txtNom);
-                TextView txtPrenom = findViewById(R.id.txtprenom);
-                TextView txtMail = findViewById(R.id.userEmail);
-                TextView txtPasswd = findViewById(R.id.userPasswd);
-                TextView textView = (TextView) findViewById(R.id.text);
-                try {*/
-                    JSONObject j = null;
-                    for (int i = 0; i < response.length(); i++) {
-                        try {
-                            j = response.getJSONObject(i);
-                            seances.add(new Seance(j.getInt("seanceId"),j.getInt("seanceGrpId"),
-                                    j.getInt("clientId"),j.getInt("monitorId"),
-                                    j.getInt("durationMinut"),j.getString("comments"),j.getString("startDate"))) ;
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-
-                    }
-                listClient.setLayoutManager(new LinearLayoutManager(ListActivity.this));
-                    listClient.setAdapter(sa);
-                    /*Integer i = j.getInt("clientId");
-                    txtNom.setText(j.getString("fName"));
-                    txtPrenom.setText(j.getString("lName"));
-                    txtMail.setText(j.getString("clientEmail"));
-                    txtPasswd.setText(j.getString("passwd"));
-                    textView.setText(i.toString());
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }*/
-//                    Integer i = j.getInt("clientId");
+//    void getAllTasks() {
+//
+//        JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, WS.URL+"tasks", null, new Response.Listener<JSONArray>() {
+//            @Override
+//            public void onResponse(JSONArray response) {
+//
+//
+//                JSONObject j = null;
+//                for (int i = 0; i < response.length(); i++) {
+//                    try {
+//                        j = response.getJSONObject(i);
+//                        tasks.add(new Task(j.getInt("taskId"),j.getInt("durationMinut"),
+//                                j.getInt("userFk"),j.getString("title"),j.getString("detail")));
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//
+//
+//                }
+//                ta=new TaskAdapterRecycle(ListActivity.this,tasks);
+//                listClient.setLayoutManager(new LinearLayoutManager(ListActivity.this));
+//                listClient.setAdapter(ta);
+//
+//
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                Log.e(MainActivity.class.getSimpleName(), error.getMessage());
+//            }
+//        }
+//
+//        );
+//
+//
+//        MySingleton.getInstance(this.getApplicationContext()).addToRequestQueue(req);
+//    }
+//    public List<Seance> getAllSeances() {
+//        JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, WS.URL+"seances", null, new Response.Listener<JSONArray>() {
+//            @Override
+//            public void onResponse(JSONArray response) {
+//
+// /*               TextView txtNom = findViewById(R.id.txtNom);
+//                TextView txtPrenom = findViewById(R.id.txtprenom);
+//                TextView txtMail = findViewById(R.id.userEmail);
+//                TextView txtPasswd = findViewById(R.id.userPasswd);
+//                TextView textView = (TextView) findViewById(R.id.text);
+//                try {*/
+//                    JSONObject j = null;
+//                    for (int i = 0; i < response.length(); i++) {
+//                        try {
+//                            j = response.getJSONObject(i);
+//                            seances.add(new Seance(j.getInt("seanceId"),j.getInt("seanceGrpId"),
+//                                    j.getInt("clientId"),j.getInt("monitorId"),
+//                                    j.getInt("durationMinut"),j.getString("comments"),j.getString("startDate"))) ;
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//
+//
+//                    }
+//                listClient.setLayoutManager(new LinearLayoutManager(ListActivity.this));
+//                    listClient.setAdapter(sa);
+//                    /*Integer i = j.getInt("clientId");
 //                    txtNom.setText(j.getString("fName"));
 //                    txtPrenom.setText(j.getString("lName"));
 //                    txtMail.setText(j.getString("clientEmail"));
@@ -360,21 +357,31 @@ public class ListActivity extends AppCompatActivity {
 //
 //                } catch (JSONException e) {
 //                    e.printStackTrace();
-//                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e(MainActivity.class.getSimpleName(), error.getMessage());
-            }
-        }
-
-        );
-
-
-        MySingleton.getInstance(this.getApplicationContext()).addToRequestQueue(req);
-        return seances;
-    }
+//                }*/
+////                    Integer i = j.getInt("clientId");
+////                    txtNom.setText(j.getString("fName"));
+////                    txtPrenom.setText(j.getString("lName"));
+////                    txtMail.setText(j.getString("clientEmail"));
+////                    txtPasswd.setText(j.getString("passwd"));
+////                    textView.setText(i.toString());
+////
+////                } catch (JSONException e) {
+////                    e.printStackTrace();
+////                }
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                Log.e(MainActivity.class.getSimpleName(), error.getMessage());
+//            }
+//        }
+//
+//        );
+//
+//
+//        MySingleton.getInstance(this.getApplicationContext()).addToRequestQueue(req);
+//        return seances;
+//    }
 
     public void PostUser(View view) {
         Intent intent=getIntent();
