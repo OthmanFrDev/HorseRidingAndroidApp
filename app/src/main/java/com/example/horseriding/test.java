@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -19,48 +20,17 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 
+import org.apmem.tools.layouts.FlowLayout;
 import org.json.JSONObject;
 
 public class test extends AppCompatActivity {
         String url = "http://192.168.111.1:45455/users";
-
+    FlowLayout l;
         @Override
         protected void onCreate(Bundle savedInstanceState) {
 
             super.onCreate(savedInstanceState);
             setContentView(R.layout.testlayout);
-            //Setting ToolBar Back Button
-            Toolbar toolbar=findViewById(R.id.toolBar);
-            setSupportActionBar(toolbar);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            Intent intent=getIntent();
-            User user= (User) intent.getSerializableExtra("user");
-            EditText userId = findViewById(R.id.editTextTextPersonName);
-            EditText lastLoginTime = findViewById(R.id.editTextTextPersonName2);
-            EditText userEmail = findViewById(R.id.editTextTextPersonName3);
-            EditText userPasswd = findViewById(R.id.editTextTextPersonName4);
-            EditText adminLevel = findViewById(R.id.editTextTextPersonName5);
-            EditText isActive = findViewById(R.id.editTextTextPersonName6);
-            EditText userFname = findViewById(R.id.editTextTextPersonName7);
-            EditText userLname = findViewById(R.id.editTextTextPersonName8);
-            EditText description = findViewById(R.id.editTextTextPersonName9);
-            EditText userType = findViewById(R.id.editTextTextPersonName10);
-            EditText userphoto = findViewById(R.id.editTextTextPersonName11);
-            EditText contractDate = findViewById(R.id.editTextTextPersonName12);
-            EditText userPhone = findViewById(R.id.editTextTextPersonName13);
-            EditText displayColor = findViewById(R.id.editTextTextPersonName14);
-            Button button=findViewById(R.id.button);
-
-            userId.setText(String.valueOf(user.getUserId()) );
-            userEmail.setText(user.getUserEmail());
-            userFname.setText(user.getUserFname());
-            userLname.setText(user.getUserLname());
-            userPasswd.setText(user.getUserPasswd());
-            userPhone.setText(user.getUserPhone());
-            userType.setText(user.getUserType());
-            description.setText(user.getDescription());
-            userphoto.setText(user.getUserphoto());
-
 
         }
         public boolean onOptionsItemSelected(MenuItem item){
@@ -155,7 +125,6 @@ public class test extends AppCompatActivity {
                                 {
                                     Toast.makeText(test.this,"Erreur: Informations incorrects",Toast.LENGTH_LONG).show();
                                 }
-                                Log.e(MainActivity.class.getSimpleName(), error.toString());
                             }
                             catch (NullPointerException ex)
                             {
@@ -223,7 +192,6 @@ public class test extends AppCompatActivity {
                                 {
                                     Toast.makeText(test.this,"Erreur: Informations incorrects",Toast.LENGTH_LONG).show();
                                 }
-                                Log.e(MainActivity.class.getSimpleName(), error.toString());
                             }
                             catch (NullPointerException ex)
                             {
@@ -239,4 +207,5 @@ public class test extends AppCompatActivity {
         }
 
     }
+
 }

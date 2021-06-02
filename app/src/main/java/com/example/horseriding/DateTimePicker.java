@@ -219,7 +219,6 @@ else  txtTime.setText(hourOfDay + ":" + minute+":00");
                                 if (error.networkResponse.statusCode == 400 || error.networkResponse.statusCode == 404) {
                                     Toast.makeText(DateTimePicker.this, "Erreur: Informations incorrects", Toast.LENGTH_LONG).show();
                                 }
-                                Log.e(MainActivity.class.getSimpleName(), error.toString());
                             } catch (NullPointerException ex) {
                                 Toast.makeText(DateTimePicker.this, "Server issue try later", Toast.LENGTH_LONG).show();
                             }

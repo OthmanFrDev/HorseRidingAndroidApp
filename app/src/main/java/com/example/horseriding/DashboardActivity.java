@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +33,7 @@ Dialog dialog;
     CardView cardView ;
 
     BottomNavigationView bnv;
+
     LinearLayout userShape;
     TextView welcomeUserName,nameuser;
     private SessionManager sessionManager;
@@ -45,6 +47,7 @@ Dialog dialog;
 
         bnv=findViewById(R.id.bottom_navigation);
         cardView=findViewById(R.id.cardviewuser);
+
         dialog=new Dialog(this);
         welcomeUserName =findViewById(R.id.welcomeuser);
         nameuser =findViewById(R.id.nameuser);
@@ -91,7 +94,7 @@ Dialog dialog;
 
     public void OnclickCardview(View view) {
 
-        MainActivity main = new MainActivity();
+
         Intent splashIntent = new Intent(DashboardActivity.this, ListActivity.class);
         switch (view.getId()) {
             case R.id.cardviewuser:

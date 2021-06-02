@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     tools:context=".DashboardActivity">
     <LinearLayout
         app:layout_constraintTop_toTopOf="parent"
@@ -14,7 +13,6 @@
         app:layout_constraintStart_toStartOf="parent"
         android:gravity="center_vertical"
         android:id="@id/shapeuser"
-        android:padding="15dp"
         android:layout_width="140dp"
         android:layout_height="130dp"
         android:background="@drawable/rounded_shape_user"
@@ -22,11 +20,11 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textAlignment="center"
             android:id="@+id/nameuser"
             />
 
     </LinearLayout>
-
 
     <TextView
         android:id="@id/welcomeuser"
@@ -43,14 +41,14 @@
         android:layout_width="wrap_content"/>
         <GridLayout
             android:layout_width="match_parent"
-            android:layout_height="400dp"
+            android:layout_height="0dp"
             android:id="@id/dashboard"
             android:layout_below="@id/title_view"
             android:layout_margin="15dp"
             android:columnCount="2"
             android:rowCount="3"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
+            app:layout_constraintTop_toBottomOf="@id/welcomeuser"
             tools:ignore="UnknownId">
 
 
@@ -202,6 +200,7 @@
                         android:textStyle="bold" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
+
 
         </GridLayout>
 

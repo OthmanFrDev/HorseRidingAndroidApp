@@ -150,6 +150,7 @@ public class ListActivity extends AppCompatActivity {
                 }
             }
 
+
             );
 
 
@@ -276,7 +277,6 @@ public class ListActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e(MainActivity.class.getSimpleName(), error.getMessage());
             }
         }
 
@@ -285,6 +285,7 @@ public class ListActivity extends AppCompatActivity {
 
         MySingleton.getInstance(this.getApplicationContext()).addToRequestQueue(req);
     }
+
 //    void getAllTasks() {
 //
 //        JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, WS.URL+"tasks", null, new Response.Listener<JSONArray>() {
@@ -322,33 +323,45 @@ public class ListActivity extends AppCompatActivity {
 //
 //        MySingleton.getInstance(this.getApplicationContext()).addToRequestQueue(req);
 //    }
-//    public List<Seance> getAllSeances() {
-//        JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, WS.URL+"seances", null, new Response.Listener<JSONArray>() {
-//            @Override
-//            public void onResponse(JSONArray response) {
-//
-// /*               TextView txtNom = findViewById(R.id.txtNom);
-//                TextView txtPrenom = findViewById(R.id.txtprenom);
-//                TextView txtMail = findViewById(R.id.userEmail);
-//                TextView txtPasswd = findViewById(R.id.userPasswd);
-//                TextView textView = (TextView) findViewById(R.id.text);
-//                try {*/
-//                    JSONObject j = null;
-//                    for (int i = 0; i < response.length(); i++) {
-//                        try {
-//                            j = response.getJSONObject(i);
-//                            seances.add(new Seance(j.getInt("seanceId"),j.getInt("seanceGrpId"),
-//                                    j.getInt("clientId"),j.getInt("monitorId"),
-//                                    j.getInt("durationMinut"),j.getString("comments"),j.getString("startDate"))) ;
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
-//
-//
-//                    }
-//                listClient.setLayoutManager(new LinearLayoutManager(ListActivity.this));
-//                    listClient.setAdapter(sa);
-//                    /*Integer i = j.getInt("clientId");
+    public List<Seance> getAllSeances() {
+        JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, WS.URL+"seances", null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+
+ /*               TextView txtNom = findViewById(R.id.txtNom);
+                TextView txtPrenom = findViewById(R.id.txtprenom);
+                TextView txtMail = findViewById(R.id.userEmail);
+                TextView txtPasswd = findViewById(R.id.userPasswd);
+                TextView textView = (TextView) findViewById(R.id.text);
+                try {*/
+                    JSONObject j = null;
+                    for (int i = 0; i < response.length(); i++) {
+                        try {
+                            j = response.getJSONObject(i);
+                            seances.add(new Seance(j.getInt("seanceId"),j.getInt("seanceGrpId"),
+                                    j.getInt("clientId"),j.getInt("monitorId"),
+                                    j.getInt("durationMinut"),j.getString("comments"),j.getString("startDate"))) ;
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+
+                    }
+                listClient.setLayoutManager(new LinearLayoutManager(ListActivity.this));
+                    listClient.setAdapter(sa);
+                    /*Integer i = j.getInt("clientId");
+
+                    txtNom.setText(j.getString("fName"));
+                    txtPrenom.setText(j.getString("lName"));
+                    txtMail.setText(j.getString("clientEmail"));
+                    txtPasswd.setText(j.getString("passwd"));
+                    textView.setText(i.toString());
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+
+                }*/
+//                    Integer i = j.getInt("clientId");
 //                    txtNom.setText(j.getString("fName"));
 //                    txtPrenom.setText(j.getString("lName"));
 //                    txtMail.setText(j.getString("clientEmail"));
@@ -357,31 +370,22 @@ public class ListActivity extends AppCompatActivity {
 //
 //                } catch (JSONException e) {
 //                    e.printStackTrace();
-//                }*/
-////                    Integer i = j.getInt("clientId");
-////                    txtNom.setText(j.getString("fName"));
-////                    txtPrenom.setText(j.getString("lName"));
-////                    txtMail.setText(j.getString("clientEmail"));
-////                    txtPasswd.setText(j.getString("passwd"));
-////                    textView.setText(i.toString());
-////
-////                } catch (JSONException e) {
-////                    e.printStackTrace();
-////                }
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                Log.e(MainActivity.class.getSimpleName(), error.getMessage());
-//            }
-//        }
-//
-//        );
-//
-//
-//        MySingleton.getInstance(this.getApplicationContext()).addToRequestQueue(req);
-//        return seances;
-//    }
+//                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(MainActivity.class.getSimpleName(), error.getMessage());
+            }
+        }
+
+        );
+
+
+        MySingleton.getInstance(this.getApplicationContext()).addToRequestQueue(req);
+        return seances;
+    }
+
 
     public void PostUser(View view) {
         Intent intent=getIntent();
