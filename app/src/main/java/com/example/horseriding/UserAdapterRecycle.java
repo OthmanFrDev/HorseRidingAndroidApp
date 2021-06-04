@@ -19,70 +19,74 @@ public class UserAdapterRecycle extends RecyclerView.Adapter<UserAdapterRecycle.
     private List<User> list;
     private List<User> listFiltred;
     private RecycleViewClickListner listner;
+
     @Override
     public Filter getFilter() {
         return new Filter() {
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {
-                String key=constraint.toString();
-                if(key.isEmpty())listFiltred=list;
-                else{
-                    List<User> lFiltred=new ArrayList<>();
-                    for(User u:list){
-                        if(u.getUserFname().toLowerCase().contains(key.toLowerCase())||
-                                u.getUserLname().toLowerCase().contains(key.toLowerCase())){
+                String key = constraint.toString();
+                if (key.isEmpty()) listFiltred = list;
+                else {
+                    List<User> lFiltred = new ArrayList<>();
+                    for (User u : list) {
+                        if (u.getUserFname().toLowerCase().contains(key.toLowerCase()) ||
+                                u.getUserLname().toLowerCase().contains(key.toLowerCase())) {
                             lFiltred.add(u);
                         }
                     }
-                    listFiltred=lFiltred;
+                    listFiltred = lFiltred;
                 }
-                FilterResults filterResults=new FilterResults();
-                filterResults.values=listFiltred;
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = listFiltred;
                 return filterResults;
             }
 
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
-                listFiltred= (List<User>) results.values;
+                listFiltred = (List<User>) results.values;
                 notifyDataSetChanged();
             }
         };
     }
 
-    public class ViewHolder extends  RecyclerView.ViewHolder implements View.OnClickListener{
-        TextView txtName,txtRole;
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        TextView txtName, txtRole;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            txtName=itemView.findViewById(R.id.nameuserlist);
-            txtRole=itemView.findViewById(R.id.userrolelist);
+            txtName = itemView.findViewById(R.id.nameuserlist);
+            txtRole = itemView.findViewById(R.id.userrolelist);
             itemView.setOnClickListener((View.OnClickListener) this);
         }
+
         @Override
         public void onClick(View v) {
-            listner.onClickItem(v,getAdapterPosition());
+            listner.onClickItem(v, getAdapterPosition());
         }
     }
-    public UserAdapterRecycle(Context c, List<User> list,RecycleViewClickListner l){
-        this.context=c;
-        this.list=list;
-        this.listFiltred=list;
-        this.listner=l;
+
+    public UserAdapterRecycle(Context c, List<User> list, RecycleViewClickListner l) {
+        this.context = c;
+        this.list = list;
+        this.listFiltred = list;
+        this.listner = l;
     }
 
 
     @NonNull
     @Override
     public UserAdapterRecycle.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v=LayoutInflater.from(context).inflate(R.layout.activity_ligne__list__user_,parent,false);
+        View v = LayoutInflater.from(context).inflate(R.layout.activity_ligne__list__user_, parent, false);
         return new ViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull UserAdapterRecycle.ViewHolder holder, int position) {
 
-        User u=listFiltred.get(position);
-        holder.txtName.setText(u.getUserId() +" "+
-                u.getUserLname()+" "+u.getUserFname());
+        User u = listFiltred.get(position);
+        holder.txtName.setText(u.getUserId() + " " +
+                u.getUserLname() + " " + u.getUserFname());
 
         holder.txtRole.setText(u.getUserType());
     }
@@ -91,7 +95,8 @@ public class UserAdapterRecycle extends RecyclerView.Adapter<UserAdapterRecycle.
     public int getItemCount() {
         return listFiltred.size();
     }
-    public interface RecycleViewClickListner{
-        void onClickItem(View v,int position);
+
+    public interface RecycleViewClickListner {
+        void onClickItem(View v, int position);
     }
 }

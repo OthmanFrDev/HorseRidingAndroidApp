@@ -2,16 +2,17 @@ package com.example.horseriding;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
+import android.content.res.Configuration;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.GridLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -19,6 +20,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,7 +32,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class MonthView_Calendar extends AppCompatActivity {
-    LocalDate dateInit= LocalDate.of(2020, 9, 14);
+    LocalDate dateInit;
     LinearLayout Lun_1,Mar_1,Mer_1,Jeu_1,Ven_1,Sam_1,Dim_1,
             Lun_2,Mar_2,Mer_2,Jeu_2,Ven_2,Sam_2,Dim_2,
             Lun_3,Mar_3,Mer_3,Jeu_3,Ven_3,Sam_3,Dim_3,
@@ -38,24 +40,40 @@ public class MonthView_Calendar extends AppCompatActivity {
             Lun_5,Mar_5,Mer_5,Jeu_5,Ven_5,Sam_5,Dim_5;
     LocalDate starDate,endDate;
     TextView day;
-    LocalDate firstDate=dateInit.withDayOfMonth(1);
+    Drawable drawable;
+    LocalDate firstDate;
     LinearLayout.LayoutParams params ;
     TextView v;
     String startDateString;
     String endDateString;
     String url;
     String id;
+    String emploitype;
+
+
     DatabaseHandler databaseHandler;
     DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private List<Seance> seances;
+    private GridLayout contentMonth;
+    private BottomNavigationView bnv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle("Emploi du Mois");
         setContentView(R.layout.activity_month_view);
         Intent emploiIntent=getIntent();
         id=emploiIntent.getStringExtra("id");
+        emploitype=getIntent().getStringExtra("emploitype");
         day=findViewById(R.id.day);
+        contentMonth=findViewById(R.id.monthgrid);
+        drawable=getResources().getDrawable(R.drawable.ic_baseline_brightness_1_24,getTheme());
+        if(savedInstanceState!=null){
+            dateInit=LocalDate.parse(savedInstanceState.getString("startDate"));
+        }else{
+            dateInit= LocalDate.of(2020, 9, 14);
+        }
+        firstDate=dateInit.withDayOfMonth(1);
         Lun_1=findViewById(R.id.Lun_1);
         Mar_1=findViewById(R.id.Mar_1);
         Mer_1=findViewById(R.id.Mer_1);
@@ -106,6 +124,25 @@ public class MonthView_Calendar extends AppCompatActivity {
         endDateString = dateFormatter.format(endDate);
         params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         params.setMargins(10,10,10,10);
+        bnv=findViewById(R.id.bottom_navigation);
+        bnv.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Intent i=null;
+                switch(item.getItemId()){
+                    case R.id.hide_nav:findViewById(R.id.floatingActionButtonweek).setVisibility(View.VISIBLE );findViewById(R.id.bottom_navigation).setVisibility(View.INVISIBLE);break;
+                    case R.id.home_nav:i=new Intent(MonthView_Calendar.this,DashboardActivity.class);startActivity(i);finish();break;
+                    case R.id.setting_nav:i = new Intent(MonthView_Calendar.this, EditFormUser.class);
+                        MonthView_Calendar.this.startActivity(i);break;
+                    case R.id.logout_nav:SessionManager sessionManager=new SessionManager(MonthView_Calendar.this);
+                        sessionManager.logout();
+                        Intent splashIntent = new Intent(MonthView_Calendar.this, LoginActivity.class);
+                        MonthView_Calendar.this.startActivity(splashIntent);
+                        MonthView_Calendar.this.finish();break;
+                }
+                return true;
+            }
+        });
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -120,8 +157,8 @@ public class MonthView_Calendar extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.month_view:findViewById(R.id.week_view).setVisibility(View.INVISIBLE);break;
 
-            case R.id.week_view:i=new Intent(MonthView_Calendar.this, WeekView_Calendar.class);startActivity(i);finish();break;
-            case R.id.day_view:i=new Intent(MonthView_Calendar.this, DayView_calendar.class);startActivity(i);finish();break;
+            case R.id.week_view:calenderSwitcher(MonthView_Calendar.this,WeekView_Calendar.class);break;
+            case R.id.day_view:calenderSwitcher(MonthView_Calendar.this,DayView_calendar.class);break;
 
         }
         return true;
@@ -130,26 +167,28 @@ public class MonthView_Calendar extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
-
         emploitype();
-day.setText(firstDate.getMonth().toString()+" "+firstDate.getYear());
+        day.setText(firstDate.getMonth().toString()+" "+firstDate.getYear());
         JsonArrayRequest jsonWeek1=new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 LocalDateTime dateFromResponse;
                 JSONObject j = null;
+
                 for(int i=0;i<response.length();i++){
                     v=new TextView(MonthView_Calendar.this);
                     v.setLayoutParams(params);
                     v.setBackgroundResource(R.drawable.textview_border);
                     v.setTextSize(11);
-
+                    v.setCompoundDrawablesWithIntrinsicBounds(drawable,null,null,null);
                     try {
                         
                         j = response.getJSONObject(i);
                         dateFromResponse=LocalDateTime.parse(j.getString("startDate"));
-                        v.setText(j.getInt("seanceId")+"\n"+""+""+dateFromResponse.getDayOfMonth());
+                        v.setText(" "+ String.valueOf(j.getInt("seanceId")) );
+
+
+
                         switch (dateFromResponse.getDayOfWeek().getValue()){
                             case 1:Lun_1.addView(v);break;
                             case 2:Mar_1.addView(v);break;
@@ -188,11 +227,12 @@ day.setText(firstDate.getMonth().toString()+" "+firstDate.getYear());
                     v.setLayoutParams(params);
                     v.setBackgroundResource(R.drawable.textview_border);
                     v.setTextSize(11);
+                    v.setCompoundDrawablesWithIntrinsicBounds(drawable,null,null,null);
 
                     try {
 
                         j = response.getJSONObject(i);
-                        v.setText(String.valueOf(j.getInt("seanceId")) );
+                        v.setText(" "+String.valueOf(j.getInt("seanceId")) );
                         dateFromResponse=LocalDateTime.parse(j.getString("startDate"));
                         switch (dateFromResponse.getDayOfWeek().getValue()){
                             case 1:Lun_2.addView(v);break;
@@ -231,10 +271,11 @@ day.setText(firstDate.getMonth().toString()+" "+firstDate.getYear());
                     v.setLayoutParams(params);
                     v.setBackgroundResource(R.drawable.textview_border);
                     v.setTextSize(11);
+                    v.setCompoundDrawablesWithIntrinsicBounds(drawable,null,null,null);
                     try {
 
                         j = response.getJSONObject(i);
-                        v.setText(String.valueOf(j.getInt("seanceId")) );
+                        v.setText(" "+String.valueOf(j.getInt("seanceId")) );
                         dateFromResponse=LocalDateTime.parse(j.getString("startDate"));
                         switch (dateFromResponse.getDayOfWeek().getValue()){
                             case 1:Lun_3.addView(v);break;
@@ -274,9 +315,10 @@ day.setText(firstDate.getMonth().toString()+" "+firstDate.getYear());
                     v.setLayoutParams(params);
                     v.setBackgroundResource(R.drawable.textview_border);
                     v.setTextSize(11);
+                    v.setCompoundDrawablesWithIntrinsicBounds(drawable,null,null,null);
                     try {
                         j = response.getJSONObject(i);
-                        v.setText(String.valueOf(j.getInt("seanceId")) );
+                        v.setText(" "+String.valueOf(j.getInt("seanceId")) );
                         dateFromResponse=LocalDateTime.parse(j.getString("startDate"));
                         switch (dateFromResponse.getDayOfWeek().getValue()){
                             case 1:Lun_4.addView(v);break;
@@ -316,9 +358,10 @@ day.setText(firstDate.getMonth().toString()+" "+firstDate.getYear());
                     v.setLayoutParams(params);
                     v.setBackgroundResource(R.drawable.textview_border);
                     v.setTextSize(11);
+                    v.setCompoundDrawablesWithIntrinsicBounds(drawable,null,null,null);
                     try {
                         j = response.getJSONObject(i);
-                        v.setText(String.valueOf(j.getInt("seanceId")) );
+                        v.setText(" "+String.valueOf(j.getInt("seanceId")) );
                         dateFromResponse=LocalDateTime.parse(j.getString("startDate"));
                         switch (dateFromResponse.getDayOfWeek().getValue()){
                             case 1:Lun_5.addView(v);break;
@@ -346,16 +389,31 @@ day.setText(firstDate.getMonth().toString()+" "+firstDate.getYear());
 
     }
 
-    public void previousMonth(View view) {
-        firstDate=firstDate.minusMonths(1);
-        onResume();
 
+    public void monthChanger(View view){
+        switch(view.getId())
+        {
+            case R.id.btnnext:  firstDate=firstDate.plusMonths(1);
+                break;
+            case R.id.btnprevious:   firstDate=firstDate.minusMonths(1);
+                break;
+        }
+        init();
+        starDate=firstDate;endDate=firstDate;
+        switch(firstDate.getDayOfWeek().getValue()) {
+            case 1:starDate=firstDate;endDate=starDate.plusDays(6);break;
+            case 2:starDate=firstDate.minusDays(1);endDate=starDate.plusDays(6);break;
+            case 3:starDate=firstDate.minusDays(2);endDate=starDate.plusDays(6);break;
+            case 4:starDate=firstDate.minusDays(3);endDate=starDate.plusDays(6);break;
+            case 5:starDate=firstDate.minusDays(4);endDate=starDate.plusDays(6);break;
+            case 6:starDate=firstDate.minusDays(5);endDate=starDate.plusDays(6);break;
+            case 7:starDate=firstDate.minusDays(6);endDate=starDate.plusDays(6);break;
+        }
+        startDateString = dateFormatter.format(starDate);
+        endDateString = dateFormatter.format(endDate);
+        onResume();
     }
 
-    public void nextMonth(View view) {
-        firstDate=firstDate.plusMonths(1);
-        onResume();
-    }
     private void emploitype() {
         if (getIntent().getStringExtra("emploitype") != null) {
             switch (getIntent().getStringExtra("emploitype")) {
@@ -368,17 +426,49 @@ day.setText(firstDate.getMonth().toString()+" "+firstDate.getYear());
                     url = WS.URL + "seances/monitor/" + startDateString + "/" + endDateString + "/" + id;
                     //getTache();
                     seances = databaseHandler.readUserSeance(Integer.valueOf(id));
-
                     break;
                 case "2":
                     url = WS.URL + "seances/" + startDateString + "/" + endDateString + "/" + id;
                     seances = databaseHandler.readClientSeance(Integer.valueOf(id));
                     break;
-
             }
         } else {
             url = WS.URL + "seances/" + startDateString + "/" + endDateString; //getTache();
         }
 
+    }
+    void init()
+    {
+        LinearLayout l=null;
+        int nb=0;
+        int orientation = getResources().getConfiguration().orientation;
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            nb=7;
+        }
+        for(int i = nb; i< contentMonth.getChildCount(); i++){
+                l=(LinearLayout) contentMonth.getChildAt(i);
+                l.removeAllViews();
+        }
+    }
+    private void calenderSwitcher(Context context, Class<?> CLASS) {
+        Intent i=null;
+        i=new Intent(context, CLASS);
+        if(getIntent().getStringExtra("emploitype")!=null){
+            switch (getIntent().getStringExtra("emploitype"))
+            {
+                case "0": startActivity(i);finish();break;
+                case "1":  i.putExtra("emploitype","1");i.putExtra("id",id); startActivity(i);finish();break;
+                case "2":i.putExtra("emploitype","2");i.putExtra("id",id); startActivity(i);finish();break;
+            }
+        }else{ startActivity(i);finish(); }
+    }
+    public void onclickbtn(View view) {
+        findViewById(R.id.floatingActionButtonweek).setVisibility(View.INVISIBLE);findViewById(R.id.bottom_navigation).setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("startDate",starDate+"");
     }
 }

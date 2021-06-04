@@ -30,7 +30,6 @@
             android:layout_columnWeight="1"
             android:text="LUN"
             android:gravity="center"
-            
             android:layout_rowWeight="1"
             android:id="@id/day" />
 
@@ -61,6 +60,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <GridLayout
+                    android:id="@+id/gridweekdyalhadi"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:rowCount="1"
@@ -146,6 +146,7 @@
                     </GridLayout>
 
                     <GridLayout
+                        android:id="@+id/lungrid"
                         android:layout_rowWeight="1"
                         android:layout_columnWeight="1"
                         android:layout_width="100dp"
@@ -266,6 +267,7 @@
                             android:text="" android:background="@drawable/border" android:layout_height="80dp"  android:orientation="vertical"></LinearLayout>
                     </GridLayout>
                     <GridLayout
+                        android:id="@+id/margrid"
                         android:layout_rowWeight="1"
                         android:layout_columnWeight="1"
                         android:layout_height="match_parent"
@@ -380,6 +382,7 @@
 
                     </GridLayout>
                     <GridLayout
+                        android:id="@+id/mergrid"
                         android:layout_rowWeight="1"
                         android:layout_columnWeight="1"
                         android:layout_height="match_parent"
@@ -494,6 +497,7 @@
 
                     </GridLayout>
                     <GridLayout
+                        android:id="@+id/jeugrid"
                         android:layout_rowWeight="1"
                         android:layout_columnWeight="1"
                         android:layout_width="100dp"
@@ -608,6 +612,7 @@
 
                     </GridLayout>
                     <GridLayout
+                        android:id="@+id/vengrid"
                         android:layout_rowWeight="1"
                         android:layout_columnWeight="1"
                         android:layout_width="100dp"
@@ -722,6 +727,7 @@
 
                     </GridLayout>
                     <GridLayout
+                        android:id="@+id/samgrid"
                         android:layout_rowWeight="1"
                         android:layout_columnWeight="1"
                         android:layout_width="100dp"
@@ -836,6 +842,7 @@
 
                     </GridLayout>
                     <GridLayout
+                        android:id="@+id/dimgrid"
                         android:layout_rowWeight="1"
                         android:layout_columnWeight="1"
                         android:layout_height="match_parent"
@@ -953,8 +960,9 @@
                 </GridLayout>
             </HorizontalScrollView>
         </ScrollView>
->>>>>>> d41ac055ab46e323985f7869385aafd22a4fef34
+
     </LinearLayout>
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -962,9 +970,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:elevation="2dp"
-        android:onClick="onclickbtn"
-        android:visibility="invisible"
         android:layout_margin="20dp"
+
         app:menu="@menu/item_menu"
         android:background="@drawable/rounded_selector"
         app:itemIconSize="30dp"
@@ -972,17 +979,20 @@
         android:id="@id/bottom_navigation"
         />
 
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@id/floatingActionButtonweek"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="end|bottom"
-        android:layout_margin="20dp"
-        android:clickable="true"
-        android:onClick="onclickbtn"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:srcCompat="@android:drawable/ic_input_add" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="invisible"
+        android:layout_gravity="end|bottom"
+        android:backgroundTint="@color/orange"
+        android:layout_margin="20dp"
+        android:onClick="onclickbtn"
+        android:src="@drawable/ic_baseline_dehaze_50"
+        android:clickable="true"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>
 

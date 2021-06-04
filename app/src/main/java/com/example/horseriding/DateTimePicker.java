@@ -1,6 +1,7 @@
 package com.example.horseriding;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 
@@ -8,8 +9,10 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -70,11 +73,21 @@ public class DateTimePicker extends AppCompatActivity implements
         txtTime.setText(intent.getStringExtra("time"));
         NumberPicker np = findViewById(R.id.numberPicker);
 
-        np.setMinValue(1);
+        np.setMinValue(0);
         np.setMaxValue(8);
 
         np.setOnValueChangedListener(onValueChangeListener);
+        Toolbar toolbar=findViewById(R.id.toolBar);
+        int orientation = getResources().getConfiguration().orientation;
+        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+            setSupportActionBar(toolbar);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);}
+    }
+    public boolean onOptionsItemSelected(MenuItem item){
 
+        Intent myIntent = new Intent(getApplicationContext(),DayView_calendar.class);
+        startActivity(myIntent);
+        return true;
     }
     NumberPicker.OnValueChangeListener onValueChangeListener =
             new 	NumberPicker.OnValueChangeListener(){

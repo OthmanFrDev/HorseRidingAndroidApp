@@ -233,7 +233,6 @@
         android:layout_margin="20dp"
         android:onClick="onclickbtn"
         android:src="@drawable/ic_baseline_dehaze_50"
-        android:clickable="true"
-        tools:layout_editor_absoluteX="349dp" />
+        android:clickable="true" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 
