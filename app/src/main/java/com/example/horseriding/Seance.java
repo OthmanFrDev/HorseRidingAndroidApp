@@ -3,8 +3,8 @@ package com.example.horseriding;
 import java.io.Serializable;
 
 public class Seance implements Serializable {
-    private int seanceId,seanceGrpId,clientId,monitorId,durationMinut;
-    private String comments,startDate;
+    private int seanceId, seanceGrpId, clientId, monitorId, durationMinut;
+    private String comments, startDate;
 
     public Seance(int seanceId, String comments, int clientId, int monitorId, int durationMinut, String startDate) {
         this.seanceId = seanceId;
@@ -12,7 +12,7 @@ public class Seance implements Serializable {
         this.monitorId = monitorId;
         this.durationMinut = durationMinut;
         this.comments = comments;
-        this.startDate=startDate;
+        this.startDate = startDate;
     }
 
     public String getStartDate() {
@@ -23,14 +23,14 @@ public class Seance implements Serializable {
         this.startDate = startDate;
     }
 
-    public Seance(int seanceId, int seanceGrpId, int clientId, int monitorId, int durationMinut, String comments,String startDate) {
+    public Seance(int seanceId, int seanceGrpId, int clientId, int monitorId, int durationMinut, String comments, String startDate) {
         this.seanceId = seanceId;
         this.seanceGrpId = seanceGrpId;
         this.clientId = clientId;
         this.monitorId = monitorId;
         this.durationMinut = durationMinut;
         this.comments = comments;
-        this.startDate=startDate;
+        this.startDate = startDate;
     }
 
     public int getSeanceId() {

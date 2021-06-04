@@ -22,8 +22,9 @@ public class ligne_List_User_Activity extends AppCompatActivity {
 
     public void getemplois(View view) {
 
+
        TextView id= view.findViewById(R.id.userrolelist);
-        Log.d("emploisssssssssss",id.getText().toString());
+
 
     }
 }

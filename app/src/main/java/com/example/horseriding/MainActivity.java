@@ -28,14 +28,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
 public class MainActivity extends AppCompatActivity {
-    public static List<User> users=new ArrayList<>();
+    public static List<User> users = new ArrayList<>();
 
     private SharedPreferences sharedpreferences;
 
 
-     @Override
+    @Override
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,33 +42,16 @@ public class MainActivity extends AppCompatActivity {
 
         DatabaseHandler db = new DatabaseHandler(this);
 
-        // Inserting Contacts
-       /* Log.d("Insert: ", "Inserting ..");
-        db.addClient(new Client(10, "ayoub", "nemmassi", "default.jpg", "AE132456", "ayoub.nemmassi@gmail.com", "00000", "0623350687", "nothing"));
-        db.addUser(new User(7, "othman.froukh@gmail.com", "0000", "othman", "froukh", "nothing", "admin", "default.jpg", "0645879878"));
-
-
-        // Reading all contacts
-        Log.d("Reading: ", "Reading all contacts..");
-        List<Client> clients = db.getAllContacts();
-
-        for (Client cn : clients) {
-            String log = "Id: " + cn.getClientId() + " ,Name: " + cn.getfName() + " ,Phone: " +
-                    cn.getClientPhone();
-            // Writing Contacts to log
-            Log.d("Name: ", log);
-        }*/
-        //test
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-    users=getAllUsers();
+        users = getAllUsers();
         //login();
         //Log.d("shared", sharedpreferences.getString("nomUtilisateur", null));
-       // getAllUsers();
+        // getAllUsers();
 // ...
 
        /* // Instantiate the RequestQueue.
@@ -104,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void getUser(String id) {
-        JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET, WS.URL + "users"+"/" + id, null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET, WS.URL + "users" + "/" + id, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Log.d(MainActivity.class.getSimpleName(), response.toString());
@@ -117,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
                     User user = new User(response.getInt("userId"), response.getString("userEmail"),
                             response.getString("userPasswd"), response.getString("userFname"),
                             response.getString("userLname"), response.getString("description"),
-                            response.getString("userType"), response.getString("userphoto"), response.getString("userPhone"),response.getString("lastLoginTime"),response.getString("displayColor"));
+                            response.getString("userType"), response.getString("userphoto"), response.getString("userPhone"), response.getString("lastLoginTime"), response.getString("displayColor"));
                   /*  if(response.has("seances"))
                     {
                         JSONArray ja= response.getJSONArray("seances");
@@ -167,8 +149,9 @@ public class MainActivity extends AppCompatActivity {
         );
         MySingleton.getInstance(this.getApplicationContext()).addToRequestQueue(req);
     }
+
     void getClient(String id) {
-        JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET, WS.URL + "clients"+"/" + id, null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET, WS.URL + "clients" + "/" + id, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Log.d(MainActivity.class.getSimpleName(), response.toString());
@@ -231,8 +214,9 @@ public class MainActivity extends AppCompatActivity {
         );
         MySingleton.getInstance(this.getApplicationContext()).addToRequestQueue(req);
     }
+
     void getTask(String id) {
-        JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET, WS.URL + "tasks"+"/" + id, null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET, WS.URL + "tasks" + "/" + id, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Log.d(MainActivity.class.getSimpleName(), response.toString());
@@ -242,8 +226,8 @@ public class MainActivity extends AppCompatActivity {
                 TextView txtPasswd = findViewById(R.id.userPasswd);
                 TextView textView = (TextView) findViewById(R.id.text);
                 try {
-                    Task task =new Task(response.getInt("taskId"),response.getInt("durationMinut"),
-                            response.getInt("userFk"),response.getString("title"),response.getString("detail"));
+                    Task task = new Task(response.getInt("taskId"), response.getInt("durationMinut"),
+                            response.getInt("userFk"), response.getString("title"), response.getString("detail"));
                   /*  if(response.has("seances"))
                     {
                         JSONArray ja= response.getJSONArray("seances");
@@ -289,8 +273,9 @@ public class MainActivity extends AppCompatActivity {
         );
         MySingleton.getInstance(this.getApplicationContext()).addToRequestQueue(req);
     }
+
     void getSeance(String id) {
-        JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET, WS.URL + "seances"+"/" + id, null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET, WS.URL + "seances" + "/" + id, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Log.d(MainActivity.class.getSimpleName(), response.toString());
@@ -300,9 +285,9 @@ public class MainActivity extends AppCompatActivity {
                 TextView txtPasswd = findViewById(R.id.userPasswd);
                 TextView textView = (TextView) findViewById(R.id.text);
                 try {
-                    Seance seance = new Seance(response.getInt("seanceId"),response.getInt("seanceGrpId"),
-                            response.getInt("clientId"),response.getInt("monitorId"),
-                            response.getInt("durationMinut"),response.getString("comments"),response.getString("startDate"));
+                    Seance seance = new Seance(response.getInt("seanceId"), response.getInt("seanceGrpId"),
+                            response.getInt("clientId"), response.getInt("monitorId"),
+                            response.getInt("durationMinut"), response.getString("comments"), response.getString("startDate"));
                   /*  if(response.has("seances"))
                     {
                         JSONArray ja= response.getJSONArray("seances");
@@ -349,9 +334,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public List<User> getAllUsers() {
-         List<User>users=new ArrayList<>() ;
+        List<User> users = new ArrayList<>();
 
-        JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, WS.URL+"users", null, new Response.Listener<JSONArray>() {
+        JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, WS.URL + "users", null, new Response.Listener<JSONArray>() {
 
             @Override
             public void onResponse(JSONArray response) {
@@ -360,12 +345,12 @@ public class MainActivity extends AppCompatActivity {
                 JSONObject j = null;
                 for (int i = 0; i < response.length(); i++) {
                     try {
-                          j = response.getJSONObject(i);
+                        j = response.getJSONObject(i);
 
                         users.add(new User(j.getInt("userId"), j.getString("userEmail"),
                                 j.getString("userPasswd"), j.getString("userFname"),
                                 j.getString("userLname"), j.getString("description"),
-                                j.getString("userType"), j.getString("userphoto"), j.getString("userPhone"),j.getString("lastLoginTime"),j.getString("displayColor")));
+                                j.getString("userType"), j.getString("userphoto"), j.getString("userPhone"), j.getString("lastLoginTime"), j.getString("displayColor")));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -388,8 +373,9 @@ public class MainActivity extends AppCompatActivity {
         MySingleton.getInstance(this.getApplicationContext()).addToRequestQueue(req);
         return users;
     }
+
     void getAllClients() {
-        JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, WS.URL+"clients", null, new Response.Listener<JSONArray>() {
+        JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, WS.URL + "clients", null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
 
@@ -432,8 +418,9 @@ public class MainActivity extends AppCompatActivity {
 
         MySingleton.getInstance(this.getApplicationContext()).addToRequestQueue(req);
     }
+
     void getAllTasks() {
-        JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, WS.URL+"tasks", null, new Response.Listener<JSONArray>() {
+        JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, WS.URL + "tasks", null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
 
@@ -476,8 +463,9 @@ public class MainActivity extends AppCompatActivity {
 
         MySingleton.getInstance(this.getApplicationContext()).addToRequestQueue(req);
     }
+
     void getAllSeances() {
-        JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, WS.URL+"seances", null, new Response.Listener<JSONArray>() {
+        JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, WS.URL + "seances", null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
 
@@ -520,7 +508,6 @@ public class MainActivity extends AppCompatActivity {
 
         MySingleton.getInstance(this.getApplicationContext()).addToRequestQueue(req);
     }
-
 
 
 }

@@ -2,15 +2,15 @@ package com.example.horseriding;
 
 public class Note {
     int id;
-    String date,notes;
+    String date, notes;
 
     public Note() {
 
     }
 
     public Note(String date, String notes) {
-        this.date=date;
-        this.notes=notes;
+        this.date = date;
+        this.notes = notes;
     }
 
     public int getId() {
@@ -20,8 +20,6 @@ public class Note {
     public void setId(int id) {
         this.id = id;
     }
-
-
 
 
     public String getDate() {

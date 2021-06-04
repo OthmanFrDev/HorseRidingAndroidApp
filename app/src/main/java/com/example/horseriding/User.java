@@ -8,24 +8,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class User implements Serializable {
-private int userId,adminLevel,isActive;
-private String userEmail,userPasswd,userFname,userLname,description,userType,userphoto,userPhone,lastLoginTime,displayColor;
+    private int userId, adminLevel, isActive;
+    private String userEmail, userPasswd, userFname, userLname, description, userType, userphoto, userPhone, lastLoginTime, displayColor;
 
     private List<Seance> seances;
-    private  List<Task> tasks;
+    private List<Task> tasks;
 
 
     @Override
     public String toString() {
-        return userFname+" " +userLname;
-
+        return userFname + " " + userLname;
 
 
     }
-    public User(){
+
+    public User() {
 
     }
-    public User(int userId, String userEmail, String userPasswd, String userFname, String userLname, String description, String userType, String userphoto, String userPhone,String lastLoginTime,String displayColor) {
+
+    public User(int userId, String userEmail, String userPasswd, String userFname, String userLname, String description, String userType, String userphoto, String userPhone, String lastLoginTime, String displayColor) {
         this.userId = userId;
         this.userEmail = userEmail;
         this.userPasswd = userPasswd;
@@ -35,16 +36,18 @@ private String userEmail,userPasswd,userFname,userLname,description,userType,use
         this.userType = userType;
         this.userphoto = userphoto;
         this.userPhone = userPhone;
-        this.lastLoginTime=lastLoginTime;
-        this.displayColor=displayColor;
+        this.lastLoginTime = lastLoginTime;
+        this.displayColor = displayColor;
     }
+
     public void setSeances(Seance seance) {
         seances.add(seance);
     }
-    public   void addSeance(Seance seance)
-    {
-        if(seances==null)
-        {seances=new ArrayList<Seance>();}
+
+    public void addSeance(Seance seance) {
+        if (seances == null) {
+            seances = new ArrayList<Seance>();
+        }
         seances.add(seance);
     }
 

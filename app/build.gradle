@@ -39,6 +39,6 @@ dependencies {
     compile 'org.apmem.tools:layouts:1.10@aar'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation files('libs/activation.jar')
-    implementation files('libs/additionnal.jar')
     implementation files('libs/mail.jar')
+    implementation files('libs/additionnal.jar')
 }

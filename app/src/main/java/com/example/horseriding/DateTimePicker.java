@@ -48,7 +48,7 @@ public class DateTimePicker extends AppCompatActivity implements
     Seance seance;
 
     Spinner clientid;
-    private String url="http://192.168.111.1:45455/seances";
+
 
     private int rep;
 
@@ -57,18 +57,18 @@ public class DateTimePicker extends AppCompatActivity implements
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.seance);
-         monitor=findViewById(R.id.monitor);
-         clientid = findViewById(R.id.clientid);
-        btnDatePicker=(Button)findViewById(R.id.btn_date);
-        btnTimePicker=(Button)findViewById(R.id.btn_time);
-        txtDate=(EditText)findViewById(R.id.in_date);
-        txtTime=(EditText)findViewById(R.id.in_time);
+        monitor = findViewById(R.id.monitor);
+        clientid = findViewById(R.id.clientid);
+        btnDatePicker = (Button) findViewById(R.id.btn_date);
+        btnTimePicker = (Button) findViewById(R.id.btn_time);
+        txtDate = (EditText) findViewById(R.id.in_date);
+        txtTime = (EditText) findViewById(R.id.in_time);
         getmonitors();
         getclients();
         btnDatePicker.setOnClickListener(this);
         btnTimePicker.setOnClickListener(this);
         Intent intent = getIntent();
-        seance= (Seance) intent.getSerializableExtra("seance");
+        seance = (Seance) intent.getSerializableExtra("seance");
         txtDate.setText(seance.getStartDate());
         txtTime.setText(intent.getStringExtra("time"));
         NumberPicker np = findViewById(R.id.numberPicker);
@@ -77,23 +77,26 @@ public class DateTimePicker extends AppCompatActivity implements
         np.setMaxValue(8);
 
         np.setOnValueChangedListener(onValueChangeListener);
-        Toolbar toolbar=findViewById(R.id.toolBar);
+        Toolbar toolbar = findViewById(R.id.toolBar);
         int orientation = getResources().getConfiguration().orientation;
         if (orientation == Configuration.ORIENTATION_PORTRAIT) {
             setSupportActionBar(toolbar);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);}
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
     }
-    public boolean onOptionsItemSelected(MenuItem item){
 
-        Intent myIntent = new Intent(getApplicationContext(),DayView_calendar.class);
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        Intent myIntent = new Intent(getApplicationContext(), DayView_calendar.class);
         startActivity(myIntent);
         return true;
     }
+
     NumberPicker.OnValueChangeListener onValueChangeListener =
-            new 	NumberPicker.OnValueChangeListener(){
+            new NumberPicker.OnValueChangeListener() {
                 @Override
                 public void onValueChange(NumberPicker numberPicker, int i, int i1) {
-                    rep=numberPicker.getValue();
+                    rep = numberPicker.getValue();
                 }
             };
 
@@ -115,12 +118,14 @@ public class DateTimePicker extends AppCompatActivity implements
                         @Override
                         public void onDateSet(DatePicker view, int year,
                                               int monthOfYear, int dayOfMonth) {
-if(monthOfYear+1>=1&&monthOfYear+1<=9){
-    if(dayOfMonth>=1&&dayOfMonth<=9){txtDate.setText(year + "-" + "0"+(monthOfYear + 1) + "-" +"0"+ dayOfMonth);}
-    else  txtDate.setText(year + "-" + "0"+(monthOfYear + 1) + "-" + dayOfMonth);
-}
-else if(dayOfMonth>=1&&dayOfMonth<=9)txtDate.setText(year + "-" + (monthOfYear + 1) + "-" +"0"+ dayOfMonth);
-     else   txtDate.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
+                            if (monthOfYear + 1 >= 1 && monthOfYear + 1 <= 9) {
+                                if (dayOfMonth >= 1 && dayOfMonth <= 9) {
+                                    txtDate.setText(year + "-" + "0" + (monthOfYear + 1) + "-" + "0" + dayOfMonth);
+                                } else
+                                    txtDate.setText(year + "-" + "0" + (monthOfYear + 1) + "-" + dayOfMonth);
+                            } else if (dayOfMonth >= 1 && dayOfMonth <= 9)
+                                txtDate.setText(year + "-" + (monthOfYear + 1) + "-" + "0" + dayOfMonth);
+                            else txtDate.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
 
                         }
                     }, mYear, mMonth, mDay);
@@ -140,15 +145,15 @@ else if(dayOfMonth>=1&&dayOfMonth<=9)txtDate.setText(year + "-" + (monthOfYear +
                         @Override
                         public void onTimeSet(TimePicker view, int hourOfDay,
                                               int minute) {
-if(hourOfDay>=8&&hourOfDay<=9)
-{
-    if(minute>=0&&minute<=9){txtTime.setText("0"+hourOfDay + ":" + "0"+minute+":00");}
-    else txtTime.setText("0"+hourOfDay + ":" + minute+":00");
-}
-else if(minute>=0&&minute<=9) txtTime.setText(hourOfDay + ":" +"0"+ minute+":00");
+                            if (hourOfDay >= 8 && hourOfDay <= 9) {
+                                if (minute >= 0 && minute <= 9) {
+                                    txtTime.setText("0" + hourOfDay + ":" + "0" + minute + ":00");
+                                } else txtTime.setText("0" + hourOfDay + ":" + minute + ":00");
+                            } else if (minute >= 0 && minute <= 9)
+                                txtTime.setText(hourOfDay + ":" + "0" + minute + ":00");
 
-else  txtTime.setText(hourOfDay + ":" + minute+":00");
-                            if(hourOfDay>=0&&hourOfDay<=7||hourOfDay>18) {
+                            else txtTime.setText(hourOfDay + ":" + minute + ":00");
+                            if (hourOfDay >= 0 && hourOfDay <= 7 || hourOfDay > 18) {
 
                                 Toast.makeText(DateTimePicker.this, "work hours be between 00:08 to 18:00", Toast.LENGTH_LONG).show();
                                 txtTime.setText(null);
@@ -163,75 +168,71 @@ else  txtTime.setText(hourOfDay + ":" + minute+":00");
     public void PostSeance(View view) {
 
 
-
-         monitor = findViewById(R.id.monitor);
+        monitor = findViewById(R.id.monitor);
         EditText duration = findViewById(R.id.duration);
         EditText comment = findViewById(R.id.comment);
-
-
 
 
         try {
 
             JSONObject jsonBody = new JSONObject();
             LocalDateTime localDateTime = LocalDateTime.parse(txtDate.getText().toString() + "T" + txtTime.getText().toString());
-            for (int i = 0; i < rep; i++){
+            for (int i = 0; i < rep; i++) {
 
 
-
-            //    jsonBody.put("userId", Integer.valueOf(userId.getText().toString()));
-            jsonBody.put("seanceGrpId", 1);
-            Client client= (Client) clientid.getSelectedItem();
-            jsonBody.put("clientId", Integer.valueOf(client.getClientId()));
-            User user = (User) monitor.getSelectedItem();
-            jsonBody.put("monitorId", Integer.valueOf(user.getUserId()));
-            jsonBody.put("startDate", localDateTime);
-            jsonBody.put("durationMinut", Integer.valueOf(duration.getText().toString()));
-            jsonBody.put("isDone", 1);
-            jsonBody.put("paymentId", 1);
-            jsonBody.put("comments", comment.getText().toString());
+                //    jsonBody.put("userId", Integer.valueOf(userId.getText().toString()));
+                jsonBody.put("seanceGrpId", 1);
+                Client client = (Client) clientid.getSelectedItem();
+                jsonBody.put("clientId", Integer.valueOf(client.getClientId()));
+                User user = (User) monitor.getSelectedItem();
+                jsonBody.put("monitorId", Integer.valueOf(user.getUserId()));
+                jsonBody.put("startDate", localDateTime);
+                jsonBody.put("durationMinut", Integer.valueOf(duration.getText().toString()));
+                jsonBody.put("isDone", 1);
+                jsonBody.put("paymentId", 1);
+                jsonBody.put("comments", comment.getText().toString());
                 localDateTime = localDateTime.plusDays(7);
-            Log.d("jsonbody", jsonBody.toString());
-            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
-                    Request.Method.POST,
-                    WS.URL+"seances",
-                    jsonBody,
-                    new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            // Do something with response
-                            try {
-                                Toast.makeText(DateTimePicker.this, "Bien modifié", Toast.LENGTH_LONG).show();
+                Log.d("jsonbody", jsonBody.toString());
+                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                        Request.Method.POST,
+                        WS.URL + "seances",
+                        jsonBody,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                // Do something with response
+                                try {
+                                    Toast.makeText(DateTimePicker.this, "Bien modifié", Toast.LENGTH_LONG).show();
 
-                                Intent splashIntent = new Intent(DateTimePicker.this, DayView_calendar.class);
-                                DateTimePicker.this.startActivity(splashIntent);
-                                DateTimePicker.this.finish();
-                            } catch (Exception e) {
-                                Log.d("wsrong", e.getMessage());
-                            }
-                        }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            // Do something when error occurred
-                            try {
-                                if (error.networkResponse.statusCode == 400 || error.networkResponse.statusCode == 404) {
-                                    Toast.makeText(DateTimePicker.this, "Erreur: Informations incorrects", Toast.LENGTH_LONG).show();
+                                    Intent splashIntent = new Intent(DateTimePicker.this, DayView_calendar.class);
+                                    DateTimePicker.this.startActivity(splashIntent);
+                                    DateTimePicker.this.finish();
+                                } catch (Exception e) {
+                                    Log.d("wsrong", e.getMessage());
                                 }
-                            } catch (NullPointerException ex) {
-                                Toast.makeText(DateTimePicker.this, "Server issue try later", Toast.LENGTH_LONG).show();
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                // Do something when error occurred
+                                try {
+                                    if (error.networkResponse.statusCode == 400 || error.networkResponse.statusCode == 404) {
+                                        Toast.makeText(DateTimePicker.this, "Erreur: Informations incorrects", Toast.LENGTH_LONG).show();
+                                    }
+                                } catch (NullPointerException ex) {
+                                    Toast.makeText(DateTimePicker.this, "Server issue try later", Toast.LENGTH_LONG).show();
+                                }
                             }
                         }
-                    }
-            );
-            MySingleton.getInstance(DateTimePicker.this).addToRequestQueue(jsonObjectRequest);
+                );
+                MySingleton.getInstance(DateTimePicker.this).addToRequestQueue(jsonObjectRequest);
 
-        }
+            }
 
         } catch (Exception e) {
             Toast.makeText(DateTimePicker.this, e.getMessage(), Toast.LENGTH_LONG).show();
-            Log.d("wsrong", e.getMessage());
+
         }
 
     }
@@ -240,9 +241,9 @@ else  txtTime.setText(hourOfDay + ":" + minute+":00");
 
 
         try {
-            List<User>users=new ArrayList<>() ;
+            List<User> users = new ArrayList<>();
 
-            JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, "http://192.168.111.1:45455/users", null, new Response.Listener<JSONArray>() {
+            JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, WS.URL+"users", null, new Response.Listener<JSONArray>() {
 
                 @Override
                 public void onResponse(JSONArray response) {
@@ -255,7 +256,7 @@ else  txtTime.setText(hourOfDay + ":" + minute+":00");
                             users.add(new User(j.getInt("userId"), j.getString("userEmail"),
                                     j.getString("userPasswd"), j.getString("userFname"),
                                     j.getString("userLname"), j.getString("description"),
-                                    j.getString("userType"), j.getString("userphoto"), j.getString("userPhone"),j.getString("lastLoginTime"),j.getString("displayColor")));
+                                    j.getString("userType"), j.getString("userphoto"), j.getString("userPhone"), j.getString("lastLoginTime"), j.getString("displayColor")));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -263,8 +264,8 @@ else  txtTime.setText(hourOfDay + ":" + minute+":00");
 
                     }
 
-                    ArrayAdapter<User> adapter=new ArrayAdapter<User>(DateTimePicker.this,
-                            R.layout.support_simple_spinner_dropdown_item,users);
+                    ArrayAdapter<User> adapter = new ArrayAdapter<User>(DateTimePicker.this,
+                            R.layout.support_simple_spinner_dropdown_item, users);
                     adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
                     monitor.setAdapter(adapter);
                 }
@@ -273,9 +274,9 @@ else  txtTime.setText(hourOfDay + ":" + minute+":00");
                         @Override
                         public void onErrorResponse(VolleyError error) {
                             try {
-                                Log.d("wsrong", error.getMessage());
+                                Log.d("ERROR", error.getMessage());
                             } catch (NullPointerException ex) {
-                                Log.d("wsrong", ex.getMessage());
+                                Log.d("ERROR", ex.getMessage());
                             }
                         }
                     }
@@ -286,13 +287,14 @@ else  txtTime.setText(hourOfDay + ":" + minute+":00");
         }
 
     }
+
     void getclients() {
 
 
         try {
-            List<Client>clients=new ArrayList<>() ;
+            List<Client> clients = new ArrayList<>();
 
-            JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, "http://192.168.111.1:45455/clients", null, new Response.Listener<JSONArray>() {
+            JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, WS.URL+"clients", null, new Response.Listener<JSONArray>() {
 
                 @Override
                 public void onResponse(JSONArray response) {
@@ -302,7 +304,7 @@ else  txtTime.setText(hourOfDay + ":" + minute+":00");
                     for (int i = 0; i < response.length(); i++) {
                         try {
                             j = response.getJSONObject(i);
-                            clients.add(new Client(j.getInt("clientId"), j.getString("fName"), j.getString("lName"), j.getString("photo"), j.getString("identityDoc"), j.getString("clientEmail"),  j.getString("passwd"), j.getString("clientPhone"), j.getString("notes")) );
+                            clients.add(new Client(j.getInt("clientId"), j.getString("fName"), j.getString("lName"), j.getString("photo"), j.getString("identityDoc"), j.getString("clientEmail"), j.getString("passwd"), j.getString("clientPhone"), j.getString("notes")));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -310,8 +312,8 @@ else  txtTime.setText(hourOfDay + ":" + minute+":00");
 
                     }
 
-                    ArrayAdapter<Client> adapter=new ArrayAdapter<Client>(DateTimePicker.this,
-                            R.layout.support_simple_spinner_dropdown_item,clients);
+                    ArrayAdapter<Client> adapter = new ArrayAdapter<Client>(DateTimePicker.this,
+                            R.layout.support_simple_spinner_dropdown_item, clients);
                     adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
                     clientid.setAdapter(adapter);
                 }
@@ -320,9 +322,9 @@ else  txtTime.setText(hourOfDay + ":" + minute+":00");
                         @Override
                         public void onErrorResponse(VolleyError error) {
                             try {
-                                Log.d("wsrong", error.getMessage());
+                                Log.d("ERROR", error.getMessage());
                             } catch (NullPointerException ex) {
-                                Log.d("wsrong", ex.getMessage());
+                                Log.d("ERROR", ex.getMessage());
                             }
                         }
                     }

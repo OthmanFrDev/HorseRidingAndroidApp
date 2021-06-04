@@ -1,12 +1,16 @@
 package com.example.horseriding;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -22,29 +26,38 @@ public class NoteController extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_note);
-        empty_list_check=findViewById(R.id.empty_list_check);
-        recyclerview_note=findViewById(R.id.recyclerview_note);
+        empty_list_check = findViewById(R.id.empty_list_check);
+        recyclerview_note = findViewById(R.id.recyclerview_note);
+        Toolbar toolbar = findViewById(R.id.toolBar);
+            setSupportActionBar(toolbar);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
     }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        Intent myIntent = new Intent(getApplicationContext(), DashboardActivity.class);
+        startActivity(myIntent);
+        return true;
+    }
+
     @Override
     protected void onResume() {
         SessionManager sessionManager = new SessionManager(NoteController.this);
         super.onResume();
-       DatabaseHandler db=new DatabaseHandler(NoteController.this);
-       List<Note> notes=new ArrayList<>();
-        notes=db.readNote();
-        if(notes==null)
-        {
+        DatabaseHandler db = new DatabaseHandler(NoteController.this);
+        List<Note> notes = new ArrayList<>();
+        notes = db.readNote();
+        if (notes == null) {
             empty_list_check.setVisibility(View.VISIBLE);
             recyclerview_note.setVisibility(View.INVISIBLE);
-        }
-        else
-        {
+        } else {
             Log.d("jes", String.valueOf(notes.size()));
             empty_list_check.setVisibility(View.GONE);
             recyclerview_note.setVisibility(View.VISIBLE);
-            RecyclerViewAdapter_note adapter=new RecyclerViewAdapter_note(NoteController.this,notes);
-            GridLayoutManager gridLayoutManager=new GridLayoutManager(NoteController.this,2, RecyclerView.VERTICAL,false);
-            recyclerview_note.setLayoutManager(gridLayoutManager);
+            RecyclerViewAdapter_note adapter = new RecyclerViewAdapter_note(NoteController.this, notes);
+            RecyclerView.LayoutManager linearLayoutManager = new LinearLayoutManager(NoteController.this, LinearLayoutManager.VERTICAL, false);
+            recyclerview_note.setLayoutManager(linearLayoutManager);
             recyclerview_note.setAdapter(adapter);
         }
     }
@@ -52,7 +65,7 @@ public class NoteController extends AppCompatActivity {
     public void ajouternote(View view) {
         Intent ajouterIntent = new Intent(NoteController.this, EditNote.class);
 
-        ajouterIntent.putExtra("code",1);
+        ajouterIntent.putExtra("code", 1);
 
 
         NoteController.this.startActivity(ajouterIntent);

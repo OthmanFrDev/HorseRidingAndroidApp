@@ -25,55 +25,57 @@ public class TaskAdapterRecycle extends RecyclerView.Adapter<TaskAdapterRecycle.
         return new Filter() {
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {
-                String key=constraint.toString();
-                if(key.isEmpty())listFiltred=list;
-                else{
-                    List<Task> lFiltred=new ArrayList<>();
-                    for(Task task:list){
-                        if(task.getTitle().toLowerCase().contains(key.toLowerCase())){
+                String key = constraint.toString();
+                if (key.isEmpty()) listFiltred = list;
+                else {
+                    List<Task> lFiltred = new ArrayList<>();
+                    for (Task task : list) {
+                        if (task.getTitle().toLowerCase().contains(key.toLowerCase())) {
                             lFiltred.add(task);
                         }
                     }
-                    listFiltred=lFiltred;
+                    listFiltred = lFiltred;
                 }
-                FilterResults filterResults=new FilterResults();
-                filterResults.values=listFiltred;
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = listFiltred;
                 return filterResults;
             }
 
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
-                listFiltred= (List<Task>) results.values;
+                listFiltred = (List<Task>) results.values;
                 notifyDataSetChanged();
             }
         };
     }
 
-    public static class ViewHolder extends  RecyclerView.ViewHolder{
-        TextView txtName,txtRole;
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        TextView txtName, txtRole;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            txtName=itemView.findViewById(R.id.nameuserlist);
-            txtRole=itemView.findViewById(R.id.userrolelist);
+            txtName = itemView.findViewById(R.id.nameuserlist);
+            txtRole = itemView.findViewById(R.id.userrolelist);
         }
 
     }
-    public TaskAdapterRecycle(Context c, List<Task> list){
-        this.context=c;
-        this.list=list;
+
+    public TaskAdapterRecycle(Context c, List<Task> list) {
+        this.context = c;
+        this.list = list;
     }
 
 
     @NonNull
     @Override
     public TaskAdapterRecycle.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v= LayoutInflater.from(context).inflate(R.layout.activity_ligne__list__user_,parent,false);
+        View v = LayoutInflater.from(context).inflate(R.layout.activity_ligne__list__user_, parent, false);
         return new TaskAdapterRecycle.ViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull TaskAdapterRecycle.ViewHolder holder, int position) {
-        Task t=list.get(position);
+        Task t = list.get(position);
         holder.txtName.setText(t.getTitle());
         holder.txtRole.setText(String.valueOf(t.getTaskId()));
     }
@@ -82,8 +84,9 @@ public class TaskAdapterRecycle extends RecyclerView.Adapter<TaskAdapterRecycle.
     public int getItemCount() {
         return listFiltred.size();
     }
-    public void filterList(List<Task> l){
-        this.list=l;
+
+    public void filterList(List<Task> l) {
+        this.list = l;
         notifyDataSetChanged();
     }
 }

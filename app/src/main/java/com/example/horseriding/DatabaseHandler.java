@@ -60,9 +60,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_TUSERFK = "userFk";
 
 
-
-
-
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
 
@@ -73,27 +70,27 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        String CREATE_USER_TABLE="CREATE TABLE "+TABLE_USERS+"("+KEY_UID+" INTEGER PRIMARY KEY,"+KEY_UEMAIL+" TEXT,"+KEY_UPASSWD+" TEXT,"+KEY_UFNAME+" TEXT,"
-                +KEY_ULNAME+" TEXT,"+KEY_UDESCRIPTION+" TEXT,"+KEY_UTYPE+" TEXT,"+KEY_UPHOTO+" TEXT,"+KEY_UPHONE+" TEXT)";
-        String CREATE_CLIENT_TABLE="CREATE TABLE "+TABLE_CLIENTS+"("+KEY_ID+" INTEGER PRIMARY KEY,"+KEY_NAME+" TEXT,"+KEY_LAST_NAME+" TEXT,"+KEY_PHOTO+" TEXT,"
-                +KEY_IDENTITY+" TEXT,"+KEY_MAIL+" TEXT,"+KEY_PASSWORD+" TEXT,"+KEY_PH_NO+" TEXT,"+KEY_NOTES+" TEXT)";
-        String CREATE_SEANCE_TABLE="CREATE TABLE "+ TABLE_SEANCES+
-                "("+KEY_START+ " TEXT , "+
-                KEY_DURATION+ " INTEGER , "+
-                KEY_SID+" INTEGER PRIMARY KEY , "+
-                KEY_CLIENTID+" INTEGER , "+
-                KEY_MONITOR+" INTEGER , "+
-                KEY_COMMENTS+" TEXT)";
+        String CREATE_USER_TABLE = "CREATE TABLE " + TABLE_USERS + "(" + KEY_UID + " INTEGER PRIMARY KEY," + KEY_UEMAIL + " TEXT," + KEY_UPASSWD + " TEXT," + KEY_UFNAME + " TEXT,"
+                + KEY_ULNAME + " TEXT," + KEY_UDESCRIPTION + " TEXT," + KEY_UTYPE + " TEXT," + KEY_UPHOTO + " TEXT," + KEY_UPHONE + " TEXT)";
+        String CREATE_CLIENT_TABLE = "CREATE TABLE " + TABLE_CLIENTS + "(" + KEY_ID + " INTEGER PRIMARY KEY," + KEY_NAME + " TEXT," + KEY_LAST_NAME + " TEXT," + KEY_PHOTO + " TEXT,"
+                + KEY_IDENTITY + " TEXT," + KEY_MAIL + " TEXT," + KEY_PASSWORD + " TEXT," + KEY_PH_NO + " TEXT," + KEY_NOTES + " TEXT)";
+        String CREATE_SEANCE_TABLE = "CREATE TABLE " + TABLE_SEANCES +
+                "(" + KEY_START + " TEXT , " +
+                KEY_DURATION + " INTEGER , " +
+                KEY_SID + " INTEGER PRIMARY KEY , " +
+                KEY_CLIENTID + " INTEGER , " +
+                KEY_MONITOR + " INTEGER , " +
+                KEY_COMMENTS + " TEXT)";
 
-        String CREATE_TASK_TABLE="CREATE TABLE "+ TABLE_TASKS+
-                "("+KEY_TID+ " INTEGER PRIMARY KEY , "+
-                KEY_TSTART+ " TEXT , "+
-                KEY_TDURATION+" INTEGER  , "+
-                KEY_TTITLE+" TEXT , "+
-                KEY_TDETAIL+" TEXT , "+
-                KEY_TISDone+" TEXT , "+
-                KEY_TUSERFK+" INTEGER )";
-                String CREATE_NOTES_TABLE="CREATE TABLE NOTES ( id INTEGER PRIMARY KEY AUTOINCREMENT , notes TEXT , date TEXT )";
+        String CREATE_TASK_TABLE = "CREATE TABLE " + TABLE_TASKS +
+                "(" + KEY_TID + " INTEGER PRIMARY KEY , " +
+                KEY_TSTART + " TEXT , " +
+                KEY_TDURATION + " INTEGER  , " +
+                KEY_TTITLE + " TEXT , " +
+                KEY_TDETAIL + " TEXT , " +
+                KEY_TISDone + " TEXT , " +
+                KEY_TUSERFK + " INTEGER )";
+        String CREATE_NOTES_TABLE = "CREATE TABLE NOTES ( id INTEGER PRIMARY KEY AUTOINCREMENT , notes TEXT , date TEXT )";
 
         db.execSQL(CREATE_CLIENT_TABLE);
         db.execSQL(CREATE_USER_TABLE);
@@ -112,19 +109,20 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 //        // Create tables again
 
     }
-    public void saveSeance(Seance seance)
-    {
 
-        ContentValues ligne =new ContentValues();
-        ligne.put(KEY_SID,seance.getSeanceId());
-        ligne.put(KEY_COMMENTS,seance.getComments());
-        ligne.put(KEY_CLIENTID,seance.getClientId());
-        ligne.put(KEY_MONITOR,seance.getMonitorId());
-        ligne.put(KEY_DURATION,seance.getDurationMinut());
-        ligne.put(KEY_START,seance.getStartDate());
-        getWritableDatabase().insertWithOnConflict(TABLE_SEANCES,null,ligne,SQLiteDatabase.CONFLICT_REPLACE);
+    public void saveSeance(Seance seance) {
+
+        ContentValues ligne = new ContentValues();
+        ligne.put(KEY_SID, seance.getSeanceId());
+        ligne.put(KEY_COMMENTS, seance.getComments());
+        ligne.put(KEY_CLIENTID, seance.getClientId());
+        ligne.put(KEY_MONITOR, seance.getMonitorId());
+        ligne.put(KEY_DURATION, seance.getDurationMinut());
+        ligne.put(KEY_START, seance.getStartDate());
+        getWritableDatabase().insertWithOnConflict(TABLE_SEANCES, null, ligne, SQLiteDatabase.CONFLICT_REPLACE);
     }
-//    public void saveNote(Note note)
+
+    //    public void saveNote(Note note)
 //    {
 //
 //        ContentValues ligne =new ContentValues();
@@ -135,25 +133,21 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 //
 //        getWritableDatabase().insertWithOnConflict("NOTES",null,ligne,SQLiteDatabase.CONFLICT_REPLACE);
 //    }
-    public List<Note> readNote()
-    {
+    public List<Note> readNote() {
 
-        List<Note> NoteList=new ArrayList<>();
+        List<Note> NoteList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.query("NOTES", new String[] { "id","date","notes"}, null,
-                 null, null, null, null);
-        if (!(cursor.moveToFirst()) || cursor.getCount() ==0){
+        Cursor cursor = db.query("NOTES", new String[]{"id", "date", "notes"}, null,
+                null, null, null, null);
+        if (!(cursor.moveToFirst()) || cursor.getCount() == 0) {
             //cursor is empty
-            Log.w("readnote"," not found !!!");
+            Log.w("readnote", " not found !!!");
             return null;
-        }
-
-        else
-        {
+        } else {
             if (cursor.moveToFirst()) {
                 while (!cursor.isAfterLast()) {
-                    NoteList.add(new Note(Integer.parseInt(cursor.getString(0)),cursor.getString(1),cursor.getString(2)));
+                    NoteList.add(new Note(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2)));
                     cursor.moveToNext();
                 }
             }
@@ -171,8 +165,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             values.put("date", String.valueOf(note.getDate()));
             db.insert("NOTES", null, values);
             db.close();
-        }catch (Exception ex)
-        {
+        } catch (Exception ex) {
             db.close();
             ex.printStackTrace();
         }
@@ -180,30 +173,27 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     void updateNote(int id, String note) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("UPDATE NOTES SET contenue ='"+note+"' WHERE id = "+id);
+        db.execSQL("UPDATE NOTES SET notes ='" + note + "' WHERE id = " + id);
         db.close();
     }
 
     void deleteNote(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("DELETE FROM NOTES WHERE id = "+id);
+        db.execSQL("DELETE FROM NOTES WHERE id = " + id);
         db.close();
     }
 
 
-    Note readNote(int id)
-    {
+    Note readNote(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("select * from NOTES WHERE id=?",new String[]{String.valueOf(id)});
-        if (!(cursor.moveToFirst()) || cursor.getCount() ==0){
+        Cursor cursor = db.rawQuery("select * from NOTES WHERE id=?", new String[]{String.valueOf(id)});
+        if (!(cursor.moveToFirst()) || cursor.getCount() == 0) {
             //cursor is empty
-            Log.d("readnoteid","not found !!!");
+            Log.d("readnoteid", "not found !!!");
             db.close();
             return null;
-        }
-        else
-        {
-            Note r=new Note();
+        } else {
+            Note r = new Note();
             r.setId(cursor.getInt(0));
             r.setNotes(cursor.getString(1));
             r.setDate(cursor.getString(2));
@@ -211,85 +201,52 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             return r;
         }
     }
-    public void saveTask(Task task)
-    {
 
-        ContentValues ligne =new ContentValues();
-        ligne.put(KEY_TID,task.getTaskId());
-        ligne.put(KEY_TSTART,task.getStartDate());
-        ligne.put(KEY_TDURATION,task.getDurationMinut());
-        ligne.put(KEY_TTITLE,task.getTitle());
-        ligne.put(KEY_TDETAIL,task.getDetail());
-        ligne.put(KEY_TISDone,task.getIsDone());
-        ligne.put(KEY_TUSERFK,task.getUserFk());
-        getWritableDatabase().insertWithOnConflict(TABLE_TASKS,null,ligne,SQLiteDatabase.CONFLICT_REPLACE);
+    public void saveTask(Task task) {
+
+        ContentValues ligne = new ContentValues();
+        ligne.put(KEY_TID, task.getTaskId());
+        ligne.put(KEY_TSTART, task.getStartDate());
+        ligne.put(KEY_TDURATION, task.getDurationMinut());
+        ligne.put(KEY_TTITLE, task.getTitle());
+        ligne.put(KEY_TDETAIL, task.getDetail());
+        ligne.put(KEY_TISDone, task.getIsDone());
+        ligne.put(KEY_TUSERFK, task.getUserFk());
+        getWritableDatabase().insertWithOnConflict(TABLE_TASKS, null, ligne, SQLiteDatabase.CONFLICT_REPLACE);
     }
-    public Task readTask(int id)
-    {
+
+    public Task readTask(int id) {
 
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.query(TABLE_TASKS, new String[] { KEY_TID,
-                        KEY_TSTART, KEY_TDURATION,KEY_TTITLE,KEY_TDETAIL,KEY_TISDone, KEY_TUSERFK}, KEY_SID + "=?",
-                new String[] { String.valueOf(id) }, null, null, null, null);
+        Cursor cursor = db.query(TABLE_TASKS, new String[]{KEY_TID,
+                        KEY_TSTART, KEY_TDURATION, KEY_TTITLE, KEY_TDETAIL, KEY_TISDone, KEY_TUSERFK}, KEY_SID + "=?",
+                new String[]{String.valueOf(id)}, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
 
         Task task = new Task(Integer.parseInt(cursor.getString(0)),
                 cursor.getString(1), Integer.parseInt(cursor.getString(2)), cursor.getString(3),
-               cursor.getString(4), cursor.getString(5),Integer.parseInt(cursor.getString(6)));
+                cursor.getString(4), cursor.getString(5), Integer.parseInt(cursor.getString(6)));
         // return contact
         return task;
     }
 
-    public List<Seance> readSeance()
-    {
+    public List<Seance> readSeance() {
 
         SQLiteDatabase db = this.getReadableDatabase();
 
 
-            List<Seance> seanceList=new ArrayList<>();
+        List<Seance> seanceList = new ArrayList<>();
 
-        Cursor cursor = db.query(TABLE_SEANCES, new String[] { KEY_SID,
-                        KEY_COMMENTS, KEY_CLIENTID,KEY_MONITOR,KEY_DURATION,KEY_START }, null,
+        Cursor cursor = db.query(TABLE_SEANCES, new String[]{KEY_SID,
+                        KEY_COMMENTS, KEY_CLIENTID, KEY_MONITOR, KEY_DURATION, KEY_START}, null,
                 null, null, null, null);
-            if (!(cursor.moveToFirst()) || cursor.getCount() ==0){
-                //cursor is empty
-                Log.d("readseance"," not found !!!");
-                return null;
-            }
-            else
-            {
-                if (cursor.moveToFirst()) {
-                    while (!cursor.isAfterLast()) {
-                        seanceList.add(new Seance(Integer.parseInt(cursor.getString(0)),
-                                cursor.getString(1), Integer.parseInt(cursor.getString(2)), Integer.parseInt(cursor.getString(3)),
-                                Integer.parseInt(cursor.getString(4)), cursor.getString(5)));
-                        cursor.moveToNext();
-                    }
-                }
-                return seanceList;
-
-        }
-    }
-    public List<Seance> readUserSeance(int id)
-    {
-
-        SQLiteDatabase db = this.getReadableDatabase();
-
-
-        List<Seance> seanceList=new ArrayList<>();
-
-        Cursor cursor = db.query(TABLE_SEANCES, new String[] { KEY_SID,
-                        KEY_COMMENTS, KEY_CLIENTID,KEY_MONITOR,KEY_DURATION,KEY_START }, KEY_MONITOR + "=?",
-                new String[] { String.valueOf(id) }, null, null, null);
-        if (!(cursor.moveToFirst()) || cursor.getCount() ==0){
+        if (!(cursor.moveToFirst()) || cursor.getCount() == 0) {
             //cursor is empty
-            Log.d("readuserseance","not found !!!");
+            Log.d("readseance", " not found !!!");
             return null;
-        }
-        else
-        {
+        } else {
             if (cursor.moveToFirst()) {
                 while (!cursor.isAfterLast()) {
                     seanceList.add(new Seance(Integer.parseInt(cursor.getString(0)),
@@ -303,24 +260,49 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
-    public List<Seance> readClientSeance(int id)
-    {
+    public List<Seance> readUserSeance(int id) {
 
         SQLiteDatabase db = this.getReadableDatabase();
 
 
-        List<Seance> seanceList=new ArrayList<>();
+        List<Seance> seanceList = new ArrayList<>();
 
-        Cursor cursor = db.query(TABLE_SEANCES, new String[] { KEY_SID,
-                        KEY_COMMENTS, KEY_CLIENTID,KEY_MONITOR,KEY_DURATION,KEY_START }, KEY_CLIENTID + "=?",
-                new String[] { String.valueOf(id) }, null, null, null);
-        if (!(cursor.moveToFirst()) || cursor.getCount() ==0){
+        Cursor cursor = db.query(TABLE_SEANCES, new String[]{KEY_SID,
+                        KEY_COMMENTS, KEY_CLIENTID, KEY_MONITOR, KEY_DURATION, KEY_START}, KEY_MONITOR + "=?",
+                new String[]{String.valueOf(id)}, null, null, null);
+        if (!(cursor.moveToFirst()) || cursor.getCount() == 0) {
             //cursor is empty
-            Log.d("readclientseance","not found !!!");
+            Log.d("readuserseance", "not found !!!");
             return null;
+        } else {
+            if (cursor.moveToFirst()) {
+                while (!cursor.isAfterLast()) {
+                    seanceList.add(new Seance(Integer.parseInt(cursor.getString(0)),
+                            cursor.getString(1), Integer.parseInt(cursor.getString(2)), Integer.parseInt(cursor.getString(3)),
+                            Integer.parseInt(cursor.getString(4)), cursor.getString(5)));
+                    cursor.moveToNext();
+                }
+            }
+            return seanceList;
+
         }
-        else
-        {
+    }
+
+    public List<Seance> readClientSeance(int id) {
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+
+        List<Seance> seanceList = new ArrayList<>();
+
+        Cursor cursor = db.query(TABLE_SEANCES, new String[]{KEY_SID,
+                        KEY_COMMENTS, KEY_CLIENTID, KEY_MONITOR, KEY_DURATION, KEY_START}, KEY_CLIENTID + "=?",
+                new String[]{String.valueOf(id)}, null, null, null);
+        if (!(cursor.moveToFirst()) || cursor.getCount() == 0) {
+            //cursor is empty
+            Log.d("readclientseance", "not found !!!");
+            return null;
+        } else {
             if (cursor.moveToFirst()) {
                 while (!cursor.isAfterLast()) {
                     seanceList.add(new Seance(Integer.parseInt(cursor.getString(0)),
@@ -339,7 +321,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 
         ContentValues values = new ContentValues();
-        values.put(KEY_ID,client.getClientId());
+        values.put(KEY_ID, client.getClientId());
         values.put(KEY_NAME, client.getfName());
         values.put(KEY_LAST_NAME, client.getlName());
         values.put(KEY_PHOTO, client.getPhoto());
@@ -353,12 +335,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         db.close();
     }
+
     void addUser(User user) {
         SQLiteDatabase db = this.getWritableDatabase();
 
 
         ContentValues values = new ContentValues();
-        values.put(KEY_UID,user.getUserId());
+        values.put(KEY_UID, user.getUserId());
         values.put(KEY_UFNAME, user.getUserFname());
         values.put(KEY_ULNAME, user.getUserLname());
         values.put(KEY_UPHOTO, user.getUserphoto());
@@ -378,9 +361,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     Client getContact(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.query(TABLE_CLIENTS, new String[] { KEY_ID,
-                        KEY_NAME, KEY_LAST_NAME,KEY_PHOTO,KEY_IDENTITY,KEY_MAIL,KEY_PASSWORD,KEY_PH_NO,KEY_NOTES }, KEY_ID + "=?",
-                new String[] { String.valueOf(id) }, null, null, null, null);
+        Cursor cursor = db.query(TABLE_CLIENTS, new String[]{KEY_ID,
+                        KEY_NAME, KEY_LAST_NAME, KEY_PHOTO, KEY_IDENTITY, KEY_MAIL, KEY_PASSWORD, KEY_PH_NO, KEY_NOTES}, KEY_ID + "=?",
+                new String[]{String.valueOf(id)}, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
 
@@ -439,14 +422,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 
         return db.update(TABLE_CLIENTS, values, KEY_ID + " = ?",
-                new String[] { String.valueOf(client.getClientId()) });
+                new String[]{String.valueOf(client.getClientId())});
     }
 
 
     public void deleteContact(Client client) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_CLIENTS, KEY_ID + " = ?",
-                new String[] { String.valueOf(client.getClientId()) });
+                new String[]{String.valueOf(client.getClientId())});
         db.close();
     }
 

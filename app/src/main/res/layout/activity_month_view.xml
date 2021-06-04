@@ -139,7 +139,7 @@
                 android:id="@id/Lun_1"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                     android:text="" android:layout_height="108dp"
+                     android:text="" android:layout_height="108dp" android:onClick="seancedetails"  
 
                 android:textAlignment="center"  android:layout_width="80dp"  android:background="@drawable/border" android:orientation="vertical" >
                             </LinearLayout>
@@ -148,7 +148,7 @@
                 android:id="@id/Mar_1"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                     android:text="" android:layout_height="108dp"
+                     android:text="" android:layout_height="108dp" android:onClick="seancedetails" 
 
                 android:textAlignment="center"  android:layout_width="80dp"  android:background="@drawable/border" android:orientation="vertical" ></LinearLayout>
 
@@ -156,7 +156,7 @@
                 android:id="@id/Mer_1"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                     android:text="" android:layout_height="108dp"
+                     android:text="" android:layout_height="108dp" android:onClick="seancedetails" 
 
                 android:textAlignment="center"  android:layout_width="80dp"  android:background="@drawable/border" android:orientation="vertical" ></LinearLayout>
 
@@ -164,7 +164,7 @@
                 android:id="@id/Jeu_1"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                     android:text="" android:layout_height="108dp"
+                     android:text="" android:layout_height="108dp" android:onClick="seancedetails" 
 
                 android:textAlignment="center"  android:layout_width="80dp"  android:background="@drawable/border" android:orientation="vertical" ></LinearLayout>
 
@@ -172,7 +172,7 @@
                 android:id="@id/Ven_1"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                     android:text="" android:layout_height="108dp"
+                     android:text="" android:layout_height="108dp" android:onClick="seancedetails" 
 
                 android:textAlignment="center"  android:layout_width="80dp"  android:background="@drawable/border" android:orientation="vertical" ></LinearLayout>
 
@@ -180,14 +180,14 @@
                 android:id="@id/Sam_1"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                     android:text="" android:layout_height="108dp"
+                     android:text="" android:layout_height="108dp" android:onClick="seancedetails" 
                 android:textAlignment="center"  android:layout_width="80dp"  android:background="@drawable/border" android:orientation="vertical" ></LinearLayout>
 
             <LinearLayout
                 android:id="@id/Dim_1"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                     android:text="" android:layout_height="108dp"
+                     android:text="" android:layout_height="108dp" android:onClick="seancedetails" 
 
                 android:textAlignment="center"  android:layout_width="80dp"  android:background="@drawable/border" android:orientation="vertical" ></LinearLayout>
 
@@ -195,7 +195,7 @@
                 android:id="@id/Lun_2"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                     android:text="" android:layout_height="108dp"
+                     android:text="" android:layout_height="108dp" android:onClick="seancedetails" 
 
                 android:textAlignment="center"  android:layout_width="80dp"  android:background="@drawable/border" android:orientation="vertical" ></LinearLayout>
 
@@ -203,7 +203,7 @@
                 android:id="@id/Mar_2"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                     android:text="" android:layout_height="108dp"
+                     android:text="" android:layout_height="108dp" android:onClick="seancedetails" 
 
                 android:textAlignment="center"  android:layout_width="80dp"  android:background="@drawable/border" android:orientation="vertical" ></LinearLayout>
 
@@ -211,7 +211,7 @@
                 android:id="@id/Mer_2"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                     android:text="" android:layout_height="108dp"
+                     android:text="" android:layout_height="108dp" android:onClick="seancedetails" 
 
                 android:textAlignment="center"  android:layout_width="80dp"  android:background="@drawable/border" android:orientation="vertical" ></LinearLayout>
 
@@ -219,7 +219,7 @@
                 android:id="@id/Jeu_2"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                     android:text="" android:layout_height="108dp"
+                     android:text="" android:layout_height="108dp" android:onClick="seancedetails" 
 
                 android:textAlignment="center"  android:layout_width="80dp"  android:background="@drawable/border" android:orientation="vertical" ></LinearLayout>
 
@@ -227,7 +227,7 @@
                 android:id="@id/Ven_2"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                     android:text="" android:layout_height="108dp"
+                     android:text="" android:layout_height="108dp" android:onClick="seancedetails" 
 
                 android:textAlignment="center"  android:layout_width="80dp"  android:background="@drawable/border" android:orientation="vertical" ></LinearLayout>
 
@@ -235,14 +235,14 @@
                 android:id="@id/Sam_2"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                     android:text="" android:layout_height="108dp"
+                     android:text="" android:layout_height="108dp" android:onClick="seancedetails" 
                 android:textAlignment="center"  android:layout_width="80dp"  android:background="@drawable/border" android:orientation="vertical" ></LinearLayout>
 
             <LinearLayout
                 android:id="@id/Dim_2"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                     android:text="" android:layout_height="108dp"
+                     android:text="" android:layout_height="108dp" android:onClick="seancedetails" 
 
                 android:textAlignment="center"  android:layout_width="80dp"  android:background="@drawable/border" android:orientation="vertical" ></LinearLayout>
 
@@ -250,7 +250,7 @@
                 android:id="@id/Lun_3"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                     android:text="" android:layout_height="108dp"
+                     android:text="" android:layout_height="108dp" android:onClick="seancedetails" 
 
                 android:textAlignment="center"  android:layout_width="80dp"  android:background="@drawable/border" android:orientation="vertical" ></LinearLayout>
 
@@ -258,7 +258,7 @@
                 android:id="@id/Mar_3"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                     android:text="" android:layout_height="108dp"
+                     android:text="" android:layout_height="108dp" android:onClick="seancedetails" 
 
                 android:textAlignment="center"  android:layout_width="80dp"  android:background="@drawable/border" android:orientation="vertical" ></LinearLayout>
 
@@ -266,7 +266,7 @@
                 android:id="@id/Mer_3"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                     android:text="" android:layout_height="108dp"
+                     android:text="" android:layout_height="108dp" android:onClick="seancedetails" 
 
                 android:textAlignment="center"  android:layout_width="80dp"  android:background="@drawable/border" android:orientation="vertical" ></LinearLayout>
 
@@ -274,7 +274,7 @@
                 android:id="@id/Jeu_3"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                     android:text="" android:layout_height="108dp"
+                     android:text="" android:layout_height="108dp" android:onClick="seancedetails" 
 
                 android:textAlignment="center"  android:layout_width="80dp"  android:background="@drawable/border" android:orientation="vertical" ></LinearLayout>
 
@@ -282,7 +282,7 @@
                 android:id="@id/Ven_3"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                     android:text="" android:layout_height="108dp"
+                     android:text="" android:layout_height="108dp" android:onClick="seancedetails" 
 
                 android:textAlignment="center"  android:layout_width="80dp"  android:background="@drawable/border" android:orientation="vertical" ></LinearLayout>
 
@@ -290,14 +290,14 @@
                 android:id="@id/Sam_3"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                     android:text="" android:layout_height="108dp"
+                     android:text="" android:layout_height="108dp" android:onClick="seancedetails" 
                 android:textAlignment="center"  android:layout_width="80dp"  android:background="@drawable/border" android:orientation="vertical" ></LinearLayout>
 
             <LinearLayout
                 android:id="@id/Dim_3"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                     android:text="" android:layout_height="108dp"
+                     android:text="" android:layout_height="108dp" android:onClick="seancedetails" 
 
                 android:textAlignment="center"  android:layout_width="80dp"  android:background="@drawable/border" android:orientation="vertical" ></LinearLayout>
 
@@ -305,7 +305,7 @@
                 android:id="@id/Lun_4"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                     android:text="" android:layout_height="108dp"
+                     android:text="" android:layout_height="108dp" android:onClick="seancedetails" 
 
                 android:textAlignment="center"  android:layout_width="80dp"  android:background="@drawable/border" android:orientation="vertical" ></LinearLayout>
 
@@ -313,7 +313,7 @@
                 android:id="@id/Mar_4"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                     android:text="" android:layout_height="108dp"
+                     android:text="" android:layout_height="108dp" android:onClick="seancedetails" 
 
                 android:textAlignment="center"  android:layout_width="80dp"  android:background="@drawable/border" android:orientation="vertical" ></LinearLayout>
 
@@ -321,7 +321,7 @@
                 android:id="@id/Mer_4"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                     android:text="" android:layout_height="108dp"
+                     android:text="" android:layout_height="108dp" android:onClick="seancedetails" 
 
                 android:textAlignment="center"  android:layout_width="80dp"  android:background="@drawable/border" android:orientation="vertical" ></LinearLayout>
 
@@ -329,7 +329,7 @@
                 android:id="@id/Jeu_4"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                     android:text="" android:layout_height="108dp"
+                     android:text="" android:layout_height="108dp" android:onClick="seancedetails" 
 
                 android:textAlignment="center"  android:layout_width="80dp"  android:background="@drawable/border" android:orientation="vertical" ></LinearLayout>
 
@@ -337,7 +337,7 @@
                 android:id="@id/Ven_4"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                     android:text="" android:layout_height="108dp"
+                     android:text="" android:layout_height="108dp" android:onClick="seancedetails" 
 
                 android:textAlignment="center"  android:layout_width="80dp"  android:background="@drawable/border" android:orientation="vertical" ></LinearLayout>
 
@@ -345,14 +345,14 @@
                 android:id="@id/Sam_4"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                     android:text="" android:layout_height="108dp"
+                     android:text="" android:layout_height="108dp" android:onClick="seancedetails" 
                 android:textAlignment="center"  android:layout_width="80dp"  android:background="@drawable/border" android:orientation="vertical" ></LinearLayout>
 
             <LinearLayout
                 android:id="@id/Dim_4"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                     android:text="" android:layout_height="108dp"
+                     android:text="" android:layout_height="108dp" android:onClick="seancedetails" 
 
                 android:textAlignment="center"  android:layout_width="80dp"  android:background="@drawable/border" android:orientation="vertical" ></LinearLayout>
 
@@ -360,7 +360,7 @@
                 android:id="@id/Lun_5"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                     android:text="" android:layout_height="108dp"
+                     android:text="" android:layout_height="108dp" android:onClick="seancedetails" 
 
                 android:textAlignment="center"  android:layout_width="80dp"  android:background="@drawable/border" android:orientation="vertical" ></LinearLayout>
 
@@ -368,7 +368,7 @@
                 android:id="@id/Mar_5"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                     android:text="" android:layout_height="108dp"
+                     android:text="" android:layout_height="108dp" android:onClick="seancedetails" 
 
                 android:textAlignment="center"  android:layout_width="80dp"  android:background="@drawable/border" android:orientation="vertical" ></LinearLayout>
 
@@ -376,7 +376,7 @@
                 android:id="@id/Mer_5"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                     android:text="" android:layout_height="108dp"
+                     android:text="" android:layout_height="108dp" android:onClick="seancedetails" 
 
                 android:textAlignment="center"  android:layout_width="80dp"  android:background="@drawable/border" android:orientation="vertical" ></LinearLayout>
 
@@ -384,7 +384,7 @@
                 android:id="@id/Jeu_5"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                     android:text="" android:layout_height="108dp"
+                     android:text="" android:layout_height="108dp" android:onClick="seancedetails" 
                 android:textAlignment="center"
                 android:layout_width="80dp"
                 android:background="@drawable/border" android:orientation="vertical" ></LinearLayout>
@@ -393,28 +393,28 @@
                 android:id="@id/Ven_5"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                     android:text="" android:layout_height="108dp"
+                     android:text="" android:layout_height="108dp" android:onClick="seancedetails" 
                 android:textAlignment="center"  android:layout_width="80dp"  android:background="@drawable/border" android:orientation="vertical" ></LinearLayout>
 
             <LinearLayout
                 android:id="@id/Sam_5"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                     android:text="" android:layout_height="108dp"
+                     android:text="" android:layout_height="108dp" android:onClick="seancedetails" 
                 android:textAlignment="center"  android:layout_width="80dp"  android:background="@drawable/border" android:orientation="vertical" ></LinearLayout>
 
             <LinearLayout
                 android:id="@id/Dim_5"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                     android:text="" android:layout_height="108dp"
+                     android:text="" android:layout_height="108dp" android:onClick="seancedetails" 
 
                 android:textAlignment="center"  android:layout_width="80dp"  android:background="@drawable/border" android:orientation="vertical" ></LinearLayout>
             <LinearLayout
                 android:id="@id/Lun_6"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                     android:text="" android:layout_height="108dp"
+                     android:text="" android:layout_height="108dp" android:onClick="seancedetails" 
 
                 android:textAlignment="center"  android:layout_width="80dp"  android:background="@drawable/border" android:orientation="vertical" ></LinearLayout>
 
@@ -422,7 +422,7 @@
                 android:id="@id/Mar_6"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                     android:text="" android:layout_height="108dp"
+                     android:text="" android:layout_height="108dp" android:onClick="seancedetails" 
 
                 android:textAlignment="center"  android:layout_width="80dp"  android:background="@drawable/border" android:orientation="vertical" ></LinearLayout>
 
@@ -430,7 +430,7 @@
                 android:id="@id/Mer_6"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                     android:text="" android:layout_height="108dp"
+                     android:text="" android:layout_height="108dp" android:onClick="seancedetails" 
 
                 android:textAlignment="center"  android:layout_width="80dp"  android:background="@drawable/border" android:orientation="vertical" ></LinearLayout>
 
@@ -438,7 +438,7 @@
                 android:id="@id/Jeu_6"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                     android:text="" android:layout_height="108dp"
+                     android:text="" android:layout_height="108dp" android:onClick="seancedetails" 
                 android:textAlignment="center"
                 android:layout_width="80dp"
                 android:background="@drawable/border" android:orientation="vertical" ></LinearLayout>
@@ -447,21 +447,21 @@
                 android:id="@id/Ven_6"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                     android:text="" android:layout_height="108dp"
+                     android:text="" android:layout_height="108dp" android:onClick="seancedetails" 
                 android:textAlignment="center"  android:layout_width="80dp"  android:background="@drawable/border" android:orientation="vertical" ></LinearLayout>
 
             <LinearLayout
                 android:id="@id/Sam_6"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                     android:text="" android:layout_height="108dp"
+                     android:text="" android:layout_height="108dp" android:onClick="seancedetails" 
                 android:textAlignment="center"  android:layout_width="80dp"  android:background="@drawable/border" android:orientation="vertical" ></LinearLayout>
 
             <LinearLayout
                 android:id="@id/Dim_6"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                     android:text="" android:layout_height="108dp"
+                     android:text="" android:layout_height="108dp" android:onClick="seancedetails" 
 
                 android:textAlignment="center"  android:layout_width="80dp"  android:background="@drawable/border" android:orientation="vertical" ></LinearLayout>
         </GridLayout>
@@ -475,9 +475,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:elevation="2dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-
+        android:layout_margin="20dp"
         app:menu="@menu/item_menu"
         android:background="@drawable/rounded_selector"
         app:itemIconSize="30dp"
@@ -494,9 +492,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:visibility="invisible"
         android:layout_gravity="end|bottom"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-
+        android:layout_margin="20dp"
         android:onClick="onclickbtn"
         android:src="@drawable/ic_baseline_dehaze_50"
         android:clickable="true"

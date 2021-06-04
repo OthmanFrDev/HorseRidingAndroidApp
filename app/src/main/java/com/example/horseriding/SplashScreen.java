@@ -8,18 +8,19 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class SplashScreen extends AppCompatActivity {
-    public static int SPLASH_TIME_OUT=2000;
+    public static int SPLASH_TIME_OUT = 2000;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         ActionBar actionBar = getSupportActionBar();
-       // actionBar.hide();
+        // actionBar.hide();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-        new Handler().postDelayed(()->{
-            Intent splashIntent=new Intent(SplashScreen.this,LoginActivity.class);
+        new Handler().postDelayed(() -> {
+            Intent splashIntent = new Intent(SplashScreen.this, LoginActivity.class);
             SplashScreen.this.startActivity(splashIntent);
             SplashScreen.this.finish();
-        },SPLASH_TIME_OUT);
+        }, SPLASH_TIME_OUT);
 
     }
 }

@@ -278,8 +278,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:elevation="2dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_margin="20dp"
 
         app:menu="@menu/item_menu"
         android:background="@drawable/rounded_selector"
@@ -297,8 +296,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:visibility="invisible"
         android:layout_gravity="end|bottom"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+       android:layout_margin="20dp"
 
         android:onClick="onclickbtn"
         android:src="@drawable/ic_baseline_dehaze_50"

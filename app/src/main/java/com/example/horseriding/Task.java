@@ -1,10 +1,10 @@
 package com.example.horseriding;
 
 public class Task {
-    private int taskId,durationMinut,userFk;
-    private String title,detail,startDate,isDone;
+    private int taskId, durationMinut, userFk;
+    private String title, detail, startDate, isDone;
 
-    public Task(int taskId,String startDate, int durationMinut,  String title, String detail,  String isDone,int userFk) {
+    public Task(int taskId, String startDate, int durationMinut, String title, String detail, String isDone, int userFk) {
         this.taskId = taskId;
         this.durationMinut = durationMinut;
         this.userFk = userFk;
