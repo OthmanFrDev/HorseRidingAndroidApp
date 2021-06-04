@@ -26,14 +26,14 @@ public class EditNote extends AppCompatActivity {
         setContentView(R.layout.activity_edit_note);
 
         db = new DatabaseHandler(EditNote.this);
-
+setTitle("ajouter note");
         Toolbar toolbar = findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_save_alt_24);
         current_date_label = findViewById(R.id.current_date_label);
         contenue = findViewById(R.id.contenue);
-        current_date_label.setText(LocalDateTime.now().getDayOfMonth() + " " + LocalDateTime.now().getMonth() + " " + LocalDateTime.now().getYear() + " à " + LocalDateTime.now().getHour() + ":" + LocalDateTime.now().getMinute());
+        current_date_label.setText(LocalDateTime.now().getDayOfMonth() + " " + LocalDateTime.now().getMonth() + " " + LocalDateTime.now().getYear() );
         if (getIntent().getIntExtra("code", 0) == 2) {
             int id = getIntent().getIntExtra("id", 0);
             Note r = new Note();

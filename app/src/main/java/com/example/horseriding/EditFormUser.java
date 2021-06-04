@@ -29,7 +29,9 @@ import java.util.HashMap;
 public class EditFormUser extends AppCompatActivity {
     TextInputLayout nom, prenom, mail, tel, lastmdp, newmdp1, newmdp2;
     BottomNavigationView bnv;
-    String url = "http://192.168.111.1:45455/users";
+
+
+
 
 
     @Override
@@ -104,7 +106,6 @@ public class EditFormUser extends AppCompatActivity {
         Intent intent = getIntent();
         User user = (User) intent.getSerializableExtra("user");
 
-
         try {
             JSONObject jsonBody = new JSONObject();
             jsonBody.put("userId", user.getUserId());
@@ -124,7 +125,9 @@ public class EditFormUser extends AppCompatActivity {
             Log.d("jsonbody", jsonBody.toString());
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                     Request.Method.PUT,
-                    url + "/" + user.getUserId(),
+
+                    WS.URL+"users/"+user.getUserId() ,
+
                     jsonBody,
                     new Response.Listener<JSONObject>() {
                         @Override

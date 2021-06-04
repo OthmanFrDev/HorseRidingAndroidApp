@@ -128,7 +128,7 @@
         </GridLayout>
 
         <GridLayout
-            android:id="@+id/monthgrid"
+            android:id="@id/monthgrid"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:columnCount="7"

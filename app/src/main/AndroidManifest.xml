@@ -15,32 +15,28 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HorseRiding"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Add_Client">
+        <activity android:name=".ClientList">
 
         </activity>
+        <activity android:name=".Add_Client"></activity>
         <activity android:name=".EditFormUser" />
         <activity
             android:name=".dialog_user_details"
             tools:ignore="Instantiatable" />
         <activity
             android:name=".MonthView_Calendar"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
         <activity android:name=".DateTimePicker" />
-
-
-        <activity android:name=".WeekView_Calendar" android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
-        <activity android:name=".DayView_calendar" android:theme="@style/Theme.AppCompat.Light.DarkActionBar"/>
-
-
-        <activity android:name=".EditNote"></activity>
-        <activity android:name=".NoteController" >
-
-
-
-        </activity>
-
+        <activity
+            android:name=".WeekView_Calendar"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
+        <activity
+            android:name=".DayView_calendar"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
+        <activity android:name=".EditNote" />
+        <activity android:name=".NoteController"></activity>
         <activity android:name=".ListActivity" />
-        <activity android:name=".SeanceController" />
+
         <activity android:name=".ligne_List_User_Activity" />
         <activity android:name=".DashboardActivity" />
         <activity android:name=".LoginActivity" />
@@ -52,9 +48,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".test">
-
-        </activity>
+        <activity android:name=".test"></activity>
     </application>
 
 </manifest>

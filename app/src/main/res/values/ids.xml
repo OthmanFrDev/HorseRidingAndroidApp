@@ -225,4 +225,6 @@
     <item name="Sampm8" type="id" />
     <item name="Dimpm8" type="id" />
     <item name="cardviewaddclient" type="id" />
+    <item name="listClient" type="id" />
+    <item name="monthgrid" type="id" />
 </resources>

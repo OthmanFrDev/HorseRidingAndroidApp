@@ -96,10 +96,6 @@ public class UserAdapterRecycle extends RecyclerView.Adapter<UserAdapterRecycle.
         return listFiltred.size();
     }
 
-    public void filterList(List<User> l) {
-        this.list = l;
-        notifyDataSetChanged();
-    }
 
     public interface RecycleViewClickListner {
         void onClickItem(View v, int position);

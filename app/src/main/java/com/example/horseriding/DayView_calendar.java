@@ -54,7 +54,6 @@ import java.util.stream.Collectors;
 public class DayView_calendar extends AppCompatActivity {
     static LocalDateTime DateInit;
 
-
     String fullName;
     String URLEXTENSION;
     String color;
@@ -62,8 +61,10 @@ public class DayView_calendar extends AppCompatActivity {
     LinearLayout time_08, time_09, time_10, time_11, time_12, time_13, time_14, time_15, time_16, time_17, time_18;
     GridLayout contentDay;
     TextView day;
+
     DateTimeFormatter dateFormatter;
     DatabaseHandler databaseHandler;
+
     private String id;
     private String monitor;
     BottomNavigationView bnv;
@@ -75,12 +76,21 @@ public class DayView_calendar extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_day_view);
 
+        setTitle("Emploi du jour");
         id = getIntent().getStringExtra("id");
-
         contentDay = findViewById(R.id.contentofday);
         day = findViewById(R.id.day);
         dialog=new Dialog(DayView_calendar.this);
-         databaseHandler = new DatabaseHandler(DayView_calendar.this);
+        databaseHandler = new DatabaseHandler(DayView_calendar.this);
+        if (savedInstanceState == null) {
+            DateInit = LocalDateTime.of(2020, 9, 14, 15, 48);
+        } else {
+            int annee = Integer.parseInt(savedInstanceState.getString("startDate").split("-")[0]);
+            int mois = Integer.parseInt(savedInstanceState.getString("startDate").split("-")[1]);
+            int jour = Integer.parseInt(savedInstanceState.getString("startDate").split("-")[2]);
+            DateInit = LocalDateTime.of(annee, mois, jour, 00, 00);
+        }
+
         time_08 = findViewById(R.id.time_08);
         time_09 = findViewById(R.id.time_09);
         time_10 = findViewById(R.id.time_10);
@@ -93,7 +103,8 @@ public class DayView_calendar extends AppCompatActivity {
         time_17 = findViewById(R.id.time_17);
         time_18 = findViewById(R.id.time_18);
         drawable = getResources().getDrawable(R.drawable.ic_baseline_brightness_1_24, getTheme());
-        day = findViewById(R.id.day);
+
+
         bnv = findViewById(R.id.bottom_navigation);
         bnv.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -124,7 +135,6 @@ public class DayView_calendar extends AppCompatActivity {
                 return true;
             }
         });
-
     }
 
     @Override
@@ -133,7 +143,6 @@ public class DayView_calendar extends AppCompatActivity {
         mI.inflate(R.menu.menu_calendar, menu);
         return true;
     }
-
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -159,9 +168,6 @@ public class DayView_calendar extends AppCompatActivity {
         super.onResume();
 
 
-        Locale local = new Locale("fr", "Fr");
-
-
         if (DateInit == null) {
             DateInit = LocalDateTime.of(2020, 9, 14, 15, 48);
         }
@@ -175,7 +181,10 @@ public class DayView_calendar extends AppCompatActivity {
 
         //Creation du TextView qui va être insérer
 
+
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        params.setMargins(10, 10, 10, 10);
+
 
         params.setMargins(10, 10, 10, 10);
         dialog.setContentView(R.layout.progressbar);
@@ -186,11 +195,14 @@ public class DayView_calendar extends AppCompatActivity {
 
         JsonArrayRequest jArray = new JsonArrayRequest(Request.Method.GET, WS.URL + URLEXTENSION, null, new Response.Listener<JSONArray>() {
 
+
             @Override
             public void onResponse(JSONArray response) {
                 dialog.cancel();
                 JSONObject j = null;
-                    for (int i = 0; i < response.length(); i++) {
+
+                for (int i = 0; i < response.length(); i++) {
+
                     TextView v = new TextView(DayView_calendar.this);
                     v.setLayoutParams(params);
                     v.setBackgroundResource(R.drawable.textview_border);
@@ -199,6 +211,7 @@ public class DayView_calendar extends AppCompatActivity {
                     try {
                         j = response.getJSONObject(i);
                         Seance seance = new Seance(j.getInt("seanceId"), j.getInt("seanceGrpId"), j.getInt("clientId"), j.getInt("monitorId"), j.getInt("durationMinut"), j.getString("comments"), j.getString("startDate"));
+
 
                         databaseHandler.saveSeance(seance);
 
@@ -261,22 +274,25 @@ public class DayView_calendar extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+
                 Toast.makeText(DayView_calendar.this,"server erreur check connection",Toast.LENGTH_SHORT).show();
                 init();
                 dialog.cancel();
                 List<Seance> seances=databaseHandler.readSeance().stream().filter(f->f.getStartDate().contains(day.getText())).collect(Collectors.toList());
                 getSeance(seances);
                 dialog.cancel();
+
             }
         });
         MySingleton.getInstance(this.getApplicationContext()).addToRequestQueue(jArray);
-    }
 
+    }
 
     private void urlExtension() {
         if (getIntent().getStringExtra("emploitype") != null) {
             id = getIntent().getStringExtra("id");
             switch (getIntent().getStringExtra("emploitype")) {
+
 
 
                 case "1":
@@ -317,14 +333,17 @@ public class DayView_calendar extends AppCompatActivity {
 
                 case "2":
                     URL = "seances/allnamesClient/" + response.getString("startDate") + "/" + id;
+
                     break;
 
 
             }
         } else {
+
             URL = "seances/getwithdate/" + day.getText().toString();
         }
         return URL;
+
     }
 
     public void daySwitcher(View view) {
@@ -340,9 +359,7 @@ public class DayView_calendar extends AppCompatActivity {
         }
         Locale local = new Locale("fr", "Fr");
 
-
         onResume();
-
 
     }
 
@@ -356,6 +373,7 @@ public class DayView_calendar extends AppCompatActivity {
 
     public void clickSeance(View view) {
 
+
         LinearLayout linearLayout = findViewById(view.getId());
         StringBuilder stringBuilder = new StringBuilder();
         if (linearLayout.getChildCount() > 1) {
@@ -363,12 +381,14 @@ public class DayView_calendar extends AppCompatActivity {
 
             if (linearLayout.getChildCount() != 0) {
                 TextView textView = (TextView) linearLayout.getChildAt(0);
+
                 String[] list = textView.getText().toString().split(" ");
                 JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET, WS.URL + "seances/" + list[0], null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
 
                         try {
+
                             String URLEXTENSION = urlExtensionforSeanceDetails(response);
                             JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, WS.URL + URLEXTENSION, null, new Response.Listener<JSONArray>() {
                                 @Override
@@ -441,6 +461,7 @@ public class DayView_calendar extends AppCompatActivity {
 
                             AlertDialog dialog = builder.create();
                             dialog.show();
+
 
 
                         } catch (JSONException e) {
@@ -550,6 +571,7 @@ public class DayView_calendar extends AppCompatActivity {
     }
 
 
+
     private void calenderSwitcher(Context context, Class<?> CLASS) {
         Intent i = null;
         i = new Intent(context, CLASS);
@@ -597,6 +619,7 @@ public class DayView_calendar extends AppCompatActivity {
                     resp.getString("startDate");
 
 
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -610,6 +633,7 @@ public class DayView_calendar extends AppCompatActivity {
                 }
 
         );
+
         MySingleton.getInstance(DayView_calendar.this).addToRequestQueue(req);
     }
     void getSeance(List<Seance> seances)
@@ -681,11 +705,13 @@ public class DayView_calendar extends AppCompatActivity {
                     urlTask = WS.URL + "tasks/daytask/" + day.getText().toString() + "/" + id;
 
 
+
                     break;
 
 
             }
         } else {
+
             urlTask = WS.URL + "tasks/daytasks/" +day.getText().toString();
         }
 
@@ -779,5 +805,17 @@ public class DayView_calendar extends AppCompatActivity {
             }
         });
         MySingleton.getInstance(this.getApplicationContext()).addToRequestQueue(jArray);
+
+
+        }
+
+
+
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("startDate", day.getText().toString());
+
     }
 }

@@ -59,19 +59,23 @@ public class WeekView_Calendar extends AppCompatActivity {
     static boolean server = false;
 
 
+
     LinearLayout Lun_08, Lun_09, Lun_10, Lun_11, Lun_12, Lun_13, Lun_14, Lun_15, Lun_16, Lun_17, Lun_18,
 
     Mar_08, Mar_09, Mar_10, Mar_11, Mar_12, Mar_13, Mar_14, Mar_15, Mar_16, Mar_17, Mar_18,
+
             Mer_08, Mer_09, Mer_10, Mer_11, Mer_12, Mer_13, Mer_14, Mer_15, Mer_16, Mer_17, Mer_18,
             Jeu_08, Jeu_09, Jeu_10, Jeu_11, Jeu_12, Jeu_13, Jeu_14, Jeu_15, Jeu_16, Jeu_17, Jeu_18,
             Ven_08, Ven_09, Ven_10, Ven_11, Ven_12, Ven_13, Ven_14, Ven_15, Ven_16, Ven_17, Ven_18,
             Sam_08, Sam_09, Sam_10, Sam_11, Sam_12, Sam_13, Sam_14, Sam_15, Sam_16, Sam_17, Sam_18,
             Dim_08, Dim_09, Dim_10, Dim_11, Dim_12, Dim_13, Dim_14, Dim_15, Dim_16, Dim_17, Dim_18;
     LinearLayout linearIntersection;
-    LocalDateTime dateInit = LocalDateTime.of(2020, 9, 14, 15, 56);
+
+    LocalDateTime dateInit;
     DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-    LocalDateTime starDate = dateInit, endDate = dateInit;
+    LocalDateTime starDate, endDate;
+
     BottomNavigationView bnv;
     private Dialog dialog;
     private Dialog dialoglist;
@@ -81,12 +85,27 @@ public class WeekView_Calendar extends AppCompatActivity {
     private DialogInterface.OnClickListener listener;
     private GridLayout contentWeek;
     private Drawable drawable;
+
     private String fullName;
+
+    TextView day;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_week_view_calendar);
+
+        setTitle("Emploi de la semaine");
+        day = findViewById(R.id.day);
+        if (savedInstanceState != null) {
+            dateInit = LocalDateTime.parse(savedInstanceState.getString("startDate"));
+        } else {
+            dateInit = LocalDateTime.of(2020, 9, 14, 15, 56);
+        }
+        starDate = dateInit;
+        endDate = dateInit;
+
         Intent emploiIntent = getIntent();
         id = emploiIntent.getStringExtra("id");
         bnv = findViewById(R.id.bottom_navigation);
@@ -160,6 +179,9 @@ public class WeekView_Calendar extends AppCompatActivity {
         });
         startDateString = dateFormatter.format(starDate);
         endDateString = dateFormatter.format(endDate);
+
+        day.setText(startDateString + " -> " + endDateString);
+
         Lun_08 = findViewById(R.id.Lun_08);
         Lun_09 = findViewById(R.id.Lun_09);
         Lun_10 = findViewById(R.id.Lun_10);
@@ -239,19 +261,21 @@ public class WeekView_Calendar extends AppCompatActivity {
         Dim_18 = findViewById(R.id.Dim_18);
         drawable = getResources().getDrawable(R.drawable.ic_baseline_brightness_1_24, getTheme());
 
+
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater mI = getMenuInflater();
 
         mI.inflate(R.menu.menu_calendar, menu);
-
         return true;
     }
 
+
+
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
 
         switch (item.getItemId()) {
 
@@ -264,52 +288,40 @@ public class WeekView_Calendar extends AppCompatActivity {
             case R.id.day_view:
                 calenderSwitcher(WeekView_Calendar.this, DayView_calendar.class);
 
-
         }
         return true;
     }
 
 
     @Override
-
     protected void onResume() {
-        SessionManager sessionManager = new SessionManager(WeekView_Calendar.this);
-        super.onResume();
 
+        super.onResume();
+        SessionManager sessionManager = new SessionManager(WeekView_Calendar.this);
         emploitype();
 
         dialog.setContentView(R.layout.progressbar);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
         dialog.setCanceledOnTouchOutside(false);
         dialog.show();
         JsonArrayRequest jArray = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
-
-
             @Override
             public void onResponse(JSONArray response) {
-
                 dialog.cancel();
-                TextView day = findViewById(R.id.day);
-                day.setText(startDateString + " -> " + endDateString);
+
 
                 getSeance(response);
-
-
                 JSONObject j = null;
-
 
                 for (int i = 0; i < response.length(); i++) {
 
                     try {
                         j = response.getJSONObject(i);
                         databaseHandler.saveSeance(new Seance(j.getInt("seanceId"), j.getString("comments"), j.getInt("clientId"), j.getInt("monitorId"), j.getInt("durationMinut"), j.getString("startDate")));
-
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
-
             }
         }, new Response.ErrorListener() {
             @Override
@@ -322,7 +334,6 @@ public class WeekView_Calendar extends AppCompatActivity {
             }
         });
         MySingleton.getInstance(this.getApplicationContext()).addToRequestQueue(jArray);
-
     }
 
     private void emploitype() {
@@ -343,13 +354,12 @@ public class WeekView_Calendar extends AppCompatActivity {
                     url = WS.URL + "seances/" + startDateString + "/" + endDateString + "/" + id;
                     seances = databaseHandler.readClientSeance(Integer.valueOf(id));
                     break;
-
             }
         } else {
             url = WS.URL + "seances/" + startDateString + "/" + endDateString; //getTache();
         }
-
     }
+
 
     public void weekchanger(View view) {
 
@@ -359,7 +369,6 @@ public class WeekView_Calendar extends AppCompatActivity {
         LocalDateTime firstDate = starDate;
 
         switch (view.getId()) {
-
 
             case R.id.btnnext:
                 starDate = starDate.plusDays(7);
@@ -376,12 +385,11 @@ public class WeekView_Calendar extends AppCompatActivity {
         }
         Locale local = new Locale("fr", "Fr");
 
+
         //DateTimeFormatter dt= ;
-        TextView day = findViewById(R.id.day);
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         //day.setText(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.FULL, FormatStyle.SHORT).withLocale(local).format(DateInit));
         day.setText(startDateString + " -> " + endDateString);
-
 
         onResume();
 
@@ -415,6 +423,7 @@ public class WeekView_Calendar extends AppCompatActivity {
 
     }
 
+
     void init() {
 
         LinearLayout l = null;
@@ -427,11 +436,9 @@ public class WeekView_Calendar extends AppCompatActivity {
                 }
             }
 
-
         }
-
-
     }
+
 
     private void calenderSwitcher(Context context, Class<?> CLASS) {
         Intent i = null;
@@ -450,14 +457,12 @@ public class WeekView_Calendar extends AppCompatActivity {
                     finish();
                     break;
 
-
                 case "2":
                     i.putExtra("emploitype", "2");
                     i.putExtra("id", id);
                     startActivity(i);
                     finish();
                     break;
-
 
             }
         } else {
@@ -479,7 +484,6 @@ public class WeekView_Calendar extends AppCompatActivity {
                 j = response.getJSONObject(i);
                 dateFromResponse = LocalDateTime.parse(j.getString("startDate"));
                 String dateTime = j.getString("startDate").substring(11, 16);
-
 
                 if (LocalDateTime.now().compareTo(dateFromResponse) <= 0) {
                     color = "#2de04b";
@@ -529,6 +533,7 @@ public class WeekView_Calendar extends AppCompatActivity {
                                 break;
                         }
                         break;
+
                     case 2:
                         switch (dateTime) {
                             case "08:00":
@@ -566,6 +571,7 @@ public class WeekView_Calendar extends AppCompatActivity {
                                 break;
                         }
                         break;
+
                     case 3:
                         switch (dateTime) {
                             case "08:00":
@@ -603,6 +609,7 @@ public class WeekView_Calendar extends AppCompatActivity {
                                 break;
                         }
                         break;
+
                     case 4:
                         switch (dateTime) {
                             case "08:00":
@@ -766,15 +773,11 @@ public class WeekView_Calendar extends AppCompatActivity {
                 case "0":
                     urlTask = WS.URL + "tasks/" + startDateString + "/" + endDateString;
 
-
                     break;
                 case "1":
                     urlTask = WS.URL + "tasks/" + startDateString + "/" + endDateString + "/" + id;
 
-
                     break;
-
-
             }
         } else {
             url = WS.URL + "tasks/" + startDateString + "/" + endDateString;
@@ -799,6 +802,7 @@ public class WeekView_Calendar extends AppCompatActivity {
                         } else {
                             color = "#ff6347";
                         }
+
                         v = new TextView(WeekView_Calendar.this);
                         v.setLayoutParams(params);
                         v.setBackgroundResource(R.drawable.textview_border);
@@ -806,6 +810,7 @@ public class WeekView_Calendar extends AppCompatActivity {
                         v.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
                         v.setText(j.getInt("taskId") + "task");
                         switch (dateFromResponse.getDayOfWeek().getValue()) {
+
 
                             case 1:
                                 switch (dateTime) {
@@ -846,6 +851,7 @@ public class WeekView_Calendar extends AppCompatActivity {
                                         break;
                                 }
                                 break;
+
                             case 2:
                                 switch (dateTime) {
                                     case "08:00":
@@ -883,6 +889,7 @@ public class WeekView_Calendar extends AppCompatActivity {
                                         break;
                                 }
                                 break;
+
                             case 3:
                                 switch (dateTime) {
                                     case "08:00":
@@ -920,6 +927,7 @@ public class WeekView_Calendar extends AppCompatActivity {
                                         break;
                                 }
                                 break;
+
                             case 4:
                                 switch (dateTime) {
                                     case "08:00":
@@ -957,6 +965,7 @@ public class WeekView_Calendar extends AppCompatActivity {
                                         break;
                                 }
                                 break;
+
                             case 5:
                                 switch (dateTime) {
                                     case "08:00":
@@ -994,6 +1003,7 @@ public class WeekView_Calendar extends AppCompatActivity {
                                         break;
                                 }
                                 break;
+
                             case 6:
                                 switch (dateTime) {
                                     case "08:00":
@@ -1031,6 +1041,7 @@ public class WeekView_Calendar extends AppCompatActivity {
                                         break;
                                 }
                                 break;
+
                             case 7:
                                 switch (dateTime) {
                                     case "08:00":
@@ -1069,26 +1080,20 @@ public class WeekView_Calendar extends AppCompatActivity {
                                 }
                                 break;
                         }
-
-
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
 
-
                 for (int i = 0; i < response.length(); i++) {
-
                     try {
                         j = response.getJSONObject(i);
-
                         databaseHandler.saveTask(new Task(j.getInt("taskId"), j.getString("startDate"), j.getInt("durationMinut"), j.getString("title"), j.getString("detail"), j.getString("isDone"), j.getInt("userFk")));
 
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
-
             }
         }, new Response.ErrorListener() {
             @Override
@@ -1098,14 +1103,12 @@ public class WeekView_Calendar extends AppCompatActivity {
             }
         });
         MySingleton.getInstance(this.getApplicationContext()).addToRequestQueue(jArray);
-
     }
 
 
     void getSeance(List<Seance> seances) {
 
         LocalDateTime dateFromResponse;
-
         for (Seance seance : seances) {
             try {
 
@@ -1161,6 +1164,7 @@ public class WeekView_Calendar extends AppCompatActivity {
                                 break;
                         }
                         break;
+
                     case 2:
                         switch (dateTime) {
                             case "08:00":
@@ -1209,6 +1213,7 @@ public class WeekView_Calendar extends AppCompatActivity {
                                 break;
                         }
                         break;
+
                     case 3:
                         switch (dateTime) {
                             case "08:00":
@@ -1257,53 +1262,8 @@ public class WeekView_Calendar extends AppCompatActivity {
                                 break;
                         }
                         break;
+
                     case 4:
-                        switch (dateTime) {
-                            case "08:00":
-                                Jeu_08.addView(v);
-                                Jeu_08.setBackgroundColor(Color.parseColor("#EC7C32"));
-                                break;
-                            case "09:00":
-                                Jeu_09.addView(v);
-                                Jeu_09.setBackgroundColor(Color.parseColor("#EC7C32"));
-                                break;
-                            case "10:00":
-                                Jeu_10.addView(v);
-                                Jeu_10.setBackgroundColor(Color.parseColor("#EC7C32"));
-                                break;
-                            case "11:00":
-                                Jeu_11.addView(v);
-                                Jeu_11.setBackgroundColor(Color.parseColor("#EC7C32"));
-                                break;
-                            case "12:00":
-                                Jeu_12.addView(v);
-                                Jeu_12.setBackgroundColor(Color.parseColor("#EC7C32"));
-                                break;
-                            case "13:00":
-                                Jeu_13.addView(v);
-                                Jeu_13.setBackgroundColor(Color.parseColor("#EC7C32"));
-                                break;
-                            case "14:00":
-                                Jeu_14.addView(v);
-                                Jeu_14.setBackgroundColor(Color.parseColor("#EC7C32"));
-                                break;
-                            case "15:00":
-                                Jeu_15.addView(v);
-                                Jeu_15.setBackgroundColor(Color.parseColor("#EC7C32"));
-                                break;
-                            case "16:00":
-                                Jeu_16.addView(v);
-                                Jeu_16.setBackgroundColor(Color.parseColor("#EC7C32"));
-                                break;
-                            case "17:00":
-                                Jeu_17.addView(v);
-                                Jeu_17.setBackgroundColor(Color.parseColor("#EC7C32"));
-                                break;
-                            case "18:00":
-                                Jeu_18.addView(v);
-                                Jeu_18.setBackgroundColor(Color.parseColor("#EC7C32"));
-                                break;
-                        }
                         switch (dateTime) {
                             case "08:00":
                                 Jeu_08.addView(v);
@@ -1352,6 +1312,7 @@ public class WeekView_Calendar extends AppCompatActivity {
                         }
 
                         break;
+
                     case 5:
                         switch (dateTime) {
                             case "08:00":
@@ -1397,9 +1358,11 @@ public class WeekView_Calendar extends AppCompatActivity {
                             case "18:00":
                                 Ven_18.addView(v);
                                 Ven_18.setBackgroundColor(Color.parseColor("#EC7C32"));
+
                                 break;
                         }
                         break;
+
                     case 6:
                         switch (dateTime) {
                             case "08:00":
@@ -1448,6 +1411,7 @@ public class WeekView_Calendar extends AppCompatActivity {
                                 break;
                         }
                         break;
+
                     case 7:
                         switch (dateTime) {
                             case "08:00":
@@ -1497,8 +1461,6 @@ public class WeekView_Calendar extends AppCompatActivity {
                         }
                         break;
                 }
-
-
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -1520,11 +1482,14 @@ public class WeekView_Calendar extends AppCompatActivity {
                 public void onResponse(JSONObject response) {
 
                     try {
+
                         String URLEXTENSION = urlExtensionforSeanceDetails(response);
+
                            /* Seance seance= new Seance(response.getInt("seanceId"),response.getInt("seanceGrpId"),
                                     response.getInt("clientId"),response.getInt("monitorId"),
                                     response.getInt("durationMinut"),response.getString("comments"),response.getString("startDate"));
                          //  Intent i= new Intent(WeekView_Calendar.this,ListActivity.class); i.putExtra("seance", (Serializable) seance); startActivity(i);finish();*/
+
 
                         JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, WS.URL + URLEXTENSION, null, new Response.Listener<JSONArray>() {
                             @Override
@@ -1592,6 +1557,7 @@ public class WeekView_Calendar extends AppCompatActivity {
                                     }
 
 
+
                                 }
 
 
@@ -1602,11 +1568,12 @@ public class WeekView_Calendar extends AppCompatActivity {
                                 AlertDialog dialog = builder.create();
                                 dialog.show();
 
+
                             }
                         }, new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
-                                Log.e(MainActivity.class.getSimpleName(), error.getMessage());
+
                             }
                         }
 
@@ -2072,17 +2039,14 @@ public class WeekView_Calendar extends AppCompatActivity {
 //                }
 //
 //            }
-
         }
-
-
     }
-
 
     public void onclickbtn(View view) {
         findViewById(R.id.floatingActionButtonweek).setVisibility(View.INVISIBLE);
         findViewById(R.id.bottom_navigation).setVisibility(View.VISIBLE);
     }
+
 
     private String urlExtensionforSeanceDetails(JSONObject response) throws JSONException {
         String URL = null;
@@ -2111,5 +2075,13 @@ public class WeekView_Calendar extends AppCompatActivity {
         return URL;
     }
 
+
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("startDate", starDate.toString());
+        Log.d("testttttststststst", starDate.toString());
+    }
 
 }

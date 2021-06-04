@@ -30,7 +30,6 @@
             android:layout_columnWeight="1"
             android:text="LUN"
             android:gravity="center"
-            
             android:layout_rowWeight="1"
             android:id="@id/day" />
 
@@ -989,7 +988,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:visibility="invisible"
         android:layout_gravity="end|bottom"
-
+        android:backgroundTint="@color/orange"
         android:layout_margin="20dp"
         android:onClick="onclickbtn"
         android:src="@drawable/ic_baseline_dehaze_50"

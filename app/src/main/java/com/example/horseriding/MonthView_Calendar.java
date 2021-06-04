@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -34,6 +35,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class MonthView_Calendar extends AppCompatActivity {
+
     LocalDate dateInit = LocalDate.of(2020, 9, 14);
     LinearLayout Lun_1, Mar_1, Mer_1, Jeu_1, Ven_1, Sam_1, Dim_1,
             Lun_2, Mar_2, Mer_2, Jeu_2, Ven_2, Sam_2, Dim_2,
@@ -45,6 +47,7 @@ public class MonthView_Calendar extends AppCompatActivity {
     Drawable drawable;
     LocalDate firstDate = dateInit.withDayOfMonth(1);
     LinearLayout.LayoutParams params;
+
     TextView v;
     String startDateString;
     String endDateString;
@@ -62,7 +65,9 @@ public class MonthView_Calendar extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle("Emploi du Mois");
         setContentView(R.layout.activity_month_view);
+
         Intent emploiIntent = getIntent();
         id = emploiIntent.getStringExtra("id");
         emploitype = getIntent().getStringExtra("emploitype");
@@ -136,6 +141,7 @@ public class MonthView_Calendar extends AppCompatActivity {
                 starDate = firstDate.minusDays(6);
                 endDate = starDate.plusDays(6);
                 break;
+
         }
         startDateString = dateFormatter.format(starDate);
         endDateString = dateFormatter.format(endDate);
@@ -204,9 +210,11 @@ public class MonthView_Calendar extends AppCompatActivity {
         super.onResume();
 
 
+
         emploitype();
         day.setText(firstDate.getMonth().toString() + " " + firstDate.getYear());
         JsonArrayRequest jsonWeek1 = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+
             @Override
             public void onResponse(JSONArray response) {
                 LocalDateTime dateFromResponse;
@@ -496,16 +504,19 @@ public class MonthView_Calendar extends AppCompatActivity {
     }
 
 
+
     public void monthChanger(View view) {
         switch (view.getId()) {
             case R.id.btnnext:
                 firstDate = firstDate.plusMonths(1);
+
                 break;
             case R.id.btnprevious:
                 firstDate = firstDate.minusMonths(1);
                 break;
         }
         init();
+
         starDate = firstDate;
         endDate = firstDate;
         switch (firstDate.getDayOfWeek().getValue()) {
@@ -537,6 +548,7 @@ public class MonthView_Calendar extends AppCompatActivity {
                 starDate = firstDate.minusDays(6);
                 endDate = starDate.plusDays(6);
                 break;
+
         }
         startDateString = dateFormatter.format(starDate);
         endDateString = dateFormatter.format(endDate);
@@ -546,7 +558,6 @@ public class MonthView_Calendar extends AppCompatActivity {
     private void emploitype() {
         if (getIntent().getStringExtra("emploitype") != null) {
             switch (getIntent().getStringExtra("emploitype")) {
-
                 case "0":
                     url = WS.URL + "seances/" + startDateString + "/" + endDateString;
                     seances = databaseHandler.readSeance();
@@ -556,19 +567,18 @@ public class MonthView_Calendar extends AppCompatActivity {
                     url = WS.URL + "seances/monitor/" + startDateString + "/" + endDateString + "/" + id;
                     //getTache();
                     seances = databaseHandler.readUserSeance(Integer.valueOf(id));
-
                     break;
                 case "2":
                     url = WS.URL + "seances/" + startDateString + "/" + endDateString + "/" + id;
                     seances = databaseHandler.readClientSeance(Integer.valueOf(id));
                     break;
-
             }
         } else {
             url = WS.URL + "seances/" + startDateString + "/" + endDateString; //getTache();
         }
 
     }
+
 
     void init() {
 
@@ -579,10 +589,10 @@ public class MonthView_Calendar extends AppCompatActivity {
             l.removeAllViews();
 
 
+
         }
-
-
     }
+
 
     private void calenderSwitcher(Context context, Class<?> CLASS) {
         Intent i = null;
@@ -610,6 +620,7 @@ public class MonthView_Calendar extends AppCompatActivity {
                     break;
 
 
+
             }
         } else {
             startActivity(i);
@@ -621,6 +632,7 @@ public class MonthView_Calendar extends AppCompatActivity {
         findViewById(R.id.floatingActionButtonweek).setVisibility(View.INVISIBLE);
         findViewById(R.id.bottom_navigation).setVisibility(View.VISIBLE);
     }
+
 
     public void seancedetails(View view) {
         StringBuilder stringBuilder = new StringBuilder();
@@ -1116,6 +1128,13 @@ public class MonthView_Calendar extends AppCompatActivity {
             URL = "seances/allnamesshortdate/" + response.getString("startDate").split("T")[0];
         }
         return URL;
+    }
+
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("startDate",starDate+"");
     }
 
 }

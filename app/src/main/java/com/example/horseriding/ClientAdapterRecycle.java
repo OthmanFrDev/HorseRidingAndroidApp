@@ -59,6 +59,7 @@ public class ClientAdapterRecycle extends RecyclerView.Adapter<ClientAdapterRecy
     public ClientAdapterRecycle(Context c, List<Client> list){
         this.context=c;
         this.list=list;
+        this.listFiltred=list;
     }
 
 
@@ -71,8 +72,8 @@ public class ClientAdapterRecycle extends RecyclerView.Adapter<ClientAdapterRecy
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Client u=list.get(position);
-        holder.txtName.setText(u.getClientEmail());
+        Client u=listFiltred.get(position);
+        holder.txtName.setText(u.getlName()+" "+u.getfName());
         holder.txtRole.setText(String.valueOf(u.getClientId()));
     }
 
@@ -80,6 +81,6 @@ public class ClientAdapterRecycle extends RecyclerView.Adapter<ClientAdapterRecy
 
     @Override
     public int getItemCount() {
-        return list.size();
+        return listFiltred.size();
     }
 }

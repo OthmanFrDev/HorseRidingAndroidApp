@@ -28,7 +28,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.security.SecureRandom;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,8 +47,7 @@ public class UserController extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_form_user);
-        label = findViewById(R.id.labeledit);
-        label.setText("Ajouter Utilisateur");
+
         userType = findViewById(R.id.userspinner);
         //Setting ToolBar Back Button
         getType();
@@ -59,7 +60,9 @@ public class UserController extends AppCompatActivity {
         mail = findViewById(R.id.inputemail);
         tel = findViewById(R.id.inputtel);
         lastmdp = findViewById(R.id.inputlastpass);
-        desc = findViewById(R.id.inputdescription);
+
+        //desc=findViewById(R.id.inputdescription);
+
         bnv = findViewById(R.id.bottom_navigation);
         bnv.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -121,14 +124,18 @@ public class UserController extends AppCompatActivity {
             }
             JSONObject jsonBody = new JSONObject();
             //    jsonBody.put("userId", Integer.valueOf(userId.getText().toString()));
-            jsonBody.put("userEmail", mail.getEditText().getText().toString());
-            jsonBody.put("userPasswd", lastmdp.getEditText().getText().toString());
+
+            String pwd=generateRandomPassword();
+            StringBuilder msg=new StringBuilder();
+            jsonBody.put("userEmail", mail.getEditText().getText().toString().trim());
+            jsonBody.put("userPasswd", pwd);
+
             jsonBody.put("adminLevel", adminLevel);
             jsonBody.put("lastLoginTime", LocalDateTime.now().toString());
             jsonBody.put("isActive", 1);
             jsonBody.put("userFname", prenom.getEditText().getText());
             jsonBody.put("userLname", nom.getEditText().getText());
-            jsonBody.put("description", desc.getEditText().getText());
+            jsonBody.put("description", /*desc.getEditText().getText()*/"no description");
 
             jsonBody.put("userType", type);
             jsonBody.put("userphoto", "default.png");
@@ -136,16 +143,22 @@ public class UserController extends AppCompatActivity {
             jsonBody.put("userPhone", tel.getEditText().getText());
             jsonBody.put("displayColor", "#0000FF");
             Log.d("jsonbody", jsonBody.toString());
-            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
-                    Request.Method.POST,
-                    WS.URL+"users",
-                    jsonBody,
+
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, WS.URL+"users", jsonBody,
+
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
                             // Do something with response
                             try {
+
+                                msg.append("Bonjour Madame, Monsieur "+jsonBody.getString("userFname")+" "+jsonBody.getString("userLname")+" , \n");
+                                msg.append("Vous pouvez maintenant télécharger l'application et vous connectez avec les informations ci-dessus.\n");
+                                msg.append("Votre email :"+jsonBody.getString("userEmail")+"\n");
+                                msg.append("Votre mot de passe :"+jsonBody.getString("userPasswd")+"\n");
                                 Toast.makeText(UserController.this, "Ajouter", Toast.LENGTH_LONG).show();
+                                JavaMailAPI javaMailAPI=new JavaMailAPI(UserController.this,mail.getEditText().getText().toString().trim(),"Register Success",msg.toString());
+                                javaMailAPI.execute();
                                 Intent listUserIntet = new Intent(UserController.this, ListActivity.class);
                                 listUserIntet.putExtra("click", "0");
                                 UserController.this.startActivity(listUserIntet);
@@ -177,16 +190,26 @@ public class UserController extends AppCompatActivity {
 
     }
 
+
     void getType() {
         List<String> types = new ArrayList<>();
         types.add("ADMIN");
         types.add("MONITOR");
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(UserController.this, R.layout.support_simple_spinner_dropdown_item, types);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(UserController.this,
-                R.layout.support_simple_spinner_dropdown_item, types);
         adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         userType.setAdapter(adapter);
+    }
 
+    public String generateRandomPassword() {
+        final String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        SecureRandom random = new SecureRandom();
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 10; i++) {
+            int randomIndex = random.nextInt(chars.length());
+            sb.append(chars.charAt(randomIndex));
+        }
+        return sb.toString();
     }
 
 }
