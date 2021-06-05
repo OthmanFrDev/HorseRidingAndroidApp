@@ -6,7 +6,6 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_view"
-
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="6dp"
@@ -14,7 +13,7 @@
         android:layout_marginEnd="6dp"
         android:layout_marginBottom="6dp"
         android:backgroundTint="#BC5A2B"
-        app:cardCornerRadius="5dp"
+        app:cardCornerRadius="20dp"
         app:cardElevation="10dp"
         app:contentPadding="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -56,7 +55,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:backgroundTint="#BC5A2B"
-                android:tint="@color/black"
+                android:tint="@color/white"
                 android:tooltipText="Supprimer"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"

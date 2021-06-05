@@ -2,6 +2,8 @@ package com.example.horseriding;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -477,8 +479,9 @@ public class WeekView_Calendar extends AppCompatActivity {
         for (int i = 0; i < response.length(); i++) {
             try {
                 v = new TextView(WeekView_Calendar.this);
+                Drawable unwrappedDrawable = AppCompatResources.getDrawable(WeekView_Calendar.this, R.drawable.textview_border);
+                Drawable wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
                 v.setLayoutParams(params);
-                v.setBackgroundResource(R.drawable.textview_border);
                 v.setTextSize(11);
                 v.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
                 j = response.getJSONObject(i);
@@ -492,6 +495,15 @@ public class WeekView_Calendar extends AppCompatActivity {
                 }
                 v.setText(String.valueOf(j.getInt("seanceId")));
                 v.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                if (LocalDateTime.now().compareTo(LocalDateTime.parse(j.getString("startDate"))) <= 0) {
+                    DrawableCompat.setTint(wrappedDrawable, Color.parseColor("#048FD2"));
+                    v.setBackgroundResource(R.drawable.textview_border);
+
+                } else {
+                    DrawableCompat.setTint(wrappedDrawable, Color.parseColor("#ff6347"));
+                    v.setBackgroundResource(R.drawable.textview_border);
+
+                }
                 switch (dateFromResponse.getDayOfWeek().getValue()) {
 
                     case 1:
@@ -782,7 +794,8 @@ public class WeekView_Calendar extends AppCompatActivity {
         } else {
             url = WS.URL + "tasks/" + startDateString + "/" + endDateString;
         }
-
+        Drawable unwrappedDrawable = AppCompatResources.getDrawable(WeekView_Calendar.this, R.drawable.textview_border);
+        Drawable wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
         JsonArrayRequest jArray = new JsonArrayRequest(Request.Method.GET, urlTask, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
@@ -805,9 +818,17 @@ public class WeekView_Calendar extends AppCompatActivity {
 
                         v = new TextView(WeekView_Calendar.this);
                         v.setLayoutParams(params);
-                        v.setBackgroundResource(R.drawable.textview_border);
                         v.setTextSize(11);
                         v.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
+                        if (LocalDateTime.now().compareTo(LocalDateTime.parse(j.getString("startDate"))) <= 0) {
+                            DrawableCompat.setTint(wrappedDrawable, Color.parseColor("#048FD2"));
+                            v.setBackgroundResource(R.drawable.textview_border);
+
+                        } else {
+                            DrawableCompat.setTint(wrappedDrawable, Color.parseColor("#ff6347"));
+                            v.setBackgroundResource(R.drawable.textview_border);
+
+                        }
                         v.setText(j.getInt("taskId") + "task");
                         switch (dateFromResponse.getDayOfWeek().getValue()) {
 

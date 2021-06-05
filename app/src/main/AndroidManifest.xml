@@ -15,9 +15,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HorseRiding"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ClientList">
-
-        </activity>
         <activity android:name=".Add_Client"></activity>
         <activity android:name=".EditFormUser" />
         <activity
@@ -48,7 +45,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".test"></activity>
     </application>
 
 </manifest>
