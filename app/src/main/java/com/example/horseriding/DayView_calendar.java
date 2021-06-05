@@ -687,7 +687,7 @@ public class DayView_calendar extends AppCompatActivity {
     }
 
     void getTache()
-    {
+        {
         String urlTask=null;
 
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
