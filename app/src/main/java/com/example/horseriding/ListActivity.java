@@ -103,7 +103,7 @@ public class ListActivity extends AppCompatActivity {
         bnv = findViewById(R.id.bottom_navigation);
         if (getIntent().getStringExtra("emploi") != null) {
             if (orientation == Configuration.ORIENTATION_PORTRAIT) {
-                containerPor.removeView(findViewById(R.id.floatingActionButton3));
+                containerPor.removeView(bnv);
             } else {
                 ConstraintLayout cl = findViewById(R.id.details);
                 container.removeView(cl);
@@ -334,43 +334,7 @@ public class ListActivity extends AppCompatActivity {
         MySingleton.getInstance(this.getApplicationContext()).addToRequestQueue(req);
     }
 
-    //    void getAllTasks() {
-//
-//        JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, WS.URL+"tasks", null, new Response.Listener<JSONArray>() {
-//            @Override
-//            public void onResponse(JSONArray response) {
-//
-//
-//                JSONObject j = null;
-//                for (int i = 0; i < response.length(); i++) {
-//                    try {
-//                        j = response.getJSONObject(i);
-//                        tasks.add(new Task(j.getInt("taskId"),j.getInt("durationMinut"),
-//                                j.getInt("userFk"),j.getString("title"),j.getString("detail")));
-//                    } catch (JSONException e) {
-//                        e.printStackTrace();
-//                    }
-//
-//
-//                }
-//                ta=new TaskAdapterRecycle(ListActivity.this,tasks);
-//                listClient.setLayoutManager(new LinearLayoutManager(ListActivity.this));
-//                listClient.setAdapter(ta);
-//
-//
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                Log.e(MainActivity.class.getSimpleName(), error.getMessage());
-//            }
-//        }
-//
-//        );
-//
-//
-//        MySingleton.getInstance(this.getApplicationContext()).addToRequestQueue(req);
-//    }
+
     public List<Seance> getAllSeances() {
         JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, WS.URL + "seances", null, new Response.Listener<JSONArray>() {
             @Override
@@ -441,7 +405,7 @@ public class ListActivity extends AppCompatActivity {
             addIntent = new Intent(ListActivity.this, DayView_calendar.class);/*seance*/
         }
         if (intent.getStringExtra("click").equals("3")) {
-            addIntent = new Intent(ListActivity.this, UserController.class);/*client*/
+            addIntent = new Intent(ListActivity.this, Add_Client.class);/*client*/
         }
 
         ListActivity.this.startActivity(addIntent);
