@@ -34,7 +34,9 @@ import org.json.JSONObject;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MonthView_Calendar extends AppCompatActivity {
@@ -211,7 +213,6 @@ public class MonthView_Calendar extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
 
 
         emploitype();
@@ -552,9 +553,7 @@ public class MonthView_Calendar extends AppCompatActivity {
         MySingleton.getInstance(this.getApplicationContext()).addToRequestQueue(jsonWeek5);
 
     }
-
-
-
+    
     public void monthChanger(View view) {
         switch (view.getId()) {
             case R.id.btnnext:
@@ -637,9 +636,6 @@ public class MonthView_Calendar extends AppCompatActivity {
 
             l = (LinearLayout) contentMonth.getChildAt(i);
             l.removeAllViews();
-
-
-
         }
     }
 
@@ -670,7 +666,6 @@ public class MonthView_Calendar extends AppCompatActivity {
                     break;
 
 
-
             }
         } else {
             startActivity(i);
@@ -683,6 +678,22 @@ public class MonthView_Calendar extends AppCompatActivity {
         findViewById(R.id.bottom_navigation).setVisibility(View.VISIBLE);
     }
 
+    private ArrayList<String> daysInMonth() {
+        ArrayList<String> daysInMonthArray = new ArrayList<>();
+        YearMonth yearMonth = YearMonth.from(starDate);
+        int daysInMonth = yearMonth.lengthOfMonth();
+        LocalDate firstOfMonth = starDate.withDayOfMonth(1);
+        int dayOfWeek = firstOfMonth.getDayOfWeek().getValue();
+        for (int i = 1; i <= 42; i++) {
+            if (i <= dayOfWeek || i > daysInMonth + dayOfWeek) {
+                daysInMonthArray.add("");
+            } else {
+                daysInMonthArray.add(String.valueOf(i - dayOfWeek));
+            }
+        }
+        return daysInMonthArray;
+
+    }
 
     public void seancedetails(View view) {
         StringBuilder stringBuilder = new StringBuilder();
@@ -1184,7 +1195,7 @@ public class MonthView_Calendar extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putString("startDate",starDate+"");
+        outState.putString("startDate", starDate + "");
     }
 
 }

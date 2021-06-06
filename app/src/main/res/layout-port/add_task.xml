@@ -1,162 +1,174 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolBar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/purple_700"
+        android:background="@color/black"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
-    <EditText
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/in_date"
-        android:layout_marginTop="82dp"
-        app:layout_constraintTop_toTopOf="@id/toolBar"
-
-       app:layout_constraintStart_toStartOf="parent"
-        android:layout_alignParentStart="true" />
-
-    <Button
-        android:id="@+id/btn_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-android:layout_marginLeft="20dp"
-        android:text="SELECT DATE"
-        app:layout_constraintStart_toEndOf="@id/in_date"
-
-        app:layout_constraintTop_toTopOf="@id/toolBar" />
-
-    <EditText
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/in_time"
-        android:layout_marginTop="20dp"
-        app:layout_constraintTop_toBottomOf="@id/in_date"
-
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="SELECT TIME"
-        android:id="@+id/btn_time"
-android:layout_marginLeft="20dp"
-        app:layout_constraintStart_toEndOf="@id/in_time"
-android:layout_marginTop="20dp"
-        app:layout_constraintTop_toBottomOf="@id/btn_date" />
-
-    <TextView
-        android:id="@+id/monitorlabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        android:text="Monitors : "
-        android:layout_marginTop="20dp"
-        app:layout_constraintTop_toBottomOf="@id/btn_time"
-
-        app:layout_constraintEnd_toStartOf="@id/monitor"
-        />
-    <Spinner
-        android:id="@+id/monitor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        app:layout_constraintTop_toBottomOf="@id/btn_time"
-        app:layout_constraintStart_toEndOf="@id/monitorlabel"
-        android:layout_marginTop="20dp"
-
-        android:inputType="number"
-       />
-<TextView
-    android:id="@+id/titlelabel"
-    android:text="Task Title : "
-    android:layout_height="wrap_content"
-    android:layout_width="wrap_content"
-    app:layout_constraintTop_toBottomOf="@id/monitorlabel"
-   android:layout_marginTop="30dp"
-    app:layout_constraintStart_toStartOf="parent"
-
-    />
-    <EditText
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-
-        app:layout_constraintTop_toBottomOf="@id/titlelabel"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="20dp"
-        />
-    <TextView
-        android:id="@+id/detaillabel"
-        android:text="Task detail : "
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/title"
-        android:layout_marginTop="30dp"
-        app:layout_constraintStart_toStartOf="parent"
-
-        />
-
-    <EditText
-        android:id="@+id/detail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text=""
-        app:layout_constraintTop_toBottomOf="@id/detaillabel"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="20dp"
-        tools:layout_editor_absoluteX="2dp"
-        tools:layout_editor_absoluteY="462dp" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/addseance"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        app:srcCompat="@drawable/ic_baseline_add_task_24"
-        app:layout_constraintTop_toBottomOf="@id/numberPicker"
-        android:layout_marginTop="5dp"
+    <ScrollView
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:layout_editor_absoluteX="187dp"
-        android:onClick="PostSeance"
-        tools:layout_editor_absoluteY="511dp" />
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="150dp"
-        android:text="Repetition"
-        app:layout_constraintLeft_toLeftOf="@id/addseance"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_time"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolBar"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
 
-    <NumberPicker
-        android:id="@+id/numberPicker"
-
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/addseance"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:padding="10dp"
+            android:layout_height="match_parent">
 
 
+            <EditText
+                android:id="@+id/in_date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:hint="Date"
+                app:layout_constraintEnd_toStartOf="@id/btn_date"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
+            <Button
+                android:id="@+id/btn_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text="SELECT DATE"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/in_date"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/in_time"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:hint="Heure"
+                app:layout_constraintEnd_toStartOf="@id/btn_time"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/in_date" />
+
+            <Button
+                android:id="@+id/btn_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:text="SELECT TIME"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/in_time"
+                app:layout_constraintTop_toBottomOf="@id/btn_date" />
+
+            <TextView
+                android:id="@+id/monitorlabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Monitors : "
+                app:layout_constraintEnd_toStartOf="@id/monitor"
+                app:layout_constraintStart_toStartOf="parent"
+
+                app:layout_constraintTop_toBottomOf="@id/in_time" />
+
+            <Spinner
+                android:id="@+id/monitor"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:ems="10"
+                android:inputType="number"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/monitorlabel"
+                app:layout_constraintTop_toBottomOf="@id/in_time" />
+
+            <TextView
+                android:id="@+id/titlelabel"
+                android:text="Task Title : "
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/monitorlabel"
+                android:layout_marginTop="30dp"
+                app:layout_constraintStart_toStartOf="parent"
+
+                />
+            <EditText
+                android:id="@+id/title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+
+                app:layout_constraintTop_toBottomOf="@id/titlelabel"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="20dp"
+                />
+            <TextView
+                android:id="@+id/detaillabel"
+                android:text="Task detail : "
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/title"
+                android:layout_marginTop="30dp"
+                app:layout_constraintStart_toStartOf="parent"
+
+                />
+
+            <EditText
+                android:id="@+id/detail"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text=""
+                app:layout_constraintTop_toBottomOf="@id/detaillabel"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="20dp"
+                tools:layout_editor_absoluteX="2dp"
+                tools:layout_editor_absoluteY="462dp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/addseance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button"
+                android:onClick="PostSeance"
+                android:padding="10dp"
+                android:text="Ajouter tâche"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/numberPicker" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="Repetition"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/detail" />
+
+            <NumberPicker
+                android:id="@+id/numberPicker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -29,11 +29,7 @@ import java.util.HashMap;
 
 public class DashboardActivity extends AppCompatActivity {
     Dialog dialog;
-
-
     CardView cardView;
-
-
     BottomNavigationView bnv;
     LinearLayout userShape;
     TextView welcomeUserName, nameuser;
@@ -46,21 +42,22 @@ public class DashboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
-        bnv=findViewById(R.id.bottom_navigation);
-        cardView=findViewById(R.id.cardviewuser);
-        dialog=new Dialog(this);
-        sessionManager=new SessionManager(this);
-        userdetail=sessionManager.getUserDetailFromSession();
+        bnv = findViewById(R.id.bottom_navigation);
+        cardView = findViewById(R.id.cardviewuser);
+        dialog = new Dialog(this);
+        sessionManager = new SessionManager(this);
+        userdetail = sessionManager.getUserDetailFromSession();
         int orientation = getResources().getConfiguration().orientation;
         if (orientation == Configuration.ORIENTATION_PORTRAIT) {
-            welcomeUserName =findViewById(R.id.welcomeuser);
-            nameuser =findViewById(R.id.nameuser);
+            welcomeUserName = findViewById(R.id.welcomeuser);
+            nameuser = findViewById(R.id.nameuser);
 
-        welcomeUserName.setText(userdetail.get(SessionManager.KEY_FULLNAME));
-        userShape = findViewById(R.id.shapeuser);
-        nameuser.setText(userdetail.get(SessionManager.KEY_FULLNAME).split(" ")[0].toUpperCase().substring(0, 1) + "" + userdetail.get(SessionManager.KEY_FULLNAME).split(" ")[1].toUpperCase().substring(0, 1));
-        nameuser.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 70);
-        nameuser.setTextColor(Color.parseColor("#ffffff"));}
+            welcomeUserName.setText(userdetail.get(SessionManager.KEY_FULLNAME));
+            userShape = findViewById(R.id.shapeuser);
+            nameuser.setText(userdetail.get(SessionManager.KEY_FULLNAME).split(" ")[0].toUpperCase().substring(0, 1) + "" + userdetail.get(SessionManager.KEY_FULLNAME).split(" ")[1].toUpperCase().substring(0, 1));
+            nameuser.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 70);
+            nameuser.setTextColor(Color.parseColor("#ffffff"));
+        }
         bnv.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -89,18 +86,22 @@ public class DashboardActivity extends AppCompatActivity {
             }
         });
     }
+
     @Override
     protected void onResume() {
         super.onResume();
     }
+
     public void OnclickCardview(View view) {
         Intent splashIntent = new Intent(DashboardActivity.this, ListActivity.class);
         switch (view.getId()) {
             case R.id.cardviewuser:
-                splashIntent.putExtra("click", "0");
+                /*splashIntent.putExtra("click", "0");
                 DashboardActivity.this.startActivity(splashIntent);
-                DashboardActivity.this.finish();
-
+                DashboardActivity.this.finish();*/
+                dialog.setContentView(R.layout.activity_dialog_user);
+                dialog.getWindow().setBackgroundDrawableResource(R.drawable.shapedialog);
+                dialog.show();
                 break;
             case R.id.cardviewtask:
                 DashboardActivity.this.startActivity(new Intent(DashboardActivity.this, NoteController.class));
@@ -121,8 +122,7 @@ public class DashboardActivity extends AppCompatActivity {
                 dialog.setContentView(R.layout.dialog_emplois);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
-
-                    break;
+                break;
 
         }
     }
@@ -136,10 +136,9 @@ public class DashboardActivity extends AppCompatActivity {
         Intent calenderIntent = new Intent(this, WeekView_Calendar.class);
         Intent ListActivityIntent = new Intent(DashboardActivity.this, ListActivity.class);
 
-        switch (view.getId())
-        {
+        switch (view.getId()) {
             case R.id.globalemploi:
-                calenderIntent.putExtra("emploitype","0");
+                calenderIntent.putExtra("emploitype", "0");
 
                 DashboardActivity.this.startActivity(calenderIntent);
                 DashboardActivity.this.finish();
@@ -147,19 +146,36 @@ public class DashboardActivity extends AppCompatActivity {
                 break;
 
             case R.id.monitoremploi:
-                ListActivityIntent.putExtra("emploi","1");
-                ListActivityIntent.putExtra("click","0");
+                ListActivityIntent.putExtra("emploi", "1");
+                ListActivityIntent.putExtra("click", "0");
                 DashboardActivity.this.startActivity(ListActivityIntent);
                 DashboardActivity.this.finish();
                 dialog.dismiss();
                 break;
             case R.id.clientemploi:
-                ListActivityIntent.putExtra("emploi","1");
-                ListActivityIntent.putExtra("click","3");
+                ListActivityIntent.putExtra("emploi", "1");
+                ListActivityIntent.putExtra("click", "3");
 
                 DashboardActivity.this.startActivity(ListActivityIntent);
                 DashboardActivity.this.finish();
                 dialog.dismiss();
+                break;
+        }
+    }
+
+    public void getList(View view) {
+        Intent splashIntent = new Intent(DashboardActivity.this, ListActivity.class);
+        switch (view.getId()) {
+            case R.id.salarié:
+                splashIntent.putExtra("click", "0");
+                DashboardActivity.this.startActivity(splashIntent);
+                DashboardActivity.this.finish();
+                break;
+            case R.id.Clients:
+                splashIntent.putExtra("emploi", "1");
+                splashIntent.putExtra("click", "3");
+                DashboardActivity.this.startActivity(splashIntent);
+                DashboardActivity.this.finish();
                 break;
         }
     }

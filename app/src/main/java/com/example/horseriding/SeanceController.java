@@ -45,7 +45,7 @@ public class SeanceController extends AppCompatActivity implements
     private int mYear, mMonth, mDay, mHour, mMinute;
     Spinner monitor;
     Seance seance;
-
+    Toolbar toolbar;
     Spinner clientid;
 
 
@@ -56,6 +56,7 @@ public class SeanceController extends AppCompatActivity implements
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.seance);
+        setTitle("Ajouter Seance");
         monitor = findViewById(R.id.monitor);
         clientid = findViewById(R.id.clientid);
         btnDatePicker = (Button) findViewById(R.id.btn_date);
@@ -76,7 +77,7 @@ public class SeanceController extends AppCompatActivity implements
         np.setMaxValue(8);
 
         np.setOnValueChangedListener(onValueChangeListener);
-        Toolbar toolbar = findViewById(R.id.toolBar);
+        toolbar = findViewById(R.id.toolBar);
         int orientation = getResources().getConfiguration().orientation;
         if (orientation == Configuration.ORIENTATION_PORTRAIT) {
             setSupportActionBar(toolbar);
@@ -85,7 +86,6 @@ public class SeanceController extends AppCompatActivity implements
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
-
         Intent myIntent = new Intent(getApplicationContext(), DayView_calendar.class);
         startActivity(myIntent);
         return true;
@@ -168,7 +168,6 @@ public class SeanceController extends AppCompatActivity implements
 
 
         monitor = findViewById(R.id.monitor);
-        EditText duration = findViewById(R.id.duration);
         EditText comment = findViewById(R.id.comment);
 
 
@@ -186,7 +185,7 @@ public class SeanceController extends AppCompatActivity implements
                 User user = (User) monitor.getSelectedItem();
                 jsonBody.put("monitorId", Integer.valueOf(user.getUserId()));
                 jsonBody.put("startDate", localDateTime);
-                jsonBody.put("durationMinut", Integer.valueOf(duration.getText().toString()));
+                jsonBody.put("durationMinut", 60);
                 jsonBody.put("isDone", 1);
                 jsonBody.put("paymentId", 1);
                 jsonBody.put("comments", comment.getText().toString());
