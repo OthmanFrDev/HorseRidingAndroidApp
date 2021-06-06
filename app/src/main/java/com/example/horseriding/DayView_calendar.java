@@ -344,7 +344,7 @@ public class DayView_calendar extends AppCompatActivity {
             }
         } else {
 
-            URL = "seances/getwithdate/" + day.getText().toString();
+            URL = "seances/allnames/" + response.getString("startDate");
         }
         return URL;
 

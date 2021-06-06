@@ -146,6 +146,7 @@ public class DashboardActivity extends AppCompatActivity {
                 break;
 
             case R.id.monitoremploi:
+                calenderIntent.putExtra("emploitype", "1");
                 ListActivityIntent.putExtra("emploi", "1");
                 ListActivityIntent.putExtra("click", "0");
                 DashboardActivity.this.startActivity(ListActivityIntent);
@@ -153,6 +154,7 @@ public class DashboardActivity extends AppCompatActivity {
                 dialog.dismiss();
                 break;
             case R.id.clientemploi:
+                calenderIntent.putExtra("emploitype", "2");
                 ListActivityIntent.putExtra("emploi", "1");
                 ListActivityIntent.putExtra("click", "3");
 

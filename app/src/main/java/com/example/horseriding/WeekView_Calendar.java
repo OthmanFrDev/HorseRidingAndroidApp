@@ -103,7 +103,7 @@ public class WeekView_Calendar extends AppCompatActivity {
         if (savedInstanceState != null) {
             dateInit = LocalDateTime.parse(savedInstanceState.getString("startDate"));
         } else {
-            dateInit = LocalDateTime.of(2020, 9, 14, 15, 56);
+            dateInit = LocalDateTime.now();
         }
         starDate = dateInit;
         endDate = dateInit;
@@ -342,7 +342,7 @@ public class WeekView_Calendar extends AppCompatActivity {
         if (getIntent().getStringExtra("emploitype") != null) {
             switch (getIntent().getStringExtra("emploitype")) {
                 case "0":
-                    url = WS.URL + "seances/" + startDateString + "/" + endDateString;
+                    url = WS.URL + "seances/s/" + startDateString + "/" + endDateString;
                     seances = databaseHandler.readSeance();
                     getTache();
                     break;
@@ -353,12 +353,12 @@ public class WeekView_Calendar extends AppCompatActivity {
 
                     break;
                 case "2":
-                    url = WS.URL + "seances/" + startDateString + "/" + endDateString + "/" + id;
+                    url = WS.URL + "seances/all/" + startDateString + "/" + endDateString + "/" + id;
                     seances = databaseHandler.readClientSeance(Integer.valueOf(id));
                     break;
             }
         } else {
-            url = WS.URL + "seances/" + startDateString + "/" + endDateString; //getTache();
+            url = WS.URL + "seances/s/" + startDateString + "/" + endDateString; getTache();
         }
     }
 
@@ -783,7 +783,7 @@ public class WeekView_Calendar extends AppCompatActivity {
         if (getIntent().getStringExtra("emploitype") != null) {
             switch (getIntent().getStringExtra("emploitype")) {
                 case "0":
-                    urlTask = WS.URL + "tasks/" + startDateString + "/" + endDateString;
+                    urlTask = WS.URL + "tasks/all/" + startDateString + "/" + endDateString;
 
                     break;
                 case "1":
@@ -792,7 +792,7 @@ public class WeekView_Calendar extends AppCompatActivity {
                     break;
             }
         } else {
-            url = WS.URL + "tasks/" + startDateString + "/" + endDateString;
+            urlTask = WS.URL + "tasks/all/" + startDateString + "/" + endDateString;
         }
         Drawable unwrappedDrawable = AppCompatResources.getDrawable(WeekView_Calendar.this, R.drawable.textview_border);
         Drawable wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
@@ -1619,393 +1619,6 @@ public class WeekView_Calendar extends AppCompatActivity {
 
 
             }
-        } else {
-//            LocalDateTime dateFromResponse;
-//            dateFromResponse=LocalDateTime.parse(seance.getStartDate());
-//            String dateTime=seance.getStartDate().substring(11,16);
-//            switch (view.getId()){
-//
-//                case R.id.Lun_08:dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//                starDate
-//
-//                    String date=  dateFormatter.format(DateInit);
-//                    Seance seance=new Seance(1,1,1,2,60,"",date);
-//                    Intent splashIntent = new Intent(RecycleCalendar.this, SeanceController.class);
-//                    splashIntent.putExtra("seance", (Serializable) seance);
-//                    splashIntent.putExtra("time","08:00");
-//                    WeekView_Calendar.this.startActivity(splashIntent);
-//                    WeekView_Calendar.this.finish();
-//                    break;
-//                case R.id.Lun_09:Lun_09.Lun_09.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Lun_10:Lun_10.addView(v);Lun_10.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Lun_11:Lun_11.addView(v);Lun_11.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Lun_12:Lun_12.addView(v);Lun_12.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Lun_13:Lun_13.addView(v);Lun_13.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Lun_14:Lun_14.addView(v);Lun_14.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Lun_15:Lun_15.addView(v);Lun_15.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Lun_16:Lun_16.addView(v);Lun_16.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Lun_17:Lun_17.addView(v);Lun_17.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Lun_18:Lun_18.addView(v);Lun_18.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//
-//                case R.id.Mar_08:Mar_08.addView(v);Mar_08.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Mar_09:Mar_09.addView(v);Mar_09.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Mar_10:Mar_10.addView(v);Mar_10.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case "1Mar_11:Mar_11.addView(v);Mar_11.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Mar_12:Mar_12.addView(v);Mar_12.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Mar_13:Mar_13.addView(v);Mar_13.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Mar_14:Mar_14.addView(v);Mar_14.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Mar_15:Mar_15.addView(v);Mar_15.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Mar_16:Mar_16.addView(v);Mar_16.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Mar_17:Mar_17.addView(v);Mar_17.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Mar_18:Mar_18.addView(v);Mar_18.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//
-//                case R.id.Mer_08:Mer_08.addView(v);Mer_08.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Mer_09:Mer_09.addView(v);Mer_09.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Mer_10:Mer_10.addView(v);Mer_10.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Mer_11:Mer_11.addView(v);Mer_11.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Mer_12:Mer_12.addView(v);Mer_12.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Mer_13:Mer_13.addView(v);Mer_13.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Mer_14:Mer_14.addView(v);Mer_14.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Mer_15:Mer_15.addView(v);Mer_15.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Mer_16:Mer_16.addView(v);Mer_16.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Mer_17:Mer_17.addView(v);Mer_17.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Mer_18:Mer_18.addView(v);Mer_18.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//
-//                case R.id.Jeu_08:Jeu_08.addView(v);Jeu_08.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Jeu_09:Jeu_09.addView(v);Jeu_09.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Jeu_10:Jeu_10.addView(v);Jeu_10.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Jeu_11:Jeu_11.addView(v);Jeu_11.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Jeu_12:Jeu_12.addView(v);Jeu_12.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Jeu_13:Jeu_13.addView(v);Jeu_13.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Jeu_14:Jeu_14.addView(v);Jeu_14.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Jeu_15:Jeu_15.addView(v);Jeu_15.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Jeu_16:Jeu_16.addView(v);Jeu_16.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Jeu_17:Jeu_17.addView(v);Jeu_17.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Jeu_18:Jeu_18.addView(v);Jeu_18.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//
-//                case R.id.Jeu_08:Jeu_08.addView(v);Jeu_08.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Jeu_09:Jeu_09.addView(v);Jeu_09.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Jeu_10:Jeu_10.addView(v);Jeu_10.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Jeu_11:Jeu_11.addView(v);Jeu_11.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Jeu_12:Jeu_12.addView(v);Jeu_12.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Jeu_13:Jeu_13.addView(v);Jeu_13.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Jeu_14:Jeu_14.addView(v);Jeu_14.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Jeu_15:Jeu_15.addView(v);Jeu_15.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Jeu_16:Jeu_16.addView(v);Jeu_16.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Jeu_17:Jeu_17.addView(v);Jeu_17.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Jeu_18:Jeu_18.addView(v);Jeu_18.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//
-//                case R.id.Ven_08:Ven_08.addView(v);Ven_08.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Ven_09:Ven_09.addView(v);Ven_09.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Ven_10:Ven_10.addView(v);Ven_10.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Ven_11:Ven_11.addView(v);Ven_11.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Ven_12:Ven_12.addView(v);Ven_12.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Ven_13:Ven_13.addView(v);Ven_13.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Ven_14:Ven_14.addView(v);Ven_14.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Ven_15:Ven_15.addView(v);Ven_15.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Ven_16:Ven_16.addView(v);Ven_16.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Ven_17:Ven_17.addView(v);Ven_17.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Ven_18:Ven_18.addView(v);Ven_18.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//
-//                case R.id.Sam_08:Sam_08.addView(v);Sam_08.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Sam_09:Sam_09.addView(v);Sam_09.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Sam_10:Sam_10.addView(v);Sam_10.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Sam_11:Sam_11.addView(v);Sam_11.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Sam_12:Sam_12.addView(v);Sam_12.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Sam_13:Sam_13.addView(v);Sam_13.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Sam_14:Sam_14.addView(v);Sam_14.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Sam_15:Sam_15.addView(v);Sam_15.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Sam_16:Sam_16.addView(v);Sam_16.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Sam_17:Sam_17.addView(v);Sam_17.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Sam_18:Sam_18.addView(v);Sam_18.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//
-//                case R.id.Dim_08:Dim_08.addView(v);Dim_08.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Dim_09:Dim_09.addView(v);Dim_09.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Dim_10:Dim_10.addView(v);Dim_10.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Dim_11:Dim_11.addView(v);Dim_11.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Dim_12:Dim_12.addView(v);Dim_12.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Dim_13:Dim_13.addView(v);Dim_13.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Dim_14:Dim_14.addView(v);Dim_14.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Dim_15:Dim_15.addView(v);Dim_15.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Dim_16:Dim_16.addView(v);Dim_16.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Dim_17:Dim_17.addView(v);Dim_17.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Dim_18:Dim_18.addView(v);Dim_18.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//
-//                case R.id.Lun_08:Lun_08.addView(v);Lun_08.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Lun_09:Lun_09.addView(v);Lun_09.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Lun_10:Lun_10.addView(v);Lun_10.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Lun_11:Lun_11.addView(v);Lun_11.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Lun_12:Lun_12.addView(v);Lun_12.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Lun_13:Lun_13.addView(v);Lun_13.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Lun_14:Lun_14.addView(v);Lun_14.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Lun_15:Lun_15.addView(v);Lun_15.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Lun_16:Lun_16.addView(v);Lun_16.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Lun_17:Lun_17.addView(v);Lun_17.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Lun_18:Lun_18.addView(v);Lun_18.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//
-//                case R.id.Mar_08:Mar_08.addView(v);Mar_08.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Mar_09:Mar_09.addView(v);Mar_09.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Mar_10:Mar_10.addView(v);Mar_10.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case "1Mar_11:Mar_11.addView(v);Mar_11.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Mar_12:Mar_12.addView(v);Mar_12.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Mar_13:Mar_13.addView(v);Mar_13.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Mar_14:Mar_14.addView(v);Mar_14.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Mar_15:Mar_15.addView(v);Mar_15.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Mar_16:Mar_16.addView(v);Mar_16.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Mar_17:Mar_17.addView(v);Mar_17.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Mar_18:Mar_18.addView(v);Mar_18.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//
-//                case R.id.Mer_08:Mer_08.addView(v);Mer_08.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Mer_09:Mer_09.addView(v);Mer_09.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Mer_10:Mer_10.addView(v);Mer_10.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Mer_11:Mer_11.addView(v);Mer_11.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Mer_12:Mer_12.addView(v);Mer_12.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Mer_13:Mer_13.addView(v);Mer_13.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Mer_14:Mer_14.addView(v);Mer_14.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Mer_15:Mer_15.addView(v);Mer_15.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Mer_16:Mer_16.addView(v);Mer_16.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Mer_17:Mer_17.addView(v);Mer_17.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Mer_18:Mer_18.addView(v);Mer_18.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//
-//                case R.id.Jeu_08:Jeu_08.addView(v);Jeu_08.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Jeu_09:Jeu_09.addView(v);Jeu_09.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Jeu_10:Jeu_10.addView(v);Jeu_10.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Jeu_11:Jeu_11.addView(v);Jeu_11.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Jeu_12:Jeu_12.addView(v);Jeu_12.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Jeu_13:Jeu_13.addView(v);Jeu_13.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Jeu_14:Jeu_14.addView(v);Jeu_14.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Jeu_15:Jeu_15.addView(v);Jeu_15.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Jeu_16:Jeu_16.addView(v);Jeu_16.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Jeu_17:Jeu_17.addView(v);Jeu_17.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Jeu_18:Jeu_18.addView(v);Jeu_18.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//
-//                case R.id.Jeu_08:Jeu_08.addView(v);Jeu_08.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Jeu_09:Jeu_09.addView(v);Jeu_09.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Jeu_10:Jeu_10.addView(v);Jeu_10.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Jeu_11:Jeu_11.addView(v);Jeu_11.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Jeu_12:Jeu_12.addView(v);Jeu_12.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Jeu_13:Jeu_13.addView(v);Jeu_13.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Jeu_14:Jeu_14.addView(v);Jeu_14.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Jeu_15:Jeu_15.addView(v);Jeu_15.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Jeu_16:Jeu_16.addView(v);Jeu_16.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Jeu_17:Jeu_17.addView(v);Jeu_17.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Jeu_18:Jeu_18.addView(v);Jeu_18.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//
-//                case R.id.Ven_08:Ven_08.addView(v);Ven_08.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Ven_09:Ven_09.addView(v);Ven_09.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Ven_10:Ven_10.addView(v);Ven_10.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Ven_11:Ven_11.addView(v);Ven_11.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Ven_12:Ven_12.addView(v);Ven_12.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Ven_13:Ven_13.addView(v);Ven_13.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Ven_14:Ven_14.addView(v);Ven_14.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Ven_15:Ven_15.addView(v);Ven_15.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Ven_16:Ven_16.addView(v);Ven_16.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Ven_17:Ven_17.addView(v);Ven_17.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Ven_18:Ven_18.addView(v);Ven_18.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//
-//                case R.id.Sam_08:Sam_08.addView(v);Sam_08.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Sam_09:Sam_09.addView(v);Sam_09.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Sam_10:Sam_10.addView(v);Sam_10.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Sam_11:Sam_11.addView(v);Sam_11.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Sam_12:Sam_12.addView(v);Sam_12.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Sam_13:Sam_13.addView(v);Sam_13.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Sam_14:Sam_14.addView(v);Sam_14.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Sam_15:Sam_15.addView(v);Sam_15.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Sam_16:Sam_16.addView(v);Sam_16.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Sam_17:Sam_17.addView(v);Sam_17.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Sam_18:Sam_18.addView(v);Sam_18.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//
-//                case R.id.Dim_08:Dim_08.addView(v);Dim_08.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Dim_09:Dim_09.addView(v);Dim_09.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Dim_10:Dim_10.addView(v);Dim_10.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Dim_11:Dim_11.addView(v);Dim_11.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Dim_12:Dim_12.addView(v);Dim_12.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Dim_13:Dim_13.addView(v);Dim_13.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Dim_14:Dim_14.addView(v);Dim_14.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Dim_15:Dim_15.addView(v);Dim_15.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Dim_16:Dim_16.addView(v);Dim_16.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Dim_17:Dim_17.addView(v);Dim_17.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//                case R.id.Dim_18:Dim_18.addView(v);Dim_18.setBackgroundColor(Color.parseColor("#EC7C32"));
-//                    break;
-//
-//
-//                }
-//
-//            }
         }
     }
 
@@ -2037,7 +1650,7 @@ public class WeekView_Calendar extends AppCompatActivity {
 
             }
         } else {
-            URL = "seances/getwithdate/" + response.getString("startDate");
+            URL = "seances/allnames/" + response.getString("startDate");
         }
         return URL;
     }

@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.GridLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -41,7 +42,7 @@ import java.util.List;
 
 public class MonthView_Calendar extends AppCompatActivity {
 
-    LocalDate dateInit = LocalDate.of(2020, 9, 14);
+    LocalDate dateInit = LocalDate.now();
     LinearLayout Lun_1, Mar_1, Mer_1, Jeu_1, Ven_1, Sam_1, Dim_1,
             Lun_2, Mar_2, Mer_2, Jeu_2, Ven_2, Sam_2, Dim_2,
             Lun_3, Mar_3, Mer_3, Jeu_3, Ven_3, Sam_3, Dim_3,
@@ -196,7 +197,7 @@ public class MonthView_Calendar extends AppCompatActivity {
         Intent i = null;
         switch (item.getItemId()) {
             case R.id.month_view:
-                findViewById(R.id.week_view).setVisibility(View.INVISIBLE);
+                Toast.makeText(MonthView_Calendar.this,"deja dans la section",Toast.LENGTH_SHORT).show();
                 break;
 
             case R.id.week_view:
@@ -608,7 +609,7 @@ public class MonthView_Calendar extends AppCompatActivity {
         if (getIntent().getStringExtra("emploitype") != null) {
             switch (getIntent().getStringExtra("emploitype")) {
                 case "0":
-                    url = WS.URL + "seances/" + startDateString + "/" + endDateString;
+                    url = WS.URL + "seances/s/" + startDateString + "/" + endDateString;
                     seances = databaseHandler.readSeance();
                     // getTache();
                     break;
@@ -618,12 +619,12 @@ public class MonthView_Calendar extends AppCompatActivity {
                     seances = databaseHandler.readUserSeance(Integer.valueOf(id));
                     break;
                 case "2":
-                    url = WS.URL + "seances/" + startDateString + "/" + endDateString + "/" + id;
+                    url = WS.URL + "seances/all/" + startDateString + "/" + endDateString + "/" + id;
                     seances = databaseHandler.readClientSeance(Integer.valueOf(id));
                     break;
             }
         } else {
-            url = WS.URL + "seances/" + startDateString + "/" + endDateString; //getTache();
+            url = WS.URL + "seances/s/" + startDateString + "/" + endDateString; //getTache();
         }
 
     }
