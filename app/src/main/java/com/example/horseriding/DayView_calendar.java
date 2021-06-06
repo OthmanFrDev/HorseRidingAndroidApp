@@ -2,11 +2,12 @@ package com.example.horseriding;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.graphics.drawable.DrawableCompat;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 
 import android.graphics.Color;
@@ -34,7 +35,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONArray;
@@ -42,13 +42,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
-import java.util.Timer;
 import java.util.stream.Collectors;
 
 public class DayView_calendar extends AppCompatActivity {
@@ -70,6 +67,9 @@ public class DayView_calendar extends AppCompatActivity {
     BottomNavigationView bnv;
     private Drawable drawable;
     private Dialog dialog;
+    private Dialog dialogadd;
+    private boolean istask;
+    private View viewcalender;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,10 +80,11 @@ public class DayView_calendar extends AppCompatActivity {
         id = getIntent().getStringExtra("id");
         contentDay = findViewById(R.id.contentofday);
         day = findViewById(R.id.day);
-        dialog=new Dialog(DayView_calendar.this);
+        dialog = new Dialog(DayView_calendar.this);
+        dialogadd = new Dialog(DayView_calendar.this);
         databaseHandler = new DatabaseHandler(DayView_calendar.this);
         if (savedInstanceState == null) {
-            DateInit = LocalDateTime.of(2020, 9, 14, 15, 48);
+            DateInit = LocalDateTime.now();
         } else {
             int annee = Integer.parseInt(savedInstanceState.getString("startDate").split("-")[0]);
             int mois = Integer.parseInt(savedInstanceState.getString("startDate").split("-")[1]);
@@ -169,7 +170,7 @@ public class DayView_calendar extends AppCompatActivity {
 
 
         if (DateInit == null) {
-            DateInit = LocalDateTime.of(2020, 9, 14, 15, 48);
+            DateInit = LocalDateTime.of(2021, 6, 10, 15, 48);
         }
 
 
@@ -182,7 +183,7 @@ public class DayView_calendar extends AppCompatActivity {
         //Creation du TextView qui va être insérer
 
 
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         params.setMargins(10, 10, 10, 10);
 
 
@@ -192,7 +193,8 @@ public class DayView_calendar extends AppCompatActivity {
 
         dialog.setCanceledOnTouchOutside(false);
         dialog.show();
-
+        Drawable unwrappedDrawable = AppCompatResources.getDrawable(DayView_calendar.this, R.drawable.textview_border);
+        Drawable wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
         JsonArrayRequest jArray = new JsonArrayRequest(Request.Method.GET, WS.URL + URLEXTENSION, null, new Response.Listener<JSONArray>() {
 
 
@@ -205,8 +207,7 @@ public class DayView_calendar extends AppCompatActivity {
 
                     TextView v = new TextView(DayView_calendar.this);
                     v.setLayoutParams(params);
-                    v.setBackgroundResource(R.drawable.textview_border);
-                    v.setTextSize(19);
+                    v.setTextSize(15);
                     v.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
                     try {
                         j = response.getJSONObject(i);
@@ -220,13 +221,16 @@ public class DayView_calendar extends AppCompatActivity {
                         ConnectivityManager cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
 
                         if (LocalDateTime.now().compareTo(LocalDateTime.parse(j.getString("startDate"))) <= 0) {
-                            color = "#00DAC5";
-                        } else {
+                            DrawableCompat.setTint(wrappedDrawable, Color.parseColor("#048FD2"));
+                            v.setBackgroundResource(R.drawable.textview_border);
 
-                            color = "#ff6347";
+                        } else {
+                            DrawableCompat.setTint(wrappedDrawable, Color.parseColor("#ff6347"));
+                            v.setBackgroundResource(R.drawable.textview_border);
+
                         }
 
-                        v.setText(j.getInt("seanceId") + " " + j.getString("comments"));
+                        v.setText("seance : "+j.getInt("seanceId") );
                         switch (dateTime) {
                             case "08:00":
                                 time_08.addView(v);
@@ -275,10 +279,10 @@ public class DayView_calendar extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
 
-                Toast.makeText(DayView_calendar.this,"server erreur check connection",Toast.LENGTH_SHORT).show();
+                Toast.makeText(DayView_calendar.this, "server erreur check connection", Toast.LENGTH_SHORT).show();
                 init();
                 dialog.cancel();
-                List<Seance> seances=databaseHandler.readSeance().stream().filter(f->f.getStartDate().contains(day.getText())).collect(Collectors.toList());
+                List<Seance> seances = databaseHandler.readSeance().stream().filter(f -> f.getStartDate().contains(day.getText())).collect(Collectors.toList());
                 getSeance(seances);
                 dialog.cancel();
 
@@ -292,7 +296,6 @@ public class DayView_calendar extends AppCompatActivity {
         if (getIntent().getStringExtra("emploitype") != null) {
             id = getIntent().getStringExtra("id");
             switch (getIntent().getStringExtra("emploitype")) {
-
 
 
                 case "1":
@@ -312,7 +315,8 @@ public class DayView_calendar extends AppCompatActivity {
 
             }
         } else {
-            URLEXTENSION = "seances/getwithdate/" + day.getText().toString() ;getTache();
+            URLEXTENSION = "seances/getwithdate/" + day.getText().toString();
+            getTache();
         }
     }
 
@@ -376,86 +380,40 @@ public class DayView_calendar extends AppCompatActivity {
 
         LinearLayout linearLayout = findViewById(view.getId());
         StringBuilder stringBuilder = new StringBuilder();
-        if (linearLayout.getChildCount() > 1) {
+
 
 
             if (linearLayout.getChildCount() != 0) {
+
                 TextView textView = (TextView) linearLayout.getChildAt(0);
 
+
                 String[] list = textView.getText().toString().split(" ");
-                JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET, WS.URL + "seances/" + list[0], null, new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-
-                        try {
-
-                            String URLEXTENSION = urlExtensionforSeanceDetails(response);
-                            JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, WS.URL + URLEXTENSION, null, new Response.Listener<JSONArray>() {
-                                @Override
-                                public void onResponse(JSONArray resp) {
-
-                                    try {
-                                        stringBuilder.append("Seance : \n\n");
-                                        JSONObject j = null;
-                                        for (int i = 0; i < resp.length(); i++) {
-                                            j = resp.getJSONObject(i);
-                                            stringBuilder.append("ID : " + j.getInt("seanceId") + " Monitor : " + j.getString("monitorId") + " Client : " + j.getString("clientId") + ".\n\n");
+                String text = list[0];
+                if (text.equals("task")) {
+                    JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET, WS.URL + "tasks/"+ list[2], null, new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
 
 
-                                        }
+                            stringBuilder.append("task : \n\n");
+                            JSONObject j = null;
 
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-
-                                    AlertDialog.Builder builder = new android.app.AlertDialog.Builder(DayView_calendar.this);
-                                    builder.setTitle("details");
-                                    builder.setMessage(stringBuilder);
-
-                                    AlertDialog dialog = builder.create();
-                                    dialog.show();
-                                }
-                            },
-                                    new Response.ErrorListener() {
-                                        @Override
-                                        public void onErrorResponse(VolleyError error) {
-                                            Log.e(DayView_calendar.class.getSimpleName(), error.getMessage());
-                                        }
-                                    }
-
-                            );
-                            MySingleton.getInstance(DayView_calendar.this).addToRequestQueue(req);
+                            try {
+                                j = response;
 
 
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                Log.e(DayView_calendar.class.getSimpleName(), error.getMessage());
+
+                                stringBuilder.append("ID     : " + j.getInt("taskId") + " \ndate : " + j.getString("startDate") + " \ntitle  : " + j.getString("title") + "\n\n" +"detail : \n" + j.getString("detail") );
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
-                        }
 
-                );
-                MySingleton.getInstance(this.getApplicationContext()).addToRequestQueue(req);
 
-            }
 
-        } else if (linearLayout.getChildCount() == 1) {
-            if (linearLayout.getChildCount() != 0) {
-                TextView textView = (TextView) linearLayout.getChildAt(0);
-                String[] list = textView.getText().toString().split(" ");
-                JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET, WS.URL + "seances/names/" + list[0], null, new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
 
-                        try {
-                            stringBuilder.append("Seance : \n\n");
-                            stringBuilder.append("ID : " + response.getInt("seanceId") + " Monitor : " + response.getString("monitorId") + " Client : " + response.getString("clientId") + ".\n\n");
-                            AlertDialog.Builder builder = new android.app.AlertDialog.Builder(DayView_calendar.this);
+
+                            AlertDialog.Builder builder = new AlertDialog.Builder(DayView_calendar.this);
                             builder.setTitle("details");
                             builder.setMessage(stringBuilder);
 
@@ -463,113 +421,95 @@ public class DayView_calendar extends AppCompatActivity {
                             dialog.show();
 
 
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            error.printStackTrace();
                         }
                     }
-                },
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                Log.e(DayView_calendar.class.getSimpleName(), error.getMessage());
+
+                    );
+
+
+                    MySingleton.getInstance(DayView_calendar.this).addToRequestQueue(req);
+                }
+                else {
+                    JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET, WS.URL + "seances/" + list[2], null, new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+
+                            try {
+
+                                String URLEXTENSION = urlExtensionforSeanceDetails(response);
+                                JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, WS.URL + URLEXTENSION, null, new Response.Listener<JSONArray>() {
+                                    @Override
+                                    public void onResponse(JSONArray resp) {
+
+                                        try {
+                                            stringBuilder.append("Seance : \n\n");
+                                            JSONObject j = null;
+                                            for (int i = 0; i < resp.length(); i++) {
+                                                j = resp.getJSONObject(i);
+                                                stringBuilder.append("ID : " + j.getInt("seanceId") + " Monitor : " + j.getString("monitorId") + " Client : " + j.getString("clientId") + ".\n\n");
+
+
+                                            }
+
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+
+                                        AlertDialog.Builder builder = new android.app.AlertDialog.Builder(DayView_calendar.this);
+                                        builder.setTitle("details");
+                                        builder.setMessage(stringBuilder);
+
+                                        AlertDialog dialog = builder.create();
+                                        dialog.show();
+                                    }
+                                },
+                                        new Response.ErrorListener() {
+                                            @Override
+                                            public void onErrorResponse(VolleyError error) {
+                                                Log.e(DayView_calendar.class.getSimpleName(), error.getMessage());
+                                            }
+                                        }
+
+                                );
+                                MySingleton.getInstance(DayView_calendar.this).addToRequestQueue(req);
+
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
                         }
+                    },
+                            new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    Log.e(DayView_calendar.class.getSimpleName(), error.getMessage());
+                                }
+                            }
 
-                );
-                MySingleton.getInstance(this.getApplicationContext()).addToRequestQueue(req);
-
+                    );
+                    MySingleton.getInstance(this.getApplicationContext()).addToRequestQueue(req);
+                }
             }
-        } else {
-            Intent addSeanceIntent = new Intent(DayView_calendar.this, DateTimePicker.class);
-            dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            String date = dateFormatter.format(DateInit);
-            switch (view.getId()) {
-
-                case R.id.time_08:
-                    Seance seance = new Seance(1, 1, 1, 2, 60, "", date);
 
 
-                    addSeanceIntent.putExtra("seance", (Serializable) seance);
-                    addSeanceIntent.putExtra("time", "08:00");
-                    DayView_calendar.this.startActivity(addSeanceIntent);
-                    DayView_calendar.this.finish();
-                    break;
-                case R.id.time_09:
+        else {
+            viewcalender=view;
+            dialogadd.setContentView(R.layout.dialog_taskorseance);
+            dialogadd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialogadd.show();
 
-                    addSeanceIntent.putExtra("seance", (Serializable) new Seance(1, 1, 1, 2, 60, "", dateFormatter.format(DateInit)));
-                    addSeanceIntent.putExtra("time", "09:00");
-                    DayView_calendar.this.startActivity(addSeanceIntent);
-                    DayView_calendar.this.finish();
-                    break;
-                case R.id.time_10:
 
-                    addSeanceIntent.putExtra("seance", (Serializable) new Seance(1, 1, 1, 2, 60, "", dateFormatter.format(DateInit)));
-                    addSeanceIntent.putExtra("time", "10:00");
-                    DayView_calendar.this.startActivity(addSeanceIntent);
-                    DayView_calendar.this.finish();
-                    break;
-                case R.id.time_11:
 
-                    addSeanceIntent.putExtra("seance", (Serializable) new Seance(1, 1, 1, 2, 60, "", dateFormatter.format(DateInit)));
-                    addSeanceIntent.putExtra("time", "11:00");
-                    DayView_calendar.this.startActivity(addSeanceIntent);
-                    DayView_calendar.this.finish();
-                    break;
-                case R.id.time_12:
 
-                    addSeanceIntent.putExtra("seance", (Serializable) new Seance(1, 1, 1, 2, 60, "", dateFormatter.format(DateInit)));
-                    addSeanceIntent.putExtra("time", "12:00");
-                    DayView_calendar.this.startActivity(addSeanceIntent);
-                    DayView_calendar.this.finish();
-                    break;
-                case R.id.time_13:
-
-                    addSeanceIntent.putExtra("seance", (Serializable) new Seance(1, 1, 1, 2, 60, "", dateFormatter.format(DateInit)));
-                    addSeanceIntent.putExtra("time", "13:00");
-                    DayView_calendar.this.startActivity(addSeanceIntent);
-                    DayView_calendar.this.finish();
-                    break;
-                case R.id.time_14:
-                    addSeanceIntent.putExtra("seance", (Serializable) new Seance(1, 1, 1, 2, 60, "", dateFormatter.format(DateInit)));
-                    addSeanceIntent.putExtra("time", "14:00");
-                    DayView_calendar.this.startActivity(addSeanceIntent);
-                    DayView_calendar.this.finish();
-                    break;
-                case R.id.time_15:
-
-                    addSeanceIntent.putExtra("seance", (Serializable) new Seance(1, 1, 1, 2, 60, "", dateFormatter.format(DateInit)));
-                    addSeanceIntent.putExtra("time", "15:00");
-                    DayView_calendar.this.startActivity(addSeanceIntent);
-                    DayView_calendar.this.finish();
-                    break;
-                case R.id.time_16:
-
-                    addSeanceIntent.putExtra("seance", (Serializable) new Seance(1, 1, 1, 2, 60, "", dateFormatter.format(DateInit)));
-                    addSeanceIntent.putExtra("time", "16:00");
-                    DayView_calendar.this.startActivity(addSeanceIntent);
-                    DayView_calendar.this.finish();
-                    break;
-                case R.id.time_17:
-
-                    addSeanceIntent.putExtra("seance", (Serializable) new Seance(1, 1, 1, 2, 60, "", dateFormatter.format(DateInit)));
-                    addSeanceIntent.putExtra("time", "17:00");
-                    DayView_calendar.this.startActivity(addSeanceIntent);
-                    DayView_calendar.this.finish();
-                    break;
-                case R.id.time_18:
-
-                    addSeanceIntent.putExtra("seance", (Serializable) new Seance(1, 1, 1, 2, 60, "", dateFormatter.format(DateInit)));
-                    addSeanceIntent.putExtra("time", "18:00");
-                    DayView_calendar.this.startActivity(addSeanceIntent);
-                    DayView_calendar.this.finish();
-                    break;
-            }
         }
 
 
     }
-
 
 
     private void calenderSwitcher(Context context, Class<?> CLASS) {
@@ -619,7 +559,6 @@ public class DayView_calendar extends AppCompatActivity {
                     resp.getString("startDate");
 
 
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -636,59 +575,61 @@ public class DayView_calendar extends AppCompatActivity {
 
         MySingleton.getInstance(DayView_calendar.this).addToRequestQueue(req);
     }
-    void getSeance(List<Seance> seances)
-    {
+
+    void getSeance(List<Seance> seances) {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
         params.setMargins(10, 10, 10, 10);
         for (int i = 0; i < seances.size(); i++) {
-        TextView v = new TextView(DayView_calendar.this);
-        v.setLayoutParams(params);
-        v.setBackgroundResource(R.drawable.textview_border);
-        v.setTextSize(19);
-        v.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
+            TextView v = new TextView(DayView_calendar.this);
+            v.setLayoutParams(params);
+            v.setBackgroundResource(R.drawable.textview_border);
+            v.setTextSize(19);
+            v.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
             String dateTime = seances.get(i).getStartDate().substring(11, 16);
-        v.setText(seances.get(i).getSeanceId() + " " +seances.get(i).getComments());
-        switch (dateTime) {
-            case "08:00":
-                time_08.addView(v);
-                break;
-            case "09:00":
-                time_09.addView(v);
-                break;
-            case "10:00":
-                time_10.addView(v);
-                break;
-            case "11:00":
-                time_11.addView(v);
-                break;
-            case "12:00":
-                time_12.addView(v);
-                break;
-            case "13:00":
-                time_13.addView(v);
-                break;
-            case "14:00":
-                time_14.addView(v);
-                break;
-            case "15:00":
-                time_15.addView(v);
-                break;
-            case "16:00":
-                time_16.addView(v);
-                break;
-            case "17:00":
-                time_17.addView(v);
-                break;
-            case "18:00":
-                time_18.addView(v);
-                break;
-        }}
+            v.setText(seances.get(i).getSeanceId() + " " + seances.get(i).getComments());
+            switch (dateTime) {
+                case "08:00":
+                    time_08.addView(v);
+                    break;
+                case "09:00":
+                    time_09.addView(v);
+                    break;
+                case "10:00":
+                    time_10.addView(v);
+                    break;
+                case "11:00":
+                    time_11.addView(v);
+                    break;
+                case "12:00":
+                    time_12.addView(v);
+                    break;
+                case "13:00":
+                    time_13.addView(v);
+                    break;
+                case "14:00":
+                    time_14.addView(v);
+                    break;
+                case "15:00":
+                    time_15.addView(v);
+                    break;
+                case "16:00":
+                    time_16.addView(v);
+                    break;
+                case "17:00":
+                    time_17.addView(v);
+                    break;
+                case "18:00":
+                    time_18.addView(v);
+                    break;
+            }
+        }
     }
 
-    void getTache()
-        {
-        String urlTask=null;
+
+    void getTache() {
+        String urlTask = null;
+
 
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         day.setText(dateFormatter.format(DateInit));
@@ -697,13 +638,12 @@ public class DayView_calendar extends AppCompatActivity {
         if (getIntent().getStringExtra("emploitype") != null) {
             switch (getIntent().getStringExtra("emploitype")) {
                 case "0":
-                     urlTask = WS.URL + "tasks/daytasks/" +day.getText().toString();
+                    urlTask = WS.URL + "tasks/daytasks/" + day.getText().toString();
 
 
                     break;
                 case "1":
                     urlTask = WS.URL + "tasks/daytask/" + day.getText().toString() + "/" + id;
-
 
 
                     break;
@@ -712,7 +652,7 @@ public class DayView_calendar extends AppCompatActivity {
             }
         } else {
 
-            urlTask = WS.URL + "tasks/daytasks/" +day.getText().toString();
+            urlTask = WS.URL + "tasks/daytasks/" + day.getText().toString();
         }
 
         //Creation du TextView qui va être insérer
@@ -726,7 +666,7 @@ public class DayView_calendar extends AppCompatActivity {
         dialog.setCanceledOnTouchOutside(false);
         dialog.show();
 
-            JsonArrayRequest jArray = new JsonArrayRequest(Request.Method.GET, urlTask, null, new Response.Listener<JSONArray>() {
+        JsonArrayRequest jArray = new JsonArrayRequest(Request.Method.GET, urlTask, null, new Response.Listener<JSONArray>() {
 
             @Override
             public void onResponse(JSONArray response) {
@@ -753,7 +693,7 @@ public class DayView_calendar extends AppCompatActivity {
                             color = "#ff6347";
                         }
 
-                        v.setText(j.getInt("taskId") + " " + j.getString("detail"));
+                        v.setText("task : "+j.getInt("taskId") );
                         switch (dateTime) {
                             case "08:00":
                                 time_08.addView(v);
@@ -807,9 +747,7 @@ public class DayView_calendar extends AppCompatActivity {
         MySingleton.getInstance(this.getApplicationContext()).addToRequestQueue(jArray);
 
 
-        }
-
-
+    }
 
 
     @Override
@@ -817,5 +755,203 @@ public class DayView_calendar extends AppCompatActivity {
         super.onSaveInstanceState(outState);
         outState.putString("startDate", day.getText().toString());
 
+    }
+
+    void dialogOnClick(View view)
+    {
+
+    }
+    void addingSeance( View view)
+    {
+        Intent addSeanceIntent = new Intent(DayView_calendar.this, SeanceController.class);
+        dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String date = dateFormatter.format(DateInit);
+        switch (view.getId()) {
+
+            case R.id.time_08:
+                Seance seance = new Seance(1, 1, 1, 2, 60, "", date);
+
+
+                addSeanceIntent.putExtra("seance", (Serializable) seance);
+                addSeanceIntent.putExtra("time", "08:00");
+                DayView_calendar.this.startActivity(addSeanceIntent);
+                DayView_calendar.this.finish();
+                break;
+            case R.id.time_09:
+
+                addSeanceIntent.putExtra("seance", (Serializable) new Seance(1, 1, 1, 2, 60, "", dateFormatter.format(DateInit)));
+                addSeanceIntent.putExtra("time", "09:00");
+                DayView_calendar.this.startActivity(addSeanceIntent);
+                DayView_calendar.this.finish();
+                break;
+            case R.id.time_10:
+
+                addSeanceIntent.putExtra("seance", (Serializable) new Seance(1, 1, 1, 2, 60, "", dateFormatter.format(DateInit)));
+                addSeanceIntent.putExtra("time", "10:00");
+                DayView_calendar.this.startActivity(addSeanceIntent);
+                DayView_calendar.this.finish();
+                break;
+            case R.id.time_11:
+
+                addSeanceIntent.putExtra("seance", (Serializable) new Seance(1, 1, 1, 2, 60, "", dateFormatter.format(DateInit)));
+                addSeanceIntent.putExtra("time", "11:00");
+                DayView_calendar.this.startActivity(addSeanceIntent);
+                DayView_calendar.this.finish();
+                break;
+            case R.id.time_12:
+
+                addSeanceIntent.putExtra("seance", (Serializable) new Seance(1, 1, 1, 2, 60, "", dateFormatter.format(DateInit)));
+                addSeanceIntent.putExtra("time", "12:00");
+                DayView_calendar.this.startActivity(addSeanceIntent);
+                DayView_calendar.this.finish();
+                break;
+            case R.id.time_13:
+
+                addSeanceIntent.putExtra("seance", (Serializable) new Seance(1, 1, 1, 2, 60, "", dateFormatter.format(DateInit)));
+                addSeanceIntent.putExtra("time", "13:00");
+                DayView_calendar.this.startActivity(addSeanceIntent);
+                DayView_calendar.this.finish();
+                break;
+            case R.id.time_14:
+                addSeanceIntent.putExtra("seance", (Serializable) new Seance(1, 1, 1, 2, 60, "", dateFormatter.format(DateInit)));
+                addSeanceIntent.putExtra("time", "14:00");
+                DayView_calendar.this.startActivity(addSeanceIntent);
+                DayView_calendar.this.finish();
+                break;
+            case R.id.time_15:
+
+                addSeanceIntent.putExtra("seance", (Serializable) new Seance(1, 1, 1, 2, 60, "", dateFormatter.format(DateInit)));
+                addSeanceIntent.putExtra("time", "15:00");
+                DayView_calendar.this.startActivity(addSeanceIntent);
+                DayView_calendar.this.finish();
+                break;
+            case R.id.time_16:
+
+                addSeanceIntent.putExtra("seance", (Serializable) new Seance(1, 1, 1, 2, 60, "", dateFormatter.format(DateInit)));
+                addSeanceIntent.putExtra("time", "16:00");
+                DayView_calendar.this.startActivity(addSeanceIntent);
+                DayView_calendar.this.finish();
+                break;
+            case R.id.time_17:
+
+                addSeanceIntent.putExtra("seance", (Serializable) new Seance(1, 1, 1, 2, 60, "", dateFormatter.format(DateInit)));
+                addSeanceIntent.putExtra("time", "17:00");
+                DayView_calendar.this.startActivity(addSeanceIntent);
+                DayView_calendar.this.finish();
+                break;
+            case R.id.time_18:
+
+                addSeanceIntent.putExtra("seance", (Serializable) new Seance(1, 1, 1, 2, 60, "", dateFormatter.format(DateInit)));
+                addSeanceIntent.putExtra("time", "18:00");
+                DayView_calendar.this.startActivity(addSeanceIntent);
+                DayView_calendar.this.finish();
+                break;
+        }
+    }
+    void addingTask( View view)
+    {
+        Intent addSeanceIntent = new Intent(DayView_calendar.this, TaskController.class);
+        dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String date = dateFormatter.format(DateInit);
+        Task task = new Task(1, date, 60, "", "", date,2);
+        switch (view.getId()) {
+
+
+            case R.id.time_08:
+
+
+
+                addSeanceIntent.putExtra("task", (Serializable) task);
+                addSeanceIntent.putExtra("time", "08:00");
+                DayView_calendar.this.startActivity(addSeanceIntent);
+                DayView_calendar.this.finish();
+                break;
+            case R.id.time_09:
+
+                addSeanceIntent.putExtra("task", (Serializable)task );
+                addSeanceIntent.putExtra("time", "09:00");
+                DayView_calendar.this.startActivity(addSeanceIntent);
+                DayView_calendar.this.finish();
+                break;
+            case R.id.time_10:
+
+                addSeanceIntent.putExtra("task", (Serializable) task);
+                addSeanceIntent.putExtra("time", "10:00");
+                DayView_calendar.this.startActivity(addSeanceIntent);
+                DayView_calendar.this.finish();
+                break;
+            case R.id.time_11:
+
+                addSeanceIntent.putExtra("task", (Serializable)task );
+                addSeanceIntent.putExtra("time", "11:00");
+                DayView_calendar.this.startActivity(addSeanceIntent);
+                DayView_calendar.this.finish();
+                break;
+            case R.id.time_12:
+
+                addSeanceIntent.putExtra("task", (Serializable) task);
+                addSeanceIntent.putExtra("time", "12:00");
+                DayView_calendar.this.startActivity(addSeanceIntent);
+                DayView_calendar.this.finish();
+                break;
+            case R.id.time_13:
+
+                addSeanceIntent.putExtra("task", (Serializable) task);
+                addSeanceIntent.putExtra("time", "13:00");
+                DayView_calendar.this.startActivity(addSeanceIntent);
+                DayView_calendar.this.finish();
+                break;
+            case R.id.time_14:
+                addSeanceIntent.putExtra("task", (Serializable)task );
+                addSeanceIntent.putExtra("time", "14:00");
+                DayView_calendar.this.startActivity(addSeanceIntent);
+                DayView_calendar.this.finish();
+                break;
+            case R.id.time_15:
+
+                addSeanceIntent.putExtra("task", (Serializable)task );
+                addSeanceIntent.putExtra("time", "15:00");
+                DayView_calendar.this.startActivity(addSeanceIntent);
+                DayView_calendar.this.finish();
+                break;
+            case R.id.time_16:
+
+                addSeanceIntent.putExtra("task", (Serializable) task);
+                addSeanceIntent.putExtra("time", "16:00");
+                DayView_calendar.this.startActivity(addSeanceIntent);
+                DayView_calendar.this.finish();
+                break;
+            case R.id.time_17:
+
+                addSeanceIntent.putExtra("task", (Serializable)task);
+                addSeanceIntent.putExtra("time", "17:00");
+                DayView_calendar.this.startActivity(addSeanceIntent);
+                DayView_calendar.this.finish();
+                break;
+            case R.id.time_18:
+
+                addSeanceIntent.putExtra("task", (Serializable) task);
+                addSeanceIntent.putExtra("time", "18:00");
+                DayView_calendar.this.startActivity(addSeanceIntent);
+                DayView_calendar.this.finish();
+                break;
+        }
+    }
+    public void getCalender(View view) {
+
+
+        switch (view.getId())
+        {
+            case R.id.globalemploi:
+             addingSeance(viewcalender);
+              dialog.dismiss();
+                break;
+
+            case R.id.monitoremploi:
+            addingTask(viewcalender);
+                dialog.dismiss();
+                break;
+
+        }
     }
 }

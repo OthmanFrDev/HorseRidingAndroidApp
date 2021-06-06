@@ -2,11 +2,14 @@ package com.example.horseriding;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.graphics.drawable.DrawableCompat;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -213,6 +216,8 @@ public class MonthView_Calendar extends AppCompatActivity {
 
         emploitype();
         day.setText(firstDate.getMonth().toString() + " " + firstDate.getYear());
+        Drawable unwrappedDrawable = AppCompatResources.getDrawable(MonthView_Calendar.this, R.drawable.textview_border);
+        Drawable wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
         JsonArrayRequest jsonWeek1 = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
 
             @Override
@@ -223,15 +228,23 @@ public class MonthView_Calendar extends AppCompatActivity {
                 for (int i = 0; i < response.length(); i++) {
                     v = new TextView(MonthView_Calendar.this);
                     v.setLayoutParams(params);
-                    v.setBackgroundResource(R.drawable.textview_border);
                     v.setTextSize(11);
                     v.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
+
                     try {
 
                         j = response.getJSONObject(i);
                         dateFromResponse = LocalDateTime.parse(j.getString("startDate"));
                         v.setText(" " + String.valueOf(j.getInt("seanceId")));
+                        if (LocalDateTime.now().compareTo(LocalDateTime.parse(j.getString("startDate"))) <= 0) {
+                            DrawableCompat.setTint(wrappedDrawable, Color.parseColor("#048FD2"));
+                            v.setBackgroundResource(R.drawable.textview_border);
 
+                        } else {
+                            DrawableCompat.setTint(wrappedDrawable, Color.parseColor("#ff6347"));
+                            v.setBackgroundResource(R.drawable.textview_border);
+
+                        }
 
                         switch (dateFromResponse.getDayOfWeek().getValue()) {
                             case 1:
@@ -291,6 +304,15 @@ public class MonthView_Calendar extends AppCompatActivity {
 
                         j = response.getJSONObject(i);
                         v.setText(" " + String.valueOf(j.getInt("seanceId")));
+                        if (LocalDateTime.now().compareTo(LocalDateTime.parse(j.getString("startDate"))) <= 0) {
+                            DrawableCompat.setTint(wrappedDrawable, Color.parseColor("#048FD2"));
+                            v.setBackgroundResource(R.drawable.textview_border);
+
+                        } else {
+                            DrawableCompat.setTint(wrappedDrawable, Color.parseColor("#ff6347"));
+                            v.setBackgroundResource(R.drawable.textview_border);
+
+                        }
                         dateFromResponse = LocalDateTime.parse(j.getString("startDate"));
                         switch (dateFromResponse.getDayOfWeek().getValue()) {
                             case 1:
@@ -348,6 +370,15 @@ public class MonthView_Calendar extends AppCompatActivity {
 
                         j = response.getJSONObject(i);
                         v.setText(" " + String.valueOf(j.getInt("seanceId")));
+                        if (LocalDateTime.now().compareTo(LocalDateTime.parse(j.getString("startDate"))) <= 0) {
+                            DrawableCompat.setTint(wrappedDrawable, Color.parseColor("#048FD2"));
+                            v.setBackgroundResource(R.drawable.textview_border);
+
+                        } else {
+                            DrawableCompat.setTint(wrappedDrawable, Color.parseColor("#ff6347"));
+                            v.setBackgroundResource(R.drawable.textview_border);
+
+                        }
                         dateFromResponse = LocalDateTime.parse(j.getString("startDate"));
                         switch (dateFromResponse.getDayOfWeek().getValue()) {
                             case 1:
@@ -402,9 +433,19 @@ public class MonthView_Calendar extends AppCompatActivity {
                     v.setBackgroundResource(R.drawable.textview_border);
                     v.setTextSize(11);
                     v.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
+
                     try {
                         j = response.getJSONObject(i);
                         v.setText(" " + String.valueOf(j.getInt("seanceId")));
+                        if (LocalDateTime.now().compareTo(LocalDateTime.parse(j.getString("startDate"))) <= 0) {
+                            DrawableCompat.setTint(wrappedDrawable, Color.parseColor("#048FD2"));
+                            v.setBackgroundResource(R.drawable.textview_border);
+
+                        } else {
+                            DrawableCompat.setTint(wrappedDrawable, Color.parseColor("#ff6347"));
+                            v.setBackgroundResource(R.drawable.textview_border);
+
+                        }
                         dateFromResponse = LocalDateTime.parse(j.getString("startDate"));
                         switch (dateFromResponse.getDayOfWeek().getValue()) {
                             case 1:
@@ -462,6 +503,15 @@ public class MonthView_Calendar extends AppCompatActivity {
                     try {
                         j = response.getJSONObject(i);
                         v.setText(" " + String.valueOf(j.getInt("seanceId")));
+                        if (LocalDateTime.now().compareTo(LocalDateTime.parse(j.getString("startDate"))) <= 0) {
+                            DrawableCompat.setTint(wrappedDrawable, Color.parseColor("#048FD2"));
+                            v.setBackgroundResource(R.drawable.textview_border);
+
+                        } else {
+                            DrawableCompat.setTint(wrappedDrawable, Color.parseColor("#ff6347"));
+                            v.setBackgroundResource(R.drawable.textview_border);
+
+                        }
                         dateFromResponse = LocalDateTime.parse(j.getString("startDate"));
                         switch (dateFromResponse.getDayOfWeek().getValue()) {
                             case 1:
@@ -721,7 +771,7 @@ public class MonthView_Calendar extends AppCompatActivity {
 //
 //                    String date=  dateFormatter.format(DateInit);
 //                    Seance seance=new Seance(1,1,1,2,60,"",date);
-//                    Intent splashIntent = new Intent(RecycleCalendar.this, DateTimePicker.class);
+//                    Intent splashIntent = new Intent(RecycleCalendar.this, SeanceController.class);
 //                    splashIntent.putExtra("seance", (Serializable) seance);
 //                    splashIntent.putExtra("time","08:00");
 //                    WeekView_Calendar.this.startActivity(splashIntent);

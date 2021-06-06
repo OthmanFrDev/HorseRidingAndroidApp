@@ -2,6 +2,8 @@ package com.example.horseriding;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -477,8 +479,9 @@ public class WeekView_Calendar extends AppCompatActivity {
         for (int i = 0; i < response.length(); i++) {
             try {
                 v = new TextView(WeekView_Calendar.this);
+                Drawable unwrappedDrawable = AppCompatResources.getDrawable(WeekView_Calendar.this, R.drawable.textview_border);
+                Drawable wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
                 v.setLayoutParams(params);
-                v.setBackgroundResource(R.drawable.textview_border);
                 v.setTextSize(11);
                 v.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
                 j = response.getJSONObject(i);
@@ -490,8 +493,17 @@ public class WeekView_Calendar extends AppCompatActivity {
                 } else {
                     color = "#CC0000";
                 }
-                v.setText(String.valueOf(j.getInt("seanceId")));
-                v.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                v.setText("seance : "+String.valueOf(j.getInt("seanceId")));
+
+                if (LocalDateTime.now().compareTo(LocalDateTime.parse(j.getString("startDate"))) <= 0) {
+                    DrawableCompat.setTint(wrappedDrawable, Color.parseColor("#048FD2"));
+                    v.setBackgroundResource(R.drawable.textview_border);
+
+                } else {
+                    DrawableCompat.setTint(wrappedDrawable, Color.parseColor("#ff6347"));
+                    v.setBackgroundResource(R.drawable.textview_border);
+
+                }
                 switch (dateFromResponse.getDayOfWeek().getValue()) {
 
                     case 1:
@@ -782,7 +794,8 @@ public class WeekView_Calendar extends AppCompatActivity {
         } else {
             url = WS.URL + "tasks/" + startDateString + "/" + endDateString;
         }
-
+        Drawable unwrappedDrawable = AppCompatResources.getDrawable(WeekView_Calendar.this, R.drawable.textview_border);
+        Drawable wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
         JsonArrayRequest jArray = new JsonArrayRequest(Request.Method.GET, urlTask, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
@@ -805,10 +818,18 @@ public class WeekView_Calendar extends AppCompatActivity {
 
                         v = new TextView(WeekView_Calendar.this);
                         v.setLayoutParams(params);
-                        v.setBackgroundResource(R.drawable.textview_border);
                         v.setTextSize(11);
                         v.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
-                        v.setText(j.getInt("taskId") + "task");
+                        if (LocalDateTime.now().compareTo(LocalDateTime.parse(j.getString("startDate"))) <= 0) {
+                            DrawableCompat.setTint(wrappedDrawable, Color.parseColor("#048FD2"));
+                            v.setBackgroundResource(R.drawable.textview_border);
+
+                        } else {
+                            DrawableCompat.setTint(wrappedDrawable, Color.parseColor("#ff6347"));
+                            v.setBackgroundResource(R.drawable.textview_border);
+
+                        }
+                        v.setText("task : "+j.getInt("taskId"));
                         switch (dateFromResponse.getDayOfWeek().getValue()) {
 
 
@@ -1114,7 +1135,7 @@ public class WeekView_Calendar extends AppCompatActivity {
 
                 dateFromResponse = LocalDateTime.parse(seance.getStartDate());
                 String dateTime = seance.getStartDate().substring(11, 16);
-                v.setText(seance.getSeanceId() + "" + "" + "");
+                v.setText("seance : "+seance.getSeanceId());
                 switch (dateFromResponse.getDayOfWeek().getValue()) {
                     case 1:
                         switch (dateTime) {
@@ -1475,183 +1496,129 @@ public class WeekView_Calendar extends AppCompatActivity {
         if (linearLayout.getChildCount() > 0) {
 
             textView = (TextView) linearLayout.getChildAt(0);
-
-            JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET, WS.URL + "seances/" + textView.getText().toString().trim(), null, new Response.Listener<JSONObject>() {
-
-                @Override
-                public void onResponse(JSONObject response) {
-
-                    try {
-
-                        String URLEXTENSION = urlExtensionforSeanceDetails(response);
-
-                           /* Seance seance= new Seance(response.getInt("seanceId"),response.getInt("seanceGrpId"),
-                                    response.getInt("clientId"),response.getInt("monitorId"),
-                                    response.getInt("durationMinut"),response.getString("comments"),response.getString("startDate"));
-                         //  Intent i= new Intent(WeekView_Calendar.this,ListActivity.class); i.putExtra("seance", (Serializable) seance); startActivity(i);finish();*/
+            String[] list = textView.getText().toString().split(" ");
+            String text = list[0];
+            if (text.equals("task")) {
+                JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET, WS.URL + "tasks/"+ list[2], null, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
 
 
-                        JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, WS.URL + URLEXTENSION, null, new Response.Listener<JSONArray>() {
-                            @Override
-                            public void onResponse(JSONArray response) {
+                        stringBuilder.append("task : \n\n");
+                        JSONObject j = null;
+
+                        try {
+                            j = response;
 
 
-                                stringBuilder.append("seance : \n");
-                                JSONObject j = null;
-                                for (int i = 0; i < response.length(); i++) {
-                                    try {
-                                        j = response.getJSONObject(i);
+
+                            stringBuilder.append("ID     : " + j.getInt("taskId") + " \ndate : " + j.getString("startDate") + " \ntitle  : " + j.getString("title") + "\n\n" +"detail : \n" + j.getString("detail") );
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
 
 
-//                            JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET,  "http://192.168.111.1:45455/users/by/"+ j.getString("monitorId"), null, new Response.Listener<JSONObject>() {
-//                                @Override
-//                                public void onResponse(JSONObject resp) {
-//
-//                                    try {
-//                                        JSONObject jo=response.getJSONObject();
-//
-//                                        fullName =  resp.getString("userFname")+ " "+ resp.getString("userLname");
-//
-//                                        JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET,  "http://192.168.111.1:45455/users/by/"+ j.getString("monitorId"), null, new Response.Listener<JSONObject>() {
-//                                            @Override
-//                                            public void onResponse(JSONObject resp) {
-//
-//                                                try {
-//
-//                                                    fullName =  resp.getString("userFname")+ " "+ resp.getString("userLname");
-//
-//
-//
-//                                                } catch (JSONException e) {
-//                                                    e.printStackTrace();
-//                                                }
-//                                            }
-//                                        },
-//                                                new Response.ErrorListener() {
-//                                                    @Override
-//                                                    public void onErrorResponse(VolleyError error) {
-//                                                        Log.e(DayView_calendar.class.getSimpleName(), error.getMessage());
-//                                                    }
-//                                                }
-//
-//                                        );
-//                                        MySingleton.getInstance(WeekView_Calendar.this).addToRequestQueue(req);
-//
-//                                    } catch (JSONException e) {
-//                                        e.printStackTrace();
-//                                    }
-//                                }
-//                            },
-//                                    new Response.ErrorListener() {
-//                                        @Override
-//                                        public void onErrorResponse(VolleyError error) {
-//                                            Log.e(DayView_calendar.class.getSimpleName(), error.getMessage());
-//                                        }
-//                                    }
-//
-//                            );
-//                            MySingleton.getInstance(WeekView_Calendar.this).addToRequestQueue(req);
-                                        stringBuilder.append("ID : " + j.getInt("seanceId") + " Monitor : " + j.getString("monitorId") + " Client : " + j.getString("clientId") + ".\n\n");
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
+
+
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(WeekView_Calendar.this);
+                        builder.setTitle("details");
+                        builder.setMessage(stringBuilder);
+
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+
+
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                    }
+                }
+
+                );
+
+
+                MySingleton.getInstance(WeekView_Calendar.this).addToRequestQueue(req);
+            }
+            else {
+                JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET, WS.URL + "seances/" + list[2], null, new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        try {
+
+                            String URLEXTENSION = urlExtensionforSeanceDetails(response);
+
+
+                            JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, WS.URL + URLEXTENSION, null, new Response.Listener<JSONArray>() {
+                                @Override
+                                public void onResponse(JSONArray response) {
+
+
+                                    stringBuilder.append("seance : \n");
+                                    JSONObject j = null;
+                                    for (int i = 0; i < response.length(); i++) {
+                                        try {
+                                            j = response.getJSONObject(i);
+
+
+
+                                            stringBuilder.append("ID : " + j.getInt("seanceId") + " Monitor : " + j.getString("monitorId") + " Client : " + j.getString("clientId") + ".\n\n");
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+
+
                                     }
 
 
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(WeekView_Calendar.this);
+                                    builder.setTitle("details");
+                                    builder.setMessage(stringBuilder);
+
+                                    AlertDialog dialog = builder.create();
+                                    dialog.show();
+
 
                                 }
+                            }, new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
 
-
-                                AlertDialog.Builder builder = new AlertDialog.Builder(WeekView_Calendar.this);
-                                builder.setTitle("details");
-                                builder.setMessage(stringBuilder);
-
-                                AlertDialog dialog = builder.create();
-                                dialog.show();
-
-
+                                }
                             }
-                        }, new Response.ErrorListener() {
+
+                            );
+
+
+                            MySingleton.getInstance(WeekView_Calendar.this).addToRequestQueue(req);
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                        new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
 
+
+                                getSeance(databaseHandler.readSeance());
+
                             }
                         }
 
-                        );
+                );
+
+                MySingleton.getInstance(this.getApplicationContext()).addToRequestQueue(req);
 
 
-                        MySingleton.getInstance(WeekView_Calendar.this).addToRequestQueue(req);
 
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-
-
-                            getSeance(databaseHandler.readSeance());
-
-                        }
-                    }
-
-            );
-
-            MySingleton.getInstance(this.getApplicationContext()).addToRequestQueue(req);
-
-
-//
-            //           AlertDialog.Builder builder = new AlertDialog.Builder(WeekView_Calendar.this);
-            //           builder.setTitle("Seance Detail:");
-//            builder.setMessage("ID = "+ response.getInt("seanceId")+"\n\n" +"Sart Date = "+ response.getString("startDate")+"\n\n"+
-//                    "Duration = "+response.getInt("durationMinut")+"\n\n"+
-//                    "Comment = "+ response.getString("comments")
-//            );
-            //   builder.setAdapter((ListAdapter) sa,listener);
-            //   builder.setNegativeButton("Close", null);
-//            builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
-//                @Override
-//                public void onClick(DialogInterface dialog, int which)
-//                {
-//                    try {
-//
-//                         LocalDateTime date=LocalDateTime.parse(response.getString("startDate"));
-//                         String dateDay=response.getString("startDate").substring(0,10);
-//                         String dateTime=response.getString("startDate").substring(11,16);
-//
-//                        LocalDateTime  DateInit=LocalDateTime.of(LocalDate.parse(dateDay), LocalTime.parse(dateTime));
-//                        StringRequest dr = new StringRequest(Request.Method.DELETE, WS.URL +"seances/"+response.getInt("seanceId"),
-//                                new Response.Listener<String>()
-//                                {
-//                                    @Override
-//                                    public void onResponse(String res) {
-//                                        // response
-//
-//                                        startActivity(getIntent());
-//                                        Toast.makeText(WeekView_Calendar.this, "Deleted", Toast.LENGTH_LONG).show();
-//                                    }
-//                                },
-//                                new Response.ErrorListener()
-//                                {
-//                                    @Override
-//                                    public void onErrorResponse(VolleyError error) {
-//                                        // error.
-//
-//                                    }
-//                                }
-//                        ); MySingleton.getInstance(WeekView_Calendar.this).addToRequestQueue(dr);
-//                    } catch (JSONException e) {
-//                        e.printStackTrace();
-//                    }
-//                }});
-
-
-            //   AlertDialog dialog = builder.create();
-            //  dialog.show();
-
+            }
         } else {
 //            LocalDateTime dateFromResponse;
 //            dateFromResponse=LocalDateTime.parse(seance.getStartDate());
@@ -1663,7 +1630,7 @@ public class WeekView_Calendar extends AppCompatActivity {
 //
 //                    String date=  dateFormatter.format(DateInit);
 //                    Seance seance=new Seance(1,1,1,2,60,"",date);
-//                    Intent splashIntent = new Intent(RecycleCalendar.this, DateTimePicker.class);
+//                    Intent splashIntent = new Intent(RecycleCalendar.this, SeanceController.class);
 //                    splashIntent.putExtra("seance", (Serializable) seance);
 //                    splashIntent.putExtra("time","08:00");
 //                    WeekView_Calendar.this.startActivity(splashIntent);

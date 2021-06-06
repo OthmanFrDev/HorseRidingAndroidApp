@@ -2,7 +2,6 @@ package com.example.horseriding;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 
 import android.app.DatePickerDialog;
@@ -38,14 +37,14 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class DateTimePicker extends AppCompatActivity implements
+public class TaskController extends AppCompatActivity implements
         View.OnClickListener {
 
     Button btnDatePicker, btnTimePicker;
     EditText txtDate, txtTime;
     private int mYear, mMonth, mDay, mHour, mMinute;
     Spinner monitor;
-    Seance seance;
+    Task task;
 
     Spinner clientid;
 
@@ -56,7 +55,7 @@ public class DateTimePicker extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.seance);
+        setContentView(R.layout.add_task);
         monitor = findViewById(R.id.monitor);
         clientid = findViewById(R.id.clientid);
         btnDatePicker = (Button) findViewById(R.id.btn_date);
@@ -64,12 +63,12 @@ public class DateTimePicker extends AppCompatActivity implements
         txtDate = (EditText) findViewById(R.id.in_date);
         txtTime = (EditText) findViewById(R.id.in_time);
         getmonitors();
-        getclients();
+
         btnDatePicker.setOnClickListener(this);
         btnTimePicker.setOnClickListener(this);
         Intent intent = getIntent();
-        seance = (Seance) intent.getSerializableExtra("seance");
-        txtDate.setText(seance.getStartDate());
+        task = (Task) intent.getSerializableExtra("task");
+        txtDate.setText(task.getStartDate());
         txtTime.setText(intent.getStringExtra("time"));
         NumberPicker np = findViewById(R.id.numberPicker);
 
@@ -155,7 +154,7 @@ public class DateTimePicker extends AppCompatActivity implements
                             else txtTime.setText(hourOfDay + ":" + minute + ":00");
                             if (hourOfDay >= 0 && hourOfDay <= 7 || hourOfDay > 18) {
 
-                                Toast.makeText(DateTimePicker.this, "work hours be between 00:08 to 18:00", Toast.LENGTH_LONG).show();
+                                Toast.makeText(TaskController.this, "work hours be between 00:08 to 18:00", Toast.LENGTH_LONG).show();
                                 txtTime.setText(null);
                             }
                         }
@@ -169,8 +168,8 @@ public class DateTimePicker extends AppCompatActivity implements
 
 
         monitor = findViewById(R.id.monitor);
-        EditText duration = findViewById(R.id.duration);
-        EditText comment = findViewById(R.id.comment);
+        EditText title = findViewById(R.id.title);
+        EditText detail = findViewById(R.id.detail);
 
 
         try {
@@ -181,34 +180,35 @@ public class DateTimePicker extends AppCompatActivity implements
 
 
                 //    jsonBody.put("userId", Integer.valueOf(userId.getText().toString()));
-                jsonBody.put("seanceGrpId", 1);
-                Client client = (Client) clientid.getSelectedItem();
-                jsonBody.put("clientId", Integer.valueOf(client.getClientId()));
+                Task task= (Task) getIntent().getSerializableExtra("task");
+              //  Client client = (Client) clientid.getSelectedItem();
+
                 User user = (User) monitor.getSelectedItem();
-                jsonBody.put("monitorId", Integer.valueOf(user.getUserId()));
+
+                jsonBody.put("userFk", user.getUserId());
                 jsonBody.put("startDate", localDateTime);
-                jsonBody.put("durationMinut", Integer.valueOf(duration.getText().toString()));
-                jsonBody.put("isDone", 1);
-                jsonBody.put("paymentId", 1);
-                jsonBody.put("comments", comment.getText().toString());
+                jsonBody.put("durationMinut",task.getDurationMinut());
+                jsonBody.put("title",title.getText().toString());
+                jsonBody.put("detail",detail.getText().toString());
+                jsonBody.put("isDone",task.getIsDone());
                 localDateTime = localDateTime.plusDays(7);
                 Log.d("jsonbody", jsonBody.toString());
                 JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                         Request.Method.POST,
-                        WS.URL + "seances",
+                        WS.URL + "tasks",
                         jsonBody,
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
                                 // Do something with response
                                 try {
-                                    Toast.makeText(DateTimePicker.this, "Bien modifié", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(TaskController.this, "task ajouter", Toast.LENGTH_LONG).show();
 
-                                    Intent splashIntent = new Intent(DateTimePicker.this, DayView_calendar.class);
-                                    DateTimePicker.this.startActivity(splashIntent);
-                                    DateTimePicker.this.finish();
+                                    Intent splashIntent = new Intent(TaskController.this, DayView_calendar.class);
+                                    TaskController.this.startActivity(splashIntent);
+                                    TaskController.this.finish();
                                 } catch (Exception e) {
-                                    Log.d("wsrong", e.getMessage());
+                                    e.printStackTrace();
                                 }
                             }
                         },
@@ -218,20 +218,20 @@ public class DateTimePicker extends AppCompatActivity implements
                                 // Do something when error occurred
                                 try {
                                     if (error.networkResponse.statusCode == 400 || error.networkResponse.statusCode == 404) {
-                                        Toast.makeText(DateTimePicker.this, "Erreur: Informations incorrects", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(TaskController.this, "Erreur: Informations incorrects", Toast.LENGTH_LONG).show();
                                     }
                                 } catch (NullPointerException ex) {
-                                    Toast.makeText(DateTimePicker.this, "Server issue try later", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(TaskController.this, "Server issue try later", Toast.LENGTH_LONG).show();
                                 }
                             }
                         }
                 );
-                MySingleton.getInstance(DateTimePicker.this).addToRequestQueue(jsonObjectRequest);
+                MySingleton.getInstance(TaskController.this).addToRequestQueue(jsonObjectRequest);
 
             }
 
         } catch (Exception e) {
-            Toast.makeText(DateTimePicker.this, e.getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(TaskController.this, e.getMessage(), Toast.LENGTH_LONG).show();
 
         }
 
@@ -264,7 +264,7 @@ public class DateTimePicker extends AppCompatActivity implements
 
                     }
 
-                    ArrayAdapter<User> adapter = new ArrayAdapter<User>(DateTimePicker.this,
+                    ArrayAdapter<User> adapter = new ArrayAdapter<User>(TaskController.this,
                             R.layout.support_simple_spinner_dropdown_item, users);
                     adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
                     monitor.setAdapter(adapter);
@@ -281,7 +281,7 @@ public class DateTimePicker extends AppCompatActivity implements
                         }
                     }
             );
-            MySingleton.getInstance(DateTimePicker.this).addToRequestQueue(req);
+            MySingleton.getInstance(TaskController.this).addToRequestQueue(req);
         } catch (Exception ex) {
             Log.d(getClass().getSimpleName(), ex.getMessage());
         }
@@ -312,7 +312,7 @@ public class DateTimePicker extends AppCompatActivity implements
 
                     }
 
-                    ArrayAdapter<Client> adapter = new ArrayAdapter<Client>(DateTimePicker.this,
+                    ArrayAdapter<Client> adapter = new ArrayAdapter<Client>(TaskController.this,
                             R.layout.support_simple_spinner_dropdown_item, clients);
                     adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
                     clientid.setAdapter(adapter);
@@ -329,7 +329,7 @@ public class DateTimePicker extends AppCompatActivity implements
                         }
                     }
             );
-            MySingleton.getInstance(DateTimePicker.this).addToRequestQueue(req);
+            MySingleton.getInstance(TaskController.this).addToRequestQueue(req);
         } catch (Exception ex) {
             Log.d(getClass().getSimpleName(), ex.getMessage());
         }

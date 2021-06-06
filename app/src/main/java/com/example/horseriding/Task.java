@@ -1,6 +1,8 @@
 package com.example.horseriding;
 
-public class Task {
+import java.io.Serializable;
+
+public class Task implements Serializable {
     private int taskId, durationMinut, userFk;
     private String title, detail, startDate, isDone;
 
